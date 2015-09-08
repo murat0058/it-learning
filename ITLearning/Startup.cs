@@ -19,9 +19,9 @@ using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Microsoft.Framework.Logging.Console;
-using Microsoft.Framework.Runtime;
 using ITLearning.Frontend.Web.Models;
 using ITLearning.Frontend.Web.Services;
+using Microsoft.Dnx.Runtime;
 
 namespace ITLearning.Frontend.Web
 {
@@ -100,7 +100,7 @@ namespace ITLearning.Frontend.Web
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
-                app.UseErrorPage(ErrorPageOptions.ShowAll);
+                app.UseErrorPage();
                 app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
             }
             else
