@@ -1,0 +1,10 @@
+{
+  "AppSettings": {
+    "SiteTitle": "ITLearning"
+  },
+  "Data": {
+    "DefaultConnection": {
+      "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=aspnet5-ITLearning-53ef4d2c-7e6e-4694-8b38-022559077c43;Trusted_Connection=True;MultipleActiveResultSets=true"
+    }
+  }
+}
