@@ -8,8 +8,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7822C940-5F52-4794-94A4-A71C9B048F1B}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		README.md = README.md
 		README_ASPNET.md = README_ASPNET.md
-		README_PROJECT.md = README_PROJECT.md
 	EndProjectSection
 EndProject
 Global
