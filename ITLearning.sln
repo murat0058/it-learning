@@ -9,7 +9,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
 		README.md = README.md
-		README_ASPNET.md = README_ASPNET.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{B4EB5DD2-27D0-4F44-BC1F-57B2CACC249E}"
+	ProjectSection(SolutionItems) = preProject
+		AspNet.md = AspNet.md
+		Environment.md = Environment.md
 	EndProjectSection
 EndProject
 Global
@@ -25,5 +30,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B4EB5DD2-27D0-4F44-BC1F-57B2CACC249E} = {7822C940-5F52-4794-94A4-A71C9B048F1B}
 	EndGlobalSection
 EndGlobal
