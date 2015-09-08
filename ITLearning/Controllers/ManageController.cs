@@ -8,8 +8,8 @@ using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using ITLearning;
-using ITLearning.Models;
-using ITLearning.Services;
+using ITLearning.Frontend.Web.Models;
+using ITLearning.Frontend.Web.Services;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
