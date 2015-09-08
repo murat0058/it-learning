@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ITLearning", "ITLearning\ITLearning.xproj", "{60B65CD2-3BDE-4253-967F-10BDAE3CB4F5}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ITLearning.Frontend.Web", "ITLearning\ITLearning.Frontend.Web.xproj", "{60B65CD2-3BDE-4253-967F-10BDAE3CB4F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7822C940-5F52-4794-94A4-A71C9B048F1B}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

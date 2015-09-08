@@ -20,10 +20,10 @@ using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Microsoft.Framework.Logging.Console;
 using Microsoft.Framework.Runtime;
-using ITLearning.Models;
-using ITLearning.Services;
+using ITLearning.Frontend.Web.Models;
+using ITLearning.Frontend.Web.Services;
 
-namespace ITLearning
+namespace ITLearning.Frontend.Web
 {
     public class Startup
     {

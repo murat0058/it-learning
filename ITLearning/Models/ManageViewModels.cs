@@ -7,7 +7,7 @@ using Microsoft.AspNet.Http.Authentication;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc.Rendering;
 
-namespace ITLearning.Models
+namespace ITLearning.Frontend.Web.Models
 {
     public class IndexViewModel
     {

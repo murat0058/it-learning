@@ -14,7 +14,7 @@ using ITLearning;
 using ITLearning.Models;
 using ITLearning.Services;
 
-namespace ITLearning.Controllers
+namespace ITLearning.Frontend.Web.Controllers
 {
     [Authorize]
     public class AccountController : Controller

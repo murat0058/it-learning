@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Metadata;
 using Microsoft.Data.Entity.Relational.Migrations.Infrastructure;
-using ITLearning.Models;
+using ITLearning.Frontend.Web.Models;
 
-namespace ITLearning.Migrations
+namespace ITLearning.Frontend.Web.Migrations
 {
     [ContextType(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
