@@ -15,3 +15,10 @@ https://github.com/aspnet/Home/tree/dev/samples/1.0.0-beta7
 [DOCS](http://ef.readthedocs.org/en/latest/)
 
 [EF7 Roadmap](https://github.com/aspnet/EntityFramework/releases/tag/7.0.0-beta7)
+
+## Commands
+
+### EF7 Migrations:
+
+> dnx ef migrations add [CamelCaseMigrationName]
+> dnx ef database update
