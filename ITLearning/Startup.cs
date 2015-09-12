@@ -20,7 +20,6 @@ using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Microsoft.Framework.Logging.Console;
 using ITLearning.Frontend.Web.Models;
-using ITLearning.Frontend.Web.Services;
 using Microsoft.Dnx.Runtime;
 
 namespace ITLearning.Frontend.Web
@@ -83,9 +82,6 @@ namespace ITLearning.Frontend.Web
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.
             // services.AddWebApiConventions();
 
-            // Register application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
         }
 
         // Configure is called after ConfigureServices is called.
