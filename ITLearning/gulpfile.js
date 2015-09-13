@@ -24,3 +24,23 @@ gulp.task('jquery-build', function () {
         .pipe(concat('jquery-package.js'))
         .pipe(gulp.dest(paths.dist));
 });
+
+gulp.task('jquery-min-build', function () {
+
+    var jqueryLibs = [
+        paths.lib + 'jquery/dist/jquery.min.js',
+        paths.lib + 'jquery-validation/dist/jquery.validate.min.js',
+        paths.lib + 'jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js',
+        paths.lib + 'jquery-scrolly/jquery.scrolly.js',
+        paths.lib + 'jquery.scrollex/jquery.scrollex.min.js'
+    ];
+
+    return gulp.src(jqueryLibs)
+        .pipe(concat('jquery-package.min.js'))
+        .pipe(gulp.dest(paths.dist));
+});
+
+gulp.task('default', [
+    'jquery-build',
+    'jquery-min-build'
+]);

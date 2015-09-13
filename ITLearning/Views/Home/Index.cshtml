@@ -1,36 +1,38 @@
-﻿<!DOCTYPE HTML>
-<!--
-    Spectral by HTML5 UP
-    html5up.net | @n33co
-    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+﻿@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+@{
+    Layout = null;
+    var appName = "IT Learning";
+}
+
+<!DOCTYPE HTML>
 <html>
 <head>
-    <title>Devisio</title>
+    <title>@appName</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-    <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+    <!--[if lte IE 8]><script src="~/app/src/lib/html5shiv/dist/html5shiv.js"></script><![endif]-->
+    <link href="~/app/src/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/css/landing/main.css" rel="stylesheet" />
+    <!--[if lte IE 8]><link href="~/css/landing/ie8.css" rel="stylesheet" /><![endif]-->
+    <!--[if lte IE 9]><link href="~/css/landing/ie9.css" rel="stylesheet" /><![endif]-->
 </head>
 <body class="landing">
 
-    <!-- Page Wrapper -->
     <div id="page-wrapper">
 
-        <!-- Header -->
         <header id="header" class="alt">
-            <h1><a href="index.html">DEVISIO</a></h1>
+            <h1>
+                <a asp-action="Index" asp-controller="Home">@appName.ToUpper()</a>
+            </h1>
             <nav id="nav">
                 <ul>
                     <li class="special">
                         <a href="#menu" class="menuToggle"><span>Menu</span></a>
                         <div id="menu">
                             <ul>
-                                <li><a href="index.html">Strona główna</a></li>
-                                <li><a href="generic.html">Nasz cel</a></li>
-                                <li><a href="elements.html">Kontakt</a></li>
+                                <li><a asp-action="Index" asp-controller="Home">Strona główna</a></li>
+                                <li><a asp-action="About" asp-controller="Home">O nas</a></li>
+                                <li><a asp-action="Contact" asp-controller="Home">Kontakt</a></li>
                             </ul>
                         </div>
                     </li>
@@ -38,20 +40,18 @@
             </nav>
         </header>
 
-        <!-- Banner -->
         <section id="banner">
             <div class="inner">
-                <h2>DEVISIO</h2>
+                <h2>@appName.ToUpper()</h2>
                 <p>Poznaj_programowanie</p>
                 <ul class="actions">
-                    <li><a href="#" class="button">Logowanie</a></li>
-                    <li><a href="#" class="button special">Rejestracja</a></li>
+                    <li><a asp-action="Login" asp-controller="Account" class="button">Logowanie</a></li>
+                    <li><a asp-action="SignUp" asp-controller="Account" class="button special">Rejestracja</a></li>
                 </ul>
             </div>
-            <a href="#one" class="more scrolly">DEVISIO w akcji</a>
+            <a href="#one" class="more scrolly">@appName.ToUpper() w akcji</a>
         </section>
 
-        <!-- One -->
         <section id="one" class="wrapper style1 special">
             <div class="inner">
                 <header class="major">
@@ -62,17 +62,16 @@
                     </p>
                 </header>
                 <ul class="icons major">
-                    <li><span class="icon fa-code major style3"><span class="label">Dolor</span></span></li>
-                    <li><span class="icon fa-comments-o major style1"><span class="label">Lorem</span></span></li>
-                    <li><span class="icon fa-heart-o major style2"><span class="label">Ipsum</span></span></li>
+                    <li><span class="icon fa fa-code major style3"><span class="label">Dolor</span></span></li>
+                    <li><span class="icon fa fa-comments-o major style1"><span class="label">Lorem</span></span></li>
+                    <li><span class="icon fa fa-heart-o major style2"><span class="label">Ipsum</span></span></li>
                 </ul>
             </div>
         </section>
 
-        <!-- Two -->
         <section id="two" class="wrapper alt style2">
             <section class="spotlight">
-                <div class="image"><img src="images/pic02.jpg" alt="" /></div><div class="content">
+                <div class="image"><img src="~/images/landing/pic02.jpg" alt="" /></div><div class="content">
                     <h2>
                         Bądź gotowy na wyzwania rynku<br />
                         przygotujemy cię do pracy
@@ -81,7 +80,7 @@
                 </div>
             </section>
             <section class="spotlight">
-                <div class="image"><img src="images/pic01.jpg" alt="" /></div><div class="content">
+                <div class="image"><img src="~/images/landing/pic01.jpg" alt="" /></div><div class="content">
                     <h2>
                         W nauce pomogą ci ludzie<br />
                         a nie roboty i algorytmy
@@ -90,7 +89,7 @@
                 </div>
             </section>
             <section class="spotlight">
-                <div class="image"><img src="images/pic03.jpg" alt="" /></div><div class="content">
+                <div class="image"><img src="~/images/landing/pic03.jpg" alt="" /></div><div class="content">
                     <h2>
                         Szukasz materiałów do nauki?<br />
                         Wskażemy ci te najlepsze
@@ -100,7 +99,6 @@
             </section>
         </section>
 
-        <!-- Three -->
         <section id="three" class="wrapper style3 special">
             <div class="inner">
                 <header class="major">
@@ -139,45 +137,46 @@
             </div>
         </section>
 
-        <!-- CTA -->
         <section id="cta" class="wrapper style4">
             <div class="inner">
                 <header>
                     <h2>2 minuty</h2>
                     <p>
-                        Średnio tyle trwa założenie nowego konta w Devisio. <br>
+                        Średnio tyle trwa założenie nowego konta w @appName. <br>
                         No dalej, liczymy na Ciebie!
                     </p>
                 </header>
                 <ul class="actions vertical">
-                    <li><a href="#" class="button fit special">Rejestracja</a></li>
-                    <li><a href="#" class="button fit">Logowanie</a></li>
+                    <li><a asp-action="SignUp" asp-controller="Account" class="button fit special">Rejestracja</a></li>
+                    <li><a asp-action="Login" asp-controller="Account" class="button fit">Logowanie</a></li>
                 </ul>
             </div>
         </section>
 
-        <!-- Footer -->
         <footer id="footer">
             <ul class="icons">
-                <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-                <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-                <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+                <li><a href="#" class="icon fa fa-facebook"><span class="label">Facebook</span></a></li>
+                <li><a href="#" class="icon fa fa-instagram"><span class="label">Instagram</span></a></li>
+                <li><a href="#" class="icon fa fa-envelope-o"><span class="label">Email</span></a></li>
             </ul>
             <ul class="copyright">
-                <li>DEVISIO // 2015</li>
+                <li>@appName.ToUpper() // 2015</li>
+                <li>Design <a href="http://html5up.net/">html5up.net</a> </li>
             </ul>
         </footer>
 
     </div>
 
-    <!-- Scripts -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/jquery.scrollex.min.js"></script>
-    <script src="assets/js/jquery.scrolly.min.js"></script>
-    <script src="assets/js/skel.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-    <script src="assets/js/main.js"></script>
-
+    <environment names="Development">
+    <script src="~/app/dist/jquery-package.js"></script>
+    <script src="~/app/src/lib/skel/src/skel.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+    <script src="~/app/dist/jquery-package.min.js"></script>
+    <script src="~/app/src/lib/skel/dist/skel.min.js"></script>
+    </environment>
+    <script src="~/app/src/js/landing/util.js"></script>
+    <!--[if lte IE 8]><script src="~/app/src/lib/respond/dest/respond.min.js"></script><![endif]-->
+    <script src="~/app/src/js/landing/main.js"></script>
 </body>
 </html>
