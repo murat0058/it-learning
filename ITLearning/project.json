@@ -34,8 +34,7 @@
       "dependencies": {
         "FluentValidation": "5.6.2"
       }
-    },
-    "dnxcore50": { }
+    }
   },
 
   "exclude": [
