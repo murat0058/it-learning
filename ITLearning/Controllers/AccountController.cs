@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
-using ITLearning.Frontend.Web.Core.Identity.Attributes;
-using ITLearning.Frontend.Web.Core.Identity.Enums;
+﻿using Microsoft.AspNet.Mvc;
 using ITLearning.Frontend.Web.Core.Identity.Models;
-using Microsoft.AspNet.Identity;
 using ITLearning.Frontend.Web.Core.Identity.Services;
+using System.Threading.Tasks;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -37,8 +31,9 @@ namespace ITLearning.Frontend.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult SignUp(SignUpModel model)
+        public async Task<IActionResult> SignUp(SignUpModel model)
         {
+            await _identityService.SignUpAsync(model);
             return View();
         }
 

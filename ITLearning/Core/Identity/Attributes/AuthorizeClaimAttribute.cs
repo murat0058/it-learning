@@ -22,8 +22,8 @@ namespace ITLearning.Frontend.Web.Core.Identity.Attributes
             {
                 context.Result = 
                     new RedirectToActionResult(
-                        IdentityRouteValues.UnauthorizedControllerRoute, 
                         IdentityRouteValues.UnauthorizedActionRoute, 
+                        IdentityRouteValues.UnauthorizedControllerRoute, 
                         null);
             }
             

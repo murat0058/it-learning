@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+using ITLearning.Frontend.Web.Core.Identity.Attributes;
+using ITLearning.Frontend.Web.Core.Identity.Enums;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -13,10 +15,9 @@ namespace ITLearning.Frontend.Web.Controllers
             return View();
         }
 
-        public IActionResult About()
+        [AuthorizeClaim(Type = ClaimType.Login, Value = ClaimValue.Read)]
+        public IActionResult IndexAuthorized()
         {
-            ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 

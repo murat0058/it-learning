@@ -19,6 +19,7 @@ using ITLearning.Frontend.Web.Core.Identity.Models;
 using ITLearning.Frontend.Web.DAL;
 using ITLearning.Frontend.Web.Core.Identity;
 using ITLearning.Frontend.Web.Core.IoC;
+using Microsoft.AspNet.Authentication.Cookies;
 
 namespace ITLearning.Frontend.Web
 {
