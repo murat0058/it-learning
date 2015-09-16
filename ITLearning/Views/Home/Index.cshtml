@@ -21,23 +21,8 @@
     <div id="page-wrapper">
 
         <header id="header" class="alt">
-            <h1>
-                <a asp-action="Index" asp-controller="Home">@appName.ToUpper()</a>
-            </h1>
-            <nav id="nav">
-                <ul>
-                    <li class="special">
-                        <a href="#menu" class="menuToggle"><span>Menu</span></a>
-                        <div id="menu">
-                            <ul>
-                                <li><a asp-action="Index" asp-controller="Home">Strona główna</a></li>
-                                <li><a asp-action="About" asp-controller="Home">O nas</a></li>
-                                <li><a asp-action="Contact" asp-controller="Home">Kontakt</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
+            <h1><a asp-action="Index" asp-controller="Home">@appName</a></h1>
+            @Html.Partial("~/Views/Shared/_SideMenu.cshtml")
         </header>
 
         <section id="banner">
@@ -153,30 +138,8 @@
             </div>
         </section>
 
-        <footer id="footer">
-            <ul class="icons">
-                <li><a href="#" class="icon fa fa-facebook"><span class="label">Facebook</span></a></li>
-                <li><a href="#" class="icon fa fa-instagram"><span class="label">Instagram</span></a></li>
-                <li><a href="#" class="icon fa fa-envelope-o"><span class="label">Email</span></a></li>
-            </ul>
-            <ul class="copyright">
-                <li>@appName.ToUpper() // 2015</li>
-                <li>Design <a href="http://html5up.net/">html5up.net</a> </li>
-            </ul>
-        </footer>
-
+        @Html.Partial("~/Views/Shared/_Footer.cshtml")
+        @Html.Partial("~/Views/Shared/_BaseScripts.cshtml")
     </div>
-
-    <environment names="Development">
-    <script src="~/app/dist/jquery-package.js"></script>
-    <script src="~/app/src/lib/skel/src/skel.js"></script>
-    </environment>
-    <environment names="Staging,Production">
-    <script src="~/app/dist/jquery-package.min.js"></script>
-    <script src="~/app/src/lib/skel/dist/skel.min.js"></script>
-    </environment>
-    <script src="~/app/src/js/landing/util.js"></script>
-    <!--[if lte IE 8]><script src="~/app/src/lib/respond/dest/respond.min.js"></script><![endif]-->
-    <script src="~/app/src/js/landing/main.js"></script>
 </body>
 </html>

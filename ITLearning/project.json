@@ -30,7 +30,11 @@
   },
 
   "frameworks": {
-    "dnx451": { },
+    "dnx451": {
+      "dependencies": {
+        "FluentValidation": "5.6.2"
+      }
+    },
     "dnxcore50": { }
   },
 

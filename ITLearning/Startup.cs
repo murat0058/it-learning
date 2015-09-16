@@ -18,6 +18,7 @@ using Microsoft.Dnx.Runtime;
 using ITLearning.Frontend.Web.Core.Identity.Models;
 using ITLearning.Frontend.Web.DAL;
 using ITLearning.Frontend.Web.Core.Identity;
+using ITLearning.Frontend.Web.Core.IoC;
 
 namespace ITLearning.Frontend.Web
 {
@@ -52,6 +53,8 @@ namespace ITLearning.Frontend.Web
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
+
+            CustomServicesProvider.RegisterServices(services);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
