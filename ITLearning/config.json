@@ -4,7 +4,7 @@
   },
   "Data": {
     "DefaultConnection": {
-      "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=ItLearningDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+      "ConnectionString": "Server=DESKTOP-T1TM0DV;Database=ItLearningDb;Trusted_Connection=True;MultipleActiveResultSets=true"
     }
   }
 }

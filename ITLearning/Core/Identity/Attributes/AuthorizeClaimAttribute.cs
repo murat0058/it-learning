@@ -39,10 +39,9 @@ namespace ITLearning.Frontend.Web.Core.Identity.Attributes
 
         private bool HasUserRequestedClaim(AuthorizationContext context)
         {
-            var principal = ClaimsPrincipal.Current;
+            var user = context.HttpContext.User;
 
-            return principal.Identity.IsAuthenticated &&
-                   principal.HasClaim(x => x.Type == Type.ToString() && x.Value == Value.ToString());
+            return user.IsSignedIn() && user.HasClaim(Type.ToString(), Value.ToString());
         }
     }
 }

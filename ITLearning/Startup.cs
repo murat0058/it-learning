@@ -76,13 +76,17 @@ namespace ITLearning.Frontend.Web
 
             app.UseStaticFiles();
             app.UseIdentity();
+            app.UseCookieAuthentication((p) => new CookieAuthenticationOptions
+            {
+                LoginPath = "/Account/Login"
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
         }
     }
 }
