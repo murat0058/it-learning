@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private IIdentityService _identityService;
 

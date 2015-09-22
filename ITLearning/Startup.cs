@@ -76,6 +76,8 @@ namespace ITLearning.Frontend.Web
 
             app.UseStaticFiles();
             app.UseIdentity();
+
+            //TODO: Is this necessary?
             app.UseCookieAuthentication((p) => new CookieAuthenticationOptions
             {
                 LoginPath = "/Account/Login"
@@ -85,7 +87,7 @@ namespace ITLearning.Frontend.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Landing}/{action=Index}/{id?}");
             });
         }
     }

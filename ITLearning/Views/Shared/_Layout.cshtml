@@ -9,33 +9,31 @@
     <title>@appName</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <link href="~/app/src/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <!--[if lte IE 8]><script src="~/app/src/lib/html5shiv/dist/html5shiv.js"></script><![endif]-->
     <link href="~/app/src/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="~/css/landing/main.css" rel="stylesheet" />
-    <!--[if lte IE 8]><link href="~/css/landing/ie8.css" rel="stylesheet" /><![endif]-->
-    <!--[if lte IE 9]><link href="~/css/landing/ie9.css" rel="stylesheet" /><![endif]-->
 </head>
 <body>
 
     <!-- Page Wrapper -->
     <div id="page-wrapper">
 
-        <!-- Header -->
-        <header id="header">
-            <h1><a asp-action="Index" asp-controller="Home">@appName</a></h1>
-            @Html.Partial("~/Views/Shared/_SideMenu.cshtml")
-        </header>
-
         <!-- Main -->
         <article id="main">
             @RenderBody()
         </article>
-
-        @Html.Partial("~/Views/Shared/_Footer.cshtml")
     </div>
 
-    @Html.Partial("~/Views/Shared/_BaseScripts.cshtml")
+    @Html.Partial("~/Views/Shared/Partials/_BaseScripts.cshtml")
+    <environment names="Development">
+        <script src="~/app/src/lib/bootstrap/dist/js/bootstrap.js"></script>
+    </environment>
+    <environment names="Production">
+        <script src="~/app/src/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    </environment>
     @RenderSection("scripts", required: false)
+
+    <!-- Keep this at the end of scripts-->
+    <!--[if lte IE 8]><script src="~/app/src/lib/html5shiv/dist/html5shiv.js"></script><![endif]-->
 </body>
 </html>
