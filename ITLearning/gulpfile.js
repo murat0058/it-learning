@@ -1,47 +1,57 @@
-﻿/* --- Modules --- */
+﻿/* =========== Modules =========== */
 
 var project = require('./project.json'),
     gulp = require('gulp'),
     concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
+    uglifyJs = require('gulp-uglify'),
+    minifyCss = require('gulp-minify-css'),
     scss = require('gulp-sass');
 
-/* --- Variables / Helpers --- */
+/* =========== Variables & Helpers =========== */
 
 var basePath = './' + project.webroot; 
     
 var paths = {
-    lib: basePath + '/app/src/lib/',
-    js: basePath + '/app/src/js/',
-    dist: basePath + '/app/dist/',
-    scss: basePath + '/scss/',
-    css: basePath + '/css/'
+    bower: basePath + '/src/_bower/',
+    srcJs: basePath + '/src/js/',
+    srcScss: basePath + '/src/scss/',
+    srcCss: basePath + '/src/css/',
+    distJs: basePath + '/dist/js/',
+    distCss: basePath + '/dist/css/',
 };
 
+/* =========== Tasks - Common =========== */
 
-/* --- Tasks --- */
-gulp.task('jquery-build', function () {
+gulp.task('scss:compile', function () {
+
+    return gulp.src(paths.srcScss + '*.scss')
+        .pipe(scss().on('error', scss.logError))
+        .pipe(gulp.dest(paths.srcCss));
+
+});
+
+/* =========== Tasks - Production =========== */
+
+gulp.task('jquery:build', function () {
 
     var jqueryLibs = [
-        paths.lib + 'jquery/dist/jquery.js',
-        paths.lib + 'jquery-validation/dist/jquery.validate.js',
-        paths.lib + 'jquery-validation-unobtrusive/jquery.validate.unobtrusive.js',
-        paths.lib + 'jquery.scrollex/jquery.scrollex.js',
-        paths.js + 'landing/jquery.scrolly.min.js'
+        paths.bower + 'jquery/dist/jquery.js',
+        paths.bower + 'jquery-validation/dist/jquery.validate.js',
+        paths.bower + 'jquery-validation-unobtrusive/jquery.validate.unobtrusive.js',
+        paths.bower + 'jquery.scrollex/jquery.scrollex.js',
+        paths.srcJs + 'landing/jquery.scrolly.min.js'
     ];
 
     return gulp.src(jqueryLibs)
         .pipe(concat('jquery-package.js'))
-        .pipe(gulp.dest(paths.dist))
-        .pipe(uglify())
+        .pipe(gulp.dest(paths.distJs))
+        .pipe(uglifyJs())
         .pipe(concat('jquery-package.min.js'))
-        .pipe(gulp.dest(paths.dist));
+        .pipe(gulp.dest(paths.distJs));
 });
 
-gulp.task('scss-compile', function () {
+/* =========== Tasks - Watch / Groups =========== */
 
-    return gulp.src(paths.scss + '*.scss')
-        .pipe(scss().on('error', scss.logError))
-        .pipe(gulp.dest(paths.css));
-        
+gulp.task('scss:watch', function () {
+    gulp.watch(paths.scss + '*.scss', ['scss:compile']);
 });

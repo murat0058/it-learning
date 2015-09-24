@@ -1,0 +1,13 @@
+﻿@mixin with-animated-background($time) {
+    -webkit-transition: background-color $time ease;
+    -moz-transition: background-color $time ease;
+    -o-transition: background-color $time ease;
+    transition: background-color $time ease;
+}
+
+@mixin with-animated-border($time) {
+    -webkit-transition: border $time ease;
+    -moz-transition: border $time ease;
+    -o-transition: border $time ease;
+    transition: border $time ease;
+}

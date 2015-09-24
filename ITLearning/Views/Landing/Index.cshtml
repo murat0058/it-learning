@@ -11,12 +11,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic' rel='stylesheet' type='text/css'>
     <link href="~/app/src/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="~/css/landing/landing.css" rel="stylesheet" />
+    <link href="~/css/header.css" rel="stylesheet" />
     <!--[if lte IE 8]><link href="~/css/landing/ie8.css" rel="stylesheet" /><![endif]-->
     <!--[if lte IE 9]><link href="~/css/landing/ie9.css" rel="stylesheet" /><![endif]-->
 </head>
 <body class="landing">
+
+    @Html.Partial("~/Views/Shared/Partials/_Header.cshtml")
 
     <div id="page-wrapper">
 
@@ -66,7 +70,7 @@
                         a nie roboty i algorytmy
                     </h2>
                     <p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
-                </div>5
+                </div>
             </section>
             <section class="spotlight">
                 <div class="image"><img src="~/images/landing/pic03.jpg" alt="" /></div><div class="content">

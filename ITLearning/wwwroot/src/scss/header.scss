@@ -1,0 +1,99 @@
+﻿@import 'mixins/animations.scss';
+
+.sliding-header {
+    font-family: "Open Sans", Helvetica, sans-serif;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    color: white;
+    background-color: #2e3842;
+    z-index: 999;
+
+    .overlay {
+        position: fixed;
+        top: 50px;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        opacity: 0;
+    }
+
+    .header-wrapper {
+        position: relative;
+        left: 10px;
+        margin: 0;
+        padding: 0;
+
+        .header-brand {
+            position: relative;
+            top: 5px;
+            left: 10px;
+            text-transform: uppercase;
+        }
+    }
+
+    .menu-wrapper {
+        position: absolute;
+        right: 6px;
+        top: 5px;
+        font-size: 15px;
+
+        .menu-title {
+            border-radius: 3px;
+            padding: 2px;
+            padding-left: 7px;
+            cursor: pointer;
+            text-transform: uppercase;
+
+            @include with-animated-background(300ms);
+
+            &:hover {
+                background-color: #21b2a6;
+            }
+        }
+
+        nav.menu {
+            position: fixed;
+            top: 50px;
+            width: 250px;
+            right: -250px;
+            height: 100%;
+            background-color: #21b2a6;
+
+            ul.menu-list {
+                list-style-type: none;
+                position: relative;
+                margin: 0;
+                padding: 15px;
+
+                li {
+                    margin: 0;
+                    padding: 0;
+
+                    a {
+                        display: block;
+                        margin-bottom: 20px;
+                        font-size: 16px;
+                        width: 100%;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                        -moz-transition: none;
+                        -o-transition: none;
+                        -webkit-transition: none;
+                        transition: none;
+                        color: white;
+                        text-transform: uppercase;
+                        font-weight: 600;
+
+                        @include with-animated-border(300ms);
+
+                        &:hover {
+                            text-decoration: none;
+                            border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
