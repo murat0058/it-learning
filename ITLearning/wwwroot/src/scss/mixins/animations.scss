@@ -1,13 +1,49 @@
-﻿@mixin with-animated-background($time) {
+﻿/**
+    Import:
+
+    @import 'mixins/animations.scss';
+*/
+
+
+/**
+    Usage:
+    
+    .somediv {
+        background-color: red;
+
+        @include with-animated-background(300ms);
+
+        &:hover {
+            background-color: green;
+        }
+    }
+*/
+@mixin with-animated-background($time) {
     -webkit-transition: background-color $time ease;
     -moz-transition: background-color $time ease;
     -o-transition: background-color $time ease;
     transition: background-color $time ease;
 }
 
-@mixin with-animated-border($time) {
-    -webkit-transition: border $time ease;
-    -moz-transition: border $time ease;
-    -o-transition: border $time ease;
-    transition: border $time ease;
+/**
+    Usage:
+    
+    .somediv {
+        border-left: 1px solid white;
+        border-top: 3px solid gray;
+
+        @include with-animated-border(border-left, 300ms);
+        @include with-animated-border(border-top, 500ms);
+
+        &:hover {
+            border-left: 1px solid red;
+            border-typ: 3px solid blue;
+        }
+    }
+*/
+@mixin with-animated-border($border-type, $time) {
+    -webkit-transition: $border-type $time ease;
+    -moz-transition: $border-type $time ease;
+    -o-transition: $border-type $time ease;
+    transition: $border-type $time ease;
 }

@@ -20,7 +20,7 @@ var paths = {
     distCss: basePath + '/dist/css/',
 };
 
-/* =========== Tasks - Common =========== */
+/* =========== Tasks - Developement =========== */
 
 gulp.task('scss:compile', function () {
 
@@ -53,5 +53,5 @@ gulp.task('jquery:build', function () {
 /* =========== Tasks - Watch / Groups =========== */
 
 gulp.task('scss:watch', function () {
-    gulp.watch(paths.scss + '*.scss', ['scss:compile']);
+    gulp.watch(paths.srcScss + '*.scss', ['scss:compile']);
 });

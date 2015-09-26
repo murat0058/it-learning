@@ -11,18 +11,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic' rel='stylesheet' type='text/css'>
-    <link href="~/app/src/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/app/src/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="~/css/header.css" rel="stylesheet" />
+    <link href="~/src/_bower/Font-Awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/src/_bower/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/src/css/header.css" rel="stylesheet" />
+    <!--[if lte IE 8]><link href="~/src/css/landing/ie8.css" rel="stylesheet" /><![endif]-->
+    <!--[if lte IE 9]><link href="~/src/css/landing/ie9.css" rel="stylesheet" /><![endif]-->
 </head>
 <body>
     @Html.Partial("~/Views/Shared/Partials/_Header.cshtml")
 
-
     <!-- Page Wrapper -->
     <div id="page-wrapper">
-
-
         <!-- Main -->
         <article id="main">
             @RenderBody()
@@ -31,14 +30,14 @@
 
     @Html.Partial("~/Views/Shared/Partials/_BaseScripts.cshtml")
     <environment names="Development">
-        <script src="~/app/src/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/src/_bower/bootstrap/dist/js/bootstrap.js"></script>
     </environment>
     <environment names="Production">
-        <script src="~/app/src/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/src/_bower/bootstrap/dist/js/bootstrap.min.js"></script>
     </environment>
     @RenderSection("scripts", required: false)
 
     <!-- Keep this at the end of scripts-->
-    <!--[if lte IE 8]><script src="~/app/src/lib/html5shiv/dist/html5shiv.js"></script><![endif]-->
+    <!--[if lte IE 8]><script src="~/src/_bower/html5shiv/dist/html5shiv.js"></script><![endif]-->
 </body>
 </html>
