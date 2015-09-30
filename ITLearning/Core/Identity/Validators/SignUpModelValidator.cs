@@ -11,7 +11,7 @@ namespace ITLearning.Frontend.Web.Core.Identity.Validators
     {
         public SignUpModelValidator()
         {
-            RuleFor(x => x.Email).EmailAddress().WithMessage("This is not valid e-mail address");
+            RuleFor(x => x.Email).EmailAddress().WithMessage("This is not a valid e-mail address");
         }
     }
 }

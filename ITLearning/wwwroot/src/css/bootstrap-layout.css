@@ -1,0 +1,174 @@
+/**
+    Import:
+
+    @import 'mixins/animations.scss';
+*/
+/**
+    Usage:
+    
+    .somediv {
+        background-color: red;
+
+        @include with-animated-background(300ms);
+
+        &:hover {
+            background-color: green;
+        }
+    }
+*/
+/**
+    Usage:
+    
+    .somediv {
+        border-left: 1px solid white;
+        border-top: 3px solid gray;
+
+        @include with-animated-border(border-left, 300ms);
+        @include with-animated-border(border-top, 500ms);
+
+        &:hover {
+            border-left: 1px solid red;
+            border-typ: 3px solid blue;
+        }
+    }
+*/
+/**
+    Usage:
+    
+    .somediv {
+        color: white;
+
+        @include with-animated-color(300ms);
+
+        &:hover {
+            color: red;
+        }
+    }
+*/
+.form-control {
+  border-radius: 3px;
+  box-shadow: none; }
+  .form-control:focus {
+    box-shadow: 0 2px 5px rgba(102, 175, 233, 0.15); }
+
+.btn {
+  border: none;
+  margin-left: 10px;
+  font-family: "Open Sans", Helvetica, sans-serif;
+  font-weight: 600;
+  -webkit-transition: background-color 300ms ease;
+  -moz-transition: background-color 300ms ease;
+  -o-transition: background-color 300ms ease;
+  transition: background-color 300ms ease; }
+
+.btn-dark {
+  color: white;
+  background-color: #2e3842; }
+  .btn-dark:hover {
+    color: white;
+    background-color: #191e24; }
+
+.btn-default {
+  background-color: #fafafa; }
+  .btn-default:hover {
+    background-color: #e1e1e1; }
+
+.btn-warning {
+  background-color: #ff8d00; }
+  .btn-warning:hover {
+    background-color: #cc7100; }
+
+.btn-primary {
+  background-color: #018ee0; }
+  .btn-primary:hover {
+    background-color: #016ead; }
+
+.btn-danger {
+  background-color: #ed4933; }
+  .btn-danger:hover {
+    background-color: #da2b13; }
+
+.btn-success {
+  background-color: #21b2a6; }
+  .btn-success:hover {
+    background-color: #19877e; }
+
+.btn-ghost {
+  background: none;
+  -webkit-transition: background-color 300ms ease;
+  -moz-transition: background-color 300ms ease;
+  -o-transition: background-color 300ms ease;
+  transition: background-color 300ms ease; }
+
+.btn-ghost.btn-primary {
+  box-shadow: inset 0 0 0 2px #018ee0; }
+  .btn-ghost.btn-primary:hover {
+    background-color: #018ee0; }
+
+.btn-ghost.btn-success {
+  box-shadow: inset 0 0 0 2px #21b2a6; }
+  .btn-ghost.btn-success:hover {
+    background-color: #21b2a6; }
+
+.btn-ghost.btn-warning {
+  box-shadow: inset 0 0 0 2px #ff8d00; }
+  .btn-ghost.btn-warning:hover {
+    background-color: #ff8d00; }
+
+.btn-ghost.btn-danger {
+  box-shadow: inset 0 0 0 2px #ed4933; }
+  .btn-ghost.btn-danger:hover {
+    background-color: #ed4933; }
+
+.btn-ghost.btn-default {
+  color: white;
+  box-shadow: inset 0 0 0 2px #fafafa;
+  -webkit-transition: color 300ms ease;
+  -moz-transition: color 300ms ease;
+  -o-transition: color 300ms ease;
+  transition: color 300ms ease; }
+  .btn-ghost.btn-default:hover {
+    color: #333;
+    background-color: #fafafa; }
+
+.panel {
+  border-radius: 3px;
+  font-family: "Open Sans", Helvetica, sans-serif;
+  margin: 0; }
+  .panel .panel-heading {
+    text-transform: uppercase;
+    font-weight: 600;
+    color: white; }
+  .panel .panel-body label {
+    font-weight: 600; }
+
+.panel-primary {
+  border-color: #018ee0; }
+  .panel-primary .panel-heading {
+    background-color: #018ee0; }
+
+.panel-default {
+  border-color: #fafafa; }
+  .panel-default .panel-heading {
+    color: #333;
+    background-color: #fafafa; }
+
+.panel-danger {
+  border-color: #ed4933; }
+  .panel-danger .panel-heading {
+    background-color: #ed4933; }
+
+.panel-warning {
+  border-color: #ff8d00; }
+  .panel-warning .panel-heading {
+    background-color: #ff8d00; }
+
+.panel-success {
+  border-color: #21b2a6; }
+  .panel-success .panel-heading {
+    background-color: #21b2a6; }
+
+.panel-dark {
+  border-color: #2e3842; }
+  .panel-dark .panel-heading {
+    background-color: #2e3842; }

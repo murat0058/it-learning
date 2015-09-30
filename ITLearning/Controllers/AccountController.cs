@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNet.Mvc;
-using ITLearning.Frontend.Web.Core.Identity.Models;
 using ITLearning.Frontend.Web.Core.Identity.Services;
 using System.Threading.Tasks;
+using ITLearning.Frontend.Web.ViewModels.Identity;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -20,7 +20,7 @@ namespace ITLearning.Frontend.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginModel model)
+        public IActionResult Login(LoginViewModel model)
         {
             return View();
         }
@@ -31,9 +31,8 @@ namespace ITLearning.Frontend.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp(SignUpModel model)
+        public IActionResult SignUp(SignUpViewModel model)
         {
-            await _identityService.SignUpAsync(model);
             return View();
         }
 

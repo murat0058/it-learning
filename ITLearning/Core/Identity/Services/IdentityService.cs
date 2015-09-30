@@ -22,23 +22,7 @@ namespace ITLearning.Frontend.Web.Core.Identity.Services
 
         public async Task SignUpAsync(SignUpModel model)
         {
-            var userModel = new User
-            {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                UserName = model.Login,
-                Email = model.Email
-            };
-
-            var result = await _userManager.CreateAsync(userModel, model.Password);
-
-            if (result.Succeeded)
-            {
-                var claim = new Claim(ClaimType.Login.ToString(), ClaimValue.Read.ToString());
-
-                await _userManager.AddClaimAsync(userModel, claim);
-                await _signInManager.SignInAsync(userModel, false);
-            }
+            
         }
     }
 }

@@ -5,10 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ITLearning.Frontend.Web.Core.Identity.Models
+namespace ITLearning.Frontend.Web.ViewModels.Identity
 {
-    [Validator(typeof(SignUpModelValidator))]
-    public class SignUpModel
+    public class SignUpViewModel
     {
         public string Login { get; set; }
         public string Email { get; set; }

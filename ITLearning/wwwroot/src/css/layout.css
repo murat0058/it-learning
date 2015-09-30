@@ -1,3 +1,6 @@
-article#main {
+.main-content {
   position: relative;
   top: 50px; }
+
+.form-wrapper {
+  padding: 20px; }
