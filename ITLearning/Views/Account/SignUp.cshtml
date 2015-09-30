@@ -1,0 +1,43 @@
+﻿<div class="form-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form role="form" asp-action="SignUp" asp-controller="Account">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <span><i class="fa fa-info-circle"></i> | Zarejestruj się</span>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="form-group">
+                                <label>Login</label>
+                                <input type="text" class="form-control" name="Login" />
+                            </div>
+                            <div class="form-group">
+                                <label>E-mail</label>
+                                <input type="text" class="form-control" name="Email" />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Hasło</label>
+                                        <input type="password" class="form-control" name="Password" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Powtórz hasło</label>
+                                        <input type="password" class="form-control" name="PasswordConfirmation" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary pull-right">Zarejestruj</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
