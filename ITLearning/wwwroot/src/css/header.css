@@ -32,6 +32,19 @@
         }
     }
 */
+/**
+    Usage:
+    
+    .somediv {
+        color: white;
+
+        @include with-animated-color(300ms);
+
+        &:hover {
+            color: red;
+        }
+    }
+*/
 .sliding-header {
   font-family: "Open Sans", Helvetica, sans-serif;
   position: fixed;
@@ -65,6 +78,16 @@
       font-weight: 800;
       padding: 0;
       margin: 0; }
+      .sliding-header .header-wrapper .header-brand a {
+        color: white;
+        text-decoration: none;
+        border-bottom: none;
+        -webkit-transition: color 300ms ease;
+        -moz-transition: color 300ms ease;
+        -o-transition: color 300ms ease;
+        transition: color 300ms ease; }
+        .sliding-header .header-wrapper .header-brand a:hover {
+          color: #21b2a6; }
   .sliding-header .menu-wrapper {
     position: absolute;
     right: 6px;

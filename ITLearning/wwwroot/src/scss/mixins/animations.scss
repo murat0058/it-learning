@@ -47,3 +47,23 @@
     -o-transition: $border-type $time ease;
     transition: $border-type $time ease;
 }
+
+/**
+    Usage:
+    
+    .somediv {
+        color: white;
+
+        @include with-animated-color(300ms);
+
+        &:hover {
+            color: red;
+        }
+    }
+*/
+@mixin with-animated-color($time) {
+    -webkit-transition: color $time ease;
+    -moz-transition: color $time ease;
+    -o-transition: color $time ease;
+    transition: color $time ease;
+}
