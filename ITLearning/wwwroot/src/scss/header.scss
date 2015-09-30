@@ -56,6 +56,7 @@
             margin: 0;
             font-weight: 800;
             letter-spacing: 0.225em;
+            line-height: 1.75em;
 
             @include with-animated-background(300ms);
 
@@ -95,6 +96,8 @@
                         color: white;
                         text-transform: uppercase;
                         font-weight: 600;
+                        letter-spacing: 0.075em;
+                        padding-bottom: 8px;
 
                         @include with-animated-border(border, 300ms);
 

@@ -80,6 +80,7 @@
       margin: 0;
       font-weight: 800;
       letter-spacing: 0.225em;
+      line-height: 1.75em;
       -webkit-transition: background-color 300ms ease;
       -moz-transition: background-color 300ms ease;
       -o-transition: background-color 300ms ease;
@@ -114,6 +115,8 @@
             color: white;
             text-transform: uppercase;
             font-weight: 600;
+            letter-spacing: 0.075em;
+            padding-bottom: 8px;
             -webkit-transition: border 300ms ease;
             -moz-transition: border 300ms ease;
             -o-transition: border 300ms ease;
