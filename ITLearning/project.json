@@ -50,6 +50,6 @@
     "**.vspscc"
   ],
   "scripts": {
-    "prepublish": [ "npm install", "bower install"]
+    "prepublish": [ "npm install", "bower install" ]
   }
 }

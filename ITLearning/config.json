@@ -1,10 +1,5 @@
 {
   "AppSettings": {
     "SiteTitle": "ITLearning"
-  },
-  "Data": {
-    "DefaultConnection": {
-      "ConnectionString": "Server=DESKTOP-T1TM0DV;Database=ItLearningDb;Trusted_Connection=True;MultipleActiveResultSets=true"
-    }
   }
 }
