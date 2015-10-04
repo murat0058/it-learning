@@ -195,3 +195,4 @@ FakesAssemblies/
 # Visual Studio 6 workspace options file
 *.opt
 /ITLearning/wwwroot/src/_bower
+/ITLearning/config*.json
