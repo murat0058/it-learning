@@ -197,3 +197,4 @@ FakesAssemblies/
 /ITLearning/wwwroot/src/_bower
 ITLearning/config.Development.json
 ITLearning/config.Production.json
+ITLearning/project.lock.json
