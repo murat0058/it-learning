@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System;
+﻿using ITLearning.Frontend.Web.DAL.Model;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ITLearning.Frontend.Web.Core.Identity.Models
 {
@@ -10,5 +8,9 @@ namespace ITLearning.Frontend.Web.Core.Identity.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        public List<BranchEntity> Branches { get; set; }
+
+        public List<RepositoryEntity> Repositories { get; set; }
     }
 }
