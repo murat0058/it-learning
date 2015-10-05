@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNet.Mvc;
 using ITLearning.Frontend.Web.Core.Identity.Services;
-using System.Threading.Tasks;
 using ITLearning.Frontend.Web.ViewModels.Identity;
+using ITLearning.Frontend.Web.Core.Identity.Models;
+using System.Threading.Tasks;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
     public class AccountController : BaseController
     {
-        private IIdentityService _identityService;
+        private readonly IIdentityService _identityService;
 
         public AccountController(IIdentityService identityService)
         {
@@ -31,8 +32,18 @@ namespace ITLearning.Frontend.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult SignUp(SignUpViewModel model)
+        public async Task<IActionResult> SignUp(SignUpViewModel model)
         {
+            SignUpModel signUpModel = new SignUpModel()
+            {
+                Email = model.Email,
+                Login = model.Login,
+                Password = model.Password,
+                PasswordConfirmation = model.PasswordConfirmation
+            };
+
+            await _identityService.SignUpAsync(signUpModel);
+
             return View();
         }
 
@@ -41,6 +52,4 @@ namespace ITLearning.Frontend.Web.Controllers
             return View();
         }
     }
-
-   
 }
