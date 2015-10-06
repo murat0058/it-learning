@@ -13,6 +13,7 @@ using Microsoft.AspNet.Authentication.Cookies;
 using Autofac;
 using Autofac.Framework.DependencyInjection;
 using System;
+using Microsoft.AspNet.Diagnostics;
 
 namespace ITLearning.Frontend.Web
 {
@@ -67,6 +68,7 @@ namespace ITLearning.Frontend.Web
 
             if (env.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
             }
             else
