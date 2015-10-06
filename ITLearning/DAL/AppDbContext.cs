@@ -7,32 +7,31 @@ namespace ITLearning.Frontend.Web.DAL
 {
     public class AppDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
-        public DbSet<RepositoryEntity> Repositories { get; set; }
-        public DbSet<BranchEntity> Branches { get; set; }
+        public DbSet<GitRepositoryEntity> GitRepositories { get; set; }
+        public DbSet<GitBranchEntity> GitBranches { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            #region RepositoryEntity
+            #region GitRepositoryEntity
 
-            builder.Entity<RepositoryEntity>()
-                .Key(p => p.Id);
-
-            builder.Entity<RepositoryEntity>()
+            builder.Entity<GitRepositoryEntity>()
+                .HasKey(p => p.Id);
+            builder.Entity<GitRepositoryEntity>()
                 .Property(p => p.Name)
-                .Required();
+                .IsRequired();
 
             #endregion
 
-            #region BranchEntity
+            #region GitBranchEntity
 
-            builder.Entity<BranchEntity>()
-                .Key(p => p.Id);
+            builder.Entity<GitBranchEntity>()
+                .HasKey(p => p.Id);
 
-            builder.Entity<BranchEntity>()
+            builder.Entity<GitBranchEntity>()
                 .Property(p => p.Name)
-                .Required();
+                .IsRequired();
 
             #endregion
         }

@@ -4,23 +4,18 @@ using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Data.Entity.Metadata;
 using Microsoft.Data.Entity.Migrations;
 using ITLearning.Frontend.Web.DAL;
-using Microsoft.Data.Entity.SqlServer.Metadata;
 
 namespace ITLearning.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class Init
+    [Migration("20151006172059_Rc1InitMigration")]
+    partial class Rc1InitMigration
     {
-        public override string Id
-        {
-            get { return "20150916213447_Init"; }
-        }
-
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Annotation("ProductVersion", "7.0.0-beta7-15540")
-                .Annotation("SqlServer:ValueGenerationStrategy", SqlServerIdentityStrategy.IdentityColumn);
+                .Annotation("ProductVersion", "7.0.0-rc1-15865")
+                .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("ITLearning.Frontend.Web.Core.Identity.Models.User", b =>
                 {
@@ -30,7 +25,7 @@ namespace ITLearning.Migrations
                     b.Property<int>("AccessFailedCount");
 
                     b.Property<string>("ConcurrencyStamp")
-                        .ConcurrencyToken();
+                        .IsConcurrencyToken();
 
                     b.Property<string>("Email")
                         .Annotation("MaxLength", 256);
@@ -64,7 +59,7 @@ namespace ITLearning.Migrations
                     b.Property<string>("UserName")
                         .Annotation("MaxLength", 256);
 
-                    b.Key("Id");
+                    b.HasKey("Id");
 
                     b.Index("NormalizedEmail")
                         .Annotation("Relational:Name", "EmailIndex");
@@ -75,13 +70,45 @@ namespace ITLearning.Migrations
                     b.Annotation("Relational:TableName", "AspNetUsers");
                 });
 
+            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.GitBranchEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("CanPull");
+
+                    b.Property<bool>("CanPush");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<int>("RepositoryId");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+                });
+
+            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.GitRepositoryEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+                });
+
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRole<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("ConcurrencyStamp")
-                        .ConcurrencyToken();
+                        .IsConcurrencyToken();
 
                     b.Property<string>("Name")
                         .Annotation("MaxLength", 256);
@@ -89,7 +116,7 @@ namespace ITLearning.Migrations
                     b.Property<string>("NormalizedName")
                         .Annotation("MaxLength", 256);
 
-                    b.Key("Id");
+                    b.HasKey("Id");
 
                     b.Index("NormalizedName")
                         .Annotation("Relational:Name", "RoleNameIndex");
@@ -108,7 +135,7 @@ namespace ITLearning.Migrations
 
                     b.Property<int>("RoleId");
 
-                    b.Key("Id");
+                    b.HasKey("Id");
 
                     b.Annotation("Relational:TableName", "AspNetRoleClaims");
                 });
@@ -124,7 +151,7 @@ namespace ITLearning.Migrations
 
                     b.Property<int>("UserId");
 
-                    b.Key("Id");
+                    b.HasKey("Id");
 
                     b.Annotation("Relational:TableName", "AspNetUserClaims");
                 });
@@ -139,7 +166,7 @@ namespace ITLearning.Migrations
 
                     b.Property<int>("UserId");
 
-                    b.Key("LoginProvider", "ProviderKey");
+                    b.HasKey("LoginProvider", "ProviderKey");
 
                     b.Annotation("Relational:TableName", "AspNetUserLogins");
                 });
@@ -150,40 +177,58 @@ namespace ITLearning.Migrations
 
                     b.Property<int>("RoleId");
 
-                    b.Key("UserId", "RoleId");
+                    b.HasKey("UserId", "RoleId");
 
                     b.Annotation("Relational:TableName", "AspNetUserRoles");
                 });
 
+            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.GitBranchEntity", b =>
+                {
+                    b.HasOne("ITLearning.Frontend.Web.DAL.Model.GitRepositoryEntity")
+                        .WithMany()
+                        .ForeignKey("RepositoryId");
+
+                    b.HasOne("ITLearning.Frontend.Web.Core.Identity.Models.User")
+                        .WithMany()
+                        .ForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.GitRepositoryEntity", b =>
+                {
+                    b.HasOne("ITLearning.Frontend.Web.Core.Identity.Models.User")
+                        .WithMany()
+                        .ForeignKey("UserId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRoleClaim<int>", b =>
                 {
-                    b.Reference("Microsoft.AspNet.Identity.EntityFramework.IdentityRole<int>")
-                        .InverseCollection()
+                    b.HasOne("Microsoft.AspNet.Identity.EntityFramework.IdentityRole<int>")
+                        .WithMany()
                         .ForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim<int>", b =>
                 {
-                    b.Reference("ITLearning.Frontend.Web.Core.Identity.Models.User")
-                        .InverseCollection()
+                    b.HasOne("ITLearning.Frontend.Web.Core.Identity.Models.User")
+                        .WithMany()
                         .ForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin<int>", b =>
                 {
-                    b.Reference("ITLearning.Frontend.Web.Core.Identity.Models.User")
-                        .InverseCollection()
+                    b.HasOne("ITLearning.Frontend.Web.Core.Identity.Models.User")
+                        .WithMany()
                         .ForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole<int>", b =>
                 {
-                    b.Reference("Microsoft.AspNet.Identity.EntityFramework.IdentityRole<int>")
-                        .InverseCollection()
+                    b.HasOne("Microsoft.AspNet.Identity.EntityFramework.IdentityRole<int>")
+                        .WithMany()
                         .ForeignKey("RoleId");
 
-                    b.Reference("ITLearning.Frontend.Web.Core.Identity.Models.User")
-                        .InverseCollection()
+                    b.HasOne("ITLearning.Frontend.Web.Core.Identity.Models.User")
+                        .WithMany()
                         .ForeignKey("UserId");
                 });
         }

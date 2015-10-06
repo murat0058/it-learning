@@ -9,8 +9,8 @@ namespace ITLearning.Frontend.Web.Core.Identity.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public List<BranchEntity> Branches { get; set; }
+        public List<GitBranchEntity> Branches { get; set; }
 
-        public List<RepositoryEntity> Repositories { get; set; }
+        public List<GitRepositoryEntity> Repositories { get; set; }
     }
 }

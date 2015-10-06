@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Threading;
 using ITLearning.Frontend.Web.Core.Identity.Enums;
 using ITLearning.Frontend.Web.Core.Identity.Common;
+using Microsoft.AspNet.Mvc.Filters;
 
 namespace ITLearning.Frontend.Web.Core.Identity.Attributes
 {
