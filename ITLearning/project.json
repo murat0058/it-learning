@@ -32,7 +32,9 @@
   "frameworks": {
     "dnx451": {
       "dependencies": {
-        "FluentValidation": "5.6.2"
+        "FluentValidation": "5.6.2",
+        "Autofac": "4.0.0-beta7-130",
+        "Autofac.Framework.DependencyInjection": "4.0.0-beta7-130"
       }
     }
   },

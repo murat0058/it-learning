@@ -9,8 +9,10 @@ using Microsoft.Framework.Logging;
 using Microsoft.Dnx.Runtime;
 using ITLearning.Frontend.Web.Core.Identity.Models;
 using ITLearning.Frontend.Web.DAL;
-using ITLearning.Frontend.Web.Core.IoC;
 using Microsoft.AspNet.Authentication.Cookies;
+using Autofac;
+using Autofac.Framework.DependencyInjection;
+using System;
 
 namespace ITLearning.Frontend.Web
 {
@@ -48,17 +50,29 @@ namespace ITLearning.Frontend.Web
 
             services.AddMvc();
 
-            CustomServicesProvider.RegisterServices(services);
+            // Create the Autofac container builder.
+            var builder = new ContainerBuilder();
+
+            // Add any Autofac modules or registrations.
+            builder.RegisterModule(new FrontendModule());
+            
+            // Populate the services.
+            builder.Populate(services);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.MinimumLevel = LogLevel.Information;
+            loggerFactory.AddConsole();
 
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
                 app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
             }
 
             app.UseStaticFiles();
