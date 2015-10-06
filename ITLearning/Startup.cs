@@ -67,7 +67,6 @@ namespace ITLearning.Frontend.Web
 
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
                 app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
             }
             else

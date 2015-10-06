@@ -25,7 +25,7 @@
   },
 
   "commands": {
-    "web": "Microsoft.AspNet.Hosting --config hosting.ini",
+    "web": "Microsoft.AspNet.Hosting  --server Microsoft.AspNet.Server.WebListener --config hosting.json",
     "ef": "EntityFramework.Commands"
   },
 
