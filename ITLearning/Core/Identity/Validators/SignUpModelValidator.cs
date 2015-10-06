@@ -11,7 +11,29 @@ namespace ITLearning.Frontend.Web.Core.Identity.Validators
     {
         public SignUpModelValidator()
         {
-            RuleFor(x => x.Email).EmailAddress().WithMessage("This is not a valid e-mail address");
+            RuleFor(x => x.Login)
+                .NotEmpty()
+                .WithMessage("Login jest wymagany.");
+
+            RuleFor(x => x.Email)
+                .NotEmpty()
+                .WithMessage("Adres e-mail jest wymagany.");
+
+            RuleFor(x => x.Password)
+                .NotEmpty()
+                .WithMessage("Hasło jest wymagane.");
+
+            RuleFor(x => x.PasswordConfirmation)
+                .NotEmpty()
+                .WithMessage("Potwierdzenie hasła jest wymagane.");
+
+            RuleFor(x => x.Password)
+                .Equal(x => x.PasswordConfirmation)
+                .WithMessage("Wpisane hasła nie pasują do siebie.");
+
+            RuleFor(x => x.Email)
+                .EmailAddress()
+                .WithMessage("To nie jest poprawny adres e-mail");
         }
     }
 }

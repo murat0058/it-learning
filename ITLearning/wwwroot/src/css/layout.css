@@ -4,3 +4,9 @@
 
 .form-wrapper {
   padding: 20px; }
+
+.form-group .label-validation-message {
+  color: red;
+  font-size: 10px;
+  display: block;
+  margin-bottom: 3px; }

@@ -1,4 +1,6 @@
-﻿<div class="form-wrapper">
+﻿@model SignUpViewModel
+
+<div class="form-wrapper">
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -8,25 +10,28 @@
                             <span><i class="fa fa-info-circle"></i> | Zarejestruj się</span>
                         </div>
                         <div class="panel-body">
-
                             <div class="form-group">
                                 <label>Login</label>
-                                <input type="text" class="form-control" name="Login" />
+                                <span class="label-validation-message">@Html.ValidationMessageFor(p => p.Login)</span>
+                                <input type="text" class="form-control" name="Login" value="@Model.Login"/>
                             </div>
                             <div class="form-group">
                                 <label>E-mail</label>
-                                <input type="text" class="form-control" name="Email" />
+                                <span class="label-validation-message">@Html.ValidationMessageFor(p => p.Email)</span>
+                                <input type="text" class="form-control" name="Email" value="@Model.Email"/>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Hasło</label>
+                                        <span class="label-validation-message">@Html.ValidationMessageFor(p => p.Password)</span>
                                         <input type="password" class="form-control" name="Password" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Powtórz hasło</label>
+                                        <span class="label-validation-message">@Html.ValidationMessageFor(p => p.PasswordConfirmation)</span>
                                         <input type="password" class="form-control" name="PasswordConfirmation" />
                                     </div>
                                 </div>

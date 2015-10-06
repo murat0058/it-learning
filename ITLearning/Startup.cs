@@ -11,6 +11,7 @@ using ITLearning.Frontend.Web.Core.Identity.Models;
 using ITLearning.Frontend.Web.DAL;
 using Microsoft.AspNet.Authentication.Cookies;
 using ITLearning.Frontend.Web.Core.IoC;
+using ITLearning.Frontend.Web.Common.Mappings;
 
 namespace ITLearning.Frontend.Web
 {
@@ -53,6 +54,8 @@ namespace ITLearning.Frontend.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            MappingsProvider.ConfigureMappings();
+
             loggerFactory.MinimumLevel = LogLevel.Information;
             loggerFactory.AddConsole();
 

@@ -3,6 +3,10 @@ using ITLearning.Frontend.Web.Core.Identity.Services;
 using ITLearning.Frontend.Web.ViewModels.Identity;
 using ITLearning.Frontend.Web.Core.Identity.Models;
 using System.Threading.Tasks;
+using System.Linq;
+using ITLearning.Frontend.Web.Core.Identity.Validators;
+using ITLearning.Frontend.Web.Common.Extensions;
+using AutoMapper;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -26,25 +30,31 @@ namespace ITLearning.Frontend.Web.Controllers
             return View();
         }
 
-        public IActionResult SignUp()
+        public IActionResult SignUp(SignUpViewModel model)
         {
-            return View();
+            return View(model ?? new SignUpViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp(SignUpViewModel model)
+        [ActionName("SignUp")]
+        public async Task<IActionResult> SignUpPost(SignUpViewModel signUpViewModel)
         {
-            SignUpModel signUpModel = new SignUpModel()
+            SignUpModel model = Mapper.Map<SignUpModel>(signUpViewModel);
+
+            var validator = new SignUpModelValidator();
+            var result = validator.Validate(model);
+
+            if (!result.IsValid)
             {
-                Email = model.Email,
-                Login = model.Login,
-                Password = model.Password,
-                PasswordConfirmation = model.PasswordConfirmation
-            };
+                ModelState.FillModelStateErrors(result.Errors);
+                return View(signUpViewModel);
+            }
+            else
+            {
+                await _identityService.SignUpAsync(model);
+                return RedirectToAction("SignUp");
+            }
 
-            await _identityService.SignUpAsync(signUpModel);
-
-            return View();
         }
 
         public IActionResult Unauthorized()
