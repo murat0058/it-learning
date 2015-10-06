@@ -13,6 +13,7 @@ namespace ITLearning.Frontend.Web.Common.Mappings
         public static void ConfigureMappings()
         {
             Mapper.CreateMap<SignUpViewModel, SignUpModel>();
+            Mapper.CreateMap<LoginViewModel, LoginModel>();
         }
     }
 }
