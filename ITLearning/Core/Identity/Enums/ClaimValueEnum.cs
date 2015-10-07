@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace ITLearning.Frontend.Web.Core.Identity.Enums
 {
-    public enum ClaimType : int
+    public enum ClaimValueEnum
     {
-        Login
     }
 }

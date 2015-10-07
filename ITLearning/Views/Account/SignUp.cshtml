@@ -10,6 +10,7 @@
                             <span><i class="fa fa-info-circle"></i> | Zarejestruj się</span>
                         </div>
                         <div class="panel-body">
+                            @Html.ValidationSummary(excludePropertyErrors: true, message: "Wystąpił błąd w trakcie procesu rejestracji")
                             <div class="form-group">
                                 <label>Login</label>
                                 <span class="label-validation-message">@Html.ValidationMessageFor(p => p.Login)</span>

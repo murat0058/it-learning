@@ -9,7 +9,7 @@ namespace ITLearning.Frontend.Web.Common.Extensions
 {
     public static class ModelStateExtensions
     {
-        public static void FillModelStateErrors(this ModelStateDictionary state, IList<ValidationFailure> validationFailures)
+        public static void ApplyValidationFailures(this ModelStateDictionary state, IList<ValidationFailure> validationFailures)
         {
             foreach(var failure in validationFailures)
             {

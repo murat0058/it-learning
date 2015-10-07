@@ -19,15 +19,30 @@ namespace ITLearning.Frontend.Web.Controllers
             _identityService = identityService;
         }
 
-        public IActionResult Login()
+        public IActionResult Login(LoginViewModel model)
         {
-            return View();
+            return View(model ?? new LoginViewModel());
         }
 
         [HttpPost]
-        public IActionResult Login(LoginViewModel model)
+        [ActionName("Login")]
+        public async Task<IActionResult> LoginPost(LoginViewModel loginViewModel)
         {
-            return View();
+            LoginModel model = Mapper.Map<LoginModel>(loginViewModel);
+
+            var validator = new LoginModelValidator();
+            var result = validator.Validate(model);
+
+            if (!result.IsValid)
+            {
+                ModelState.ApplyValidationFailures(result.Errors);
+                return View(loginViewModel);
+            }
+            else
+            {
+                await _identityService.SignInAsync(model);
+                return View();
+            }
         }
 
         public IActionResult SignUp(SignUpViewModel model)
@@ -46,15 +61,28 @@ namespace ITLearning.Frontend.Web.Controllers
 
             if (!result.IsValid)
             {
-                ModelState.FillModelStateErrors(result.Errors);
-                return View(signUpViewModel);
+                ModelState.ApplyValidationFailures(result.Errors);
             }
             else
             {
-                await _identityService.SignUpAsync(model);
-                return RedirectToAction("SignUp");
+                var signUpResult = await _identityService.SignUpAsync(model);
+
+                if (signUpResult.Succeeded)
+                {
+                    // Valid & Success
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    // Valid & Error during creating user
+                    foreach (var error in signUpResult.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
             }
 
+            return View(signUpViewModel);
         }
 
         public IActionResult Unauthorized()

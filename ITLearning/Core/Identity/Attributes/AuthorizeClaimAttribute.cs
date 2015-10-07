@@ -14,8 +14,8 @@ namespace ITLearning.Frontend.Web.Core.Identity.Attributes
 {
     public class AuthorizeClaimAttribute : AuthorizationFilterAttribute
     {
-        public ClaimType Type { get; set; }
-        public ClaimValue Value { get; set; }
+        public ClaimTypeEnum Type { get; set; }
+        public ClaimValueEnum Value { get; set; }
 
         public override Task OnAuthorizationAsync(AuthorizationContext context)
         {

@@ -29,6 +29,7 @@ namespace ITLearning.Frontend.Web.Core.Identity.Validators
 
             RuleFor(x => x.Password)
                 .Equal(x => x.PasswordConfirmation)
+                .When(x => !string.IsNullOrEmpty(x.Password) && !string.IsNullOrEmpty(x.PasswordConfirmation))
                 .WithMessage("Wpisane hasła nie pasują do siebie.");
 
             RuleFor(x => x.Email)

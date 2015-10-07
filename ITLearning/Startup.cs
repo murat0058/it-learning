@@ -12,6 +12,8 @@ using ITLearning.Frontend.Web.DAL;
 using Microsoft.AspNet.Authentication.Cookies;
 using ITLearning.Frontend.Web.Core.IoC;
 using ITLearning.Frontend.Web.Common.Mappings;
+using ITLearning.Frontend.Web.Core.Identity.Extensions;
+using Microsoft.AspNet.Identity;
 
 namespace ITLearning.Frontend.Web
 {
@@ -22,7 +24,7 @@ namespace ITLearning.Frontend.Web
             var builder = new ConfigurationBuilder()
                 .SetBasePath(appEnv.ApplicationBasePath)
                 .AddJsonFile("config.json");
-                
+
             builder.AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
 
             if (env.IsDevelopment())
@@ -49,6 +51,7 @@ namespace ITLearning.Frontend.Web
 
             services.AddMvc();
 
+
             ServicesProvider.RegisterServices(services);
         }
 
@@ -71,6 +74,7 @@ namespace ITLearning.Frontend.Web
 
             app.UseStaticFiles();
             app.UseIdentity();
+            app.EnsureRolesCreated();
 
             //TODO: Is this necessary?
             app.UseCookieAuthentication((p) => new CookieAuthenticationOptions
