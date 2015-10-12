@@ -7,22 +7,27 @@
                 <form role="form" asp-action="Login" asp-controller="Account">
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            <span><i class="fa fa-info-circle"></i> | Zaloguj się</span>
+                            <span><i class="fa fa-info-circle"></i> | Zaloguj się w IT Learning</span>
                         </div>
                         <div class="panel-body">
                             @Html.ValidationSummary(excludePropertyErrors: true)
                             <div class="form-group">
-                                <label>Login</label>
+                                <label for="Login">Login</label>
                                 <span class="label-validation-message">@Html.ValidationMessageFor(p => p.Login)</span>
-                                <input type="text" class="form-control" name="Login" />
+                                <input type="text" class="form-control" id="Login" name="Login" />
                             </div>
                             <div class="form-group">
-                                <label>Hasło</label>
+                                <label for="Password">Hasło</label>
                                 <span class="label-validation-message">@Html.ValidationMessageFor(p => p.Password)</span>
-                                <input type="password" class="form-control" name="Password" />
+                                <input type="password" class="form-control" id="Password" name="Password" />
+                            </div>
+                            <div class="checkbox">
+                                <label for="RememberMe">
+                                    <input type="checkbox" id="RememberMe" name="RememberMe" /> Zapamiętaj mnie
+                                </label>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary pull-right">Zaloguj</button>
+                                <button type="submit" class="btn btn-primary pull-right">Zaloguj się</button>
                             </div>
                         </div>
                     </div>

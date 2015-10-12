@@ -39,7 +39,7 @@ namespace ITLearning.Frontend.Web.Controllers
             }
             else
             {
-                var signInResult = await _identityService.SignInAsync(model);
+                var signInResult = await _identityService.LoginAsync(model);
 
                 if (signInResult.Succeeded)
                 {
@@ -47,7 +47,7 @@ namespace ITLearning.Frontend.Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, $"W systemie nie istnieje użytkownik {loginViewModel.Login}");
+                    ModelState.AddModelError(string.Empty, $"Nie znaleziono użytkownika {loginViewModel.Login}");
                 }
             }
 
@@ -95,9 +95,11 @@ namespace ITLearning.Frontend.Web.Controllers
             return View(signUpViewModel);
         }
 
-        public IActionResult Unauthorized()
+        public async Task<IActionResult> LogOut()
         {
-            return View();
+            await _identityService.LogoutAsync();
+
+            return RedirectToAction("Index", "Landing");
         }
     }
 }

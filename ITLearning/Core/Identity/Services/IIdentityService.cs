@@ -7,6 +7,7 @@ namespace ITLearning.Frontend.Web.Core.Identity.Services
     public interface IIdentityService
     {
         Task<IdentityResult> SignUpAsync(SignUpModel model);
-        Task<SignInResult> SignInAsync(LoginModel model);
+        Task<SignInResult> LoginAsync(LoginModel model);
+        Task LogoutAsync();
     }
 }

@@ -7,38 +7,38 @@
                 <form role="form" asp-action="SignUp" asp-controller="Account">
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            <span><i class="fa fa-info-circle"></i> | Zarejestruj się</span>
+                            <span><i class="fa fa-info-circle"></i> | Załóż nowe konto w IT Learning</span>
                         </div>
                         <div class="panel-body">
                             @Html.ValidationSummary(excludePropertyErrors: true)
                             <div class="form-group">
-                                <label>Login</label>
+                                <label for="Login">Login</label>
                                 <span class="label-validation-message">@Html.ValidationMessageFor(p => p.Login)</span>
-                                <input type="text" class="form-control" name="Login" value="@Model.Login"/>
+                                <input type="text" class="form-control" id="Login" name="Login" value="@Model.Login"/>
                             </div>
                             <div class="form-group">
-                                <label>E-mail</label>
+                                <label for="Email">E-mail</label>
                                 <span class="label-validation-message">@Html.ValidationMessageFor(p => p.Email)</span>
-                                <input type="text" class="form-control" name="Email" value="@Model.Email"/>
+                                <input type="text" class="form-control" id="Email" name="Email" value="@Model.Email"/>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Hasło</label>
+                                        <label for="Password">Hasło</label>
                                         <span class="label-validation-message">@Html.ValidationMessageFor(p => p.Password)</span>
-                                        <input type="password" class="form-control" name="Password" />
+                                        <input type="password" class="form-control" id="Password" name="Password" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Powtórz hasło</label>
+                                        <label for="PasswordConfirmation">Powtórz hasło</label>
                                         <span class="label-validation-message">@Html.ValidationMessageFor(p => p.PasswordConfirmation)</span>
-                                        <input type="password" class="form-control" name="PasswordConfirmation" />
+                                        <input type="password" class="form-control" id="PasswordConfirmation" name="PasswordConfirmation" />
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary pull-right">Zarejestruj</button>
+                                <button type="submit" class="btn btn-primary pull-right">Załóż konto</button>
                             </div>
                         </div>
                     </div>

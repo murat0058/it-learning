@@ -19,7 +19,7 @@ namespace ITLearning.Frontend.Web.Core.Identity.Attributes
 
         public override Task OnAuthorizationAsync(AuthorizationContext context)
         {
-            if(IsClaimAuthorizationRequested(context) && HasUserRequestedClaim(context) == false)
+            if(IsClaimPermissionRequired(context) && HasUserRequestedClaim(context) == false)
             {
                 context.Result = 
                     new RedirectToActionResult(
@@ -31,11 +31,20 @@ namespace ITLearning.Frontend.Web.Core.Identity.Attributes
             return Task.FromResult<object>(null);
         }
 
-        private bool IsClaimAuthorizationRequested(AuthorizationContext context)
+        private bool IsClaimPermissionRequired(AuthorizationContext context)
         {
-            return context.ActionDescriptor
-                .FilterDescriptors
-                .Any(x => x.Filter.GetType() == typeof(AuthorizeClaimAttribute));
+            //var isAnonymousAccessAllowed = context.ActionDescriptor
+            //                                        .FilterDescriptors
+            //                                        .Any(x => x.Filter.GetType() == typeof(AllowAnonymousAttribute));
+
+            //var descript
+
+            //if(isAnonymousAccessAllowed)
+            //{
+            //    return false;
+            //}
+
+            //return true;
         }
 
         private bool HasUserRequestedClaim(AuthorizationContext context)

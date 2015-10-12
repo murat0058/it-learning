@@ -51,7 +51,7 @@ namespace ITLearning.Frontend.Web
 
             services.AddMvc().AddMvcOptions(options =>
             {
-                //options.Filters.Add(new AuthorizeClaimAttribute());
+                options.Filters.Add(new AuthorizeClaimAttribute());
             });
 
             ServicesProvider.RegisterServices(services);

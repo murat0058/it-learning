@@ -58,9 +58,14 @@ namespace ITLearning.Frontend.Web.Core.Identity.Services
             return IdentityResult.Success;
         }
 
-        public async Task<SignInResult> SignInAsync(LoginModel model)
+        public async Task<SignInResult> LoginAsync(LoginModel model)
         {
-            return await _signInManager.PasswordSignInAsync(model.Login, model.Password, isPersistent: false, lockoutOnFailure: false);
+            return await _signInManager.PasswordSignInAsync(model.Login, model.Password, isPersistent: model.RememberMe, lockoutOnFailure: false);
+        }
+
+        public async Task LogoutAsync()
+        {
+            await _signInManager.SignOutAsync();
         }
     }
 }

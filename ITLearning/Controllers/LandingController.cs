@@ -8,6 +8,7 @@ using ITLearning.Frontend.Web.Core.Identity.Enums;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
+    [AllowAnonymous]
     public class LandingController : BaseController
     {
         public IActionResult Index()
