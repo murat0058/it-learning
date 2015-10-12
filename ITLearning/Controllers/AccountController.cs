@@ -36,13 +36,23 @@ namespace ITLearning.Frontend.Web.Controllers
             if (!result.IsValid)
             {
                 ModelState.ApplyValidationFailures(result.Errors);
-                return View(loginViewModel);
             }
             else
             {
-                await _identityService.SignInAsync(model);
-                return View();
+                var signInResult = await _identityService.SignInAsync(model);
+
+                if (signInResult.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, $"W systemie nie istnieje użytkownik {loginViewModel.Login}");
+                }
             }
+
+            loginViewModel.Password = string.Empty;
+            return View(loginViewModel);
         }
 
         public IActionResult SignUp(SignUpViewModel model)

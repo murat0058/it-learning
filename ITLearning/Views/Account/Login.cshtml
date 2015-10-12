@@ -1,4 +1,6 @@
-﻿<div class="form-wrapper">
+﻿@model LoginViewModel
+
+<div class="form-wrapper">
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -8,12 +10,15 @@
                             <span><i class="fa fa-info-circle"></i> | Zaloguj się</span>
                         </div>
                         <div class="panel-body">
+                            @Html.ValidationSummary(excludePropertyErrors: true)
                             <div class="form-group">
                                 <label>Login</label>
+                                <span class="label-validation-message">@Html.ValidationMessageFor(p => p.Login)</span>
                                 <input type="text" class="form-control" name="Login" />
                             </div>
                             <div class="form-group">
                                 <label>Hasło</label>
+                                <span class="label-validation-message">@Html.ValidationMessageFor(p => p.Password)</span>
                                 <input type="password" class="form-control" name="Password" />
                             </div>
                             <div class="form-group">

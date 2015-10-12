@@ -1,4 +1,6 @@
-﻿.main-content {
+﻿@import 'mixins/validation.scss';
+
+.main-content {
     position: relative;
     top: 50px;
 }
@@ -9,9 +11,21 @@
 
 .form-group{
     .label-validation-message{
-        color: red;
-        font-size: 10px;
-        display: block;
-        margin-bottom: 3px;
+        @include validation-message;
+    }
+}
+
+.validation-summary-errors{
+    margin-bottom: 10px;
+
+    ul{
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+
+        li {
+            @include validation-message;
+            font-size: 12px;
+        }
     }
 }

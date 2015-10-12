@@ -11,8 +11,13 @@ namespace ITLearning.Frontend.Web.Core.Identity.Validators
     {
         public LoginModelValidator()
         {
-            RuleFor(x => x.Login).NotEmpty().WithMessage("Login is required");
-            RuleFor(x => x.Password).NotEmpty().WithMessage("Password is required");
+            RuleFor(x => x.Login)
+                .NotEmpty()
+                .WithMessage("Login jest wymagany.");
+
+            RuleFor(x => x.Password)
+                .NotEmpty()
+                .WithMessage("Hasło jest wymagane.");
         }
     }
 }

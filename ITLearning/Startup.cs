@@ -14,6 +14,7 @@ using ITLearning.Frontend.Web.Core.IoC;
 using ITLearning.Frontend.Web.Common.Mappings;
 using ITLearning.Frontend.Web.Core.Identity.Extensions;
 using Microsoft.AspNet.Identity;
+using ITLearning.Frontend.Web.Core.Identity.Attributes;
 
 namespace ITLearning.Frontend.Web
 {
@@ -29,7 +30,6 @@ namespace ITLearning.Frontend.Web
 
             if (env.IsDevelopment())
             {
-                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
                 builder.AddUserSecrets();
             }
             builder.AddEnvironmentVariables();
@@ -49,8 +49,10 @@ namespace ITLearning.Frontend.Web
                 .AddEntityFrameworkStores<AppDbContext, int>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc();
-
+            services.AddMvc().AddMvcOptions(options =>
+            {
+                //options.Filters.Add(new AuthorizeClaimAttribute());
+            });
 
             ServicesProvider.RegisterServices(services);
         }
@@ -59,17 +61,19 @@ namespace ITLearning.Frontend.Web
         {
             MappingsProvider.ConfigureMappings();
 
-            loggerFactory.MinimumLevel = LogLevel.Information;
-            loggerFactory.AddConsole();
-
             if (env.IsDevelopment())
             {
+                loggerFactory.MinimumLevel = LogLevel.Critical;
+                loggerFactory.AddConsole();
+
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+
+                //TODO logger
             }
 
             app.UseStaticFiles();

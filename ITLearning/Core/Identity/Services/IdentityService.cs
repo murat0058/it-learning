@@ -26,7 +26,8 @@ namespace ITLearning.Frontend.Web.Core.Identity.Services
             var userModel = new User
             {
                 UserName = model.Login,
-                Email = model.Email
+                Email = model.Email,
+                SecurityStamp = Guid.NewGuid().ToString()
             };
 
             var createUserResult = await _userManager.CreateAsync(userModel, model.Password);
@@ -57,14 +58,9 @@ namespace ITLearning.Frontend.Web.Core.Identity.Services
             return IdentityResult.Success;
         }
 
-        public async Task SignInAsync(LoginModel model)
+        public async Task<SignInResult> SignInAsync(LoginModel model)
         {
-            var userModel = new User
-            {
-                UserName = model.Login
-            };
-
-            await _signInManager.SignInAsync(userModel, isPersistent: false);
+            return await _signInManager.PasswordSignInAsync(model.Login, model.Password, isPersistent: false, lockoutOnFailure: false);
         }
     }
 }

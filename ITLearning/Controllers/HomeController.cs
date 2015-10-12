@@ -10,14 +10,7 @@ namespace ITLearning.Frontend.Web.Controllers
     {
         public IActionResult Index()
         {
-            if (Authorized())
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Index", "Landing");
-            }
+            return View();
         }
     }
 }
