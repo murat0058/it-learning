@@ -7,5 +7,6 @@ namespace ITLearning.Frontend.Web.Core.Identity.Enums
 {
     public enum ClaimValueEnum
     {
+        HomeController
     }
 }

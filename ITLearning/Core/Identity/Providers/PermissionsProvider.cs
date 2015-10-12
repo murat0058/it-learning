@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ITLearning.Frontend.Web.Core.Identity.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -12,7 +13,7 @@ namespace ITLearning.Frontend.Web.Core.Identity.Providers
         {
             return new List<Claim>
             {
-
+                GetClaimForTypeAndValue(ClaimTypeEnum.Controller, ClaimValueEnum.HomeController)
             };
         }
 
@@ -23,5 +24,12 @@ namespace ITLearning.Frontend.Web.Core.Identity.Providers
                 "StandardUser"
             };
         }
+
+        #region Helpers
+        private Claim GetClaimForTypeAndValue(ClaimTypeEnum type, ClaimValueEnum value)
+        {
+            return new Claim(type.ToString(), value.ToString());
+        }
+        #endregion
     }
 }

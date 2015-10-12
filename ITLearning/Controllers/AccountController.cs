@@ -10,6 +10,7 @@ using AutoMapper;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : BaseController
     {
         private readonly IIdentityService _identityService;
@@ -43,7 +44,14 @@ namespace ITLearning.Frontend.Web.Controllers
 
                 if (signInResult.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    if (string.IsNullOrEmpty(loginViewModel.ReturnUrl))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        return Redirect(loginViewModel.ReturnUrl);
+                    }
                 }
                 else
                 {
@@ -100,6 +108,18 @@ namespace ITLearning.Frontend.Web.Controllers
             await _identityService.LogoutAsync();
 
             return RedirectToAction("Index", "Landing");
+        }
+
+        public IActionResult Unauthorized(string returnUrl)
+        {
+            ModelState.AddModelError(string.Empty, "Musisz być zalogowany lub posiadać odpowiednie uprawnienia aby przejść dalej.");
+
+            var model = new LoginViewModel
+            {
+                ReturnUrl = returnUrl
+            };
+
+            return View("Login", model);
         }
     }
 }

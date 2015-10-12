@@ -25,7 +25,10 @@ namespace ITLearning.Frontend.Web.Core.Identity.Attributes
                     new RedirectToActionResult(
                         IdentityRouteValues.UnauthorizedActionRoute, 
                         IdentityRouteValues.UnauthorizedControllerRoute, 
-                        null);
+                        new Dictionary<string, object>
+                        {
+                            { "returnUrl", context.HttpContext.Request.Path }
+                        });
             }
             
             return Task.FromResult<object>(null);
@@ -33,18 +36,21 @@ namespace ITLearning.Frontend.Web.Core.Identity.Attributes
 
         private bool IsClaimPermissionRequired(AuthorizationContext context)
         {
-            //var isAnonymousAccessAllowed = context.ActionDescriptor
-            //                                        .FilterDescriptors
-            //                                        .Any(x => x.Filter.GetType() == typeof(AllowAnonymousAttribute));
+            // Descriptors collection contains ordered filters of requred action. Items
+            // at the end of collection are the most specific ones (probably for action).
+            // So it could be i.e.: [ controller filter, action filter, action filter ]
+            // but never [ action filter, controller filter ].
+            var descriptors = context.ActionDescriptor.FilterDescriptors;
 
-            //var descript
+            var isAnonymousAccessAllowed = descriptors.Select(r => r.Filter).OfType<AllowAnonymousAttribute>().Any();
+            var isClaimRequested = descriptors.Select(r => r.Filter).OfType<AuthorizeClaimAttribute>().Any();
 
-            //if(isAnonymousAccessAllowed)
-            //{
-            //    return false;
-            //}
+            if(!isAnonymousAccessAllowed && !isClaimRequested)
+            {
+                throw new ArgumentException($"Filter descriptors for action {context.ActionDescriptor.Name} do not contain either AllowAnonymousAttribute, or AuthorizeClaimAttribute.");
+            }
 
-            //return true;
+            return !isAnonymousAccessAllowed;
         }
 
         private bool HasUserRequestedClaim(AuthorizationContext context)
