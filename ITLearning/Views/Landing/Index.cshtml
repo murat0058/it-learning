@@ -20,7 +20,7 @@
 </head>
 <body class="landing">
 
-    @Html.Partial("~/Views/Shared/Partials/_Header.cshtml")
+    @Html.Partial("~/Views/Shared/Partials/Header.cshtml", "LandingSideMenu")
 
     <div id="page-wrapper">
 
@@ -149,7 +149,7 @@
             </ul>
         </footer>
 
-        @Html.Partial("~/Views/Shared/Partials/_BaseScripts.cshtml")
+        @Html.Partial("~/Views/Shared/Partials/BaseScripts/LandingBaseScripts.cshtml")
         <!--[if lte IE 8]><script src="~/app/src/lib/html5shiv/dist/html5shiv.js"></script><![endif]-->
     </div>
 </body>

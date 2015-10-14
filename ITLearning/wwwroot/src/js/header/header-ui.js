@@ -46,4 +46,5 @@
     };
 
     $toggleBtn.click(toggleMenuVisibility);
+
 });

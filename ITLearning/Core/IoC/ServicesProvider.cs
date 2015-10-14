@@ -1,10 +1,10 @@
-﻿using ITLearning.Frontend.Web.Core.Identity.Providers;
+﻿using ITLearning.Frontend.Web.Core.Identity.Common;
+using ITLearning.Frontend.Web.Core.Identity.Models;
+using ITLearning.Frontend.Web.Core.Identity.Providers;
 using ITLearning.Frontend.Web.Core.Identity.Services;
+using Microsoft.AspNet.Identity;
 using Microsoft.Framework.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Framework.DependencyInjection.Extensions;
 
 namespace ITLearning.Frontend.Web.Core.IoC
 {

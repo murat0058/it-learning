@@ -25,6 +25,30 @@ namespace ITLearning.Frontend.Web.Controllers
             return View(model ?? new LoginViewModel());
         }
 
+        public IActionResult SignUp(SignUpViewModel model)
+        {
+            return View(model ?? new SignUpViewModel());
+        }
+
+        public async Task<IActionResult> LogOut()
+        {
+            await _identityService.LogoutAsync();
+
+            return RedirectToAction("Index", "Landing");
+        }
+
+        public IActionResult Unauthorized(string returnUrl)
+        {
+            ModelState.AddModelError(string.Empty, "Musisz być zalogowany lub posiadać odpowiednie uprawnienia aby przejść dalej.");
+
+            var model = new LoginViewModel
+            {
+                ReturnUrl = returnUrl
+            };
+
+            return View("Login", model);
+        }
+
         [HttpPost]
         [ActionName("Login")]
         public async Task<IActionResult> LoginPost(LoginViewModel loginViewModel)
@@ -63,11 +87,6 @@ namespace ITLearning.Frontend.Web.Controllers
             return View(loginViewModel);
         }
 
-        public IActionResult SignUp(SignUpViewModel model)
-        {
-            return View(model ?? new SignUpViewModel());
-        }
-
         [HttpPost]
         [ActionName("SignUp")]
         public async Task<IActionResult> SignUpPost(SignUpViewModel signUpViewModel)
@@ -101,25 +120,6 @@ namespace ITLearning.Frontend.Web.Controllers
             }
 
             return View(signUpViewModel);
-        }
-
-        public async Task<IActionResult> LogOut()
-        {
-            await _identityService.LogoutAsync();
-
-            return RedirectToAction("Index", "Landing");
-        }
-
-        public IActionResult Unauthorized(string returnUrl)
-        {
-            ModelState.AddModelError(string.Empty, "Musisz być zalogowany lub posiadać odpowiednie uprawnienia aby przejść dalej.");
-
-            var model = new LoginViewModel
-            {
-                ReturnUrl = returnUrl
-            };
-
-            return View("Login", model);
         }
     }
 }

@@ -1,24 +1,38 @@
 ﻿@import 'mixins/validation.scss';
 
+/* Bootstrap grid system: */
+/* Extra small devices (phones, less than 768px) */
+/* Small devices (tablets, 768px and up) */
+/* Medium devices (desktops, 992px and up) */
+/* Large devices (large desktops, 1200px and up) */
+
+$custom-font: "Open Sans", Helvetica, sans-serif;
+
 .main-content {
     position: relative;
     top: 50px;
 }
 
 .form-wrapper {
-    padding: 20px;
+    position: relative;
+    top: 20px;
 }
 
-.form-group{
-    .label-validation-message{
+.content-wrapper {
+    position: relative;
+    top: 20px;
+}
+
+.form-group {
+    .label-validation-message {
         @include validation-message;
     }
 }
 
-.validation-summary-errors{
+.validation-summary-errors {
     margin-bottom: 10px;
 
-    ul{
+    ul {
         margin: 0;
         padding: 0;
         list-style-type: none;
@@ -26,6 +40,83 @@
         li {
             @include validation-message;
             font-size: 12px;
+        }
+    }
+}
+
+.user-profile-container {
+
+    .user-profile-section {
+        border-bottom: 1px solid #d8d8d8;
+        box-shadow: 0px 12px 9px -12px rgba(0, 0, 0, 0.2);
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        font-family: $custom-font;
+    }
+
+    .user-data {
+        text-align: center;
+
+        .user-photo {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            height: 150px;
+            width: 100%;
+        }
+
+        .user-name {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+    }
+}
+
+.top-items-container {
+    border-bottom: 1px solid #d8d8d8;
+
+    .top-items-row {
+        margin-bottom: 20px;
+
+        a.top-item {
+            width: 100%;
+            height: 200px;
+
+            &:hover{
+                .text{
+                    text-decoration: underline;
+                }
+            }
+
+            .top-item-content {
+                width: 100%;
+                height: 200px;
+                position: relative;
+                border-radius: 3px;
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+
+                .top-item-description {
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    background-color: rgba(0,0,0,0.8);
+                    border-bottom-left-radius: 3px;
+                    border-bottom-right-radius: 3px;
+
+                    .text{
+                        font-family: $custom-font;
+                        font-size: 14px;
+                        margin: 0;
+                        padding: 5px;
+                        font-weight: 600;
+                        color: white;
+                    }
+                }
+            }
         }
     }
 }

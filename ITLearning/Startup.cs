@@ -73,14 +73,14 @@ namespace ITLearning.Frontend.Web
             {
                 app.UseExceptionHandler("/Home/Error");
 
-                //TODO logger
+                //TODO Logowanie na produkcji
             }
 
             app.UseStaticFiles();
             app.UseIdentity();
             app.EnsureRolesCreated();
 
-            //TODO: Is this necessary?
+            //TODO: Po co?
             app.UseCookieAuthentication((p) => new CookieAuthenticationOptions
             {
                 LoginPath = "/Account/Login"
