@@ -15,10 +15,10 @@
     "Microsoft.AspNet.Server.WebListener": "1.0.0-beta8",
     "Microsoft.AspNet.StaticFiles": "1.0.0-beta8",
     "Microsoft.AspNet.Tooling.Razor": "1.0.0-beta8",
-    "Microsoft.Extensions.Configuration.Abstractions": "1.0.0-rc1-15688",
-    "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-15688",
+    "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta8",
+    "Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
     "Microsoft.Framework.Configuration.UserSecrets": "1.0.0-beta8",
-    "Microsoft.Extensions.Logging": "1.0.0-beta8",
+    "Microsoft.Framework.Logging": "1.0.0-beta8",
     "Microsoft.Framework.Logging.Console": "1.0.0-beta8",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-beta8"
   },
