@@ -15,6 +15,7 @@
     "Microsoft.AspNet.Server.WebListener": "1.0.0-beta8",
     "Microsoft.AspNet.StaticFiles": "1.0.0-beta8",
     "Microsoft.AspNet.Tooling.Razor": "1.0.0-beta8",
+    "Microsoft.Dnx.Watcher": "1.0.0-beta8",
     "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta8",
     "Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
     "Microsoft.Framework.Configuration.UserSecrets": "1.0.0-beta8",
@@ -24,7 +25,8 @@
   },
 
   "commands": {
-    "web": "Microsoft.AspNet.Hosting server=Microsoft.AspNet.Server.WebListener server.urls=http://localhost:5000 ASPNET_ENV=Development",
+    "web-dev": "Microsoft.AspNet.Hosting server=Microsoft.AspNet.Server.WebListener server.urls=http://localhost:5000 ASPNET_ENV=Development",
+    "web-prod": "Microsoft.AspNet.Hosting server=Microsoft.AspNet.Server.WebListener server.urls=http://localhost:5005 ASPNET_ENV=Production",
     "ef": "EntityFramework.Commands"
   },
 

@@ -1360,6 +1360,50 @@
           "lib/dnx451/Microsoft.Dnx.Runtime.Abstractions.dll": {}
         }
       },
+      "Microsoft.Dnx.Watcher/1.0.0-beta8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Dnx.Watcher.Core": "1.0.0-beta8",
+          "Microsoft.Framework.Logging": "1.0.0-beta8",
+          "Microsoft.Framework.Logging.Console": "1.0.0-beta8"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/dnx451/Microsoft.Dnx.Watcher.dll": {}
+        },
+        "runtime": {
+          "lib/dnx451/Microsoft.Dnx.Watcher.dll": {}
+        }
+      },
+      "Microsoft.Dnx.Watcher.Core/1.0.0-beta8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.FileProviders.Abstractions": "1.0.0-beta8",
+          "Microsoft.AspNet.FileProviders.Physical": "1.0.0-beta8",
+          "Microsoft.Dnx.Runtime.Abstractions": "1.0.0-beta8",
+          "Microsoft.Framework.FileSystemGlobbing": "1.0.0-beta8",
+          "Microsoft.Framework.Logging.Abstractions": "1.0.0-beta8"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Collections",
+          "System.Core",
+          "System.Runtime"
+        ],
+        "compile": {
+          "lib/dnx451/Microsoft.Dnx.Watcher.Core.dll": {}
+        },
+        "runtime": {
+          "lib/dnx451/Microsoft.Dnx.Watcher.Core.dll": {}
+        }
+      },
       "Microsoft.Framework.Caching.Abstractions/1.0.0-beta8": {
         "type": "package",
         "dependencies": {
@@ -3261,6 +3305,50 @@
         },
         "runtime": {
           "lib/dnx451/Microsoft.Dnx.Runtime.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.Dnx.Watcher/1.0.0-beta8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Dnx.Watcher.Core": "1.0.0-beta8",
+          "Microsoft.Framework.Logging": "1.0.0-beta8",
+          "Microsoft.Framework.Logging.Console": "1.0.0-beta8"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/dnx451/Microsoft.Dnx.Watcher.dll": {}
+        },
+        "runtime": {
+          "lib/dnx451/Microsoft.Dnx.Watcher.dll": {}
+        }
+      },
+      "Microsoft.Dnx.Watcher.Core/1.0.0-beta8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.FileProviders.Abstractions": "1.0.0-beta8",
+          "Microsoft.AspNet.FileProviders.Physical": "1.0.0-beta8",
+          "Microsoft.Dnx.Runtime.Abstractions": "1.0.0-beta8",
+          "Microsoft.Framework.FileSystemGlobbing": "1.0.0-beta8",
+          "Microsoft.Framework.Logging.Abstractions": "1.0.0-beta8"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Collections",
+          "System.Core",
+          "System.Runtime"
+        ],
+        "compile": {
+          "lib/dnx451/Microsoft.Dnx.Watcher.Core.dll": {}
+        },
+        "runtime": {
+          "lib/dnx451/Microsoft.Dnx.Watcher.Core.dll": {}
         }
       },
       "Microsoft.Framework.Caching.Abstractions/1.0.0-beta8": {
@@ -5166,6 +5254,50 @@
           "lib/dnx451/Microsoft.Dnx.Runtime.Abstractions.dll": {}
         }
       },
+      "Microsoft.Dnx.Watcher/1.0.0-beta8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Dnx.Watcher.Core": "1.0.0-beta8",
+          "Microsoft.Framework.Logging": "1.0.0-beta8",
+          "Microsoft.Framework.Logging.Console": "1.0.0-beta8"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/dnx451/Microsoft.Dnx.Watcher.dll": {}
+        },
+        "runtime": {
+          "lib/dnx451/Microsoft.Dnx.Watcher.dll": {}
+        }
+      },
+      "Microsoft.Dnx.Watcher.Core/1.0.0-beta8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.FileProviders.Abstractions": "1.0.0-beta8",
+          "Microsoft.AspNet.FileProviders.Physical": "1.0.0-beta8",
+          "Microsoft.Dnx.Runtime.Abstractions": "1.0.0-beta8",
+          "Microsoft.Framework.FileSystemGlobbing": "1.0.0-beta8",
+          "Microsoft.Framework.Logging.Abstractions": "1.0.0-beta8"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Collections",
+          "System.Core",
+          "System.Runtime"
+        ],
+        "compile": {
+          "lib/dnx451/Microsoft.Dnx.Watcher.Core.dll": {}
+        },
+        "runtime": {
+          "lib/dnx451/Microsoft.Dnx.Watcher.Core.dll": {}
+        }
+      },
       "Microsoft.Framework.Caching.Abstractions/1.0.0-beta8": {
         "type": "package",
         "dependencies": {
@@ -6739,6 +6871,35 @@
         "Microsoft.Dnx.Runtime.Abstractions.nuspec"
       ]
     },
+    "Microsoft.Dnx.Watcher/1.0.0-beta8": {
+      "type": "package",
+      "sha512": "kZdFZPO/GCzaSZKgsMD4KQg3VTjjTOkR7n+LlfAhW2fXSXupDJ2d64WwmMCQ6VliSf0eP/ui7DVDEUnnwphltg==",
+      "files": [
+        "app/dnx-watch",
+        "app/dnx-watch.cmd",
+        "app/project.json",
+        "lib/dnx451/Microsoft.Dnx.Watcher.dll",
+        "lib/dnx451/Microsoft.Dnx.Watcher.xml",
+        "lib/dnxcore50/Microsoft.Dnx.Watcher.dll",
+        "lib/dnxcore50/Microsoft.Dnx.Watcher.xml",
+        "Microsoft.Dnx.Watcher.1.0.0-beta8.nupkg",
+        "Microsoft.Dnx.Watcher.1.0.0-beta8.nupkg.sha512",
+        "Microsoft.Dnx.Watcher.nuspec"
+      ]
+    },
+    "Microsoft.Dnx.Watcher.Core/1.0.0-beta8": {
+      "type": "package",
+      "sha512": "cjWObJ6xO+Nj1PhGH3A9Fep84zc+awHaXPSQKmcv/DYtnyiT08bjafL2WGUOzL3+Cve/A8oJmFwYGa6uHD6dug==",
+      "files": [
+        "lib/dnx451/Microsoft.Dnx.Watcher.Core.dll",
+        "lib/dnx451/Microsoft.Dnx.Watcher.Core.xml",
+        "lib/dnxcore50/Microsoft.Dnx.Watcher.Core.dll",
+        "lib/dnxcore50/Microsoft.Dnx.Watcher.Core.xml",
+        "Microsoft.Dnx.Watcher.Core.1.0.0-beta8.nupkg",
+        "Microsoft.Dnx.Watcher.Core.1.0.0-beta8.nupkg.sha512",
+        "Microsoft.Dnx.Watcher.Core.nuspec"
+      ]
+    },
     "Microsoft.Framework.Caching.Abstractions/1.0.0-beta8": {
       "type": "package",
       "serviceable": true,
@@ -7381,6 +7542,7 @@
       "Microsoft.AspNet.Server.WebListener >= 1.0.0-beta8",
       "Microsoft.AspNet.StaticFiles >= 1.0.0-beta8",
       "Microsoft.AspNet.Tooling.Razor >= 1.0.0-beta8",
+      "Microsoft.Dnx.Watcher >= 1.0.0-beta8",
       "Microsoft.Framework.Configuration.Abstractions >= 1.0.0-beta8",
       "Microsoft.Framework.Configuration.Json >= 1.0.0-beta8",
       "Microsoft.Framework.Configuration.UserSecrets >= 1.0.0-beta8",
