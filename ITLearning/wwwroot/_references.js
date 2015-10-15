@@ -5,4 +5,3 @@
 /// <reference path="src/js/landing/jquery.scrolly.min.js" />
 /// <reference path="src/js/landing/main.js" />
 /// <reference path="src/js/landing/util.js" />
-/// <reference path="src/js/minigrid/minigrid-home-ui.js" />
