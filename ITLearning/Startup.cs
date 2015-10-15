@@ -22,7 +22,8 @@ namespace ITLearning.Frontend.Web
     {
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
-            var builder = new ConfigurationBuilder(appEnv.ApplicationBasePath)
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(appEnv.ApplicationBasePath)
                 .AddJsonFile("config.json");
 
             builder.AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
