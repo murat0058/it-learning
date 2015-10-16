@@ -15,6 +15,7 @@ using ITLearning.Frontend.Web.Common.Mappings;
 using ITLearning.Frontend.Web.Core.Identity.Extensions;
 using Microsoft.AspNet.Identity;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
+using ITLearning.Frontend.Web.Core.Identity.Common;
 
 namespace ITLearning.Frontend.Web
 {
@@ -40,6 +41,8 @@ namespace ITLearning.Frontend.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IPasswordHasher<User>, CustomPasswordHasher>();
+
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<AppDbContext>(options =>
