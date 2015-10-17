@@ -80,7 +80,6 @@ namespace ITLearning.Frontend.Web
             app.UseIdentity();
             app.EnsureRolesCreated();
 
-            //TODO: Po co?
             app.UseCookieAuthentication((p) => new CookieAuthenticationOptions
             {
                 LoginPath = "/Account/Login"
