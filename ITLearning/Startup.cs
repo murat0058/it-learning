@@ -17,6 +17,7 @@ using Microsoft.AspNet.Identity;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
 using ITLearning.Frontend.Web.Core.Identity.Common;
 
+
 namespace ITLearning.Frontend.Web
 {
     public class Startup
@@ -82,6 +83,8 @@ namespace ITLearning.Frontend.Web
             app.UseStaticFiles();
             app.UseIdentity();
             app.EnsureRolesCreated();
+
+            app.UseIISPlatformHandler();
 
             //TODO: Po co?
             app.UseCookieAuthentication((p) => new CookieAuthenticationOptions
