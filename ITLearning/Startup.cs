@@ -65,26 +65,20 @@ namespace ITLearning.Frontend.Web
         {
             MappingsProvider.ConfigureMappings();
 
+            app.UseIISPlatformHandler();
+            app.UseDeveloperExceptionPage();
+
             if (env.IsDevelopment())
             {
                 loggerFactory.MinimumLevel = LogLevel.Critical;
                 loggerFactory.AddConsole();
 
-                app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-
-                //TODO Logowanie na produkcji
             }
 
             app.UseStaticFiles();
             app.UseIdentity();
             app.EnsureRolesCreated();
-
-            app.UseIISPlatformHandler();
 
             //TODO: Po co?
             app.UseCookieAuthentication((p) => new CookieAuthenticationOptions
