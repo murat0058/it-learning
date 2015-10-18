@@ -13,6 +13,7 @@
     "Microsoft.AspNet.IISPlatformHandler": "1.0.0-beta8",
     "Microsoft.AspNet.Mvc": "6.0.0-beta8",
     "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta8",
+    "Microsoft.AspNet.Server.Kestrel": "1.0.0-beta8",
     "Microsoft.AspNet.Server.WebListener": "1.0.0-beta8",
     "Microsoft.AspNet.StaticFiles": "1.0.0-beta8",
     "Microsoft.AspNet.Tooling.Razor": "1.0.0-beta8",
@@ -26,8 +27,7 @@
   },
 
   "commands": {
-    "web-dev": "Microsoft.AspNet.Hosting server=Microsoft.AspNet.Server.WebListener server.urls=http://localhost:5000 ASPNET_ENV=Development",
-    "web-prod": "Microsoft.AspNet.Hosting server=Microsoft.AspNet.Server.WebListener server.urls=http://localhost:5005 ASPNET_ENV=Production",
+    "web": "Microsoft.AspNet.Hosting server=Microsoft.AspNet.Server.Kestrel server.urls=http://localhost:5000",
     "ef": "EntityFramework.Commands"
   },
 
@@ -53,6 +53,6 @@
     "**.vspscc"
   ],
   "scripts": {
-    "prepublish": [ "npm install", "bower install" ]
+    "prepublish": [ "npm install", "bower install", "dnx ef database update" ]
   }
 }

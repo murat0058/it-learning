@@ -9,6 +9,7 @@ namespace ITLearning.Frontend.Web.DAL
     {
         public DbSet<GitRepositoryEntity> GitRepositories { get; set; }
         public DbSet<GitBranchEntity> GitBranches { get; set; }
+        public DbSet<ErrorLogs> ErrorLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -33,6 +34,11 @@ namespace ITLearning.Frontend.Web.DAL
                 .Property(p => p.Name)
                 .IsRequired();
 
+            #endregion
+
+            #region ErrorLogs
+            builder.Entity<ErrorLogs>()
+                .HasKey(p => p.Id);
             #endregion
         }
     }
