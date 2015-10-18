@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ITLearning.Frontend.Web.Core.Logger
 {
-    public class DatabaseLoggerProvider
+    public class DatabaseLoggerProvider : ILoggerProvider
     {
         private DatabaseLogger _logger = new DatabaseLogger();
 

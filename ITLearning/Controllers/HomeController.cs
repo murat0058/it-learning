@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Mvc;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
 using ITLearning.Frontend.Web.Core.Identity.Enums;
+using System;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -9,6 +10,7 @@ namespace ITLearning.Frontend.Web.Controllers
     {
         public IActionResult Index()
         {
+            throw new ArgumentException("test");
             return View();
         }
     }
