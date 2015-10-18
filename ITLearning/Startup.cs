@@ -16,123 +16,67 @@ using ITLearning.Frontend.Web.Core.Identity.Extensions;
 using Microsoft.AspNet.Identity;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
 using ITLearning.Frontend.Web.Core.Identity.Common;
-using System;
-using Microsoft.AspNet.Http;
 
 namespace ITLearning.Frontend.Web
 {
     public class Startup
     {
-        private string _initialError = "";
+        public IConfiguration Configuration { get; set; }
 
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
-            try
-            {
-            }
-            catch (Exception e)
-            {
-                _initialError = e.ToString();
-            }
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(appEnv.ApplicationBasePath)
+                .AddJsonFile("config.json");
+
+            builder.AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
+
+            builder.AddEnvironmentVariables();
+
+            Configuration = builder.Build();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerfactory)
+        public void ConfigureServices(IServiceCollection services)
         {
-            if (_initialError != "")
-            {
-                app.Run(async context =>
-                {
-                    context.Response.ContentType = "text/plain";
-                    await context.Response.WriteAsync(_initialError);
-                });
-                return;
-            }
+            ServicesProvider.RegisterServices(services);
 
-            try
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<AppDbContext>(options =>
+                    options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+
+            services.AddIdentity<User, IdentityRole<int>>()
+                .AddEntityFrameworkStores<AppDbContext, int>()
+                .AddDefaultTokenProviders();
+
+            services.AddMvc().AddMvcOptions(options =>
             {
-            }
-            catch (Exception e)
-            {
-                app.Run(async context =>
-                {
-                    context.Response.ContentType = "text/plain";
-                    await context.Response.WriteAsync(e.ToString());
-                });
-                return;
-            }
+                options.Filters.Add(new AuthorizeClaimAttribute());
+            });
         }
 
-        //public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
-        //{
-        //    var builder = new ConfigurationBuilder()
-        //        .SetBasePath(appEnv.ApplicationBasePath)
-        //        .AddJsonFile("config.json");
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            MappingsProvider.ConfigureMappings();
 
-        //    builder.AddEnvironmentVariables();
+            app.UseIISPlatformHandler();
+            app.UseDeveloperExceptionPage();
 
-        //    builder.AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
+            app.UseStaticFiles();
+            app.UseIdentity();
+            app.EnsureRolesCreated();
 
-        //    if (env.IsDevelopment())
-        //    {
-        //        builder.AddUserSecrets();
-        //    }
-        //    Configuration = builder.Build();
-        //}
+            app.UseCookieAuthentication((p) => new CookieAuthenticationOptions
+            {
+                LoginPath = "/Account/Login"
+            });
 
-        //public IConfiguration Configuration { get; set; }
-
-        //public void ConfigureServices(IServiceCollection services)
-        //{
-        //    //services.AddSingleton<IPasswordHasher<User>, CustomPasswordHasher>();
-
-        //    //services.AddEntityFramework()
-        //    //    .AddSqlServer()
-        //    //    .AddDbContext<AppDbContext>(options =>
-        //    //        options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
-
-        //    //services.AddIdentity<User, IdentityRole<int>>()
-        //    //    .AddEntityFrameworkStores<AppDbContext, int>()
-        //    //    .AddDefaultTokenProviders();
-
-        //    services.AddMvc().AddMvcOptions(options =>
-        //    {
-        //        options.Filters.Add(new AuthorizeClaimAttribute());
-        //    });
-
-        //    //ServicesProvider.RegisterServices(services);
-        //}
-
-        //public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        //{
-        //    //MappingsProvider.ConfigureMappings();
-
-        //    //app.UseIISPlatformHandler();
-        //    app.UseDeveloperExceptionPage();
-
-        //    //if (env.IsDevelopment())
-        //    //{
-        //    //    loggerFactory.MinimumLevel = LogLevel.Critical;
-        //    //    loggerFactory.AddConsole();
-
-        //    //    app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
-        //    //}
-
-
-        //    app.UseStaticFiles();
-        //    //app.UseIdentity();
-        //    //app.EnsureRolesCreated();
-
-        //    //app.UseCookieAuthentication((p) => new CookieAuthenticationOptions
-        //    //{
-        //    //    LoginPath = "/Account/Login"
-        //    //});
-
-        //    app.UseMvc(routes =>
-        //    {
-        //        routes.MapRoute(
-        //            name: "default",
-        //            template: "{controller=Landing}/{action=Index}/{id?}");
-        //    });
-        //}
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Landing}/{action=Index}/{id?}");
+            });
+        }
     }
 }

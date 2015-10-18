@@ -10,7 +10,6 @@ namespace ITLearning.Frontend.Web.Controllers
     {
         public IActionResult Index()
         {
-            throw new ArgumentException("test");
             return View();
         }
     }
