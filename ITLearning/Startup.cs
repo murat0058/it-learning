@@ -16,7 +16,7 @@ using ITLearning.Frontend.Web.Core.Identity.Extensions;
 using Microsoft.AspNet.Identity;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
 using ITLearning.Frontend.Web.Core.Identity.Common;
-
+using ITLearning.Frontend.Web.Core.Logger;
 
 namespace ITLearning.Frontend.Web
 {
@@ -63,18 +63,21 @@ namespace ITLearning.Frontend.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddProvider(new DatabaseLoggerProvider());
+
             MappingsProvider.ConfigureMappings();
 
             app.UseIISPlatformHandler();
-            app.UseDeveloperExceptionPage();
 
-            if (env.IsDevelopment())
-            {
-                loggerFactory.MinimumLevel = LogLevel.Critical;
-                loggerFactory.AddConsole();
+            //app.UseDeveloperExceptionPage();
+            //if (env.IsDevelopment())
+            //{
+            //    loggerFactory.MinimumLevel = LogLevel.Critical;
+            //    loggerFactory.AddConsole();
 
-                app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
-            }
+            //    app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
+            //}
+
 
             app.UseStaticFiles();
             app.UseIdentity();
