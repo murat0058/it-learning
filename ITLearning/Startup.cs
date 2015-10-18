@@ -27,13 +27,14 @@ namespace ITLearning.Frontend.Web
                 .SetBasePath(appEnv.ApplicationBasePath)
                 .AddJsonFile("config.json");
 
+            builder.AddEnvironmentVariables();
+
             builder.AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
 
             if (env.IsDevelopment())
             {
                 builder.AddUserSecrets();
             }
-            builder.AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
@@ -41,30 +42,30 @@ namespace ITLearning.Frontend.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IPasswordHasher<User>, CustomPasswordHasher>();
+            //services.AddSingleton<IPasswordHasher<User>, CustomPasswordHasher>();
 
-            services.AddEntityFramework()
-                .AddSqlServer()
-                .AddDbContext<AppDbContext>(options =>
-                    options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+            //services.AddEntityFramework()
+            //    .AddSqlServer()
+            //    .AddDbContext<AppDbContext>(options =>
+            //        options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
-            services.AddIdentity<User, IdentityRole<int>>()
-                .AddEntityFrameworkStores<AppDbContext, int>()
-                .AddDefaultTokenProviders();
+            //services.AddIdentity<User, IdentityRole<int>>()
+            //    .AddEntityFrameworkStores<AppDbContext, int>()
+            //    .AddDefaultTokenProviders();
 
             services.AddMvc().AddMvcOptions(options =>
             {
                 options.Filters.Add(new AuthorizeClaimAttribute());
             });
 
-            ServicesProvider.RegisterServices(services);
+            //ServicesProvider.RegisterServices(services);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            MappingsProvider.ConfigureMappings();
+            //MappingsProvider.ConfigureMappings();
 
-            app.UseIISPlatformHandler();
+            //app.UseIISPlatformHandler();
             app.UseDeveloperExceptionPage();
 
             //if (env.IsDevelopment())
@@ -77,13 +78,13 @@ namespace ITLearning.Frontend.Web
 
 
             app.UseStaticFiles();
-            app.UseIdentity();
-            app.EnsureRolesCreated();
+            //app.UseIdentity();
+            //app.EnsureRolesCreated();
 
-            app.UseCookieAuthentication((p) => new CookieAuthenticationOptions
-            {
-                LoginPath = "/Account/Login"
-            });
+            //app.UseCookieAuthentication((p) => new CookieAuthenticationOptions
+            //{
+            //    LoginPath = "/Account/Login"
+            //});
 
             app.UseMvc(routes =>
             {
