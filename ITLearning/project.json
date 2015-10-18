@@ -54,6 +54,6 @@
     "**.vspscc"
   ],
   "scripts": {
-    "prepublish": [ "npm install", "bower install", "dnx ef database update" ]
+    "prepublish": [ "npm install", "bower install"]
   }
 }
