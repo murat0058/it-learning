@@ -8,9 +8,10 @@ using ITLearning.Frontend.Web.DAL;
 namespace ITLearning.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20151019153404_RebuildedRepositoriesAndBranchesModel")]
+    partial class RebuildedRepositoriesAndBranchesModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .Annotation("ProductVersion", "7.0.0-beta8-15964")
@@ -113,25 +114,12 @@ namespace ITLearning.Migrations
 
                     b.Property<bool>("IsBare");
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<bool>("IsPublic");
 
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<string>("SourceRepositoryName");
-
                     b.HasKey("Id");
-                });
-
-            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.GitRepositoryUser", b =>
-                {
-                    b.Property<int>("GitRepositoryId");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("GitRepositoryId", "UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRole<int>", b =>
@@ -219,17 +207,6 @@ namespace ITLearning.Migrations
                     b.HasOne("ITLearning.Frontend.Web.DAL.Model.GitRepository")
                         .WithMany()
                         .ForeignKey("RepositoryId");
-                });
-
-            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.GitRepositoryUser", b =>
-                {
-                    b.HasOne("ITLearning.Frontend.Web.DAL.Model.GitRepository")
-                        .WithMany()
-                        .ForeignKey("GitRepositoryId");
-
-                    b.HasOne("ITLearning.Frontend.Web.Core.Identity.Models.User")
-                        .WithMany()
-                        .ForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRoleClaim<int>", b =>

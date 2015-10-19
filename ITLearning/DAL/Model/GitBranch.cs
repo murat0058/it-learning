@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ITLearning.Frontend.Web.DAL.Model
 {
-    public class GitBranchEntity
+    public class GitBranch
     {
         public int Id { get; set; }
 
@@ -14,6 +14,6 @@ namespace ITLearning.Frontend.Web.DAL.Model
         public bool IsVisible { get; set; }
 
         public int RepositoryId { get; set; }
-        public GitRepositoryEntity Repository { get; set; }
+        public GitRepository Repository { get; set; }
     }
 }
