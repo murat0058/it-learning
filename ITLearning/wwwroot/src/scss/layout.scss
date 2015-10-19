@@ -6,6 +6,13 @@
 /* Medium devices (desktops, 992px and up) */
 /* Large devices (large desktops, 1200px and up) */
 
+$color-default: #fafafa;
+$color-primary: #018ee0;
+$color-danger: #ed4933;
+$color-success: #21b2a6;
+$color-warning: #ff8d00;
+$color-dark: #2e3842;
+
 $custom-font: "Open Sans", Helvetica, sans-serif;
 
 .main-content {
@@ -45,7 +52,6 @@ $custom-font: "Open Sans", Helvetica, sans-serif;
 }
 
 .user-profile-container {
-
     .user-profile-section {
         border-bottom: 1px solid #d8d8d8;
         box-shadow: 0px 12px 9px -12px rgba(0, 0, 0, 0.2);
@@ -55,6 +61,7 @@ $custom-font: "Open Sans", Helvetica, sans-serif;
     }
 
     .user-data {
+        z-index: 999;
         text-align: center;
 
         .user-photo {
@@ -72,6 +79,94 @@ $custom-font: "Open Sans", Helvetica, sans-serif;
             font-size: 18px;
         }
     }
+
+    .user-achievements {
+        margin: 0 8px;
+
+        .user-achievements-content {
+            width: 100%;
+            background-color: $color-primary;
+            border-bottom-right-radius: 5px;
+            position: relative;
+
+            .title {
+                padding: 5px;
+                margin: 0;
+                color: white;
+                font-style: $custom-font;
+                font-weight: 600;
+                font-size: 10px;
+            }
+
+            .content {
+                height: 0px;
+            }
+        }
+
+        ul.user-achievements-tabs {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+
+            li.tab {
+                $on-hover-movement: 5px;
+
+                background-color: $color-default;
+                display: inline-block;
+                color: white;
+                padding: 5px 8px;
+                border-bottom-left-radius: 3px;
+                border-bottom-right-radius: 3px;
+                box-shadow: inset 0px 2px 5px -1px rgba(0,0,0,0.3);
+                -moz-transition: padding 0.2s ease-in-out;
+                -o-transition: padding 0.2s ease-in-out;
+                -webkit-transition: padding 0.2s ease-in-out;
+                transition: padding 0.2s ease-in-out;
+
+                &:hover {
+                    padding-bottom: (8px + $on-hover-movement);
+                    cursor: pointer;
+
+                    i {
+                        top: (0px + $on-hover-movement);
+                    }
+                }
+
+                i {
+                    -moz-transition: top 0.2s ease-in;
+                    -o-transition: top 0.2s ease-in;
+                    -webkit-transition: top 0.2s ease-in;
+                    transition: top 0.2s ease-in;
+                    position: relative;
+                    top: 0;
+                }
+            }
+
+            li.active {
+                box-shadow: none;
+            }
+
+            li.tab-primary {
+                background-color: $color-primary;
+            }
+
+            li.tab-warning {
+                background-color: $color-warning;
+            }
+
+            li.tab-danger {
+                background-color: $color-danger;
+            }
+
+            li.tab-success {
+                background-color: $color-success;
+            }
+
+            li.tab-dark {
+                background-color: $color-dark;
+            }
+        }
+    }
 }
 
 .top-items-container {
@@ -84,8 +179,8 @@ $custom-font: "Open Sans", Helvetica, sans-serif;
             width: 100%;
             height: 200px;
 
-            &:hover{
-                .text{
+            &:hover {
+                .text {
                     text-decoration: underline;
                 }
             }
@@ -107,7 +202,7 @@ $custom-font: "Open Sans", Helvetica, sans-serif;
                     border-bottom-left-radius: 3px;
                     border-bottom-right-radius: 3px;
 
-                    .text{
+                    .text {
                         font-family: $custom-font;
                         font-size: 14px;
                         margin: 0;

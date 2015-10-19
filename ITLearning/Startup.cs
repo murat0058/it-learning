@@ -15,11 +15,14 @@ using ITLearning.Frontend.Web.Common.Mappings;
 using ITLearning.Frontend.Web.Core.Identity.Extensions;
 using Microsoft.AspNet.Identity;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
+using ITLearning.Frontend.Web.Core.Identity.Common;
 
 namespace ITLearning.Frontend.Web
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; set; }
+
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
             var builder = new ConfigurationBuilder()
@@ -28,18 +31,15 @@ namespace ITLearning.Frontend.Web
 
             builder.AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
 
-            if (env.IsDevelopment())
-            {
-                builder.AddUserSecrets();
-            }
             builder.AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
 
-        public IConfiguration Configuration { get; set; }
-
         public void ConfigureServices(IServiceCollection services)
         {
+            ServicesProvider.RegisterServices(services);
+
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<AppDbContext>(options =>
@@ -53,34 +53,19 @@ namespace ITLearning.Frontend.Web
             {
                 options.Filters.Add(new AuthorizeClaimAttribute());
             });
-
-            ServicesProvider.RegisterServices(services);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             MappingsProvider.ConfigureMappings();
 
-            if (env.IsDevelopment())
-            {
-                loggerFactory.MinimumLevel = LogLevel.Critical;
-                loggerFactory.AddConsole();
-
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-
-                //TODO Logowanie na produkcji
-            }
+            app.UseIISPlatformHandler();
+            app.UseDeveloperExceptionPage();
 
             app.UseStaticFiles();
             app.UseIdentity();
             app.EnsureRolesCreated();
 
-            //TODO: Po co?
             app.UseCookieAuthentication((p) => new CookieAuthenticationOptions
             {
                 LoginPath = "/Account/Login"

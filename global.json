@@ -1,7 +1,7 @@
 {
     "sdk": {
-      "version": "1.0.0-rc1-15828",
+      "version": "1.0.0-beta8",
         "runtime": "clr",
-        "architecture": "x86"
+        "architecture": "x64"
     }
 }

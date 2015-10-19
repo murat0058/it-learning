@@ -7,12 +7,19 @@
         "ASPNET_ENV": "Development"
       }
     },
-    "web": {
-      "commandName": "web",
+    "web-dev": {
+      "commandName": "web-dev",
       "environmentVariables": {
         "ASPNET_ENV": "Development"
       },
-      "sdkVersion": "dnx-clr-win-x86.1.0.0-rc1-15828"
+      "sdkVersion": "dnx-clr-win-x64.1.0.0-beta8"
+    },
+    "web-prod": {
+      "commandName": "web-prod",
+      "environmentVariables": {
+        "ASPNET_ENV": "Production"
+      },
+      "sdkVersion": "dnx-clr-win-x64.1.0.0-beta8"
     }
   }
 }
