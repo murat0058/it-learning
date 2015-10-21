@@ -193,3 +193,27 @@ $custom-border-radius: 3px;
         background-color: $color-dark;
     }
 }
+
+span.label-primary{
+    background-color: $color-primary;
+}
+
+span.label-default{
+    background-color: $color-default;
+}
+
+span.label-dark{
+    background-color: $color-dark;
+}
+
+span.label-success{
+    background-color: $color-success;
+}
+
+span.label-warning{
+    background-color: $color-warning;
+}
+
+span.label-danger{
+    background-color: $color-danger;
+}

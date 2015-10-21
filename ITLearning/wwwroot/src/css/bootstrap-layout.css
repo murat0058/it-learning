@@ -172,3 +172,21 @@
   border-color: #2e3842; }
   .panel-dark .panel-heading {
     background-color: #2e3842; }
+
+span.label-primary {
+  background-color: #018ee0; }
+
+span.label-default {
+  background-color: #fafafa; }
+
+span.label-dark {
+  background-color: #2e3842; }
+
+span.label-success {
+  background-color: #21b2a6; }
+
+span.label-warning {
+  background-color: #ff8d00; }
+
+span.label-danger {
+  background-color: #ed4933; }

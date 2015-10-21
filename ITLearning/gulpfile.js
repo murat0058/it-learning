@@ -1,4 +1,5 @@
-﻿/* =========== Modules =========== */
+/// <binding ProjectOpened='scss:watch' />
+/* =========== Modules =========== */
 
 var project = require('./project.json'),
     gulp = require('gulp'),

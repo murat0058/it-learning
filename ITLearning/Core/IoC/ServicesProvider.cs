@@ -14,7 +14,6 @@ namespace ITLearning.Frontend.Web.Core.IoC
         {
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<IPermissionsProvider, PermissionsProvider>();
-
             services.AddSingleton<IPasswordHasher<User>, CustomPasswordHasher>();
         }
     }

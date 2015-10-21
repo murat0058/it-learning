@@ -6,7 +6,7 @@
                     <section class="user-data user-profile-section">
                         <div class="user-photo" style="background-image: url('http://opportunitylives.com/wp-content/uploads/2015/07/steve-jobs-young.png')"></div>
                         @{
-                            //TODO: Po pierwszym zalogowaniu powinien tutaj być login
+//TODO: Po pierwszym zalogowaniu powinien tutaj być login
                         }
                         <p class="user-name">Tomasz Kowalski</p>
                     </section>
@@ -17,19 +17,19 @@
                             </div>
                         </div>
                         <ul class="user-achievements-tabs">
-                            <li class="tab tab-primary active" data-tab="tab-primary">
+                            <li class="tab tab-primary active" data-tab="tab-primary" data-toggle="tooltip" data-placement="bottom" title="Edytuj profil">
                                 <i class="fa fa-user"></i>
                             </li>
-                            <li class="tab tab-warning" data-tab="tab-warning">
-                                <i class="fa fa-star"></i>
-                            </li>
-                            <li class="tab tab-success" data-tab="tab-success">
+                            <li class="tab tab-success" data-tab="tab-success" data-toggle="tooltip" data-placement="bottom" title="Wykonane zadania">
                                 <i class="fa fa-list"></i>
                             </li>
-                            <li class="tab tab-danger" data-tab="tab-danger">
+                            <li class="tab tab-warning" data-tab="tab-warning" data-toggle="tooltip" data-placement="bottom" title="Twoje wyniki">
+                                <i class="fa fa-star"></i>
+                            </li>
+                            <li class="tab tab-danger" data-tab="tab-danger" data-toggle="tooltip" data-placement="bottom" title="Zadania do oceny">
                                 <i class="fa fa-pencil"></i>
                             </li>
-                            <li class="tab tab-dark" data-tab="tab-dark">
+                            <li class="tab tab-dark" data-tab="tab-dark" data-toggle="tooltip" data-placement="bottom" title="Ustawienia strony głównej">
                                 <i class="fa fa-cog"></i>
                             </li>
                         </ul>
@@ -37,45 +37,150 @@
                 </section>
             </div>
             <div class="col-sm-9">
-                <section class="top-items-container">
-                    <div class="row top-items-row">
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <a href="#" class="top-item">
-                                <div class="top-item-content" style="background-image: url('/common/images/landing/pic03.jpg')">
-                                    <div class="top-item-description">
-                                        <p class="text">Spotkanie koła Reset 10.03.2015</p>
+                <h4 class="section-header section-header-success">IT Newsy</h4>
+                <section class="section-container news-container">
+                    <div class="row news-row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <a href="#" class="news-link">
+                                <article class="news news-big" style="background-image: url('/common/images/mocks/newsy/imaginecup.PNG')">
+                                    <div class="news-social-wrapper">
+                                        <ul>
+                                            <li><div class="icon-wrapper" title="Polubiono 2 razy"><i class="fa fa-thumbs-o-up"></i> 2</div></li>
+                                            <li><div class="icon-wrapper" title="Udostępniono 8 razy"><i class="fa fa-share"></i> 8</div></li>
+                                        </ul>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-8 col-sm-6 col-xs-12">
-                            <a href="#" class="top-item">
-                                <div class="top-item-content" style="background-image: url('/common/images/landing/banner.jpg')">
-                                    <div class="top-item-description">
-                                        <p class="text">Spotkanie koła Reset 10.03.2015</p>
+                                    <div class="news-description-wrapper">
+                                        <p class="news-text">Imagine Cup 2015 - Relacja już jest!</p>
                                     </div>
-                                </div>
+                                </article>
                             </a>
                         </div>
                     </div>
-                    <div class="row top-items-row">
-                        <div class="col-md-8 col-sm-6 col-xs-12">
-                            <a href="#" class="top-item">
-                                <div class="top-item-content" style="background-image: url('/common/images/landing/pic01.jpg')">
-                                    <div class="top-item-description">
-                                        <p class="text">Spotkanie koła Reset 10.03.2015</p>
+                    <div class="row news-row">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <a href="#" class="news-link">
+                                <article class="news news-small" style="background-image: url('/common/images/mocks/newsy/itad.jpg')">
+                                    <div class="news-social-wrapper">
+                                        <ul>
+                                            <li><div class="icon-wrapper" title="Polubiono 6 razy"><i class="fa fa-thumbs-o-up"></i> 6</div></li>
+                                            <li><div class="icon-wrapper" title="Udostępniono 3 razy"><i class="fa fa-share"></i> 3</div></li>
+                                        </ul>
                                     </div>
-                                </div>
+                                    <div class="news-description-wrapper">
+                                        <p class="news-text">IT Academic Day 2015</p>
+                                    </div>
+                                </article>
                             </a>
                         </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <a href="#" class="top-item">
-                                <div class="top-item-content" style="background-image: url('/common/images/landing/pic02.jpg')">
-                                    <div class="top-item-description">
-                                        <p class="text">Spotkanie koła Reset 10.03.2015</p>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <a href="#" class="news-link">
+                                <article class="news news-small" style="background-image: url('/common/images/mocks/newsy/wbmii.PNG')">
+                                    <div class="news-social-wrapper">
+                                        <ul>
+                                            <li><div class="icon-wrapper" title="Polubiono 9 razy"><i class="fa fa-thumbs-o-up"></i> 9</div></li>
+                                            <li><div class="icon-wrapper" title="Udostępniono 2 razy"><i class="fa fa-share"></i> 2</div></li>
+                                        </ul>
+                                    </div>
+                                    <div class="news-description-wrapper">
+                                        <p class="news-text">Najnowsze informacje z WBMiI</p>
+                                    </div>
+                                </article>
+                            </a>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <a href="#" class="news-link">
+                                <article class="news news-small" style="background-image: url('/common/images/landing/pic02.jpg')">
+                                    <div class="news-social-wrapper">
+                                        <ul>
+                                            <li><div class="icon-wrapper" title="Polubiono 11 razy"><i class="fa fa-thumbs-o-up"></i> 11</div></li>
+                                            <li><div class="icon-wrapper" title="Udostępniono 9 razy"><i class="fa fa-share"></i> 9</div></li>
+                                        </ul>
+                                    </div>
+                                    <div class="news-description-wrapper">
+                                        <p class="news-text">IT Learning startuje!</p>
+                                    </div>
+                                </article>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+                <h4 class="section-header section-header-primary">IT Nauka</h4>
+                <section class="section-container learning-container">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="learning-hub">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5 class="learning-hub-title">NAJNOWSZE ZADANIA</h5>
+                                        <div class="task-list">
+                                            <div class="task">
+                                                <div class="task-title">
+                                                    <span class="label label-primary">C#</span>
+                                                    <a href="#">Wprowadzenie do języka C# - cz. 1</a>
+                                                </div>
+                                                <div class="task-group-info">
+                                                    <a href="#">Grupa .NET - ATH</a>
+                                                </div>
+                                                <div class="task-status task-completed" title="Zadanie wykonane" data-toggle="tooltip" data-placement="left">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                            </div>
+                                            <div class="task">
+                                                <div class="task-title">
+                                                    <span class="label label-danger">JAVA</span>
+                                                    <a href="#">JAVA - kolekcje - cz. 1</a>
+                                                </div>
+                                                <div class="task-group-info">
+                                                    <a href="#">Grupa .NET - ATH</a>
+                                                </div>
+                                                <div class="task-status task-notcompleted" title="Zadanie niewykonane" data-toggle="tooltip" data-placement="left">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                            </div>
+                                            <div class="task">
+                                                <div class="task-title">
+                                                    <span class="label label-success">C++</span>
+                                                    <a href="#">Wskaźniki w języku C++ - cz. 4</a>
+                                                </div>
+                                                <div class="task-group-info">
+                                                    <a href="#">Grupa .NET - ATH</a>
+                                                </div>
+                                                <div class="task-status task-completed" title="Zadanie wykonane" data-toggle="tooltip" data-placement="left">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                            </div>
+                                            <div class="task">
+                                                <div class="task-title">
+                                                    <span class="label label-primary">C#</span>
+                                                    <a href="#">Wprowadzenie do języka C# - cz. 3</a>
+                                                </div>
+                                                <div class="task-group-info">
+                                                    <a href="#">Grupa .NET - ATH</a>
+                                                </div>
+                                                <div class="task-status task-notcompleted" title="Zadanie niewykonane" data-toggle="tooltip" data-placement="left">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                            </div>
+                                            <div class="task">
+                                                <div class="task-title">
+                                                    <span class="label label-warning">JS</span>
+                                                    <a href="#">Prototypy - cz. 5</a>
+                                                </div>
+                                                <div class="task-group-info">
+                                                    <a href="#">Frontend - public</a>
+                                                </div>
+                                                <div class="task-status task-notcompleted" title="Zadanie niewykonane" data-toggle="tooltip" data-placement="left">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="btn btn-primary pull-right"><i class="fa fa-th-list"></i> Zobacz wszystkie</a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5 class="learning-hub-title">TWOJE GRUPY</h5>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </section>
