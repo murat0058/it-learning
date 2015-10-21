@@ -7,8 +7,9 @@ namespace ITLearning.Frontend.Web.DAL
 {
     public class AppDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
-        public DbSet<GitRepositoryEntity> GitRepositories { get; set; }
-        public DbSet<GitBranchEntity> GitBranches { get; set; }
+        public DbSet<GitRepository> GitRepositories { get; set; }
+        public DbSet<GitBranch> GitBranches { get; set; }
+        public DbSet<GitRepositoryUser> GitRepositoryUsers { get; set; }
         public DbSet<ErrorLogs> ErrorLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -16,24 +17,24 @@ namespace ITLearning.Frontend.Web.DAL
             base.OnModelCreating(builder);
 
             #region GitRepositoryEntity
-
-            builder.Entity<GitRepositoryEntity>()
+            builder.Entity<GitRepository>()
                 .HasKey(p => p.Id);
-            builder.Entity<GitRepositoryEntity>()
+            builder.Entity<GitRepository>()
                 .Property(p => p.Name)
                 .IsRequired();
-
             #endregion
 
             #region GitBranchEntity
-
-            builder.Entity<GitBranchEntity>()
+            builder.Entity<GitBranch>()
                 .HasKey(p => p.Id);
-
-            builder.Entity<GitBranchEntity>()
+            builder.Entity<GitBranch>()
                 .Property(p => p.Name)
                 .IsRequired();
+            #endregion
 
+            #region GitRepositoryUser
+            builder.Entity<GitRepositoryUser>()
+                .HasKey(x => new { x.GitRepositoryId, x.UserId });
             #endregion
 
             #region ErrorLogs

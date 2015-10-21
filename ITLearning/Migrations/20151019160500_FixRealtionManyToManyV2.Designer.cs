@@ -8,9 +8,10 @@ using ITLearning.Frontend.Web.DAL;
 namespace ITLearning.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20151019160500_FixRealtionManyToManyV2")]
+    partial class FixRealtionManyToManyV2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .Annotation("ProductVersion", "7.0.0-beta8-15964")
@@ -113,14 +114,10 @@ namespace ITLearning.Migrations
 
                     b.Property<bool>("IsBare");
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<bool>("IsPublic");
 
                     b.Property<string>("Name")
                         .IsRequired();
-
-                    b.Property<string>("SourceRepositoryName");
 
                     b.HasKey("Id");
                 });

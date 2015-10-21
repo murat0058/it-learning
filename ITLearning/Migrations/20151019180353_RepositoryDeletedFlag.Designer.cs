@@ -8,9 +8,10 @@ using ITLearning.Frontend.Web.DAL;
 namespace ITLearning.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20151019180353_RepositoryDeletedFlag")]
+    partial class RepositoryDeletedFlag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .Annotation("ProductVersion", "7.0.0-beta8-15964")
@@ -119,8 +120,6 @@ namespace ITLearning.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired();
-
-                    b.Property<string>("SourceRepositoryName");
 
                     b.HasKey("Id");
                 });
