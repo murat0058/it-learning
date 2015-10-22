@@ -178,7 +178,7 @@
   margin-bottom: 20px; }
   .news-container .news-row .news-link .news {
     position: relative;
-    box-shadow: 0px 12px 9px -12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 11px 9px -10px rgba(0, 0, 0, 0.4);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover; }
@@ -266,7 +266,7 @@
       width: 100%;
       color: white;
       background-color: #2e3842;
-      box-shadow: 0 2px 3px -3px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 11px 9px -10px rgba(0, 0, 0, 0.4);
       margin-bottom: 20px;
       position: relative;
       -webkit-transition: background-color 500ms ease;
@@ -324,3 +324,46 @@
         background-color: #47FF5E; }
       .learning-container .learning-hub .task-list .task .task-status.task-notcompleted {
         background-color: #191e24; }
+  .learning-container .learning-hub .group-container {
+    position: relative;
+    width: 100%;
+    height: 33px;
+    margin-bottom: 15px;
+    box-shadow: 0 11px 9px -10px rgba(0, 0, 0, 0.4);
+    background-color: #018ee0;
+    -webkit-transition: background-color 300ms ease;
+    -moz-transition: background-color 300ms ease;
+    -o-transition: background-color 300ms ease;
+    transition: background-color 300ms ease; }
+    .learning-container .learning-hub .group-container:hover {
+      background-color: #2e3842; }
+    .learning-container .learning-hub .group-container a {
+      color: #fafafa; }
+      .learning-container .learning-hub .group-container a:hover {
+        text-decoration: none; }
+      .learning-container .learning-hub .group-container a .title {
+        position: relative;
+        top: 3px;
+        font-weight: 600;
+        margin: 0 5px;
+        padding: 3px;
+        font-family: "Open Sans", Helvetica, sans-serif;
+        width: 100%;
+        display: block;
+        white-space: nowrap;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        overflow: hidden; }
+      .learning-container .learning-hub .group-container a .group-summary {
+        width: 100%; }
+        .learning-container .learning-hub .group-container a .group-summary ul {
+          margin: 0;
+          padding: 0;
+          text-align: center;
+          position: relative;
+          top: 5px; }
+          .learning-container .learning-hub .group-container a .group-summary ul li {
+            display: inline-block;
+            margin-right: 5px;
+            font-family: "Open Sans", Helvetica, sans-serif; }
