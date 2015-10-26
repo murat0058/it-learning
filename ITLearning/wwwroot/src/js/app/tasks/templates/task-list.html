@@ -1,0 +1,16 @@
+﻿<!-- TODO ładowanie + komunikat -->
+
+<div class="task-list">
+    <div class="task" ng-repeat="task in vm.tasks">
+        <div class="task-title">
+            <span class="label" ng-style="task.style" ng-bind="task.language"></span>
+            <a ng-href="#/{{task.taskId}}" ng-bind="task.taskName"></a>
+        </div>
+        <div class="task-group-info">
+            <a ng-href="#/{{task.groupId}}" ng-bind="task.groupName"></a>
+        </div>
+        <div class="task-status" ng-class="task.isTaskCompleted ? 'task-completed' : 'task-notcompleted'"> <!-- TODO tooltip task.statusTooltip -->
+            <i class="fa fa-check"></i>
+        </div>
+    </div>
+</div>

@@ -27,7 +27,7 @@
 
   "commands": {
     "web": "Microsoft.AspNet.Hosting server=Microsoft.AspNet.Server.WebListener server.urls=http://localhost:5000",
-    "web-dev": "Microsoft.AspNet.Hosting server=Microsoft.AspNet.Server.WebListener server.urls=http://localhost:5000 ASPNET_ENV=Production",
+    "web-dev": "Microsoft.AspNet.Hosting server=Microsoft.AspNet.Server.WebListener server.urls=http://localhost:5000 ASPNET_ENV=Development",
     "ef": "EntityFramework.Commands"
   },
 
