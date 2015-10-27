@@ -1,74 +1,50 @@
-﻿(function () {
-
-    /// <itl-task-list no-of-tasks="5"></itl-task-list>
+﻿/**
+* @desc Task list common directive
+* @example <itl-task-list no-of-tasks="5"></itl-task-list>
+*/
+(function () {
 
     angular
         .module('app.tasks')
         .directive('itlTaskList', itlTaskList);
 
     function itlTaskList() {
+
         var directive = {
             templateUrl: 'src/js/app/tasks/templates/task-list.html',
             restrict: 'E',
+            transclude: true,
             scope: {
                 noOfTasks: '@'
             },
             controller: TasksController,
             controllerAs: 'vm',
-            bindToController: true,
-            link: link
+            bindToController: true
         };
+
         return directive;
+    }
 
-        function link(scope, element, attrs) {
+    TasksController.$inject = ['taskService', '$timeout'];
 
-            //TODO tooltip
-
-        };
-    };
-
-    function TasksController() {
+    function TasksController(taskService, $timeout) {
 
         var vm = this;
 
-        vm.tasks = [
-            {
-                taskId: 0,
-                groupId: 1,
-                language: 'C#',
-                taskName: 'Zadanie testowe',
-                groupName: 'Grupa testowa',
-                isTaskCompleted: true,
-                statusTooltip: 'Zadanie wykonane',
-                style: {
-                    'background-color': '#ff8d00'
-                }
-            },
-            {
-                taskId: 1,
-                groupId: 1,
-                language: 'C#',
-                taskName: 'Zadanie testowe',
-                groupName: 'Grupa testowa',
-                isTaskCompleted: false,
-                statusTooltip: 'Zadanie wykonane',
-                style: {
-                    'background-color': '#21b2a6'
-                }
-            },
-            {
-                taskId: 2,
-                groupId: 1,
-                language: 'JAVA',
-                taskName: 'Zadanie testowe',
-                groupName: 'Grupa testowa',
-                isTaskCompleted: true,
-                statusTooltip: 'Zadanie wykonane',
-                style: {
-                    'background-color': '#018ee0'
-                }
-            }
-        ];
-    };
+        vm.isLoadingIndicatorVisible = true;
+
+        activate();
+
+        ////////////////////////////
+
+        function activate() {
+
+            $timeout(function () {
+                vm.isLoadingIndicatorVisible = false;
+                vm.tasks = taskService.getLatestTasks(vm.noOfTasks);
+            }, 2000);
+
+        };
+    }
 
 })();

@@ -1,4 +1,4 @@
-/// <binding ProjectOpened='scss:watch' />
+/// <binding ProjectOpened='scss:watchBaseScss, scss:watchDirectivesScss' />
 /* =========== Modules =========== */
 
 var project = require('./project.json'),
@@ -15,23 +15,15 @@ var basePath = './' + project.webroot;
 var paths = {
     bower: basePath + '/src/_bower/',
     srcJs: basePath + '/src/js/',
-    srcScss: basePath + '/src/scss/',
-    srcCss: basePath + '/src/css/',
+    srcBaseScss: basePath + '/src/scss/',
+    srcDirectivesScss: basePath + srcBaseScss + 'directives/',
+    srcBaseCss: basePath + '/src/css/',
+    srcDirectivesCss: basePath + srcBaseCss + 'directives/',
     distJs: basePath + '/dist/js/',
     distCss: basePath + '/dist/css/',
 };
 
-/* =========== Tasks - Developement =========== */
-
-gulp.task('scss:compile', function () {
-
-    return gulp.src(paths.srcScss + '*.scss')
-        .pipe(scss().on('error', scss.logError))
-        .pipe(gulp.dest(paths.srcCss));
-
-});
-
-/* =========== Tasks - Production =========== */
+/* =========== Tasks - Js =========== */
 
 gulp.task('jquery:build', function () {
 
@@ -51,8 +43,28 @@ gulp.task('jquery:build', function () {
         .pipe(gulp.dest(paths.distJs));
 });
 
-/* =========== Tasks - Watch / Groups =========== */
+/* =========== Tasks - Scss =========== */
 
-gulp.task('scss:watch', function () {
-    gulp.watch(paths.srcScss + '*.scss', ['scss:compile']);
+gulp.task('scss:compileBaseScss', function () {
+
+    return gulp.src(paths.srcBaseScss + '*.scss')
+        .pipe(scss().on('error', scss.logError))
+        .pipe(gulp.dest(paths.srcBaseCss));
+
+});
+
+gulp.task('scss:compileDirectivesScss', function () {
+
+    return gulp.src(paths.srcDirectivesScss + '*.scss')
+        .pipe(scss().on('error', scss.logError))
+        .pipe(gulp.dest(paths.srcDirectivesCss));
+
+});
+
+gulp.task('scss:watchBaseScss', function () {
+    gulp.watch(paths.srcBaseScss + '*.scss', ['scss:compileBaseScss']);
+});
+
+gulp.task('scss:watchDirectivesScss', function () {
+    gulp.watch(paths.srcDirectivesScss + '*.scss', ['scss:compileDirectivesScss']);
 });

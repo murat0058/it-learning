@@ -1,22 +1,7 @@
 ﻿@import 'mixins/validation.scss';
 @import 'mixins/animations.scss';
 @import 'mixins/utils.scss';
-
-/* Bootstrap grid system: */
-/* Extra small devices (phones, less than 768px) */
-/* Small devices (tablets, 768px and up) */
-/* Medium devices (desktops, 992px and up) */
-/* Large devices (large desktops, 1200px and up) */
-
-$color-default: #fafafa;
-$color-primary: #018ee0;
-$color-danger: #ed4933;
-$color-success: #21b2a6;
-$color-warning: #ff8d00;
-$color-dark: #2e3842;
-$color-lime: #47FF5E;
-
-$custom-font: "Open Sans", Helvetica, sans-serif;
+@import 'mixins/globals.scss';
 
 .main-content {
     position: relative;
@@ -314,94 +299,7 @@ $custom-font: "Open Sans", Helvetica, sans-serif;
             border-bottom: 1px solid $color-dark;
         }
 
-        .task-list {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-
-            .task {
-                border-radius: 3px;
-                width: 100%;
-                color: white;
-                background-color: $color-dark;
-                box-shadow: 0 11px 9px -10px rgba(0, 0, 0, 0.4);
-                margin-bottom: 20px;
-                position: relative;
-
-                @include with-animated-background(500ms);
-
-                &:hover {
-                    background-color: lighten($color-dark, 10%);
-                }
-
-                .task-title {
-                    margin: 0;
-                    padding: 0;
-                    padding-left: 65px;
-
-                    span {
-                        border-radius: 3px;
-                        margin: 0;
-                        font-weight: 500;
-                        margin-right: 5px;
-                        font-size: 13px;
-                        padding: 20px 0;
-                        width: 55px;
-                        display: inline-block;
-                        position: absolute;
-                        left: -2px;
-                        top: -4px;
-                        text-align: center;
-                        text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
-                    }
-
-                    a {
-                        color: white;
-                        margin: 0;
-                        padding-top: 4px;
-                        font-family: $custom-font;
-                        font-size: 14px;
-                        font-weight: 600;
-                        display: inline-block;
-                    }
-                }
-
-                .task-group-info {
-                    margin: 0;
-                    padding: 0;
-                    padding-left: 65px;
-
-                    a {
-                        color: white;
-                        margin: 0;
-                        padding: 0;
-                        font-size: 11px;
-                        padding-bottom: 2px;
-                        text-transform: uppercase;
-                    }
-                }
-
-                .task-status {
-                    position: absolute;
-                    right: 9px;
-                    top: 11px;
-                    border-radius: 3px;
-
-                    i {
-                        padding: 3px;
-                        color: $color-dark;
-                    }
-                }
-
-                .task-status.task-completed {
-                    background-color: $color-lime;
-                }
-
-                .task-status.task-notcompleted {
-                    background-color: darken($color-dark, 10%);
-                }
-            }
-        }
+        
 
         .group-container {
             position: relative;

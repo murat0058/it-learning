@@ -1,11 +1,5 @@
 ﻿@import 'mixins/animations.scss';
-
-$color-default: #fafafa;
-$color-primary: #018ee0;
-$color-danger: #ed4933;
-$color-success: #21b2a6;
-$color-warning: #ff8d00;
-$color-dark: #2e3842;
+@import 'mixins/globals.scss';
 
 $custom-border-radius: 3px;
 

@@ -2,7 +2,8 @@
 
     angular
         .module('app', [
-            'app.tasks'
+            'app.tasks',
+            'app.ui'
         ]);
 
 })();
