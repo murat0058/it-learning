@@ -38,7 +38,7 @@ namespace ITLearning.Frontend.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            ServicesProvider.RegisterServices(services);
+            ServicesProvider.RegisterServices(services, Configuration);
 
             services.AddEntityFramework()
                 .AddSqlServer()

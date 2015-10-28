@@ -1,5 +1,8 @@
 {
   "AppSettings": {
     "SiteTitle": "ITLearning"
+  },
+  "Paths": {
+    "NewsImagesPath": "/common/images/mocks/newsy/"
   }
 }

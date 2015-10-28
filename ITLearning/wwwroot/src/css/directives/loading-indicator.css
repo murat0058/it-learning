@@ -8,7 +8,7 @@
   width: 100%;
   text-align: center; }
   .loading-indicator-wrapper .dots .dot {
-    border-radius: 100%;
+    border-radius: 40%;
     display: inline-block;
     -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
     -moz-animation: sk-bouncedelay 1.4s infinite ease-in-out both;

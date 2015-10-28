@@ -1,4 +1,11 @@
-﻿<div class="content-wrapper">
+﻿@model ITLearning.Frontend.Web.ViewModels.Home.HomeViewModel
+
+@{
+    var mainNews = Model.MainNews;
+    var smallNewsList = Model.SmallNews;
+}
+
+<div class="content-wrapper">
     <div class="container">
         <div class="row">
             <div class="col-md-3">
@@ -41,67 +48,40 @@
                 <section class="section-container news-container">
                     <div class="row news-row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <a href="#" class="news-link">
-                                <article class="news news-big" style="background-image: url('/common/images/mocks/newsy/imaginecup.PNG')">
+                            <a href="/@mainNews.Id" class="news-link">
+                                <article class="news news-big" style="background-image: url('@mainNews.BackgroundImagePath')">
                                     <div class="news-social-wrapper">
                                         <ul>
-                                            <li><div class="icon-wrapper" title="Polubiono 2 razy"><i class="fa fa-thumbs-o-up"></i> 2</div></li>
-                                            <li><div class="icon-wrapper" title="Udostępniono 8 razy"><i class="fa fa-share"></i> 8</div></li>
+                                            <li><div class="icon-wrapper" title="@mainNews.SocialNoOfLikesTitle"><i class="fa fa-thumbs-o-up"></i> @mainNews.SocialNoOfLikes</div></li>
+                                            <li><div class="icon-wrapper" title="@mainNews.SocialNoOfSharesTitle"><i class="fa fa-share"></i> @mainNews.SocialNoOfShares</div></li>
                                         </ul>
                                     </div>
                                     <div class="news-description-wrapper">
-                                        <p class="news-text">Imagine Cup 2015 - Relacja już jest!</p>
+                                        <p class="news-text">@mainNews.Title</p>
                                     </div>
                                 </article>
                             </a>
                         </div>
                     </div>
                     <div class="row news-row">
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                            <a href="#" class="news-link">
-                                <article class="news news-small" style="background-image: url('/common/images/mocks/newsy/itad.jpg')">
-                                    <div class="news-social-wrapper">
-                                        <ul>
-                                            <li><div class="icon-wrapper" title="Polubiono 6 razy"><i class="fa fa-thumbs-o-up"></i> 6</div></li>
-                                            <li><div class="icon-wrapper" title="Udostępniono 3 razy"><i class="fa fa-share"></i> 3</div></li>
-                                        </ul>
-                                    </div>
-                                    <div class="news-description-wrapper">
-                                        <p class="news-text">IT Academic Day 2015</p>
-                                    </div>
-                                </article>
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                            <a href="#" class="news-link">
-                                <article class="news news-small" style="background-image: url('/common/images/mocks/newsy/wbmii.PNG')">
-                                    <div class="news-social-wrapper">
-                                        <ul>
-                                            <li><div class="icon-wrapper" title="Polubiono 9 razy"><i class="fa fa-thumbs-o-up"></i> 9</div></li>
-                                            <li><div class="icon-wrapper" title="Udostępniono 2 razy"><i class="fa fa-share"></i> 2</div></li>
-                                        </ul>
-                                    </div>
-                                    <div class="news-description-wrapper">
-                                        <p class="news-text">Najnowsze informacje z WBMiI</p>
-                                    </div>
-                                </article>
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                            <a href="#" class="news-link">
-                                <article class="news news-small" style="background-image: url('/common/images/landing/pic02.jpg')">
-                                    <div class="news-social-wrapper">
-                                        <ul>
-                                            <li><div class="icon-wrapper" title="Polubiono 11 razy"><i class="fa fa-thumbs-o-up"></i> 11</div></li>
-                                            <li><div class="icon-wrapper" title="Udostępniono 9 razy"><i class="fa fa-share"></i> 9</div></li>
-                                        </ul>
-                                    </div>
-                                    <div class="news-description-wrapper">
-                                        <p class="news-text">IT Learning startuje!</p>
-                                    </div>
-                                </article>
-                            </a>
-                        </div>
+                        @foreach (var news in smallNewsList)
+                        {
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                <a href="/@news.Id" class="news-link">
+                                    <article class="news news-small" style="background-image: url('@news.BackgroundImagePath')">
+                                        <div class="news-social-wrapper">
+                                            <ul>
+                                                <li><div class="icon-wrapper" title="@news.SocialNoOfLikesTitle"><i class="fa fa-thumbs-o-up"></i> @news.SocialNoOfLikes</div></li>
+                                                <li><div class="icon-wrapper" title="@news.SocialNoOfSharesTitle"><i class="fa fa-share"></i> @news.SocialNoOfShares</div></li>
+                                            </ul>
+                                        </div>
+                                        <div class="news-description-wrapper">
+                                            <p class="news-text">@news.Title</p>
+                                        </div>
+                                    </article>
+                                </a>
+                            </div>
+                        }
                     </div>
                 </section>
                 <h4 class="section-header section-header-primary">IT Nauka</h4>

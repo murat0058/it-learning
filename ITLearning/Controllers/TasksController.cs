@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
-    [AllowAnonymous] //TODO refactor to claim
+    [AllowAnonymous] //TODO refactor to claim ? custom authorization model for api?
     public class TasksController : BaseController
     {
+
+
         [HttpPost]
         public JsonResult Latest(GetLatestTasksRequestData requestData)
         {

@@ -39,10 +39,7 @@
 
         function activate() {
 
-            //$timeout(function () {
-            //    vm.isLoadingIndicatorVisible = false;
-            //    vm.tasks = taskService.getLatestTasks(vm.noOfTasks);
-            //}, 2000);
+            var 
 
         };
     }
