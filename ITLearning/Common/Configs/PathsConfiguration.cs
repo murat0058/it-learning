@@ -8,5 +8,6 @@ namespace ITLearning.Frontend.Web.Common.Configs
     public class PathsConfiguration
     {
         public string NewsImagesPath { get; set; }
+        public string ProfileImagesPath { get; set; }
     }
 }

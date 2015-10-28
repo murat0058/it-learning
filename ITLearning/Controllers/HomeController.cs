@@ -7,6 +7,7 @@ using ITLearning.Frontend.Web.ViewModels.News;
 using System.Collections.Generic;
 using Microsoft.Framework.OptionsModel;
 using ITLearning.Frontend.Web.Common.Configs;
+using ITLearning.Frontend.Web.ViewModels.User;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -27,6 +28,11 @@ namespace ITLearning.Frontend.Web.Controllers
             #region Fake viewmodel, to be removed
             var viewModel = new HomeViewModel
             {
+                UserData = new UserBasicDataViewModel
+                {
+                    DisplayName = "nazwa usera",
+                    ProfileImagePath = _pathsConfiguration.Value.ProfileImagesPath + "default.jpg"
+                },
                 MainNews = new NewsThumbnailViewModel
                 {
                     Id = 0,

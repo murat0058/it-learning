@@ -1,4 +1,5 @@
 ﻿using ITLearning.Frontend.Web.ViewModels.News;
+using ITLearning.Frontend.Web.ViewModels.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace ITLearning.Frontend.Web.ViewModels.Home
 {
     public class HomeViewModel
     {
+        public UserBasicDataViewModel UserData { get; set; }
         public NewsThumbnailViewModel MainNews { get; set; }
         public IEnumerable<NewsThumbnailViewModel> SmallNews { get; set; }
     }

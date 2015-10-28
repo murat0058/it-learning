@@ -1,6 +1,7 @@
 ﻿@model ITLearning.Frontend.Web.ViewModels.Home.HomeViewModel
 
 @{
+    var userData = Model.UserData;
     var mainNews = Model.MainNews;
     var smallNewsList = Model.SmallNews;
 }
@@ -11,11 +12,8 @@
             <div class="col-md-3">
                 <section class="user-profile-container">
                     <section class="user-data user-profile-section">
-                        <div class="user-photo" style="background-image: url('http://opportunitylives.com/wp-content/uploads/2015/07/steve-jobs-young.png')"></div>
-                        @{
-//TODO: Po pierwszym zalogowaniu powinien tutaj być login
-                        }
-                        <p class="user-name">Tomasz Kowalski</p>
+                        <div class="user-photo" style="background-image: url('@userData.ProfileImagePath')"></div>
+                        <p class="user-name">@userData.DisplayName</p>
                     </section>
                     <section class="user-achievements">
                         <div class="user-achievements-content">
