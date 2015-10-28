@@ -16,9 +16,9 @@ var paths = {
     bower: basePath + '/src/_bower/',
     srcJs: basePath + '/src/js/',
     srcBaseScss: basePath + '/src/scss/',
-    srcDirectivesScss: basePath + srcBaseScss + 'directives/',
+    srcDirectivesScss: basePath + '/src/scss/directives/',
     srcBaseCss: basePath + '/src/css/',
-    srcDirectivesCss: basePath + srcBaseCss + 'directives/',
+    srcDirectivesCss: basePath + '/src/css/directives/',
     distJs: basePath + '/dist/js/',
     distCss: basePath + '/dist/css/',
 };

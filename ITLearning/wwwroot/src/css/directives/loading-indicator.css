@@ -25,7 +25,8 @@
     -o-animation-delay: -0.16s;
     animation-delay: -0.16s; }
   .loading-indicator-wrapper .text {
-    font-family: "Open Sans", Helvetica, sans-serif; }
+    font-family: "Open Sans", Helvetica, sans-serif;
+    font-weight: 600; }
 
 @-webkit-keyframes sk-bouncedelay {
   0%, 80%, 100% {
