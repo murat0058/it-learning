@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Diagnostics.Entity;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
@@ -7,15 +6,13 @@ using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Microsoft.Dnx.Runtime;
-using ITLearning.Frontend.Web.Core.Identity.Models;
 using ITLearning.Frontend.Web.DAL;
 using Microsoft.AspNet.Authentication.Cookies;
 using ITLearning.Frontend.Web.Core.IoC;
 using ITLearning.Frontend.Web.Common.Mappings;
 using ITLearning.Frontend.Web.Core.Identity.Extensions;
-using Microsoft.AspNet.Identity;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
-using ITLearning.Frontend.Web.Core.Identity.Common;
+using ITLearning.Frontend.Web.DAL.Model;
 
 namespace ITLearning.Frontend.Web
 {

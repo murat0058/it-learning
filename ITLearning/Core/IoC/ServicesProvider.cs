@@ -1,13 +1,11 @@
 ﻿using ITLearning.Frontend.Web.Common.Configs;
 using ITLearning.Frontend.Web.Core.Identity.Common;
-using ITLearning.Frontend.Web.Core.Identity.Models;
 using ITLearning.Frontend.Web.Core.Identity.Providers;
 using ITLearning.Frontend.Web.Core.Identity.Services;
+using ITLearning.Frontend.Web.DAL.Model;
 using Microsoft.AspNet.Identity;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
-using Microsoft.Framework.DependencyInjection.Extensions;
-using System.Configuration;
 
 namespace ITLearning.Frontend.Web.Core.IoC
 {

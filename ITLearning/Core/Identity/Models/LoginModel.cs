@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace ITLearning.Frontend.Web.Core.Identity.Models
 {
+    //TODO rename and move to viewmodels or data contracts
     [Validator(typeof(LoginModelValidator))]
     public class LoginModel
     {

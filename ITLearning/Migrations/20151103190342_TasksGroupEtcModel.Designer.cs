@@ -8,9 +8,10 @@ using ITLearning.Frontend.Web.DAL;
 namespace ITLearning.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20151103190342_TasksGroupEtcModel")]
+    partial class TasksGroupEtcModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .Annotation("ProductVersion", "7.0.0-beta8-15964")

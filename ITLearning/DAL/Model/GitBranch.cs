@@ -1,7 +1,4 @@
-﻿using ITLearning.Frontend.Web.Core.Identity.Models;
-using System.Collections.Generic;
-
-namespace ITLearning.Frontend.Web.DAL.Model
+﻿namespace ITLearning.Frontend.Web.DAL.Model
 {
     public class GitBranch
     {
