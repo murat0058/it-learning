@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using System;
+using ITLearning.Frontend.Web.DAL.Model;
 
 namespace ITLearning.Frontend.Web.Core.Identity.Services
 {
@@ -63,7 +64,7 @@ namespace ITLearning.Frontend.Web.Core.Identity.Services
             return await _signInManager.PasswordSignInAsync(model.Login, model.Password, isPersistent: model.RememberMe, lockoutOnFailure: false);
         }
 
-        public async Task LogoutAsync()
+        public async System.Threading.Tasks.Task LogoutAsync()
         {
             await _signInManager.SignOutAsync();
         }

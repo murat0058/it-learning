@@ -8,12 +8,12 @@ namespace ITLearning.Frontend.Web.DAL.Model
 
         public string Name { get; set; }
         public bool IsBare { get; set; }
-        public bool IsPublic { get; set; }
         public bool IsAnonymousPushAllowed { get; set; }
-        public bool IsDeleted { get; set; }
-        public string SourceRepositoryName { get; set; }
 
-        public ICollection<GitRepositoryUser> Users { get; set; }
+        public int SourceGitRepositoryId { get; set; }
+        public GitRepository SourceGitRepository { get; set; }
+        public int TaskInstanceId { get; set; }
+        public TaskInstance TaskInstance { get; set; }
 
         public ICollection<GitBranch> Branches { get; set; }
     }

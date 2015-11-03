@@ -1,9 +1,6 @@
 ﻿using ITLearning.Frontend.Web.Core.Identity.Enums;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace ITLearning.Frontend.Web.Core.Identity.Providers
 {
@@ -25,11 +22,9 @@ namespace ITLearning.Frontend.Web.Core.Identity.Providers
             };
         }
 
-        #region Helpers
         private Claim GetClaimForTypeAndValue(ClaimTypeEnum type, ClaimValueEnum value)
         {
             return new Claim(type.ToString(), value.ToString());
         }
-        #endregion
     }
 }

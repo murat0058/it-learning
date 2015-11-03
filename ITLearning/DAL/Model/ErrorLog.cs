@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ITLearning.Frontend.Web.Contract.Enums;
+using System;
 
 namespace ITLearning.Frontend.Web.DAL.Model
 {
-    public enum ErrorSource
-    {
-        SourceControlApp = 0,
-        PlatformApp = 1
-    }
-
-    public class ErrorLogs
+    public class ErrorLog
     {
         public int Id { get; set; }
 

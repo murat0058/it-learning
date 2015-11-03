@@ -8,9 +8,10 @@ using ITLearning.Frontend.Web.DAL;
 namespace ITLearning.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20151029210314_TaskEntity")]
+    partial class TaskEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .Annotation("ProductVersion", "7.0.0-beta8-15964")
@@ -26,20 +27,6 @@ namespace ITLearning.Migrations
                     b.Property<string>("ErrorMessage");
 
                     b.Property<int>("ErrorSource");
-
-                    b.HasKey("Id");
-                });
-
-            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.Event", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("Date");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Title");
 
                     b.HasKey("Id");
                 });
@@ -74,39 +61,25 @@ namespace ITLearning.Migrations
 
                     b.Property<bool>("IsBare");
 
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<bool>("IsPublic");
+
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<int>("SourceGitRepositoryId");
-
-                    b.Property<int>("TaskInstanceId");
+                    b.Property<string>("SourceRepositoryName");
 
                     b.HasKey("Id");
                 });
 
-            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.Group", b =>
+            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.JunctionTables.UserGitRepository", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("GitRepositoryId");
 
-                    b.Property<string>("Description");
-
-                    b.Property<bool>("IsPrivate");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Password");
-
-                    b.HasKey("Id");
-                });
-
-            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.JunctionTables.UserGroup", b =>
-                {
                     b.Property<int>("UserId");
 
-                    b.Property<int>("GroupId");
-
-                    b.HasKey("UserId", "GroupId");
+                    b.HasKey("GitRepositoryId", "UserId");
                 });
 
             modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.Task", b =>
@@ -116,59 +89,11 @@ namespace ITLearning.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int>("GroupId");
-
                     b.Property<bool>("IsActive");
-
-                    b.Property<bool>("IsVisibleOnlyInGroup");
 
                     b.Property<int>("Language");
 
                     b.Property<string>("Name");
-
-                    b.Property<int>("TaskCategoryId");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("Id");
-                });
-
-            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.TaskCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-                });
-
-            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.TaskInstance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("GitRepositoryId");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<bool>("IsPrivate");
-
-                    b.Property<int>("TaskId");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("Id");
-                });
-
-            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.TaskInstanceReview", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Description");
-
-                    b.Property<int>("TaskInstanceId");
 
                     b.Property<int>("UserId");
 
@@ -315,22 +240,11 @@ namespace ITLearning.Migrations
                         .ForeignKey("RepositoryId");
                 });
 
-            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.GitRepository", b =>
+            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.JunctionTables.UserGitRepository", b =>
                 {
                     b.HasOne("ITLearning.Frontend.Web.DAL.Model.GitRepository")
                         .WithMany()
-                        .ForeignKey("SourceGitRepositoryId");
-
-                    b.HasOne("ITLearning.Frontend.Web.DAL.Model.TaskInstance")
-                        .WithOne()
-                        .ForeignKey("ITLearning.Frontend.Web.DAL.Model.GitRepository", "TaskInstanceId");
-                });
-
-            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.JunctionTables.UserGroup", b =>
-                {
-                    b.HasOne("ITLearning.Frontend.Web.DAL.Model.Group")
-                        .WithMany()
-                        .ForeignKey("GroupId");
+                        .ForeignKey("GitRepositoryId");
 
                     b.HasOne("ITLearning.Frontend.Web.DAL.Model.User")
                         .WithMany()
@@ -339,36 +253,6 @@ namespace ITLearning.Migrations
 
             modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.Task", b =>
                 {
-                    b.HasOne("ITLearning.Frontend.Web.DAL.Model.Group")
-                        .WithMany()
-                        .ForeignKey("GroupId");
-
-                    b.HasOne("ITLearning.Frontend.Web.DAL.Model.TaskCategory")
-                        .WithMany()
-                        .ForeignKey("TaskCategoryId");
-
-                    b.HasOne("ITLearning.Frontend.Web.DAL.Model.User")
-                        .WithMany()
-                        .ForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.TaskInstance", b =>
-                {
-                    b.HasOne("ITLearning.Frontend.Web.DAL.Model.Task")
-                        .WithMany()
-                        .ForeignKey("TaskId");
-
-                    b.HasOne("ITLearning.Frontend.Web.DAL.Model.User")
-                        .WithMany()
-                        .ForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("ITLearning.Frontend.Web.DAL.Model.TaskInstanceReview", b =>
-                {
-                    b.HasOne("ITLearning.Frontend.Web.DAL.Model.TaskInstance")
-                        .WithMany()
-                        .ForeignKey("TaskInstanceId");
-
                     b.HasOne("ITLearning.Frontend.Web.DAL.Model.User")
                         .WithMany()
                         .ForeignKey("UserId");
