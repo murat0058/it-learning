@@ -11,7 +11,7 @@
     function itlTaskList() {
 
         var directive = {
-            templateUrl: 'src/js/app/tasks/templates/task-list.html',
+            templateUrl: 'src/js/app/Tasks/templates/task-list.html',
             restrict: 'E',
             transclude: true,
             scope: {
@@ -25,9 +25,9 @@
         return directive;
     }
 
-    TasksController.$inject = ['taskService', '$timeout'];
+    TasksController.$inject = ['taskService'];
 
-    function TasksController(taskService, $timeout) {
+    function TasksController(taskService) {
 
         var vm = this;
 
@@ -38,7 +38,7 @@
         ////////////////////////////
 
         function activate() {
-
+            vm.isLoadingIndicatorVisible = false;
         };
     }
 

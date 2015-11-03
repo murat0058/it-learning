@@ -1,4 +1,5 @@
-﻿using ITLearning.Frontend.Web.ViewModels.News;
+﻿using ITLearning.Frontend.Web.Contract.Enums;
+using ITLearning.Frontend.Web.ViewModels.News;
 using ITLearning.Frontend.Web.ViewModels.User;
 using System;
 using System.Collections.Generic;

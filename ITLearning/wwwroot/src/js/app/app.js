@@ -3,7 +3,8 @@
     angular
         .module('app', [
             'app.tasks',
-            'app.ui'
+            'app.user',
+            'app.uiWidgets'
         ]);
 
 })();

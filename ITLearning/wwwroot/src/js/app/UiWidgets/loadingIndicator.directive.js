@@ -7,13 +7,13 @@
 (function () {
 
     angular
-        .module('app.ui')
+        .module('app.uiWidgets')
         .directive('itlLoadingIndicator', itlLoadingIndicator);
 
     function itlLoadingIndicator() {
 
         var directive = {
-            templateUrl: 'src/js/app/ui/templates/loading-indicator.html',
+            templateUrl: 'src/js/app/UiWidgets/templates/loading-indicator.html',
             restrict: 'E',
             scope: {
                 dotBackground: '@',

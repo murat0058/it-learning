@@ -65,12 +65,11 @@
         }
     }
 
-    .user-achievements {
+    .user-shortcuts-widget {
         margin: 0 8px;
 
-        .user-achievements-content {
+        .user-shortcuts-content {
             width: 100%;
-            background-color: $color-primary;
             position: relative;
 
             .title {
@@ -87,7 +86,7 @@
             }
         }
 
-        ul.user-achievements-tabs {
+        ul.user-shortcuts-tabs {
             list-style-type: none;
             margin: 0;
             padding: 0;
@@ -99,6 +98,7 @@
                 display: inline-block;
                 color: white;
                 padding: 5px 8px;
+                margin-right: 3px;
                 box-shadow: inset 0px 2px 5px -1px rgba(0,0,0,0.3);
                 -moz-transition: padding 0.2s ease-in-out;
                 -o-transition: padding 0.2s ease-in-out;

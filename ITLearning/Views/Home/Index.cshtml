@@ -15,72 +15,55 @@
                         <div class="user-photo" style="background-image: url('@userData.ProfileImagePath')"></div>
                         <p class="user-name">@userData.DisplayName</p>
                     </section>
-                    <section class="user-achievements">
-                        <div class="user-achievements-content">
-                            <div class="content">
-
-                            </div>
-                        </div>
-                        <ul class="user-achievements-tabs">
-                            <li class="tab tab-primary active" data-tab="tab-primary" data-toggle="tooltip" data-placement="bottom" title="Edytuj profil">
-                                <i class="fa fa-user"></i>
-                            </li>
-                            <li class="tab tab-success" data-tab="tab-success" data-toggle="tooltip" data-placement="bottom" title="Wykonane zadania">
-                                <i class="fa fa-list"></i>
-                            </li>
-                            <li class="tab tab-warning" data-tab="tab-warning" data-toggle="tooltip" data-placement="bottom" title="Twoje wyniki">
-                                <i class="fa fa-star"></i>
-                            </li>
-                            <li class="tab tab-danger" data-tab="tab-danger" data-toggle="tooltip" data-placement="bottom" title="Zadania do oceny">
-                                <i class="fa fa-pencil"></i>
-                            </li>
-                            <li class="tab tab-dark" data-tab="tab-dark" data-toggle="tooltip" data-placement="bottom" title="Ustawienia strony głównej">
-                                <i class="fa fa-cog"></i>
-                            </li>
-                        </ul>
-                    </section>
+                    @* TODO SHORTCUTS WIDGET *@
                 </section>
             </div>
             <div class="col-md-9">
                 <h4 class="section-header section-header-success">IT Newsy</h4>
                 <section class="section-container news-container">
-                    <div class="row news-row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <a href="/@mainNews.Id" class="news-link">
-                                <article class="news news-big" style="background-image: url('@mainNews.BackgroundImagePath')">
-                                    <div class="news-social-wrapper">
-                                        <ul>
-                                            <li><div class="icon-wrapper" title="@mainNews.SocialNoOfLikesTitle"><i class="fa fa-thumbs-o-up"></i> @mainNews.SocialNoOfLikes</div></li>
-                                            <li><div class="icon-wrapper" title="@mainNews.SocialNoOfSharesTitle"><i class="fa fa-share"></i> @mainNews.SocialNoOfShares</div></li>
-                                        </ul>
-                                    </div>
-                                    <div class="news-description-wrapper">
-                                        <p class="news-text">@mainNews.Title</p>
-                                    </div>
-                                </article>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row news-row">
-                        @foreach (var news in smallNewsList)
-                        {
-                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                <a href="/@news.Id" class="news-link">
-                                    <article class="news news-small" style="background-image: url('@news.BackgroundImagePath')">
+                    @if(mainNews != null)
+                    {
+                        <div class="row news-row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <a href="/@mainNews.Id" class="news-link">
+                                    <article class="news news-big" style="background-image: url('@mainNews.BackgroundImagePath')">
                                         <div class="news-social-wrapper">
                                             <ul>
-                                                <li><div class="icon-wrapper" title="@news.SocialNoOfLikesTitle"><i class="fa fa-thumbs-o-up"></i> @news.SocialNoOfLikes</div></li>
-                                                <li><div class="icon-wrapper" title="@news.SocialNoOfSharesTitle"><i class="fa fa-share"></i> @news.SocialNoOfShares</div></li>
+                                                <li><div class="icon-wrapper" title="@mainNews.SocialNoOfLikesTitle"><i class="fa fa-thumbs-o-up"></i> @mainNews.SocialNoOfLikes</div></li>
+                                                <li><div class="icon-wrapper" title="@mainNews.SocialNoOfSharesTitle"><i class="fa fa-share"></i> @mainNews.SocialNoOfShares</div></li>
                                             </ul>
                                         </div>
                                         <div class="news-description-wrapper">
-                                            <p class="news-text">@news.Title</p>
+                                            <p class="news-text">@mainNews.Title</p>
                                         </div>
                                     </article>
                                 </a>
                             </div>
-                        }
-                    </div>
+                        </div>
+                    }
+                    @if (smallNewsList != null && smallNewsList.Any())
+                    {
+                        <div class="row news-row">
+                            @foreach (var news in smallNewsList)
+                            {
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <a href="/@news.Id" class="news-link">
+                                        <article class="news news-small" style="background-image: url('@news.BackgroundImagePath')">
+                                            <div class="news-social-wrapper">
+                                                <ul>
+                                                    <li><div class="icon-wrapper" title="@news.SocialNoOfLikesTitle"><i class="fa fa-thumbs-o-up"></i> @news.SocialNoOfLikes</div></li>
+                                                    <li><div class="icon-wrapper" title="@news.SocialNoOfSharesTitle"><i class="fa fa-share"></i> @news.SocialNoOfShares</div></li>
+                                                </ul>
+                                            </div>
+                                            <div class="news-description-wrapper">
+                                                <p class="news-text">@news.Title</p>
+                                            </div>
+                                        </article>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    }
                 </section>
                 <h4 class="section-header section-header-primary">IT Nauka</h4>
                 <section class="section-container learning-container">
