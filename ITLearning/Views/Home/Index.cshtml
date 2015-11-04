@@ -4,6 +4,7 @@
     var userData = Model.UserData;
     var mainNews = Model.MainNews;
     var smallNewsList = Model.SmallNews;
+    var widgetViewModel = Model.UserWidgetViewModel;
 }
 
 <div class="content-wrapper">
@@ -15,7 +16,7 @@
                         <div class="user-photo" style="background-image: url('@userData.ProfileImagePath')"></div>
                         <p class="user-name">@userData.DisplayName</p>
                     </section>
-                    @* TODO SHORTCUTS WIDGET *@
+                    @Html.Partial("Partials/UserShortcutsWidget", widgetViewModel)
                 </section>
             </div>
             <div class="col-md-9">

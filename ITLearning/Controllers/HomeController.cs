@@ -16,7 +16,7 @@ using System.Linq;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
-    [AuthorizeClaim(Type = ClaimTypeEnum.Controller, Value = ClaimValueEnum.HomeController)]
+    [AuthorizeClaim(Type = ClaimTypeEnum.Controller, Value = ClaimValueEnum.Controller_HomeController)]
     public class HomeController : BaseController
     {
         private IUserBasicDataViewModelProvider _userBasicDataViewModelProvider;
@@ -35,6 +35,24 @@ namespace ITLearning.Frontend.Web.Controllers
             FillModelWithBasicUserData(model);
             FillModelWithNews(model);
             CreateUserShortcutsWidget(model);
+            
+            model.UserWidgetViewModel = new List<UserWidgetDirectiveViewModel>
+            {
+                new UserWidgetDirectiveViewModel { 
+                    DirectiveId = 0,
+                    DirectiveString = "<itl-profile-editing parent-vm=\"vm\"></itl-profile-editing>",
+                    TabType = "tab-primary",
+                    TabIcon = "fa-user",
+                    TabTitle = "Edytuj profil"
+                },
+                new UserWidgetDirectiveViewModel {
+                    DirectiveId = 1, 
+                    DirectiveString = "<itl-home-settings parent-vm=\"vm\"></itl-home-settings>",
+                    TabType = "tab-dark",
+                    TabIcon = "fa-cog",
+                    TabTitle = "Ustawienia strony głównej"
+                }
+            };
 
             return View(model);
         }
@@ -65,7 +83,7 @@ namespace ITLearning.Frontend.Web.Controllers
 
         private void CreateUserShortcutsWidget(HomeViewModel model)
         {
-            //todo
+            
         }
     }
 }
