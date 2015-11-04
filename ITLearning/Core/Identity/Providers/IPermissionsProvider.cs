@@ -8,7 +8,7 @@ namespace ITLearning.Frontend.Web.Core.Identity.Providers
 {
     public interface IPermissionsProvider
     {
-        IEnumerable<Claim> GetBasicClaims();
-        IEnumerable<string> GetBasicRoles();
+        IEnumerable<Claim> GetStartupClaims();
+        IEnumerable<string> GetStartupRoles();
     }
 }

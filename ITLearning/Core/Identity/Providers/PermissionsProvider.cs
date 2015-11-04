@@ -6,15 +6,17 @@ namespace ITLearning.Frontend.Web.Core.Identity.Providers
 {
     public class PermissionsProvider : IPermissionsProvider
     {
-        public IEnumerable<Claim> GetBasicClaims()
+        public IEnumerable<Claim> GetStartupClaims()
         {
             return new List<Claim>
             {
-                GetClaimForTypeAndValue(ClaimTypeEnum.Controller, ClaimValueEnum.HomeController)
+                CreateClaimByClaimEnums(ClaimTypeEnum.Controller, ClaimValueEnum.Controller_HomeController),
+                CreateClaimByClaimEnums(ClaimTypeEnum.UserWidgetTab, ClaimValueEnum.UserWidgetTab_ProfileEditing),
+                CreateClaimByClaimEnums(ClaimTypeEnum.UserWidgetTab, ClaimValueEnum.UserWidgetTab_HomeSettings),
             };
         }
 
-        public IEnumerable<string> GetBasicRoles()
+        public IEnumerable<string> GetStartupRoles()
         {
             return new List<string>
             {
@@ -22,7 +24,7 @@ namespace ITLearning.Frontend.Web.Core.Identity.Providers
             };
         }
 
-        private Claim GetClaimForTypeAndValue(ClaimTypeEnum type, ClaimValueEnum value)
+        private Claim CreateClaimByClaimEnums(ClaimTypeEnum type, ClaimValueEnum value)
         {
             return new Claim(type.ToString(), value.ToString());
         }

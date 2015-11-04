@@ -19,7 +19,7 @@ namespace ITLearning.Frontend.Web.Core.Identity.Extensions
             var permissionsProvider = app.ApplicationServices.GetService<IPermissionsProvider>();
 
             var roleManager = app.ApplicationServices.GetService<RoleManager<IdentityRole<int>>>();
-            foreach (var role in permissionsProvider.GetBasicRoles())
+            foreach (var role in permissionsProvider.GetStartupRoles())
             {
                 if (!roleManager.RoleExistsAsync(role.ToUpper()).Result)
                 {
