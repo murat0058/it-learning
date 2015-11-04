@@ -3,7 +3,7 @@
     angular
         .module('app', [
             'app.tasks',
-            'app.user',
+            'app.userShortcutsWidget',
             'app.uiWidgets'
         ]);
 
