@@ -98,58 +98,58 @@
     .user-profile-container .user-data .user-name {
       margin-top: 10px;
       font-size: 18px; }
-  .user-profile-container .user-achievements {
+  .user-profile-container .user-shortcuts-widget {
     margin: 0 8px; }
-    .user-profile-container .user-achievements .user-achievements-content {
+    .user-profile-container .user-shortcuts-widget .user-shortcuts-content {
       width: 100%;
-      background-color: #018ee0;
       position: relative; }
-      .user-profile-container .user-achievements .user-achievements-content .title {
+      .user-profile-container .user-shortcuts-widget .user-shortcuts-content .title {
         padding: 5px;
         margin: 0;
         color: white;
         font-family: "Open Sans", Helvetica, sans-serif;
         font-weight: 600;
         font-size: 10px; }
-      .user-profile-container .user-achievements .user-achievements-content .content {
+      .user-profile-container .user-shortcuts-widget .user-shortcuts-content .content {
         height: 0px; }
-    .user-profile-container .user-achievements ul.user-achievements-tabs {
+    .user-profile-container .user-shortcuts-widget ul.user-shortcuts-tabs {
       list-style-type: none;
       margin: 0;
       padding: 0; }
-      .user-profile-container .user-achievements ul.user-achievements-tabs li.tab {
+      .user-profile-container .user-shortcuts-widget ul.user-shortcuts-tabs li.tab {
         background-color: #fafafa;
         display: inline-block;
         color: white;
         padding: 5px 8px;
+        margin-right: 3px;
         box-shadow: inset 0px 2px 5px -1px rgba(0, 0, 0, 0.3);
         -moz-transition: padding 0.2s ease-in-out;
         -o-transition: padding 0.2s ease-in-out;
         -webkit-transition: padding 0.2s ease-in-out;
         transition: padding 0.2s ease-in-out; }
-        .user-profile-container .user-achievements ul.user-achievements-tabs li.tab:hover {
+        .user-profile-container .user-shortcuts-widget ul.user-shortcuts-tabs li.tab:hover {
           padding-bottom: 13px;
           cursor: pointer; }
-          .user-profile-container .user-achievements ul.user-achievements-tabs li.tab:hover i {
+          .user-profile-container .user-shortcuts-widget ul.user-shortcuts-tabs li.tab:hover i {
             top: 5px; }
-        .user-profile-container .user-achievements ul.user-achievements-tabs li.tab i {
+        .user-profile-container .user-shortcuts-widget ul.user-shortcuts-tabs li.tab i {
           -moz-transition: top 0.2s ease-in;
           -o-transition: top 0.2s ease-in;
           -webkit-transition: top 0.2s ease-in;
           transition: top 0.2s ease-in;
           position: relative;
           top: 0; }
-      .user-profile-container .user-achievements ul.user-achievements-tabs li.active {
+      .user-profile-container .user-shortcuts-widget ul.user-shortcuts-tabs li.active {
         box-shadow: none; }
-      .user-profile-container .user-achievements ul.user-achievements-tabs li.tab-primary {
+      .user-profile-container .user-shortcuts-widget ul.user-shortcuts-tabs li.tab-primary {
         background-color: #018ee0; }
-      .user-profile-container .user-achievements ul.user-achievements-tabs li.tab-warning {
+      .user-profile-container .user-shortcuts-widget ul.user-shortcuts-tabs li.tab-warning {
         background-color: #ff8d00; }
-      .user-profile-container .user-achievements ul.user-achievements-tabs li.tab-danger {
+      .user-profile-container .user-shortcuts-widget ul.user-shortcuts-tabs li.tab-danger {
         background-color: #ed4933; }
-      .user-profile-container .user-achievements ul.user-achievements-tabs li.tab-success {
+      .user-profile-container .user-shortcuts-widget ul.user-shortcuts-tabs li.tab-success {
         background-color: #21b2a6; }
-      .user-profile-container .user-achievements ul.user-achievements-tabs li.tab-dark {
+      .user-profile-container .user-shortcuts-widget ul.user-shortcuts-tabs li.tab-dark {
         background-color: #2e3842; }
 
 .section-header {

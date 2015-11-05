@@ -8,70 +8,82 @@ using System.Collections.Generic;
 using Microsoft.Framework.OptionsModel;
 using ITLearning.Frontend.Web.Common.Configs;
 using ITLearning.Frontend.Web.ViewModels.User;
+using ITLearning.Frontend.Web.Contract.Enums;
+using ITLearning.Frontend.Web.Providers.Home;
+using ITLearning.Frontend.Web.Contract.Providers.ViewModelProviders;
+using ITLearning.Frontend.Web.Contract.Services;
+using System.Linq;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
-    [AuthorizeClaim(Type = ClaimTypeEnum.Controller, Value = ClaimValueEnum.HomeController)]
+    [AuthorizeClaim(Type = ClaimTypeEnum.Controller, Value = ClaimValueEnum.Controller_HomeController)]
     public class HomeController : BaseController
     {
-        private IOptions<PathsConfiguration> _pathsConfiguration;
+        private IUserBasicDataViewModelProvider _userBasicDataViewModelProvider;
+        private INewsThumbnailsService _newsThumbnailsService;
 
-        public HomeController(IOptions<PathsConfiguration> pathsConfiguration)
+        public HomeController(IUserBasicDataViewModelProvider userBasicDataViewModelProvider, INewsThumbnailsService newsThumbnailsService)
         {
-            _pathsConfiguration = pathsConfiguration;
+            _userBasicDataViewModelProvider = userBasicDataViewModelProvider;
+            _newsThumbnailsService = newsThumbnailsService;
         }
 
         public IActionResult Index()
         {
-            string imagesBasePath = _pathsConfiguration.Value.NewsImagesPath;
+            HomeViewModel model = new HomeViewModel();
 
-            #region Fake viewmodel, to be removed
-            var viewModel = new HomeViewModel
+            FillModelWithBasicUserData(model);
+            FillModelWithNews(model);
+            CreateUserShortcutsWidget(model);
+            
+            model.UserWidgetViewModel = new List<UserWidgetDirectiveViewModel>
             {
-                UserData = new UserBasicDataViewModel
-                {
-                    DisplayName = "nazwa usera",
-                    ProfileImagePath = _pathsConfiguration.Value.ProfileImagesPath + "default.jpg"
+                new UserWidgetDirectiveViewModel { 
+                    DirectiveId = 0,
+                    DirectiveString = "<itl-profile-editing parent-vm=\"vm\"></itl-profile-editing>",
+                    TabType = "tab-primary",
+                    TabIcon = "fa-user",
+                    TabTitle = "Edytuj profil"
                 },
-                MainNews = new NewsThumbnailViewModel
-                {
-                    Id = 0,
-                    Title = "Testowy",
-                    BackgroundImagePath = imagesBasePath + "imaginecup.png",
-                    SocialNoOfLikes = 10,
-                    SocialNoOfShares = 12
-                },
-                SmallNews = new List<NewsThumbnailViewModel>
-                {
-                    new NewsThumbnailViewModel
-                    {
-                        Id = 1,
-                        Title = "Mały 1",
-                        BackgroundImagePath = imagesBasePath + "itad.jpg",
-                        SocialNoOfLikes = 5,
-                        SocialNoOfShares = 6
-                    },
-                    new NewsThumbnailViewModel
-                    {
-                        Id = 2,
-                        Title = "Mały 2",
-                        BackgroundImagePath = imagesBasePath + "itlearning.png",
-                        SocialNoOfLikes = 7,
-                        SocialNoOfShares = 8
-                    },
-                    new NewsThumbnailViewModel
-                    {
-                        Id = 3,
-                        Title = "Mały 3",
-                        BackgroundImagePath = imagesBasePath + "wbmii.png",
-                        SocialNoOfLikes = 9,
-                        SocialNoOfShares = 10
-                    },
+                new UserWidgetDirectiveViewModel {
+                    DirectiveId = 1, 
+                    DirectiveString = "<itl-home-settings parent-vm=\"vm\"></itl-home-settings>",
+                    TabType = "tab-dark",
+                    TabIcon = "fa-cog",
+                    TabTitle = "Ustawienia strony głównej"
                 }
             };
-            #endregion
 
-            return View(viewModel);
+            return View(model);
+        }
+
+        private void FillModelWithBasicUserData(HomeViewModel model)
+        {
+            model.UserData = _userBasicDataViewModelProvider.GetUserBasicDataViewModel();
+        }
+
+        private void FillModelWithNews(HomeViewModel model)
+        {
+            var newsThumbnails = _newsThumbnailsService.GetLatestNewsThumbnails();
+            if (newsThumbnails.IsSuccess)
+            {
+                var thumbnails = newsThumbnails.Item;
+
+                if (newsThumbnails.Item.Count() > 0)
+                {
+                    model.MainNews = newsThumbnails.Item.First();
+                }
+
+                if (newsThumbnails.Item.Count() > 1)
+                {
+                    model.SmallNews = newsThumbnails.Item.Skip(1).Take(3);
+                }
+            }
+        }
+
+        private void CreateUserShortcutsWidget(HomeViewModel model)
+        {
+            
         }
     }
 }

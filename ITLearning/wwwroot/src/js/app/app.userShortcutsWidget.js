@@ -1,7 +1,7 @@
 ﻿(function () {
 
     angular
-        .module('app.ui', [
+        .module('app.userShortcutsWidget', [
         ]);
 
 })();

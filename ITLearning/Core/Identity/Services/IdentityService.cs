@@ -35,8 +35,8 @@ namespace ITLearning.Frontend.Web.Core.Identity.Services
 
             if (createUserResult.Succeeded)
             {
-                var addRolesResult = await _userManager.AddToRolesAsync(userModel, _permissionsProvider.GetBasicRoles());
-                var addClaimsResult = await _userManager.AddClaimsAsync(userModel, _permissionsProvider.GetBasicClaims());
+                var addRolesResult = await _userManager.AddToRolesAsync(userModel, _permissionsProvider.GetStartupRoles());
+                var addClaimsResult = await _userManager.AddClaimsAsync(userModel, _permissionsProvider.GetStartupClaims());
 
                 if (addRolesResult.Succeeded && addClaimsResult.Succeeded)
                 {
