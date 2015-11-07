@@ -40,17 +40,17 @@ namespace ITLearning.Frontend.Web.Controllers
             {
                 new UserWidgetDirectiveViewModel { 
                     DirectiveId = 0,
-                    DirectiveString = "<itl-profile-editing parent-vm=\"vm\"></itl-profile-editing>",
+                    DirectiveString = "<itl-widget-poc-first></itl-widget-poc-first>",
                     TabType = "tab-primary",
                     TabIcon = "fa-user",
-                    TabTitle = "Edytuj profil"
+                    TabTitle = "First directive"
                 },
                 new UserWidgetDirectiveViewModel {
                     DirectiveId = 1, 
-                    DirectiveString = "<itl-home-settings parent-vm=\"vm\"></itl-home-settings>",
+                    DirectiveString = "<itl-widget-poc-second></itl-widget-poc-second>",
                     TabType = "tab-dark",
                     TabIcon = "fa-cog",
-                    TabTitle = "Ustawienia strony głównej"
+                    TabTitle = "Second directive"
                 }
             };
 

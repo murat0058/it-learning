@@ -102,16 +102,17 @@
     margin: 0 8px; }
     .user-profile-container .user-shortcuts-widget .user-shortcuts-content {
       width: 100%;
+      height: 100%;
       position: relative; }
-      .user-profile-container .user-shortcuts-widget .user-shortcuts-content .title {
-        padding: 5px;
-        margin: 0;
-        color: white;
-        font-family: "Open Sans", Helvetica, sans-serif;
-        font-weight: 600;
-        font-size: 10px; }
       .user-profile-container .user-shortcuts-widget .user-shortcuts-content .content {
-        height: 0px; }
+        height: 100%;
+        color: white; }
+        .user-profile-container .user-shortcuts-widget .user-shortcuts-content .content .title {
+          margin: 0;
+          color: white;
+          font-family: "Open Sans", Helvetica, sans-serif;
+          font-weight: 600;
+          font-size: 10px; }
     .user-profile-container .user-shortcuts-widget ul.user-shortcuts-tabs {
       list-style-type: none;
       margin: 0;
@@ -121,7 +122,6 @@
         display: inline-block;
         color: white;
         padding: 5px 8px;
-        margin-right: 3px;
         box-shadow: inset 0px 2px 5px -1px rgba(0, 0, 0, 0.3);
         -moz-transition: padding 0.2s ease-in-out;
         -o-transition: padding 0.2s ease-in-out;

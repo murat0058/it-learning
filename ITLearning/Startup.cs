@@ -79,7 +79,7 @@ namespace ITLearning.Frontend.Web
             });
 
             // For testing purposes only
-            RecreateDatabaseData(app);
+            //RecreateDatabaseData(app);
         }
 
         private void RecreateDatabaseData(IApplicationBuilder app)

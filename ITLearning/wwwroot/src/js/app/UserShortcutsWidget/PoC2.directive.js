@@ -2,26 +2,27 @@
 	
 	angular
 		.module('app.userShortcutsWidget')
-		.directive('itlHomeSettings', itlHomeSettings)
+		.directive('itlWidgetPocFirst', itlWidgetPocFirst)
 		
-	function itlHomeSettings() {
+	function itlWidgetPocFirst() {
 		return {
 			restrict: 'E',
 			replace: true,
 			scope: {
 				parentVm: '='
 			},
-			template: '<p>Home settings</p>',
-			controller: HomeSettingsController, 
+			template: '<p>PoC1</p>',
+			controller: PocFirstController,
 			controllerAs: 'vm',
     	    bindToController: true
 		}
 	}
 	
-	function HomeSettingsController(){
+	function PocFirstController() {
 		
 		var vm = this;
 		vm.id = 0;
+		vm.type = 'tab-primary';
 		vm.activateRequest = activateRequest;
 		
 		activate();
@@ -30,11 +31,11 @@
 		function activate(){
 			
 			vm.parentVm.registerDirective(vm);
-			console.log('home settings directive activated!');	
+			console.log('PoC1 directive activated!');	
 		}
 		
 		function activateRequest(){
-			console.log('home settings directive activated by controller!');	
+			console.log('PoC2 settings directive activated by controller!');	
 		}
 	}
 	
