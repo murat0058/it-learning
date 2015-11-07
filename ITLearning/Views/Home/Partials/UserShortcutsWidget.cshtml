@@ -2,16 +2,15 @@
 
 <div class="user-shortcuts-widget" ng-controller="UserShortcutsWidgetController as vm">
     <div class="user-shortcuts-content" ng-style="vm.contentStyle">
-        @foreach (var directive in Model)
+        <div class="content">
+            @foreach (var directive in Model)
             {
-            <div ng-show="vm.activeDirectiveId === @directive.DirectiveId">
-                <div class="content">
+                <div ng-show="vm.activeDirectiveId === @directive.DirectiveId">
                     <p class="title">@directive.TabTitle</p>
                     @Html.Raw(directive.DirectiveString)
                 </div>
-            </div>
-
-        }
+            }
+        </div>
     </div>
     <ul class="user-shortcuts-tabs">
         @foreach (var directive in Model)

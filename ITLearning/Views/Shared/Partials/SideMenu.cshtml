@@ -1,0 +1,16 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <ul class="menu-list">
+        <li><a asp-action="Index" asp-controller="Home">Strona główna</a></li>
+        <li><a asp-action="LogOut" asp-controller="Account">Wyloguj się</a></li>
+    </ul>
+}
+else
+{
+    <ul class="menu-list">
+        <li><a asp-action="Index" asp-controller="Landing">Strona główna</a></li>
+        <li><a asp-action="SignUp" asp-controller="Account">Załóż konto</a></li>
+        <li><a asp-action="Login" asp-controller="Account">Zaloguj się</a></li>
+    </ul>
+}
+

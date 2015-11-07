@@ -38,7 +38,6 @@
         ////////////////////////////
 
         function activate() {
-            vm.isLoadingIndicatorVisible = false;
         };
     }
 
