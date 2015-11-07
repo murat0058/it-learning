@@ -33,7 +33,7 @@
 		/////////////////////
 		
 		function activateRequest(){
-			console.log('PoC2 directive activated by controller!');	
+		    //on tab click
 		}
 	}
 	

@@ -32,8 +32,8 @@
 		
 		/////////////////////
 		
-		function activateRequest(){
-			console.log('PoC2 settings directive activated by controller!');	
+		function activateRequest() {
+            //on tab click
 		}
 	}
 	
