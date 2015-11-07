@@ -30,7 +30,7 @@ namespace ITLearning.Frontend.Web.Controllers
             return View(model ?? new SignUpViewModel());
         }
 
-        public async Task<IActionResult> LogOut()
+        public async Task<IActionResult> Logout()
         {
             await _identityService.LogoutAsync();
 

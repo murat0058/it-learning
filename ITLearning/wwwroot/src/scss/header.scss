@@ -1,4 +1,5 @@
 ﻿@import 'mixins/animations.scss';
+@import 'mixins/globals.scss';
 
 .sliding-header {
     font-family: "Open Sans", Helvetica, sans-serif;
@@ -89,33 +90,43 @@
                 list-style-type: none;
                 position: relative;
                 margin: 0;
-                padding: 15px;
+                padding: 0;
 
-                li {
-                    margin: 0;
-                    padding: 0;
+                li.menu-group {
+                    padding: 10px;
 
-                    a {
-                        display: block;
-                        margin-bottom: 20px;
-                        font-size: 16px;
-                        width: 100%;
-                        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-                        -moz-transition: none;
-                        -o-transition: none;
-                        -webkit-transition: none;
-                        transition: none;
-                        color: white;
+                    .menu-group-title {
+                        margin: 0;
+                        padding: 0;
+                        margin-bottom: 5px;
                         text-transform: uppercase;
                         font-weight: 600;
-                        letter-spacing: 0.075em;
-                        padding-bottom: 8px;
+                        line-height: 2;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+                    }
 
-                        @include with-animated-border(border, 300ms);
+                    .menu-group-items {
+                        margin: 0;
+                        padding: 0;
+                        list-style-type: none;
 
-                        &:hover {
-                            text-decoration: none;
-                            border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+                        li {
+                            margin-bottom: 5px;
+
+                            a {
+                                color: white;
+                                border-radius: 3px;
+                                padding: 5px 10px;
+                                display: block;
+                                width: 100%;
+
+                                @include with-animated-background(300ms);
+
+                                &:hover {
+                                    text-decoration: none;
+                                        background-color: rgba(46, 56, 66, 0.5);
+                                }
+                            }
                         }
                     }
                 }

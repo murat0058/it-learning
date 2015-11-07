@@ -1,16 +1,38 @@
 ﻿@if (User.Identity.IsAuthenticated)
 {
     <ul class="menu-list">
-        <li><a asp-action="Index" asp-controller="Home">Strona główna</a></li>
-        <li><a asp-action="LogOut" asp-controller="Account">Wyloguj się</a></li>
+        <li class="menu-group">
+            <p class="menu-group-title">@($"Witaj, {User.Identity.Name}!")</p>
+            <ul class="menu-group-items">
+                <li><a asp-action="Index" asp-controller="Home"><i class="fa fa-user"></i> Twój profil</a></li>
+            </ul>
+        </li>
+        <li class="menu-group">
+            <p class="menu-group-title">Nauka</p>
+            <ul class="menu-group-items">
+                <li><a asp-action="Index" asp-controller="Home"><i class="fa fa-code"></i> Zadania</a></li>
+                <li><a asp-action="Index" asp-controller="Home"><i class="fa fa-users"></i> Grupy</a></li>
+            </ul>
+        </li>
+        <li class="menu-group">
+            <p class="menu-group-title">Więcej</p>
+            <ul class="menu-group-items">
+                <li><a asp-action="Index" asp-controller="Home"><i class="fa fa-newspaper-o"></i> Newsy</a></li>
+                <li><a asp-action="Logout" asp-controller="Account"><i class="fa fa-arrow-right"></i> Wyloguj się</a></li>
+            </ul>
+        </li>
     </ul>
 }
 else
 {
     <ul class="menu-list">
-        <li><a asp-action="Index" asp-controller="Landing">Strona główna</a></li>
-        <li><a asp-action="SignUp" asp-controller="Account">Załóż konto</a></li>
-        <li><a asp-action="Login" asp-controller="Account">Zaloguj się</a></li>
+        <li class="menu-group">
+            <p class="menu-group-title">Witaj</p>
+            <ul class="menu-group-items">
+                <li><a asp-action="SignUp" asp-controller="Account"><i class="fa fa-user"></i> Załóż konto</a></li>
+                <li><a asp-action="Login" asp-controller="Account"><i class="fa fa-arrow-right"></i> Zaloguj się</a></li>
+            </ul>
+        </li>
     </ul>
 }
 
