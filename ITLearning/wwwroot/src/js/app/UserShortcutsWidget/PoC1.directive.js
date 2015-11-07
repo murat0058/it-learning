@@ -2,40 +2,38 @@
 	
 	angular
 		.module('app.userShortcutsWidget')
-		.directive('itlWidgetPocSecond', itlWidgetPocSecond)
+		.directive('itlWidgetPocFirst', itlWidgetPocFirst)
 		
-	function itlWidgetPocSecond() {
+	function itlWidgetPocFirst() {
 		return {
 			restrict: 'E',
 			replace: true,
 			scope: {
-				parentVm: '='
+			    parentVm: '=',
+			    id: '@',
+			    type: '@'
 			},
-			template: '<p>PoC2</p>',
-			controller: PocSecondController,
+			template: '<p>PoC1</p>',
+            link: link,
+			controller: PocFirstController,
 			controllerAs: 'vm',
     	    bindToController: true
 		}
+
+		function link(scope, elem, attr) {
+		    scope.vm.parentVm.registerDirective(scope.vm);
+		}
 	}
 	
-	function PocSecondController() {
+	function PocFirstController() {
 		
 		var vm = this;
-		vm.id = 0;
-		vm.type = 'tab-primary';
 		vm.activateRequest = activateRequest;
 		
-		activate();
 		/////////////////////
 		
-		function activate(){
-			
-			vm.parentVm.registerDirective(vm);
-			console.log('PoC2 directive activated!');	
-		}
-		
 		function activateRequest(){
-			console.log('PoC2 directive activated by controller!');	
+			console.log('PoC2 settings directive activated by controller!');	
 		}
 	}
 	

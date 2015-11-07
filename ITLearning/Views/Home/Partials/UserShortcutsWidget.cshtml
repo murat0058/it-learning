@@ -1,24 +1,24 @@
 @model IEnumerable<ITLearning.Frontend.Web.ViewModels.User.UserWidgetDirectiveViewModel>
-	
+
 <div class="user-shortcuts-widget" ng-controller="UserShortcutsWidgetController as vm">
-	<div class="user-shortcuts-content" ng-style="vm.contentStyle">
-        <div ng-switch="vm.activeDirectiveId">
-            @foreach (var directive in Model)
+    <div class="user-shortcuts-content" ng-style="vm.contentStyle">
+        @foreach (var directive in Model)
             {
-                <div class="content" ng-switch-when="@directive.DirectiveId">
+            <div ng-show="vm.activeDirectiveId === @directive.DirectiveId">
+                <div class="content">
                     <p class="title">@directive.TabTitle</p>
                     @Html.Raw(directive.DirectiveString)
                 </div>
-            }
-        </div>
-	</div>
-	<ul class="user-shortcuts-tabs">
-		@foreach(var directive in Model)
-		{
-			<li class="tab @directive.TabType" ng-class="{'active': vm.activeDirectiveId === @directive.DirectiveId }" title="@directive.TabTitle" ng-click="vm.activateDirective(@directive.DirectiveId)">
-				<i class="fa @directive.TabIcon"></i>
-			</li>	
-		}
-	</ul>
+            </div>
+
+        }
+    </div>
+    <ul class="user-shortcuts-tabs">
+        @foreach (var directive in Model)
+        {
+            <li class="tab @directive.TabType" ng-class="{'active': vm.activeDirectiveId === @directive.DirectiveId }" title="@directive.TabTitle" ng-click="vm.activateDirective(@directive.DirectiveId)">
+                <i class="fa @directive.TabIcon"></i>
+            </li>}
+    </ul>
 </div>
 

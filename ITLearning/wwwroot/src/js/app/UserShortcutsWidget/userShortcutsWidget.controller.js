@@ -44,7 +44,7 @@
 		        vm.activeDirectiveId = directiveId;
 
 		        var directive = vm.directives.filter(function (d) {
-		            return d.id === directiveId;
+		            return parseInt(d.id) === directiveId;
 		        })[0];
 
 		        vm.contentStyle = {
