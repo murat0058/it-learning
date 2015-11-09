@@ -15,7 +15,7 @@
             restrict: 'E',
             transclude: true,
             controller: TasksController,
-            controllerAs: 'vm',
+            controllerAs: 'taskListVm',
             bindToController: true
         };
 
@@ -26,10 +26,10 @@
 
     function TasksController(taskService, uiFeaturesService) {
 
-        var vm = this;
+        var taskListVm = this;
 
-        vm.isLoadingIndicatorVisible = true;
-        vm.tasks = [];
+        taskListVm.isLoadingIndicatorVisible = true;
+        taskListVm.tasks = [];
 
         activate();
 
@@ -37,7 +37,7 @@
 
         function activate() {
 
-            vm.tasks = [
+            taskListVm.tasks = [
                 {
                     id: 0,
                     name: 'Test 1',

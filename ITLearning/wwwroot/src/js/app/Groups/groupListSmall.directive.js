@@ -15,7 +15,7 @@
             restrict: 'E',
             transclude: true,
             controller: GroupsController,
-            controllerAs: 'vm',
+            controllerAs: 'groupListVm',
             bindToController: true
         };
 
@@ -26,10 +26,10 @@
 
     function GroupsController(groupService) {
 
-        var vm = this;
+        var groupListVm = this;
 
-        vm.isLoadingIndicatorVisible = true;
-        vm.groups = [];
+        groupListVm.isLoadingIndicatorVisible = true;
+        groupListVm.groups = [];
 
         activate();
 
@@ -37,7 +37,7 @@
 
         function activate() {
 
-            vm.groups = [
+            groupListVm.groups = [
                 {
                     id: 0,
                     name: '.NET ATH',

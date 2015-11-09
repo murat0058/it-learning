@@ -1,6 +1,6 @@
 ﻿<div class="task-list">
     <ng-transclude></ng-transclude>
-    <div class="task" ng-repeat="task in vm.tasks">
+    <div class="task" ng-repeat="task in taskListVm.tasks">
         <div class="task-title">
             <span class="label" ng-style="task.style" ng-bind="task.language"></span>
             <a ng-href="#/{{task.id}}" ng-bind="task.name"></a>

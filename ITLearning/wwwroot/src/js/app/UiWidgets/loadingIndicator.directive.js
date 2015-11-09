@@ -16,6 +16,7 @@
             templateUrl: 'src/js/app/UiWidgets/templates/loading-indicator.html',
             restrict: 'E',
             scope: {
+                parentVm: '=',
                 dotBackground: '@',
                 dotSize: '@',
                 loadingText: '@'
@@ -29,18 +30,14 @@
 
         function link(scope, elem, attrs) {
 
-            scope.vm = {
+            scope.loadingIndicatorVm = {
                 loadingText: scope.loadingText,
                 style: {
                     'background-color': scope.dotBackground,
                     'width': scope.dotSize,
                     'height': scope.dotSize
                 }
-            }
-
-            // scope.$parent.$parent
-            // current scope -> transclusion scope -> parent directive scope
-            scope.parentVm = scope.$parent.$parent.vm;
+            };
         }
     }
 
