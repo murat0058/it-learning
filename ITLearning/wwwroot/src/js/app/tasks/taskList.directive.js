@@ -1,6 +1,6 @@
 ﻿/**
 * @desc Task list common directive
-* @example <itl-task-list no-of-tasks="5"></itl-task-list>
+* @example <itl-task-list></itl-task-list>
 */
 (function () {
 
@@ -14,9 +14,6 @@
             templateUrl: 'src/js/app/Tasks/templates/task-list.html',
             restrict: 'E',
             transclude: true,
-            scope: {
-                noOfTasks: '@'
-            },
             controller: TasksController,
             controllerAs: 'vm',
             bindToController: true
@@ -25,19 +22,57 @@
         return directive;
     }
 
-    TasksController.$inject = ['taskService'];
+    TasksController.$inject = ['taskService', 'uiFeaturesService'];
 
-    function TasksController(taskService) {
+    function TasksController(taskService, uiFeaturesService) {
 
         var vm = this;
 
         vm.isLoadingIndicatorVisible = true;
+        vm.tasks = [];
 
         activate();
 
         ////////////////////////////
 
         function activate() {
+
+            vm.tasks = [
+                {
+                    id: 0,
+                    name: 'Test 1',
+                    groupId: 99,
+                    language: 'C#',
+                    groupName: 'Grupa testowa 123',
+                    isCompleted: true,
+                    style: {
+                        'background-color': uiFeaturesService.languageToColorMappings['C#']
+                    }
+                },
+                {
+                    id: 1,
+                    name: 'Test 2',
+                    groupId: 99,
+                    language: 'JAVA',
+                    groupName: 'Grupa testowa 345',
+                    isCompleted: false,
+                    style: {
+                        'background-color': uiFeaturesService.languageToColorMappings['JAVA']
+                    }
+                },
+                {
+                    id: 3,
+                    name: 'Test 3',
+                    groupId: 99,
+                    language: 'JS',
+                    groupName: 'Grupa testowa 654',
+                    isCompleted: true,
+                    style: {
+                        'background-color': uiFeaturesService.languageToColorMappings['JS']
+                    }
+                }
+            ];
+
         };
     }
 

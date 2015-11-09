@@ -1,21 +1,21 @@
 ﻿(function () {
 
     angular
-        .module('app.tasks')
-        .factory('taskService', taskService);
+        .module('app.groups')
+        .factory('groupService', groupService);
 
     taskService.$inject = ['$http'];
 
-    function taskService($http) {
+    function groupService($http) {
 
         var service = {
-            getLatestTasks: getLatestTasks
+            getUserGroups: getUserGroups
         };
 
         return service;
         ////////////////////////////
 
-        function getLatestTasks() {
+        function getUserGroups() {
             
         }
     }
