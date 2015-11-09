@@ -4,7 +4,7 @@
         .module('app.groups')
         .factory('groupService', groupService);
 
-    taskService.$inject = ['$http'];
+    groupService.$inject = ['$http'];
 
     function groupService($http) {
 
