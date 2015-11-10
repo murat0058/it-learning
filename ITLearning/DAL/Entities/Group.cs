@@ -1,7 +1,7 @@
-﻿using ITLearning.Frontend.Web.DAL.Model.JunctionTables;
+﻿using ITLearning.Frontend.Web.DAL.Entities.JunctionTables;
 using System.Collections.Generic;
 
-namespace ITLearning.Frontend.Web.DAL.Model
+namespace ITLearning.Frontend.Web.DAL.Entities
 {
     public class Group
     {

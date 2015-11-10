@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ITLearning.Frontend.Web.DAL.Model
+namespace ITLearning.Frontend.Web.DAL.Entities
 {
     public class GitRepository
     {

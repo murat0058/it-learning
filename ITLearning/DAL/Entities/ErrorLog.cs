@@ -1,7 +1,7 @@
 ﻿using ITLearning.Frontend.Web.Contract.Enums;
 using System;
 
-namespace ITLearning.Frontend.Web.DAL.Model
+namespace ITLearning.Frontend.Web.DAL.Entities
 {
     public class ErrorLog
     {

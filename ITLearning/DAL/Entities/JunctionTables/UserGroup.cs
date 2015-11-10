@@ -1,4 +1,4 @@
-﻿namespace ITLearning.Frontend.Web.DAL.Model.JunctionTables
+﻿namespace ITLearning.Frontend.Web.DAL.Entities.JunctionTables
 {
     public class UserGroup
     {

@@ -1,4 +1,4 @@
-﻿using ITLearning.Frontend.Web.DAL.Model;
+﻿using ITLearning.Frontend.Web.DAL.Entities;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Text;

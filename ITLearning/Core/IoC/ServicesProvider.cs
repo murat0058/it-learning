@@ -6,7 +6,7 @@ using ITLearning.Frontend.Web.Core.Identity.Providers;
 using ITLearning.Frontend.Web.Core.Identity.Services;
 using ITLearning.Frontend.Web.Providers.Home;
 using ITLearning.Frontend.Web.Services;
-using ITLearning.Frontend.Web.DAL.Model;
+using ITLearning.Frontend.Web.DAL.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;

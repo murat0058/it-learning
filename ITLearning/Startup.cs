@@ -12,7 +12,7 @@ using ITLearning.Frontend.Web.Core.IoC;
 using ITLearning.Frontend.Web.Common.Mappings;
 using ITLearning.Frontend.Web.Core.Identity.Extensions;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
-using ITLearning.Frontend.Web.DAL.Model;
+using ITLearning.Frontend.Web.DAL.Entities;
 
 namespace ITLearning.Frontend.Web
 {

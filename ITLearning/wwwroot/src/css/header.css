@@ -121,14 +121,14 @@
       width: 250px;
       right: -250px;
       height: 100%;
-      background-color: #21b2a6; }
+      background-color: rgba(33, 178, 166, 0.9); }
       .sliding-header .menu-wrapper nav.menu ul.menu-list {
         list-style-type: none;
         position: relative;
         margin: 0;
         padding: 0; }
         .sliding-header .menu-wrapper nav.menu ul.menu-list li.menu-group {
-          padding: 10px; }
+          padding: 3px 10px; }
           .sliding-header .menu-wrapper nav.menu ul.menu-list li.menu-group .menu-group-title {
             margin: 0;
             padding: 0;

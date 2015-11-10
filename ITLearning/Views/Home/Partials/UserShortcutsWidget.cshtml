@@ -1,6 +1,6 @@
 @model IEnumerable<ITLearning.Frontend.Web.ViewModels.User.UserWidgetDirectiveViewModel>
 
-<div class="user-shortcuts-widget" ng-controller="UserShortcutsWidgetController as vm">
+<section class="user-shortcuts-widget" ng-controller="UserShortcutsWidgetController as vm">
     <div class="user-shortcuts-content" ng-style="vm.contentStyle">
         <div class="content">
             @foreach (var directive in Model)
@@ -19,5 +19,5 @@
                 <i class="fa @directive.TabIcon"></i>
             </li>}
     </ul>
-</div>
+</section>
 
