@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ITLearning.Frontend.Web.Common.Extensions
+namespace ITLearning.Frontend.Web.Contract.Extensions
 {
     public static class ModelStateExtensions
     {

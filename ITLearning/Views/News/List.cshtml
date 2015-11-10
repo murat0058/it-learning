@@ -1,0 +1,33 @@
+﻿@model IEnumerable<NewsThumbnailViewModel>
+
+<h3>Newsy</h3>
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-9">
+                @foreach (var news in Model)
+                {
+                    <div class="row news-row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <a href="/News/Single/@news.Id" class="news-link">
+                                <article class="news news-big" style="background-image: url('@news.ImagePath')">
+                                    <div class="news-social-wrapper">
+                                        <ul>
+                                            <li><div class="icon-wrapper" title="@news.SocialNoOfLikesTitle"><i class="fa fa-thumbs-o-up"></i> @news.SocialNoOfLikes</div></li>
+                                            <li><div class="icon-wrapper" title="@news.SocialNoOfSharesTitle"><i class="fa fa-share"></i> @news.SocialNoOfShares</div></li>
+                                        </ul>
+                                    </div>
+                                    <div class="news-description-wrapper">
+                                        <p class="news-text">@news.Title</p>
+                                    </div>
+                                </article>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

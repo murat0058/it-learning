@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 
 namespace ITLearning.Frontend.Web.ViewModels.News
 {
-    public class NewsThumbnailViewModel
+    public class NewsViewModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
-        public string ImagePath { get; set; }
+        public string BackgroundImagePath { get; set; }
+        public string HtmlContent { get; set; }
+
         public int SocialNoOfLikes { get; set; }
         public string SocialNoOfLikesTitle
         {
@@ -18,6 +20,7 @@ namespace ITLearning.Frontend.Web.ViewModels.News
                 return string.Format("Polubiono {0} {1}", this.SocialNoOfLikes, this.SocialNoOfLikes == 1 ? "raz" : "razy");
             }
         }
+
         public int SocialNoOfShares { get; set; }
         public string SocialNoOfSharesTitle
         {

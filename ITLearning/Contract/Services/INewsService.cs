@@ -1,5 +1,5 @@
 ﻿using ITLearning.Frontend.Web.Contract.Data.Result;
-using ITLearning.Frontend.Web.ViewModels.News;
+using ITLearning.Frontend.Web.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace ITLearning.Frontend.Web.Contract.Services
 {
-    public interface INewsThumbnailsService
+    public interface INewsService
     {
-        CommonResult<IEnumerable<NewsThumbnailViewModel>> GetLatestNewsThumbnails();
+        CommonResult<IEnumerable<News>> GetAll(bool withContent);
+        CommonResult<News> GetById(string id);
     }
 }

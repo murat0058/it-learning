@@ -5,7 +5,7 @@ using ITLearning.Frontend.Web.Core.Identity.Models;
 using System.Threading.Tasks;
 using System.Linq;
 using ITLearning.Frontend.Web.Core.Identity.Validators;
-using ITLearning.Frontend.Web.Common.Extensions;
+using ITLearning.Frontend.Web.Contract.Extensions;
 using AutoMapper;
 
 namespace ITLearning.Frontend.Web.Controllers
