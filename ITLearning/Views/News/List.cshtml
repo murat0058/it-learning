@@ -1,22 +1,28 @@
-﻿@model IEnumerable<NewsThumbnailViewModel>
+﻿@model NewsListViewModel
 
-<h3>Newsy</h3>
 <div class="content-wrapper">
-    <div class="container">
+    <div class="container news-container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 news-list-side-section">
+                <h4>Wyszukaj</h4>
+                <h4>Tagi</h4>
+                @Html.Partial("Partials/News/TagsList", Model.Tags)
             </div>
             <div class="col-md-9">
-                @foreach (var news in Model)
+                @foreach (var news in Model.News)
                 {
                     <div class="row news-row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <a href="/News/Single/@news.Id" class="news-link">
                                 <article class="news news-big" style="background-image: url('@news.ImagePath')">
-                                    <div class="news-social-wrapper">
+                                    <div class="news-info-wrapper">
                                         <ul>
-                                            <li><div class="icon-wrapper" title="@news.SocialNoOfLikesTitle"><i class="fa fa-thumbs-o-up"></i> @news.SocialNoOfLikes</div></li>
-                                            <li><div class="icon-wrapper" title="@news.SocialNoOfSharesTitle"><i class="fa fa-share"></i> @news.SocialNoOfShares</div></li>
+                                            <li>
+                                                <div class="icon-wrapper"><i class="fa fa-pencil-square-o"></i> @news.Date.ToShortDateString()</div>
+                                            </li>
+                                            <li>
+                                                <div class="icon-wrapper"><i class="fa fa-user"></i> @news.Author</div>
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="news-description-wrapper">

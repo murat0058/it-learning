@@ -1,11 +1,11 @@
 ﻿using ITLearning.Frontend.Web.Contract.Services;
-using ITLearning.Frontend.Web.Providers.ModelProviders.NewsProviders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ITLearning.Frontend.Web.Model;
 using ITLearning.Frontend.Web.Contract.Data.Result;
+using ITLearning.Frontend.Web.Contract.Providers.ModelProviders;
 
 namespace ITLearning.Frontend.Web.Services
 {

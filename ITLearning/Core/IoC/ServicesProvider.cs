@@ -10,7 +10,8 @@ using ITLearning.Frontend.Web.DAL.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
-using ITLearning.Frontend.Web.Providers.ModelProviders.NewsProviders;
+using ITLearning.Frontend.Web.Contract.Providers.ModelProviders;
+using ITLearning.Frontend.Web.Providers.ModelProviders;
 
 namespace ITLearning.Frontend.Web.Core.IoC
 {

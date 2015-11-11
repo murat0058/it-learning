@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace ITLearning.Frontend.Web.Contract.Data.Requests
 {
-    public class GetLatestTasksRequestData
+    public class NewsListFilterRequest
     {
-        public int NoOfTasks { get; set; }
+        public string Tag { get; set; }
     }
 }

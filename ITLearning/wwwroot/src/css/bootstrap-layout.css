@@ -72,30 +72,54 @@
   .btn-dark:hover {
     color: white;
     background-color: #191e24; }
+  .btn-dark:focus {
+    background-color: #191e24; }
+  .btn-dark:active {
+    background-color: #191e24; }
 
 .btn-default {
   background-color: #fafafa; }
   .btn-default:hover {
+    background-color: #e1e1e1; }
+  .btn-default:focus {
+    background-color: #e1e1e1; }
+  .btn-default:active {
     background-color: #e1e1e1; }
 
 .btn-warning {
   background-color: #ff8d00; }
   .btn-warning:hover {
     background-color: #cc7100; }
+  .btn-warning:focus {
+    background-color: #cc7100; }
+  .btn-warning:active {
+    background-color: #cc7100; }
 
 .btn-primary {
   background-color: #018ee0; }
   .btn-primary:hover {
+    background-color: #016ead; }
+  .btn-primary:focus {
+    background-color: #016ead; }
+  .btn-primary:active {
     background-color: #016ead; }
 
 .btn-danger {
   background-color: #ed4933; }
   .btn-danger:hover {
     background-color: #da2b13; }
+  .btn-danger:focus {
+    background-color: #da2b13; }
+  .btn-danger:active {
+    background-color: #da2b13; }
 
 .btn-success {
   background-color: #21b2a6; }
   .btn-success:hover {
+    background-color: #19877e; }
+  .btn-success:focus {
+    background-color: #19877e; }
+  .btn-success:active {
     background-color: #19877e; }
 
 .btn-ghost {

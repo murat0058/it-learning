@@ -1,7 +1,12 @@
 ﻿{
   "Id": "20151110_003",
   "Author": "Przemek",
-  "ImagePath": "/common/images/mocks/newsy/itad.jpg",
-  "Title": "News title",
-  "Date": "2015-11-10"
+  "ImagePath": "vs2013.png",
+  "Title": "VS 2015 - Nowości",
+  "Date": "2015-11-10",
+  "Tags": [
+    "VisualStudio",
+    "Microsoft",
+    "Nowości"
+  ]
 }

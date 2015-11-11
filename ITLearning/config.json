@@ -3,7 +3,8 @@
     "SiteTitle": "ITLearning"
   },
   "Paths": {
-    "NewsImagesPath": "/common/images/mocks/newsy/",
-    "ProfileImagesPath": "/common/images/mocks/profile/"
+    "News":  "/static/news/",
+    "NewsImages": "/static/news-images/",
+    "ProfileImagesPath": "/static/profile/"
   }
 }

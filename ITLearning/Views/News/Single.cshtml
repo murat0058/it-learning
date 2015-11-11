@@ -1,6 +1,65 @@
 ﻿@model News
 
-<h3>Newsy</h3>
+@section BodyScripts{
+    <div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5"; fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script>
+        !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');
+    </script>
+}
+
 <div class="content-wrapper">
-    @Html.Raw(Model.Content)
+    <div class="container-fluid news-container-wide">
+        <article class="news" style="background-image: url('@Model.ImagePath')"></article>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="news-btns-wrapper">
+                        <a asp-controller="News" asp-action="List" class="btn btn-sm btn-success" title="Wszystkie newsy">
+                            <i class="fa fa-arrow-circle-left"></i> Wszystkie
+                        </a>
+                    </div>
+                    <div class="news-info-wrapper">
+                        <ul>
+                            <li>
+                                <div class="icon-wrapper"><i class="fa fa-pencil-square-o"></i> @Model.Date.ToShortDateString()</div>
+                            </li>
+                            <li>
+                                <div class="icon-wrapper"><i class="fa fa-user"></i> @Model.Author</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="news-content-wrapper">
+                        <div class="news-description-wrapper">
+                            <p class="news-text">@Model.Title</p>
+                        </div>
+                        <section class="news-content">
+                            @Html.Partial("Partials/News/TagsList", Model.Tags)
+                            <div class="content">
+                                @Html.Raw(Model.Content)
+                            </div>
+                            <div class="social-media">
+                                <div class="social-media-items">
+                                    <div class="item social-media-fb">
+                                        <div class="fb-share-button" data-href="@( $"http://{this.Context.Request.Host}{this.Context.Request.Path}") " data-layout="button"></div>
+                                    </div>
+                                    <div class="item social-media-twitter">
+                                        <a href="https://twitter.com/share" class="twitter-share-button" data-text="@Model.Title" data-lang="pl" data-count="none" data-hashtags="ItLearning">Tweetnij</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

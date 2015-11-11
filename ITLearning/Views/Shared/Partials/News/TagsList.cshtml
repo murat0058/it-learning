@@ -1,0 +1,12 @@
+﻿@model IEnumerable<string>
+
+<div class="tags">
+    <ul class="tags-list">
+        @foreach (var tag in Model)
+        {
+            <li class="tag">
+                <a href="@( $"/News/Tag/{tag}" )">@( $"#{tag}" )</a>
+            </li>
+        }
+    </ul>
+</div>

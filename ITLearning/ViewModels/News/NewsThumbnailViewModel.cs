@@ -10,21 +10,7 @@ namespace ITLearning.Frontend.Web.ViewModels.News
         public string Id { get; set; }
         public string Title { get; set; }
         public string ImagePath { get; set; }
-        public int SocialNoOfLikes { get; set; }
-        public string SocialNoOfLikesTitle
-        {
-            get
-            {
-                return string.Format("Polubiono {0} {1}", this.SocialNoOfLikes, this.SocialNoOfLikes == 1 ? "raz" : "razy");
-            }
-        }
-        public int SocialNoOfShares { get; set; }
-        public string SocialNoOfSharesTitle
-        {
-            get
-            {
-                return string.Format("Udostępniono {0} {1}", this.SocialNoOfShares, this.SocialNoOfShares == 1 ? "raz" : "razy");
-            }
-        }
+        public string Author { get; set; }
+        public DateTime Date { get; set; }
     }
 }

@@ -9,17 +9,27 @@ using Microsoft.Dnx.Runtime;
 using CommonMark;
 using Newtonsoft.Json;
 using Microsoft.AspNet.FileProviders;
+using ITLearning.Frontend.Web.Contract.Configs;
+using Microsoft.Framework.OptionsModel;
+using ITLearning.Frontend.Web.Contract.Providers.ModelProviders;
 
-namespace ITLearning.Frontend.Web.Providers.ModelProviders.NewsProviders
+namespace ITLearning.Frontend.Web.Providers.ModelProviders
 {
     public class StaticFilesNewsProvider : INewsProvider
     {
-        private const string NEWS_PATH = "/static/news";
         private IHostingEnvironment _hostingEnvironment;
+        private IOptions<PathsConfiguration> _pathsConfiguration;
 
-        public StaticFilesNewsProvider(IHostingEnvironment hostingEnvironment)
+        private string _newsPath;
+        private string _newsImagesPath;
+
+        public StaticFilesNewsProvider(IHostingEnvironment hostingEnvironment, IOptions<PathsConfiguration> pathsConfiguration)
         {
             _hostingEnvironment = hostingEnvironment;
+            _pathsConfiguration = pathsConfiguration;
+
+            _newsPath = _pathsConfiguration.Value.News;
+            _newsImagesPath = _pathsConfiguration.Value.NewsImages;
         }
 
         public IEnumerable<News> GetAll()
@@ -28,7 +38,7 @@ namespace ITLearning.Frontend.Web.Providers.ModelProviders.NewsProviders
             newsList.AddRange(GetAllWithoutContent());
 
             var fileProvider = _hostingEnvironment.WebRootFileProvider;
-            var directoryContents = fileProvider.GetDirectoryContents(NEWS_PATH).Where(x => x.Name.EndsWith("_content.md"));
+            var directoryContents = fileProvider.GetDirectoryContents(_newsPath).Where(x => x.Name.EndsWith("_content.md"));
 
             foreach (var news in newsList)
             {
@@ -46,7 +56,7 @@ namespace ITLearning.Frontend.Web.Providers.ModelProviders.NewsProviders
             var newsList = new List<News>();
 
             var fileProvider = _hostingEnvironment.WebRootFileProvider;
-            var directoryContents = fileProvider.GetDirectoryContents(NEWS_PATH).Where(x => x.Name.EndsWith(".json"));
+            var directoryContents = fileProvider.GetDirectoryContents(_newsPath).Where(x => x.Name.EndsWith(".json"));
 
             foreach (var directoryContent in directoryContents)
             {
@@ -60,7 +70,7 @@ namespace ITLearning.Frontend.Web.Providers.ModelProviders.NewsProviders
         {
             var fileProvider = _hostingEnvironment.WebRootFileProvider;
 
-            var directoryContents = fileProvider.GetDirectoryContents(NEWS_PATH);
+            var directoryContents = fileProvider.GetDirectoryContents(_newsPath);
 
             var newsJsonInfoFile = directoryContents.SingleOrDefault(x => x.Name == $"{id}.json");
             var newsContentFile = directoryContents.SingleOrDefault(x => x.Name == $"{id}_content.md");
@@ -85,7 +95,10 @@ namespace ITLearning.Frontend.Web.Providers.ModelProviders.NewsProviders
         private News GetNewsFromJsonFile(IFileInfo contentFile)
         {
             var jsonNews = File.ReadAllText(contentFile.PhysicalPath);
-            return JsonConvert.DeserializeObject<News>(jsonNews);
+            var news = JsonConvert.DeserializeObject<News>(jsonNews);
+            news.ImagePath = _newsImagesPath + news.ImagePath;
+
+            return news;
         }
     }
 }
