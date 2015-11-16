@@ -1,4 +1,4 @@
-﻿using ITLearning.Frontend.Web.Contract.Data.Result;
+﻿using ITLearning.Frontend.Web.Contract.Data.Results;
 using ITLearning.Frontend.Web.ViewModels.News;
 using System;
 using System.Collections.Generic;

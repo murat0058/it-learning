@@ -1,15 +1,9 @@
 ﻿using Microsoft.AspNet.Mvc;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
 using ITLearning.Frontend.Web.Core.Identity.Enums;
-using System;
 using ITLearning.Frontend.Web.ViewModels.Home;
-using ITLearning.Frontend.Web.ViewModels.News;
 using System.Collections.Generic;
-using Microsoft.Framework.OptionsModel;
-using ITLearning.Frontend.Web.Common.Configs;
 using ITLearning.Frontend.Web.ViewModels.User;
-using ITLearning.Frontend.Web.Contract.Enums;
-using ITLearning.Frontend.Web.Providers.Home;
 using ITLearning.Frontend.Web.Contract.Providers.ViewModelProviders;
 using ITLearning.Frontend.Web.Contract.Services;
 using System.Linq;

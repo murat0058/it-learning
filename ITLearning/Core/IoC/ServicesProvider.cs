@@ -10,6 +10,8 @@ using ITLearning.Frontend.Web.DAL.Model;
 using Microsoft.AspNet.Identity;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
+using ITLearning.Frontend.Web.Contract.DAL.Repositories;
+using ITLearning.Frontend.Web.DAL.Respoitories;
 
 namespace ITLearning.Frontend.Web.Core.IoC
 {
@@ -21,7 +23,12 @@ namespace ITLearning.Frontend.Web.Core.IoC
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<IPermissionsProvider, PermissionsProvider>();
             services.AddTransient<INewsThumbnailsService, NewsThumbnailsService>();
+            services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserBasicDataViewModelProvider, UserBasicDataViewModelProvider>();
+            #endregion
+
+            #region Repositories
+            services.AddTransient<IUserRepository, UserRepository>();
             #endregion
 
             #region Utils
@@ -30,6 +37,7 @@ namespace ITLearning.Frontend.Web.Core.IoC
 
             #region Configs
             services.Configure<PathsConfiguration>(configuration.GetSection("Paths"));
+            services.Configure<DatabaseConfiguration>(x => x.ConnectionString = configuration["Data:DefaultConnection:ConnectionString"]);
             #endregion
         }
     }
