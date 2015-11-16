@@ -1,4 +1,4 @@
-﻿using ITLearning.Frontend.Web.Common.Configs;
+﻿using ITLearning.Frontend.Web.Contract.Configs;
 using ITLearning.Frontend.Web.Contract.Providers.ViewModelProviders;
 using ITLearning.Frontend.Web.Contract.Services;
 using ITLearning.Frontend.Web.Core.Identity.Common;
@@ -6,12 +6,15 @@ using ITLearning.Frontend.Web.Core.Identity.Providers;
 using ITLearning.Frontend.Web.Core.Identity.Services;
 using ITLearning.Frontend.Web.Providers.Home;
 using ITLearning.Frontend.Web.Services;
-using ITLearning.Frontend.Web.DAL.Model;
+using ITLearning.Frontend.Web.DAL.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using ITLearning.Frontend.Web.Contract.DAL.Repositories;
 using ITLearning.Frontend.Web.DAL.Respoitories;
+using ITLearning.Frontend.Web.Contract.Providers.ModelProviders;
+using ITLearning.Frontend.Web.Providers.ModelProviders;
+using ITLearning.Frontend.Web.Common.Configs;
 
 namespace ITLearning.Frontend.Web.Core.IoC
 {
@@ -24,7 +27,10 @@ namespace ITLearning.Frontend.Web.Core.IoC
             services.AddTransient<IPermissionsProvider, PermissionsProvider>();
             services.AddTransient<INewsThumbnailsService, NewsThumbnailsService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<INewsService, NewsService>();
+
             services.AddTransient<IUserBasicDataViewModelProvider, UserBasicDataViewModelProvider>();
+            services.AddTransient<INewsProvider, StaticFilesNewsProvider>();
             #endregion
 
             #region Repositories

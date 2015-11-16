@@ -1,5 +1,5 @@
-﻿using ITLearning.Frontend.Web.DAL.Model;
-using ITLearning.Frontend.Web.DAL.Model.JunctionTables;
+﻿using ITLearning.Frontend.Web.DAL.Entities;
+using ITLearning.Frontend.Web.DAL.Entities.JunctionTables;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;

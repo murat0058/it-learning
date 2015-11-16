@@ -1,4 +1,4 @@
-﻿using ITLearning.Frontend.Web.Common.Configs;
+﻿using ITLearning.Frontend.Web.Contract.Configs;
 using ITLearning.Frontend.Web.Contract.Providers.ViewModelProviders;
 using ITLearning.Frontend.Web.ViewModels.User;
 using Microsoft.Framework.OptionsModel;

@@ -21,6 +21,8 @@
     <link href="~/src/css/directives/loading-indicator.css" rel="stylesheet" />
 </head>
 <body ng-app="app">
+    @RenderSection("BodyScripts", required: false)
+
     @Html.Partial("~/Views/Shared/Partials/Header.cshtml")
 
     <div id="page-wrapper">

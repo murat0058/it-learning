@@ -12,7 +12,7 @@ $custom-border-radius: 3px;
     }
 }
 
-.btn{
+.btn {
     border: none;
     margin-left: 10px;
     font-family: "Open Sans", Helvetica, sans-serif;
@@ -21,20 +21,36 @@ $custom-border-radius: 3px;
     @include with-animated-background(300ms);
 }
 
-.btn-dark{
+.btn-dark {
     color: white;
     background-color: $color-dark;
 
-    &:hover{
+    &:hover {
         color: white;
+        background-color: darken($color-dark, 10%);
+    }
+
+    &:focus {
+        background-color: darken($color-dark, 10%);
+    }
+
+    &:active {
         background-color: darken($color-dark, 10%);
     }
 }
 
-.btn-default{
+.btn-default {
     background-color: $color-default;
 
-    &:hover{
+    &:hover {
+        background-color: darken($color-default, 10%);
+    }
+
+    &:focus {
+        background-color: darken($color-default, 10%);
+    }
+
+    &:active {
         background-color: darken($color-default, 10%);
     }
 }
@@ -42,31 +58,63 @@ $custom-border-radius: 3px;
 .btn-warning {
     background-color: $color-warning;
 
-    &:hover{
+    &:hover {
+        background-color: darken($color-warning, 10%);
+    }
+
+    &:focus {
+        background-color: darken($color-warning, 10%);
+    }
+
+    &:active {
         background-color: darken($color-warning, 10%);
     }
 }
 
-.btn-primary{
+.btn-primary {
     background-color: $color-primary;
 
-    &:hover{
+    &:hover {
+        background-color: darken($color-primary, 10%);
+    }
+
+    &:focus {
+        background-color: darken($color-primary, 10%);
+    }
+
+    &:active {
         background-color: darken($color-primary, 10%);
     }
 }
 
-.btn-danger{
-     background-color: $color-danger;
+.btn-danger {
+    background-color: $color-danger;
 
-     &:hover{
+    &:hover {
+        background-color: darken($color-danger, 10%);
+    }
+
+    &:focus {
+        background-color: darken($color-danger, 10%);
+    }
+
+    &:active {
         background-color: darken($color-danger, 10%);
     }
 }
 
-.btn-success{
+.btn-success {
     background-color: $color-success;
 
-    &:hover{
+    &:hover {
+        background-color: darken($color-success, 10%);
+    }
+
+    &:focus {
+        background-color: darken($color-success, 10%);
+    }
+
+    &:active {
         background-color: darken($color-success, 10%);
     }
 }
@@ -80,7 +128,7 @@ $custom-border-radius: 3px;
 .btn-ghost.btn-primary {
     box-shadow: inset 0 0 0 2px $color-primary;
 
-    &:hover{
+    &:hover {
         background-color: $color-primary;
     }
 }
@@ -88,7 +136,7 @@ $custom-border-radius: 3px;
 .btn-ghost.btn-success {
     box-shadow: inset 0 0 0 2px $color-success;
 
-    &:hover{
+    &:hover {
         background-color: $color-success;
     }
 }
@@ -96,7 +144,7 @@ $custom-border-radius: 3px;
 .btn-ghost.btn-warning {
     box-shadow: inset 0 0 0 2px $color-warning;
 
-    &:hover{
+    &:hover {
         background-color: $color-warning;
     }
 }
@@ -104,7 +152,7 @@ $custom-border-radius: 3px;
 .btn-ghost.btn-danger {
     box-shadow: inset 0 0 0 2px $color-danger;
 
-    &:hover{
+    &:hover {
         background-color: $color-danger;
     }
 }
@@ -115,25 +163,26 @@ $custom-border-radius: 3px;
 
     @include with-animated-color(300ms);
 
-    &:hover{
+    &:hover {
         color: #333;
         background-color: $color-default;
     }
 }
 
 .panel {
-    border-radius: $custom-border-radius;;
+    border-radius: $custom-border-radius;
+    ;
     font-family: "Open Sans", Helvetica, sans-serif;
     margin: 0;
 
-    .panel-heading{
+    .panel-heading {
         text-transform: uppercase;
         font-weight: 600;
         color: white;
     }
 
-    .panel-body{
-        label{
+    .panel-body {
+        label {
             font-weight: 600;
         }
     }
@@ -142,7 +191,7 @@ $custom-border-radius: 3px;
 .panel-primary {
     border-color: $color-primary;
 
-    .panel-heading{
+    .panel-heading {
         background-color: $color-primary;
     }
 }
@@ -150,7 +199,7 @@ $custom-border-radius: 3px;
 .panel-default {
     border-color: $color-default;
 
-    .panel-heading{
+    .panel-heading {
         color: #333;
         background-color: $color-default;
     }
@@ -159,7 +208,7 @@ $custom-border-radius: 3px;
 .panel-danger {
     border-color: $color-danger;
 
-    .panel-heading{
+    .panel-heading {
         background-color: $color-danger;
     }
 }
@@ -167,7 +216,7 @@ $custom-border-radius: 3px;
 .panel-warning {
     border-color: $color-warning;
 
-    .panel-heading{
+    .panel-heading {
         background-color: $color-warning;
     }
 }
@@ -175,7 +224,7 @@ $custom-border-radius: 3px;
 .panel-success {
     border-color: $color-success;
 
-    .panel-heading{
+    .panel-heading {
         background-color: $color-success;
     }
 }
@@ -183,31 +232,31 @@ $custom-border-radius: 3px;
 .panel-dark {
     border-color: $color-dark;
 
-    .panel-heading{
+    .panel-heading {
         background-color: $color-dark;
     }
 }
 
-span.label-primary{
+span.label-primary {
     background-color: $color-primary;
 }
 
-span.label-default{
+span.label-default {
     background-color: $color-default;
 }
 
-span.label-dark{
+span.label-dark {
     background-color: $color-dark;
 }
 
-span.label-success{
+span.label-success {
     background-color: $color-success;
 }
 
-span.label-warning{
+span.label-warning {
     background-color: $color-warning;
 }
 
-span.label-danger{
+span.label-danger {
     background-color: $color-danger;
 }

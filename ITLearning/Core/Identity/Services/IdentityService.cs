@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using System;
-using ITLearning.Frontend.Web.DAL.Model;
+using ITLearning.Frontend.Web.DAL.Entities;
 
 namespace ITLearning.Frontend.Web.Core.Identity.Services
 {

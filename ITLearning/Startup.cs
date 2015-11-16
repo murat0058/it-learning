@@ -9,10 +9,12 @@ using Microsoft.Dnx.Runtime;
 using ITLearning.Frontend.Web.DAL;
 using Microsoft.AspNet.Authentication.Cookies;
 using ITLearning.Frontend.Web.Core.IoC;
-using ITLearning.Frontend.Web.Common.Mappings;
 using ITLearning.Frontend.Web.Core.Identity.Extensions;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
-using ITLearning.Frontend.Web.DAL.Model;
+using ITLearning.Frontend.Web.DAL.Entities;
+using Microsoft.AspNet.StaticFiles;
+using ITLearning.Frontend.Web.Common;
+using ITLearning.Frontend.Web.Common.Mappings;
 
 namespace ITLearning.Frontend.Web
 {
@@ -59,7 +61,11 @@ namespace ITLearning.Frontend.Web
             app.UseIISPlatformHandler();
             app.UseDeveloperExceptionPage();
 
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                ContentTypeProvider = new StaticFilesContentTypeProvider()
+            });
+
             app.UseIdentity();
             app.EnsureRolesCreated();
 

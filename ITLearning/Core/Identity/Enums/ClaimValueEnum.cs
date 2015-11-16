@@ -8,6 +8,7 @@ namespace ITLearning.Frontend.Web.Core.Identity.Enums
     public enum ClaimValueEnum
     {
         Controller_HomeController,
+        Controller_NewsController,
 
         UserWidgetTab_ProfileEditing,
         UserWidgetTab_FinishedTasks,

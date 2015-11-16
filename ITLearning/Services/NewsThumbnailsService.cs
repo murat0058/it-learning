@@ -1,4 +1,4 @@
-﻿using ITLearning.Frontend.Web.Common.Configs;
+﻿using ITLearning.Frontend.Web.Contract.Configs;
 using ITLearning.Frontend.Web.Contract.Data.Results;
 using ITLearning.Frontend.Web.Contract.Services;
 using ITLearning.Frontend.Web.ViewModels.News;
@@ -18,13 +18,13 @@ namespace ITLearning.Frontend.Web.Services
 
         public CommonResult<IEnumerable<NewsThumbnailViewModel>> GetLatestNewsThumbnails()
         {
-            var imagesBasePath = _pathsConfiguration.Value.NewsImagesPath;
+            var imagesBasePath = _pathsConfiguration.Value.NewsImages;
 
             return CommonResult<IEnumerable<NewsThumbnailViewModel>>.Success<IEnumerable<NewsThumbnailViewModel>>(new List<NewsThumbnailViewModel>
             {
                 new NewsThumbnailViewModel
                 {
-                    Id = 0,
+                    Id = 0.ToString(),
                     Title = "Testowy",
                     BackgroundImagePath = imagesBasePath + "imaginecup.png",
                     SocialNoOfLikes = 10,
@@ -32,7 +32,7 @@ namespace ITLearning.Frontend.Web.Services
                 },
                 new NewsThumbnailViewModel
                 {
-                    Id = 1,
+                    Id = 1.ToString(),
                     Title = "Mały 1",
                     BackgroundImagePath = imagesBasePath + "itad.jpg",
                     SocialNoOfLikes = 5,
@@ -40,7 +40,7 @@ namespace ITLearning.Frontend.Web.Services
                 },
                 new NewsThumbnailViewModel
                 {
-                    Id = 2,
+                    Id = 2.ToString(),
                     Title = "Mały 2",
                     BackgroundImagePath = imagesBasePath + "itlearning.png",
                     SocialNoOfLikes = 7,

@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNet.Mvc;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
 using ITLearning.Frontend.Web.Core.Identity.Enums;
+using System.Linq;
 using ITLearning.Frontend.Web.ViewModels.Home;
+using ITLearning.Frontend.Web.ViewModels.News;
 using System.Collections.Generic;
 using ITLearning.Frontend.Web.ViewModels.User;
 using ITLearning.Frontend.Web.Contract.Providers.ViewModelProviders;
 using ITLearning.Frontend.Web.Contract.Services;
-using System.Linq;
+using AutoMapper;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -14,12 +16,12 @@ namespace ITLearning.Frontend.Web.Controllers
     public class HomeController : BaseController
     {
         private IUserBasicDataViewModelProvider _userBasicDataViewModelProvider;
-        private INewsThumbnailsService _newsThumbnailsService;
+        private INewsService _newsService;
 
-        public HomeController(IUserBasicDataViewModelProvider userBasicDataViewModelProvider, INewsThumbnailsService newsThumbnailsService)
+        public HomeController(IUserBasicDataViewModelProvider userBasicDataViewModelProvider, INewsService newsService)
         {
             _userBasicDataViewModelProvider = userBasicDataViewModelProvider;
-            _newsThumbnailsService = newsThumbnailsService;
+            _newsService = newsService;
         }
 
         public IActionResult Index()
@@ -40,19 +42,20 @@ namespace ITLearning.Frontend.Web.Controllers
 
         private void FillModelWithNews(HomeViewModel model)
         {
-            var newsThumbnails = _newsThumbnailsService.GetLatestNewsThumbnails();
-            if (newsThumbnails.IsSuccess)
-            {
-                var thumbnails = newsThumbnails.Item;
+            var result = _newsService.GetAll(withContent: false);
 
-                if (newsThumbnails.Item.Count() > 0)
+            if (result.IsSuccess)
+            {
+                var allNewsItem = result.Item;
+
+                if (allNewsItem.Count() > 0)
                 {
-                    model.MainNews = newsThumbnails.Item.First();
+                    model.MainNews = Mapper.Map<NewsThumbnailViewModel>(allNewsItem.First());
                 }
 
-                if (newsThumbnails.Item.Count() > 1)
+                if (allNewsItem.Count() > 1)
                 {
-                    model.SmallNews = newsThumbnails.Item.Skip(1).Take(3);
+                    model.SmallNews = result.Item.Skip(1).Take(3).Select(x => Mapper.Map<NewsThumbnailViewModel>(x));
                 }
             }
         }
