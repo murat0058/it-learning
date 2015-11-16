@@ -12,17 +12,20 @@
         <div class="row">
             <div class="col-md-3">
                 <section class="user-profile-container">
-                    <section class="user-data user-profile-section">
+                    <div class="user-data user-profile-section">
+                        <div class="user-profile-actions">
+                            <a href="/User/Index" title="Ustawienia profilu"><i class="fa fa-cog"></i></a>
+                        </div>
                         <div class="user-photo" style="background-image: url('@userData.ProfileImagePath')"></div>
                         <p class="user-name">@userData.DisplayName</p>
-                    </section>
+                    </div>
                     @Html.Partial("Partials/UserShortcutsWidget", widgetViewModel)
                 </section>
             </div>
             <div class="col-md-9">
                 <h4 class="section-header section-header-success">IT Newsy</h4>
                 <section class="section-container news-container">
-                    @if(mainNews != null)
+                    @if (mainNews != null)
                     {
                         <div class="row news-row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
