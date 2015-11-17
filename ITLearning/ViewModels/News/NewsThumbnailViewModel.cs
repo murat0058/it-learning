@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ITLearning.Frontend.Web.ViewModels.News
 {
@@ -12,5 +9,8 @@ namespace ITLearning.Frontend.Web.ViewModels.News
         public string ImagePath { get; set; }
         public string Author { get; set; }
         public DateTime Date { get; set; }
+        public string BackgroundImagePath { get; set; }
+        public int SocialNoOfLikes { get; set; }
+        public int SocialNoOfShares { get; set; }
     }
 }

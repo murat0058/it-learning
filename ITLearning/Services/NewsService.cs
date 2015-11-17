@@ -1,11 +1,8 @@
-﻿using ITLearning.Frontend.Web.Contract.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ITLearning.Frontend.Web.Model;
-using ITLearning.Frontend.Web.Contract.Data.Result;
 using ITLearning.Frontend.Web.Contract.Providers.ModelProviders;
+using ITLearning.Frontend.Web.Contract.Data.Results;
+using ITLearning.Frontend.Web.Contract.Services;
 
 namespace ITLearning.Frontend.Web.Services
 {
@@ -37,8 +34,6 @@ namespace ITLearning.Frontend.Web.Services
             {
                 return CommonResult<News>.Failure<News>("News o podanym identyfikatorze nie istnieje.");
             }
-
-            
         }
     }
 }

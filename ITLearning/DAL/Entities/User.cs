@@ -8,6 +8,7 @@ namespace ITLearning.Frontend.Web.DAL.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string ImageName { get; set; }
 
         public ICollection<UserGroup> Groups { get; set; }
         public ICollection<Task> Tasks { get; set; }

@@ -1,4 +1,4 @@
-﻿{
+{
   "webroot": "wwwroot",
   "userSecretsId": "aspnet5-ITLearning-53ef4d2c-7e6e-4694-8b38-022559077c43",
   "version": "1.0.0-beta8",
@@ -38,6 +38,9 @@
       "dependencies": {
         "FluentValidation": "5.6.2",
         "AutoMapper": "4.0.4"
+      },
+      "frameworkAssemblies": {
+        "System.Drawing": "4.0.0.0"
       }
     }
   },

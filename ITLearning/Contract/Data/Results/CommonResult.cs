@@ -1,4 +1,4 @@
-﻿namespace ITLearning.Frontend.Web.Contract.Data.Result
+﻿namespace ITLearning.Frontend.Web.Contract.Data.Results
 {
     public class CommonResult
     {

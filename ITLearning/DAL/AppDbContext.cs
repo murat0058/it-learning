@@ -2,6 +2,7 @@
 using ITLearning.Frontend.Web.DAL.Entities.JunctionTables;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Infrastructure;
 
 namespace ITLearning.Frontend.Web.DAL
 {
@@ -17,6 +18,9 @@ namespace ITLearning.Frontend.Web.DAL
         public DbSet<UserGroup> UserGroups { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<ErrorLog> ErrorLogs { get; set; }
+
+        public AppDbContext(DbContextOptions options)
+            : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
