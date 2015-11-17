@@ -11,6 +11,7 @@ using AutoMapper;
 namespace ITLearning.Frontend.Web.Controllers
 {
     [AllowAnonymous]
+    [Route("Account")]
     public class AccountController : BaseController
     {
         private readonly IIdentityService _identityService;

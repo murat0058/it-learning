@@ -13,11 +13,11 @@ using ITLearning.Frontend.Web.Contract.Enums;
 using ITLearning.Frontend.Web.Providers.Home;
 using ITLearning.Frontend.Web.Contract.Providers.ViewModelProviders;
 using ITLearning.Frontend.Web.Contract.Services;
-using System.Linq;
 using AutoMapper;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
+    [Route("Home")]
     [AuthorizeClaim(Type = ClaimTypeEnum.Controller, Value = ClaimValueEnum.Controller_HomeController)]
     public class HomeController : BaseController
     {
@@ -30,6 +30,7 @@ namespace ITLearning.Frontend.Web.Controllers
             _newsService = newsService;
         }
 
+        [HttpGet("Index")]
         public IActionResult Index()
         {
             HomeViewModel model = new HomeViewModel();

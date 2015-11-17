@@ -3,8 +3,10 @@
 namespace ITLearning.Frontend.Web.Controllers
 {
     [AllowAnonymous]
+    [Route("")]
     public class LandingController : BaseController
     {
+        [HttpGet("")]
         public IActionResult Index()
         {
             if (IsAuthorized())

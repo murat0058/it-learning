@@ -338,24 +338,65 @@
   .news-list-side-section h1, .news-list-side-section h2, .news-list-side-section h3, .news-list-side-section h4, .news-list-side-section h5, .news-list-side-section h6 {
     text-transform: uppercase;
     border-bottom: 1px solid #efefef; }
+  .news-list-side-section .btn {
+    margin: 0;
+    padding: 5px; }
 
-.tags {
+.filter-category-wrapper {
   font-family: "Open Sans", Helvetica, sans-serif; }
-  .tags .tags-list {
+  .filter-category-wrapper .filters-list {
     margin: 0;
     padding: 0;
     list-style-type: none; }
-    .tags .tags-list li.tag {
-      background-color: #ed4933;
+    .filter-category-wrapper .filters-list li.filter-item {
       display: inline-block;
-      padding: 3px 10px;
+      padding: 5px 10px;
       margin-right: 5px;
-      margin-bottom: 5px; }
-      .tags .tags-list li.tag a {
+      margin-bottom: 5px;
+      color: white;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      -webkit-transition: background-color 300ms ease;
+      -moz-transition: background-color 300ms ease;
+      -o-transition: background-color 300ms ease;
+      transition: background-color 300ms ease; }
+      .filter-category-wrapper .filters-list li.filter-item a {
         color: white;
         text-transform: uppercase;
         font-size: 12px;
         font-weight: 600; }
+  .filter-category-wrapper .authors-list li.filter-item {
+    background-color: #2e3842; }
+    .filter-category-wrapper .authors-list li.filter-item:hover {
+      background-color: #435160; }
+  .filter-category-wrapper .tags-list li.filter-item {
+    background-color: #ed4933; }
+    .filter-category-wrapper .tags-list li.filter-item:hover {
+      background-color: #f17362; }
+
+.filter-summary-wrapper {
+  font-family: "Open Sans", Helvetica, sans-serif;
+  margin-bottom: 10px; }
+  .filter-summary-wrapper ul.filter-summary {
+    margin: 0;
+    padding: 0;
+    list-style-type: none; }
+    .filter-summary-wrapper ul.filter-summary li.default-item {
+      background-color: white;
+      padding: 6px;
+      padding-left: 0; }
+    .filter-summary-wrapper ul.filter-summary li.color-item {
+      color: #2e3842;
+      background-color: #fafafa;
+      padding: 6px; }
+    .filter-summary-wrapper ul.filter-summary li.filter-summary-item {
+      display: inline-block;
+      margin-right: 10px;
+      font-size: 16px; }
+      .filter-summary-wrapper ul.filter-summary li.filter-summary-item a {
+        color: #2e3842; }
 
 .learning-container .learning-hub {
   width: 100%;

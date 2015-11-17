@@ -52,6 +52,9 @@ namespace ITLearning.Frontend.Web
             {
                 options.Filters.Add(new AuthorizeClaimAttribute());
             });
+
+            services.AddCaching();
+            services.AddSession();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -67,6 +70,7 @@ namespace ITLearning.Frontend.Web
             });
 
             app.UseIdentity();
+            app.UseSession();
             app.EnsureRolesCreated();
 
             app.UseCookieAuthentication((p) => new CookieAuthenticationOptions
@@ -74,12 +78,7 @@ namespace ITLearning.Frontend.Web
                 LoginPath = "/Account/Login"
             });
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Landing}/{action=Index}/{id?}");
-            });
+            app.UseMvc();
         }
     }
 }

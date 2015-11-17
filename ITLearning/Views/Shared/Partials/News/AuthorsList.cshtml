@@ -1,0 +1,12 @@
+﻿@model IEnumerable<string>
+
+<div class="filter-category-wrapper">
+    <ul class="filters-list authors-list">
+        @foreach (var author in Model)
+        {
+            <li class="filter-item">
+                <a href="@( $"/News/Author/{author}" )"><i class="fa fa-user"></i> @author</a>
+            </li>
+        }
+    </ul>
+</div>

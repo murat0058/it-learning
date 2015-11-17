@@ -385,17 +385,17 @@
                 font-family: $custom-font;
             }
 
-            .social-media{
+            .social-media {
                 padding: 10px 0;
                 border-top: 1px solid #efefef;
 
-                .item{
+                .item {
                     display: inline-block;
                     margin-right: 5px;
                     position: relative;
                 }
 
-                .social-media-twitter{
+                .social-media-twitter {
                     top: 6px;
                 }
             }
@@ -410,28 +410,92 @@
         text-transform: uppercase;
         border-bottom: 1px solid #efefef;
     }
+
+    .btn {
+        margin: 0;
+        padding: 5px;
+    }
 }
 
-.tags {
+.filter-category-wrapper {
     font-family: $custom-font;
 
-    .tags-list {
+    .filters-list {
         margin: 0;
         padding: 0;
         list-style-type: none;
 
-        li.tag {
-            background-color: $color-danger;
+        li.filter-item {
             display: inline-block;
-            padding: 3px 10px;
+            padding: 5px 10px;
             margin-right: 5px;
             margin-bottom: 5px;
+            color: white;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+
+            @include with-animated-background(300ms);
 
             a {
                 color: white;
                 text-transform: uppercase;
                 font-size: 12px;
                 font-weight: 600;
+            }
+        }
+    }
+
+    .authors-list {
+        li.filter-item {
+            background-color: $color-dark;
+
+            &:hover{
+                background-color: lighten($color-dark, 10%);
+            }
+        }
+    }
+
+    .tags-list {
+        li.filter-item {
+            background-color: $color-danger;
+
+            &:hover{
+                background-color: lighten($color-danger, 10%);
+            }
+        }
+    }
+}
+
+.filter-summary-wrapper {
+    font-family: $custom-font;
+    margin-bottom: 10px;
+
+    ul.filter-summary {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+
+        li.default-item {
+            background-color: white;
+            padding: 6px;
+            padding-left: 0;
+        }
+
+        li.color-item {
+            color: $color-dark;
+            background-color: $color-default;
+            padding: 6px;
+        }
+
+        li.filter-summary-item {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 16px;
+
+            a {
+                color: $color-dark;
             }
         }
     }
