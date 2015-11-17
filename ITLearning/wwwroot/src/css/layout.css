@@ -90,6 +90,9 @@
   .user-profile-container .user-data {
     z-index: 999;
     text-align: center; }
+    .user-profile-container .user-data .user-profile-actions {
+      float: right;
+      margin-right: 5px; }
     .user-profile-container .user-data .user-photo {
       background-repeat: no-repeat;
       background-position: center center;
