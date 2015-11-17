@@ -24,5 +24,4 @@
 /// <reference path="src/js/landing/util.js" />
 /// <reference path="src/js/ui/header-ui.js" />
 /// <reference path="src/js/ui/profile-column-ui.js" />
-/// <reference path="src/js/ui/profile-tabs-ui.js" />
 /// <reference path="src/js/ui/tooltip-ui.js" />

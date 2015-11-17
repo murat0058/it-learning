@@ -11,8 +11,10 @@
 
         newsListVm.filters = {
             query: '',
-            tag: '',
-            author: ''
+            tags: [],
+            authors: [],
+            tagsNotEmpty: false,
+            authorsNotEmpty: false
         };
 
         newsListVm.tags = [];
@@ -56,11 +58,24 @@
         }
 
         function toggleTagFilter(tag) {
-            newsListVm.filters.tag = newsListVm.filters.tag === tag ? '' : tag;
+            genericFilterToggle(tag, "tags");
         }
 
         function toggleAuthorFilter(author) {
-            newsListVm.filters.author = newsListVm.filters.author === author ? '' : author;
+            genericFilterToggle(author, "authors");
+        }
+
+        function genericFilterToggle(filterItem, propertyName) {
+            var index = newsListVm.filters[propertyName].indexOf(filterItem);
+
+            if (index > -1) {
+                newsListVm.filters[propertyName].splice(index, 1);
+            } else {
+                newsListVm.filters[propertyName].push(filterItem);
+            }
+
+            var filterNotEmptyPropertyName = propertyName + "NotEmpty";
+            newsListVm.filters[filterNotEmptyPropertyName] = newsListVm.filters[propertyName].length > 0;
         }
 
         function formatTag(tag) {

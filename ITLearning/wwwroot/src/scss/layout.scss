@@ -431,11 +431,11 @@
         list-style-type: none;
 
         li.filter-item {
+            color: white;
             display: inline-block;
             padding: 5px 10px;
             margin-right: 5px;
             margin-bottom: 5px;
-            color: white;
             text-transform: uppercase;
             font-size: 12px;
             font-weight: 600;
@@ -448,6 +448,25 @@
                 text-transform: uppercase;
                 font-size: 12px;
                 font-weight: 600;
+            }
+        }
+    }
+
+    .generic-list{
+        li.filter-item{
+            background-color: $color-default;
+            color: $color-dark;
+
+            &:hover{
+                background-color: darken($color-default, 10%);
+            }
+        }
+
+        li.default-item{
+            background-color: white;
+
+            &:hover{
+                background-color: white;
             }
         }
     }

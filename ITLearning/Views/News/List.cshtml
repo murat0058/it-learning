@@ -34,6 +34,26 @@
                 </button>
             </div>
             <div class="col-md-9">
+                <div class="filter-category-wrapper" ng-show="newsListVm.filters.tagsNotEmpty">
+                    <ul class="filters-list generic-list">
+                        <li class="filter-item default-item">Wg tagów:</li>
+                        <li class="filter-item"
+                            ng-repeat="tag in newsListVm.filters.tags"
+                            ng-click="newsListVm.toggleTagFilter(tag)">
+                            {{newsListVm.formatTag(tag)}} <i class="fa fa-times"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="filter-category-wrapper" ng-show="newsListVm.filters.authorsNotEmpty">
+                    <ul class="filters-list generic-list">
+                        <li class="filter-item default-item">Wg autorów:</li>
+                        <li class="filter-item"
+                            ng-repeat="author in newsListVm.filters.authors"
+                            ng-click="newsListVm.toggleAuthorFilter(author)">
+                            <i class="fa fa-user"></i> {{author}} <i class="fa fa-times"></i>
+                        </li>
+                    </ul>
+                </div>
                 <itl-loading-indicator parent-vm="newsListVm"
                                        dot-background="#333"
                                        dot-size="10px"
