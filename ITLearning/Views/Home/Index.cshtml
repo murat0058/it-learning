@@ -34,10 +34,14 @@
                                         <div class="news-info-wrapper">
                                             <ul>
                                                 <li>
-                                                    <div class="icon-wrapper"><i class="fa fa-pencil-square-o"></i> @mainNews.Date.ToShortDateString()</div>
+                                                    <div class="icon-wrapper">
+                                                        <i class="fa fa-pencil-square-o"></i> @mainNews.Date.ToShortDateString()
+                                                    </div>
                                                 </li>
                                                 <li>
-                                                    <div class="icon-wrapper"><i class="fa fa-user"></i> @mainNews.Author</div>
+                                                    <div class="icon-wrapper">
+                                                        <i class="fa fa-user"></i> @mainNews.Author
+                                                    </div>
                                                 </li>
                                             </ul>
                                         </div>
@@ -85,8 +89,8 @@
 
                                         <itl-task-list>
                                             <itl-loading-indicator parent-vm="taskListVm"
-                                                                   dot-background="#333" 
-                                                                   dot-size="5px" 
+                                                                   dot-background="#333"
+                                                                   dot-size="5px"
                                                                    loading-text="Ładuję najnowsze zadania..."></itl-loading-indicator>
                                         </itl-task-list>
 

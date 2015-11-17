@@ -203,24 +203,12 @@
           display: inline-block;
           color: white;
           background-color: rgba(0, 0, 0, 0.3);
-          text-align: center;
-          -webkit-transition: background-color 300ms ease;
-          -moz-transition: background-color 300ms ease;
-          -o-transition: background-color 300ms ease;
-          transition: background-color 300ms ease; }
-          .news-container .news-row .news .news-info-wrapper ul li:hover {
-            background-color: #fafafa; }
+          text-align: center; }
           .news-container .news-row .news .news-info-wrapper ul li .icon-wrapper {
             padding: 3px 5px;
             font-weight: 600;
             font-family: "Open Sans", Helvetica, sans-serif;
-            color: white;
-            -webkit-transition: color 300ms ease;
-            -moz-transition: color 300ms ease;
-            -o-transition: color 300ms ease;
-            transition: color 300ms ease; }
-            .news-container .news-row .news .news-info-wrapper ul li .icon-wrapper:hover {
-              color: #21b2a6; }
+            color: white; }
     .news-container .news-row .news .news-description-wrapper {
       position: absolute;
       bottom: 0;
@@ -268,24 +256,12 @@
       display: inline-block;
       color: white;
       background-color: rgba(0, 0, 0, 0.3);
-      text-align: center;
-      -webkit-transition: background-color 300ms ease;
-      -moz-transition: background-color 300ms ease;
-      -o-transition: background-color 300ms ease;
-      transition: background-color 300ms ease; }
-      .news-container-wide .news-info-wrapper ul li:hover {
-        background-color: #fafafa; }
+      text-align: center; }
       .news-container-wide .news-info-wrapper ul li .icon-wrapper {
         padding: 3px 5px;
         font-weight: 600;
         font-family: "Open Sans", Helvetica, sans-serif;
-        color: white;
-        -webkit-transition: color 300ms ease;
-        -moz-transition: color 300ms ease;
-        -o-transition: color 300ms ease;
-        transition: color 300ms ease; }
-        .news-container-wide .news-info-wrapper ul li .icon-wrapper:hover {
-          color: #21b2a6; }
+        color: white; }
 
 .news-container-wide .news {
   position: absolute;

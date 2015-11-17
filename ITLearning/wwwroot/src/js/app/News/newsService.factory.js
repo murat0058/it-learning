@@ -16,10 +16,9 @@
 
         /////////////
 
-        function getNewsList(request) {
-            return $http.post('/News/List', {
-                    request: request
-                })
+        function getNewsList(requestData) {
+
+            return $http.post('/News/List', requestData)
                 .then(getNewsListComplete)
                 .catch(getNewsListFailed);
 

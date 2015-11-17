@@ -224,23 +224,12 @@
                         color: white;
                         background-color: rgba(0,0,0,0.3);
                         text-align: center;
-                        @include with-animated-background(300ms);
-
-                        &:hover {
-                            background-color: #fafafa;
-                        }
 
                         .icon-wrapper {
                             padding: 3px 5px;
                             font-weight: 600;
                             font-family: $custom-font;
                             color: white;
-
-                            @include with-animated-color(300ms);
-
-                            &:hover {
-                                color: $color-success;
-                            }
                         }
                     }
                 }
@@ -317,23 +306,12 @@
                 color: white;
                 background-color: rgba(0,0,0,0.3);
                 text-align: center;
-                @include with-animated-background(300ms);
-
-                &:hover {
-                    background-color: #fafafa;
-                }
 
                 .icon-wrapper {
                     padding: 3px 5px;
                     font-weight: 600;
                     font-family: $custom-font;
                     color: white;
-
-                    @include with-animated-color(300ms);
-
-                    &:hover {
-                        color: $color-success;
-                    }
                 }
             }
         }
