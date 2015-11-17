@@ -59,7 +59,7 @@ namespace ITLearning.Frontend.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            MappingsDefinitions.ConfigureMappings();
+            MappingsProvider.ConfigureMappings();
 
             app.UseIISPlatformHandler();
             app.UseDeveloperExceptionPage();

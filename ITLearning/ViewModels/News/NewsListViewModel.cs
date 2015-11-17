@@ -8,7 +8,6 @@ namespace ITLearning.Frontend.Web.ViewModels.News
 {
     public class NewsListViewModel
     {
-        public IEnumerable<NewsThumbnailViewModel> News { get; set; }
         public IEnumerable<string> Authors { get; set; }
         public IEnumerable<string> Tags { get; set; }
         public NewsFilterRequest FilterRequest { get; set; }

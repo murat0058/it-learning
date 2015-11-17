@@ -21,9 +21,6 @@ namespace ITLearning.Frontend.Web.Controllers
     [AuthorizeClaim(Type = ClaimTypeEnum.Controller, Value = ClaimValueEnum.Controller_NewsController)]
     public class NewsController : BaseController
     {
-        private readonly string NEWS_FILTER_REQUEST = "newsFilterRequest";
-        private readonly string NEWS_MODEL = "newsModel";
-
         private INewsService _newsService;
 
         public NewsController(INewsService newsService)
@@ -39,9 +36,8 @@ namespace ITLearning.Frontend.Web.Controllers
 
             var request = new NewsListRequest
             {
-                News = result.Item,
                 Authors = result.Item.Select(x => x.Author).Distinct(),
-                Tags = result.Item.SelectMany(x => x.Tags).Distinct(),
+                Tags = result.Item.SelectMany(x => x.Tags).Distinct()
             };
 
             var viewModel = Mapper.Map<NewsListViewModel>(request);
@@ -65,7 +61,7 @@ namespace ITLearning.Frontend.Web.Controllers
         }
 
         [HttpPost("List")]
-        public IActionResult List([FromBody]NewsFilterRequest request)
+        public IActionResult List(NewsFilterRequest request)
         {
             var result = _newsService.GetAll(withContent: false);
             var newsCollection = result.Item.Where(x => x.Tags.Contains(request.Tag));

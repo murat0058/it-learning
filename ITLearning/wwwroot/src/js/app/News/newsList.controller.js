@@ -22,7 +22,6 @@
         newsListVm.isLoadingIndicatorVisible = false;
 
         newsListVm.activate = activate;
-        newsListVm.search = search;
         newsListVm.toggleTagFilter = toggleTagFilter;
         newsListVm.toggleAuthorFilter = toggleAuthorFilter;
 
@@ -30,13 +29,22 @@
         newsListVm.getNewsStyle = getNewsStyle;
 
         //////////////
+
         function activate(model) {
-            newsListVm.news = model.News;
+
             newsListVm.tags = model.Tags;
             newsListVm.authors = model.Authors;
-        }
 
-        function search() {
+            if (model.FilterRequest.Tag) {
+                newsListVm.filters.tags.push(model.FilterRequest.Tag);
+                newsListVm.filters.tagsNotEmpty = true;
+            }
+
+            if (model.FilterRequest.Author) {
+                newsListVm.filters.authors.push(model.FilterRequest.Author);
+                newsListVm.filters.authorsNotEmpty = true;
+            }
+
             getNews();
         }
 
@@ -45,16 +53,16 @@
 
             var request = {
                 Query: newsListVm.filters.query,
-                Tag: newsListVm.filters.tag,
-                Author: newsListVm.filters.author
+                Tags: newsListVm.filters.tags,
+                Authors: newsListVm.filters.authors
             };
 
-            return newsService
-                    .getNewsList(request)
-                    .then(function (data) {
-                        newsListVm.news = data;
-                        newsListVm.isLoadingIndicatorVisible = false;
-                    });
+            //return newsService
+            //        .getNewsList(request)
+            //        .then(function (data) {
+            //            newsListVm.news = data;
+            //            newsListVm.isLoadingIndicatorVisible = false;
+            //        });
         }
 
         function toggleTagFilter(tag) {

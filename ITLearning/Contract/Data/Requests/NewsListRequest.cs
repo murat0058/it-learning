@@ -8,7 +8,6 @@ namespace ITLearning.Frontend.Web.Contract.Data.Requests
 {
     public class NewsListRequest
     {
-        public IEnumerable<News> News { get; set; }
         public IEnumerable<string> Authors { get; set; }
         public IEnumerable<string> Tags { get; set; }
         public NewsFilterRequest FilterRequest { get; set; }

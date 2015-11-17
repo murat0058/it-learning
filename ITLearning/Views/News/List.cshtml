@@ -6,7 +6,7 @@
             <div class="col-md-3 news-list-side-section">
                 <h4>Wyszukaj</h4>
                 <div class="search-row">
-                    <input type="text" class="form-control" placeholder="Szukaj w tytule..." ng-model="newsListVm.filters.query" />
+                    <input type="text" class="form-control" placeholder="Szukaj w tytule..." ng-model="newsListVm.filters.query" ng-model-options="{ debounce: 1000 }" />
                 </div>
                 <h4>Tagi</h4>
                 <div class="filter-category-wrapper">
@@ -28,10 +28,6 @@
                         </li>
                     </ul>
                 </div>
-                <h4></h4>
-                <button class="btn btn-block btn-success" ng-click="newsListVm.search()">
-                    <i class="fa fa-search"></i> Szukaj
-                </button>
             </div>
             <div class="col-md-9">
                 <div class="filter-category-wrapper" ng-show="newsListVm.filters.tagsNotEmpty">
@@ -80,33 +76,6 @@
                     </div>
                 </div>
             </div>
-                @*<div class="col-md-9">
-                @Html.Partial("Partials/News/FiltersSummary", Model.FilterRequest)
-                @foreach (var news in Model.News)
-                {
-                    <div class="row news-row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <a href="/News/Single/@news.Id" class="news-link">
-                                <article class="news news-big" style="background-image: url('@news.ImagePath')">
-                                    <div class="news-info-wrapper">
-                                        <ul>
-                                            <li>
-                                                <div class="icon-wrapper"><i class="fa fa-pencil-square-o"></i> @news.Date.ToShortDateString()</div>
-                                            </li>
-                                            <li>
-                                                <div class="icon-wrapper"><i class="fa fa-user"></i> @news.Author</div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="news-description-wrapper">
-                                        <p class="news-text">@news.Title</p>
-                                    </div>
-                                </article>
-                            </a>
-                        </div>
-                    </div>
-                }
-            </div>*@
-            </div>
+        </div>
     </div>
 </div>

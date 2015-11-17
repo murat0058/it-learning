@@ -376,7 +376,8 @@
     .filter-category-wrapper .generic-list li.filter-item:hover {
       background-color: #e1e1e1; }
   .filter-category-wrapper .generic-list li.default-item {
-    background-color: white; }
+    background-color: white;
+    cursor: default; }
     .filter-category-wrapper .generic-list li.default-item:hover {
       background-color: white; }
   .filter-category-wrapper .authors-list li.filter-item {
