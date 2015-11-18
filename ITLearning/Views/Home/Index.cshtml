@@ -14,7 +14,7 @@
                 <section class="user-profile-container">
                     <div class="user-data user-profile-section">
                         <div class="user-profile-actions">
-                            <a href="/User/Index" title="Ustawienia profilu"><i class="fa fa-cog"></i></a>
+                            <a asp-action="Profile" asp-controller="User"><i class="fa fa-cog"></i></a>
                         </div>
                         <div class="user-photo" style="background-image: url('@userData.ProfileImagePath')"></div>
                         <p class="user-name">@userData.DisplayName</p>
@@ -85,8 +85,8 @@
 
                                         <itl-task-list>
                                             <itl-loading-indicator parent-vm="taskListVm"
-                                                                   dot-background="#333" 
-                                                                   dot-size="5px" 
+                                                                   dot-background="#333"
+                                                                   dot-size="5px"
                                                                    loading-text="Ładuję najnowsze zadania..."></itl-loading-indicator>
                                         </itl-task-list>
 

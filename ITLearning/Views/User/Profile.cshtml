@@ -1,0 +1,62 @@
+﻿@model ITLearning.Frontend.Web.Contract.Data.User.UserProfileData
+
+<link href="~/src/css/common/croppic.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="crop-image-container">
+                    <div id="croppic" class="crop-image-control"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-10">
+                <form asp-controller="User" asp-action="UpdateProfile" method="post" class="form-horizontal" role="form">
+                    <div class="form-horizontal">
+                        <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="UserName" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <div style="margin-top: 7px;">@Model.UserName</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="FirstName" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="FirstName" class="form-control" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LastName" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="LastName" class="form-control" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Zapisz" class="btn btn-default" style="margin-left: 0px;" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/src/js/common/croppic/croppic.js"></script>
+    <script src="~/src/js/common/croppic/croppicinit.js"></script>
+}

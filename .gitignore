@@ -198,3 +198,4 @@ FakesAssemblies/
 ITLearning/config.Development.json
 ITLearning/config.Production.json
 ITLearning/project.lock.json
+ITLearning/wwwroot/src/css/layout.css
