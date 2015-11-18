@@ -231,7 +231,7 @@
                             font-family: $custom-font;
                             color: white;
 
-                            a{
+                            a {
                                 color: white;
                             }
                         }
@@ -318,7 +318,7 @@
                     font-family: $custom-font;
                     color: white;
 
-                    a{
+                    a {
                         color: white;
                     }
                 }
@@ -439,21 +439,21 @@
         }
     }
 
-    .generic-list{
-        li.filter-item{
+    .generic-list {
+        li.filter-item {
             background-color: $color-default;
             color: $color-dark;
 
-            &:hover{
+            &:hover {
                 background-color: darken($color-default, 10%);
             }
         }
 
-        li.default-item{
+        li.default-item {
             background-color: white;
             cursor: default;
 
-            &:hover{
+            &:hover {
                 background-color: white;
             }
         }
@@ -463,7 +463,7 @@
         li.filter-item {
             background-color: $color-dark;
 
-            &:hover{
+            &:hover {
                 background-color: lighten($color-dark, 10%);
             }
         }
@@ -473,7 +473,7 @@
         li.filter-item {
             background-color: $color-danger;
 
-            &:hover{
+            &:hover {
                 background-color: lighten($color-danger, 10%);
             }
         }
@@ -546,10 +546,15 @@
             }
 
             a {
+                display: block;
                 color: $color-default;
 
                 &:hover {
                     text-decoration: none;
+
+                    .title {
+                        text-decoration: underline;
+                    }
                 }
 
                 .title {
@@ -579,6 +584,51 @@
                             display: inline-block;
                             margin-right: 5px;
                             font-family: $custom-font;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.error-message-page {
+    position: relative;
+    top: 50px;
+    padding: 10px;
+
+    .error-message {
+        font-family: "Open Sans", Helvetica, sans-serif;
+        text-align: center;
+    }
+
+    .extra-content {
+        margin-top: 50px;
+
+        ul.pages-list {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+
+            li.pages-list-item {
+                display: inline-block;
+
+                a.link {
+                    color: white;
+
+                    p {
+                        width: 150px;
+                        margin: 10px;
+                        background-color: $color-dark;
+                        color: white;
+                        padding: 10px 20px;
+
+                        @include with-animated-background(300ms);
+                    }
+
+                    &:hover {
+                        p {
+                            background-color: $color-success;
                         }
                     }
                 }

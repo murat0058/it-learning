@@ -9,6 +9,8 @@ using ITLearning.Frontend.Web.ViewModels.User;
 using ITLearning.Frontend.Web.Contract.Providers.ViewModelProviders;
 using ITLearning.Frontend.Web.Contract.Services;
 using AutoMapper;
+using System.Net.Mime;
+using Microsoft.Net.Http.Headers;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -35,6 +37,24 @@ namespace ITLearning.Frontend.Web.Controllers
             CreateUserShortcutsWidget(model);
 
             return View(model);
+        }
+
+        [HttpGet("Error/{code}")]
+        public IActionResult Error(string code)
+        {
+            switch (code)
+            {
+                case "404":
+                    return View("Errors/ErrorPage404");
+                default:
+                    return new ContentResult
+                    {
+                        Content = $"Wystąpił nieoczekiwany błąd. Kod błędu - {code}",
+                        ContentType = new MediaTypeHeaderValue("text/plain"),
+                        StatusCode = int.Parse(code)
+                    };
+            }
+            
         }
 
         private void FillModelWithBasicUserData(HomeViewModel model)

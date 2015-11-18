@@ -419,9 +419,12 @@
     .learning-container .learning-hub .group-container:hover {
       background-color: #2e3842; }
     .learning-container .learning-hub .group-container a {
+      display: block;
       color: #fafafa; }
       .learning-container .learning-hub .group-container a:hover {
         text-decoration: none; }
+        .learning-container .learning-hub .group-container a:hover .title {
+          text-decoration: underline; }
       .learning-container .learning-hub .group-container a .title {
         position: relative;
         top: 3px;
@@ -448,3 +451,33 @@
             display: inline-block;
             margin-right: 5px;
             font-family: "Open Sans", Helvetica, sans-serif; }
+
+.error-message-page {
+  position: relative;
+  top: 50px;
+  padding: 10px; }
+  .error-message-page .error-message {
+    font-family: "Open Sans", Helvetica, sans-serif;
+    text-align: center; }
+  .error-message-page .extra-content {
+    margin-top: 50px; }
+    .error-message-page .extra-content ul.pages-list {
+      margin: 0;
+      padding: 0;
+      text-align: center; }
+      .error-message-page .extra-content ul.pages-list li.pages-list-item {
+        display: inline-block; }
+        .error-message-page .extra-content ul.pages-list li.pages-list-item a.link {
+          color: white; }
+          .error-message-page .extra-content ul.pages-list li.pages-list-item a.link p {
+            width: 150px;
+            margin: 10px;
+            background-color: #2e3842;
+            color: white;
+            padding: 10px 20px;
+            -webkit-transition: background-color 300ms ease;
+            -moz-transition: background-color 300ms ease;
+            -o-transition: background-color 300ms ease;
+            transition: background-color 300ms ease; }
+          .error-message-page .extra-content ul.pages-list li.pages-list-item a.link:hover p {
+            background-color: #21b2a6; }

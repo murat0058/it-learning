@@ -62,6 +62,7 @@ namespace ITLearning.Frontend.Web
             MappingsProvider.ConfigureMappings();
 
             app.UseIISPlatformHandler();
+
             app.UseDeveloperExceptionPage();
 
             app.UseStaticFiles(new StaticFileOptions
@@ -69,6 +70,7 @@ namespace ITLearning.Frontend.Web
                 ContentTypeProvider = new StaticFilesContentTypeProvider()
             });
 
+            app.UseStatusCodePagesWithRedirects("~/Home/Error/{0}");
             app.UseIdentity();
             app.UseSession();
             app.EnsureRolesCreated();
