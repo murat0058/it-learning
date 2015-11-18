@@ -11,6 +11,10 @@ namespace ITLearning.Frontend.Web.Core.Identity.Providers
             return new List<Claim>
             {
                 CreateClaimByClaimEnums(ClaimTypeEnum.Controller, ClaimValueEnum.Controller_HomeController),
+                CreateClaimByClaimEnums(ClaimTypeEnum.Controller, ClaimValueEnum.Controller_NewsController),
+                CreateClaimByClaimEnums(ClaimTypeEnum.Controller, ClaimValueEnum.Controller_GroupController),
+
+                //TODO To be removed
                 CreateClaimByClaimEnums(ClaimTypeEnum.UserWidgetTab, ClaimValueEnum.UserWidgetTab_ProfileEditing),
                 CreateClaimByClaimEnums(ClaimTypeEnum.UserWidgetTab, ClaimValueEnum.UserWidgetTab_HomeSettings),
             };
