@@ -2,7 +2,7 @@
 using ITLearning.Frontend.Web.Common.Configs;
 using ITLearning.Frontend.Web.Contract.DAL.Repositories;
 using ITLearning.Frontend.Web.Contract.Data.Results;
-using ITLearning.Frontend.Web.Contract.Data.User;
+using ITLearning.Frontend.Web.Contract.Data.Model.User;
 using Microsoft.Framework.OptionsModel;
 using System.Linq;
 

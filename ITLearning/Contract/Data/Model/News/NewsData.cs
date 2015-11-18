@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ITLearning.Frontend.Web.Model
+namespace ITLearning.Frontend.Web.Contract.Data.Model.News
 {
-    public class News
+    public class NewsData
     {
         public string Id { get; set; }
         public string Author { get; set; }

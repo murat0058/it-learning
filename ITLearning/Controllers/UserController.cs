@@ -1,5 +1,5 @@
 ﻿using ITLearning.Frontend.Web.Contract.Data.Requests;
-using ITLearning.Frontend.Web.Contract.Data.User;
+using ITLearning.Frontend.Web.Contract.Data.Model.User;
 using ITLearning.Frontend.Web.Contract.Services;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ITLearning.Frontend.Web.Model;
+using ITLearning.Frontend.Web.Contract.Data.Model.News;
 using ITLearning.Frontend.Web.Contract.Providers.ModelProviders;
 using ITLearning.Frontend.Web.Contract.Data.Results;
 using ITLearning.Frontend.Web.Contract.Services;
@@ -19,14 +19,14 @@ namespace ITLearning.Frontend.Web.Services
             _newsProvider = newsProvider;
         }
 
-        public CommonResult<IEnumerable<News>> GetAll(bool withContent)
+        public CommonResult<IEnumerable<NewsData>> GetAll(bool withContent)
         {
             var newsCollection = withContent ? _newsProvider.GetAll() : _newsProvider.GetAllWithoutContent();
 
-            return CommonResult<IEnumerable<News>>.Success(newsCollection);
+            return CommonResult<IEnumerable<NewsData>>.Success(newsCollection);
         }
 
-        public CommonResult<IEnumerable<News>> GetFiltered(NewsFilterRequest filterRequest)
+        public CommonResult<IEnumerable<NewsData>> GetFiltered(NewsFilterRequest filterRequest)
         {
             var newsCollection = _newsProvider.GetAllWithoutContent();
 
@@ -45,20 +45,20 @@ namespace ITLearning.Frontend.Web.Services
                 newsCollection = FilterByQuery(filterRequest, newsCollection);
             }
 
-            return CommonResult<IEnumerable<News>>.Success(newsCollection);
+            return CommonResult<IEnumerable<NewsData>>.Success(newsCollection);
         }
 
-        public CommonResult<News> GetById(string id)
+        public CommonResult<NewsData> GetById(string id)
         {
             var news = _newsProvider.GetById(id);
 
             if(news != null)
             {
-                return CommonResult<News>.Success(news);
+                return CommonResult<NewsData>.Success(news);
             }
             else
             {
-                return CommonResult<News>.Failure<News>("News o podanym identyfikatorze nie istnieje.");
+                return CommonResult<NewsData>.Failure<NewsData>("News o podanym identyfikatorze nie istnieje.");
             }
         }
 
@@ -76,17 +76,17 @@ namespace ITLearning.Frontend.Web.Services
         }
 
         #region Helpers
-        private static IEnumerable<News> FilterByTags(NewsFilterRequest filterRequest, IEnumerable<News> newsCollection)
+        private static IEnumerable<NewsData> FilterByTags(NewsFilterRequest filterRequest, IEnumerable<NewsData> newsCollection)
         {
             return newsCollection.Where(news => filterRequest.Tags.All(x => news.Tags.Contains(x)));
         }
 
-        private static IEnumerable<News> FilterByAuthors(NewsFilterRequest filterRequest, IEnumerable<News> newsCollection)
+        private static IEnumerable<NewsData> FilterByAuthors(NewsFilterRequest filterRequest, IEnumerable<NewsData> newsCollection)
         {
             return newsCollection.Where(news => filterRequest.Authors.Contains(news.Author));
         }
 
-        private static IEnumerable<News> FilterByQuery(NewsFilterRequest filterRequest, IEnumerable<News> newsCollection)
+        private static IEnumerable<NewsData> FilterByQuery(NewsFilterRequest filterRequest, IEnumerable<NewsData> newsCollection)
         {
             return newsCollection.Where(news => news.Title.ToLower().Contains(filterRequest.Query.ToLower()));
         }

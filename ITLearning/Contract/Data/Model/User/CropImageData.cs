@@ -1,4 +1,4 @@
-﻿namespace ITLearning.Frontend.Web.Contract.Data.User
+﻿namespace ITLearning.Frontend.Web.Contract.Data.Model.User
 {
     public class CropImageData
     {
