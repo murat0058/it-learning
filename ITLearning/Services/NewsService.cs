@@ -6,6 +6,7 @@ using ITLearning.Frontend.Web.Contract.Services;
 using ITLearning.Frontend.Web.Contract.Data.Requests;
 using System.Linq;
 using System;
+using ITLearning.Frontend.Web.Common.Extensions;
 
 namespace ITLearning.Frontend.Web.Services
 {
@@ -27,8 +28,22 @@ namespace ITLearning.Frontend.Web.Services
 
         public CommonResult<IEnumerable<News>> GetFiltered(NewsFilterRequest filterRequest)
         {
-            //TODO Get filtered news from all
             var newsCollection = _newsProvider.GetAllWithoutContent();
+
+            if(filterRequest.Tags != null && filterRequest.Tags.Any())
+            {
+                newsCollection = FilterByTags(filterRequest, newsCollection);
+            }
+
+            if (filterRequest.Authors != null && filterRequest.Authors.Any())
+            {
+                newsCollection = FilterByAuthors(filterRequest, newsCollection);
+            }
+
+            if (filterRequest.Query.NotNullNorEmpty())
+            {
+                newsCollection = FilterByQuery(filterRequest, newsCollection);
+            }
 
             return CommonResult<IEnumerable<News>>.Success(newsCollection);
         }
@@ -59,5 +74,22 @@ namespace ITLearning.Frontend.Web.Services
 
             return CommonResult<NewsListRequest>.Success(request);
         }
+
+        #region Helpers
+        private static IEnumerable<News> FilterByTags(NewsFilterRequest filterRequest, IEnumerable<News> newsCollection)
+        {
+            return newsCollection.Where(news => filterRequest.Tags.All(x => news.Tags.Contains(x)));
+        }
+
+        private static IEnumerable<News> FilterByAuthors(NewsFilterRequest filterRequest, IEnumerable<News> newsCollection)
+        {
+            return newsCollection.Where(news => filterRequest.Authors.Contains(news.Author));
+        }
+
+        private static IEnumerable<News> FilterByQuery(NewsFilterRequest filterRequest, IEnumerable<News> newsCollection)
+        {
+            return newsCollection.Where(news => news.Title.ToLower().Contains(filterRequest.Query.ToLower()));
+        }
+        #endregion
     }
 }

@@ -4,9 +4,9 @@
         .module('app.news')
         .controller('NewsListController', NewsListController);
 
-    NewsListController.$inject = ['newsService']
+    NewsListController.$inject = ['$scope', 'newsService']
 
-    function NewsListController(newsService) {
+    function NewsListController($scope, newsService) {
         var newsListVm = this;
 
         newsListVm.filters = {
@@ -27,6 +27,14 @@
 
         newsListVm.formatTag = formatTag;
         newsListVm.getNewsStyle = getNewsStyle;
+
+        $scope.$watch('newsListVm.filters.query',
+            function handleQueryFilterChange(newValue, oldValue) {
+                if (oldValue || newValue) {
+                    getNews();
+                }
+            }
+        );
 
         //////////////
 

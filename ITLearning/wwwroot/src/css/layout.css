@@ -209,10 +209,13 @@
             font-weight: 600;
             font-family: "Open Sans", Helvetica, sans-serif;
             color: white; }
+            .news-container .news-row .news .news-info-wrapper ul li .icon-wrapper a {
+              color: white; }
     .news-container .news-row .news .news-description-wrapper {
       position: absolute;
       bottom: 0;
       width: 100%;
+      color: white;
       -webkit-transition: background-color 300ms ease;
       -moz-transition: background-color 300ms ease;
       -o-transition: background-color 300ms ease;
@@ -262,6 +265,8 @@
         font-weight: 600;
         font-family: "Open Sans", Helvetica, sans-serif;
         color: white; }
+        .news-container-wide .news-info-wrapper ul li .icon-wrapper a {
+          color: white; }
 
 .news-container-wide .news {
   position: absolute;

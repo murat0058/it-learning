@@ -230,6 +230,10 @@
                             font-weight: 600;
                             font-family: $custom-font;
                             color: white;
+
+                            a{
+                                color: white;
+                            }
                         }
                     }
                 }
@@ -239,6 +243,7 @@
                 position: absolute;
                 bottom: 0;
                 width: 100%;
+                color: white;
 
                 @include with-animated-background(300ms);
                 background-color: rgba($color-dark, 0.8);
@@ -312,6 +317,10 @@
                     font-weight: 600;
                     font-family: $custom-font;
                     color: white;
+
+                    a{
+                        color: white;
+                    }
                 }
             }
         }

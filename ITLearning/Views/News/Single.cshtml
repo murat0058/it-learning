@@ -29,7 +29,11 @@
                                 <div class="icon-wrapper"><i class="fa fa-pencil-square-o"></i> @Model.Date.ToShortDateString()</div>
                             </li>
                             <li>
-                                <div class="icon-wrapper"><i class="fa fa-user"></i> @Model.Author</div>
+                                <div class="icon-wrapper">
+                                    <a href="/News/Author/@Model.Author">
+                                        <i class="fa fa-user"></i> @Model.Author
+                                    </a>
+                                </div>
                             </li>
                         </ul>
                     </div>

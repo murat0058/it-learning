@@ -56,25 +56,25 @@
                                        loading-text="Ładuję newsy..."></itl-loading-indicator>
                 <div class="row news-row" ng-repeat="news in newsListVm.news">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a ng-href="/News/Single/{{news.Id}}" class="news-link">
-                            <article class="news news-big" ng-style="newsListVm.getNewsStyle(news)">
-                                <div class="news-info-wrapper">
-                                    <ul>
-                                        <li>
-                                            <div class="icon-wrapper"><i class="fa fa-pencil-square-o"></i> {{news.Date | date:'dd.MM.yyyy'}}</div>
-                                        </li>
-                                        <li>
-                                            <div class="icon-wrapper">
+                        <article class="news news-big" ng-style="newsListVm.getNewsStyle(news)">
+                            <div class="news-info-wrapper">
+                                <ul>
+                                    <li>
+                                        <div class="icon-wrapper"><i class="fa fa-pencil-square-o"></i> {{news.Date | date:'dd.MM.yyyy'}}</div>
+                                    </li>
+                                    <li>
+                                        <div class="icon-wrapper">
+                                            <a ng-href="/News/Author/{{news.Author}}">
                                                 <i class="fa fa-user"></i> {{news.Author}}
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="news-description-wrapper">
-                                    <p class="news-text" ng-bind="news.Title"></p>
-                                </div>
-                            </article>
-                        </a>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a ng-href="/News/Single/{{news.Id}}" class="news-description-wrapper news-link">
+                                <p class="news-text" ng-bind="news.Title"></p>
+                            </a>
+                        </article>
                     </div>
                 </div>
             </div>
