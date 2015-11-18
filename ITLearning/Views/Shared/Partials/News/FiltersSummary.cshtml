@@ -1,0 +1,15 @@
+﻿@model NewsFilterRequest
+
+<div class="filter-summary-wrapper">
+    <ul class="filter-summary">
+        <li class="filter-summary-item default-item">Filtry: </li>
+        @if (Model.Tag.NotNullNorEmpty())
+        {
+            <li class="filter-summary-item color-item">@Model.Tag <a href="#"><i class="fa fa-times"></i></a></li>
+        }
+        @if (Model.Author.NotNullNorEmpty())
+        {
+            <li class="filter-summary-item color-item">@Model.Author <a href="#"><i class="fa fa-times"></i></a></li>
+        }
+    </ul>
+</div>

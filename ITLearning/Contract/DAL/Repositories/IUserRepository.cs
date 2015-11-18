@@ -1,5 +1,5 @@
 ﻿using ITLearning.Frontend.Web.Contract.Data.Results;
-using ITLearning.Frontend.Web.Contract.Data.User;
+using ITLearning.Frontend.Web.Contract.Data.Model.User;
 
 namespace ITLearning.Frontend.Web.Contract.DAL.Repositories
 {

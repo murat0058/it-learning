@@ -13,7 +13,7 @@
     function itlLoadingIndicator() {
 
         var directive = {
-            templateUrl: 'src/js/app/UiWidgets/templates/loading-indicator.html',
+            templateUrl: '/src/js/app/UiWidgets/templates/loading-indicator.html',
             restrict: 'E',
             scope: {
                 parentVm: '=',

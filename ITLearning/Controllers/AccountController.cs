@@ -11,6 +11,7 @@ using AutoMapper;
 namespace ITLearning.Frontend.Web.Controllers
 {
     [AllowAnonymous]
+    [Route("Account")]
     public class AccountController : BaseController
     {
         private readonly IIdentityService _identityService;
@@ -20,16 +21,19 @@ namespace ITLearning.Frontend.Web.Controllers
             _identityService = identityService;
         }
 
+        [HttpGet("Login")]
         public IActionResult Login(LoginViewModel model)
         {
             return View(model ?? new LoginViewModel());
         }
 
+        [HttpGet("SignUp")]
         public IActionResult SignUp(SignUpViewModel model)
         {
             return View(model ?? new SignUpViewModel());
         }
 
+        [HttpGet("Logout")]
         public async Task<IActionResult> Logout()
         {
             await _identityService.LogoutAsync();
@@ -37,6 +41,7 @@ namespace ITLearning.Frontend.Web.Controllers
             return RedirectToAction("Index", "Landing");
         }
 
+        [HttpGet("Unauthorized")]
         public IActionResult Unauthorized(string returnUrl)
         {
             ModelState.AddModelError(string.Empty, "Musisz być zalogowany lub posiadać odpowiednie uprawnienia aby przejść dalej.");
@@ -49,7 +54,7 @@ namespace ITLearning.Frontend.Web.Controllers
             return View("Login", model);
         }
 
-        [HttpPost]
+        [HttpPost("Login")]
         [ActionName("Login")]
         public async Task<IActionResult> LoginPost(LoginViewModel loginViewModel)
         {
@@ -87,7 +92,7 @@ namespace ITLearning.Frontend.Web.Controllers
             return View(loginViewModel);
         }
 
-        [HttpPost]
+        [HttpPost("SignUp")]
         [ActionName("SignUp")]
         public async Task<IActionResult> SignUpPost(SignUpViewModel signUpViewModel)
         {

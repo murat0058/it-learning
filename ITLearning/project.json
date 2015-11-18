@@ -15,6 +15,7 @@
     "Microsoft.AspNet.Mvc": "6.0.0-beta8",
     "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta8",
     "Microsoft.AspNet.Server.WebListener": "1.0.0-beta8",
+    "Microsoft.AspNet.Session": "1.0.0-beta8",
     "Microsoft.AspNet.StaticFiles": "1.0.0-beta8",
     "Microsoft.AspNet.Tooling.Razor": "1.0.0-beta8",
     "Microsoft.Dnx.Watcher": "1.0.0-beta8",
@@ -47,11 +48,11 @@
   "exclude": [
     "wwwroot",
     "node_modules",
-    "bower_components"
+    "_bower"
   ],
   "publishExclude": [
     "node_modules",
-    "bower_components",
+    "_bower",
     "**.xproj",
     "**.user",
     "**.vspscc"

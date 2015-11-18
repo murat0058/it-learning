@@ -29,23 +29,27 @@
                     {
                         <div class="row news-row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <a href="/News/Single/@mainNews.Id" class="news-link">
-                                    <article class="news news-big" style="background-image: url('@mainNews.ImagePath')">
-                                        <div class="news-info-wrapper">
-                                            <ul>
-                                                <li>
-                                                    <div class="icon-wrapper"><i class="fa fa-pencil-square-o"></i> @mainNews.Date.ToShortDateString()</div>
-                                                </li>
-                                                <li>
-                                                    <div class="icon-wrapper"><i class="fa fa-user"></i> @mainNews.Author</div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="news-description-wrapper">
-                                            <p class="news-text">@mainNews.Title</p>
-                                        </div>
-                                    </article>
-                                </a>
+                                <article class="news news-big" style="background-image: url('@mainNews.ImagePath')">
+                                    <div class="news-info-wrapper">
+                                        <ul>
+                                            <li>
+                                                <div class="icon-wrapper">
+                                                    <i class="fa fa-pencil-square-o"></i> @mainNews.Date.ToShortDateString()
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="icon-wrapper">
+                                                    <a href="/News/Author/@mainNews.Author">
+                                                        <i class="fa fa-user"></i> @mainNews.Author
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <a href="/News/Single/@mainNews.Id" class="news-description-wrapper news-link">
+                                        <p class="news-text">@mainNews.Title</p>
+                                    </a>
+                                </article>
                             </div>
                         </div>
                     }
@@ -55,20 +59,18 @@
                             @foreach (var news in smallNewsList)
                             {
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <a href="/News/Single/@news.Id" class="news-link">
-                                        <article class="news news-small" style="background-image: url('@news.ImagePath')">
-                                            <div class="news-info-wrapper">
-                                                <ul>
-                                                    <li>
-                                                        <div class="icon-wrapper"><i class="fa fa-pencil-square-o"></i> @news.Date.ToShortDateString()</div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="news-description-wrapper">
-                                                <p class="news-text">@news.Title</p>
-                                            </div>
-                                        </article>
-                                    </a>
+                                    <article class="news news-small" style="background-image: url('@news.ImagePath')">
+                                        <div class="news-info-wrapper">
+                                            <ul>
+                                                <li>
+                                                    <div class="icon-wrapper"><i class="fa fa-pencil-square-o"></i> @news.Date.ToShortDateString()</div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <a href="/News/Single/@news.Id" class="news-description-wrapper news-link">
+                                            <p class="news-text">@news.Title</p>
+                                        </a>
+                                    </article>
                                 </div>
                             }
                         </div>

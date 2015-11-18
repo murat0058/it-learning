@@ -1,7 +1,7 @@
 ﻿using ITLearning.Frontend.Web.Contract.DAL.Repositories;
 using ITLearning.Frontend.Web.Contract.Data.Results;
 using ITLearning.Frontend.Web.Contract.Data.Results.FileUpload;
-using ITLearning.Frontend.Web.Contract.Data.User;
+using ITLearning.Frontend.Web.Contract.Data.Model.User;
 using ITLearning.Frontend.Web.Contract.Services;
 using Microsoft.AspNet.Http;
 using Microsoft.Dnx.Runtime;

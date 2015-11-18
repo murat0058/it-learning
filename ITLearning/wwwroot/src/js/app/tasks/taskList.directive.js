@@ -11,7 +11,7 @@
     function itlTaskList() {
 
         var directive = {
-            templateUrl: 'src/js/app/Tasks/templates/task-list.html',
+            templateUrl: '/src/js/app/Tasks/templates/task-list.html',
             restrict: 'E',
             transclude: true,
             controller: TasksController,

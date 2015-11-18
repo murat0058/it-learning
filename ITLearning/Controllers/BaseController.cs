@@ -4,6 +4,7 @@ using Microsoft.AspNet.Mvc.Filters;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
+    [Route("Base")]
     public abstract class BaseController : Controller
     {
         public virtual bool IsAuthorized()

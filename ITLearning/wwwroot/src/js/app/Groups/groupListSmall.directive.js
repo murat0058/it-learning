@@ -11,7 +11,7 @@
     function itlGroupListSmall() {
 
         var directive = {
-            templateUrl: 'src/js/app/Groups/templates/group-list-small.html',
+            templateUrl: '/src/js/app/Groups/templates/group-list-small.html',
             restrict: 'E',
             transclude: true,
             controller: GroupsController,

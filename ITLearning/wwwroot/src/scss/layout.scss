@@ -224,11 +224,6 @@
                         color: white;
                         background-color: rgba(0,0,0,0.3);
                         text-align: center;
-                        @include with-animated-background(300ms);
-
-                        &:hover {
-                            background-color: #fafafa;
-                        }
 
                         .icon-wrapper {
                             padding: 3px 5px;
@@ -236,10 +231,8 @@
                             font-family: $custom-font;
                             color: white;
 
-                            @include with-animated-color(300ms);
-
-                            &:hover {
-                                color: $color-success;
+                            a {
+                                color: white;
                             }
                         }
                     }
@@ -250,6 +243,7 @@
                 position: absolute;
                 bottom: 0;
                 width: 100%;
+                color: white;
 
                 @include with-animated-background(300ms);
                 background-color: rgba($color-dark, 0.8);
@@ -317,11 +311,6 @@
                 color: white;
                 background-color: rgba(0,0,0,0.3);
                 text-align: center;
-                @include with-animated-background(300ms);
-
-                &:hover {
-                    background-color: #fafafa;
-                }
 
                 .icon-wrapper {
                     padding: 3px 5px;
@@ -329,10 +318,8 @@
                     font-family: $custom-font;
                     color: white;
 
-                    @include with-animated-color(300ms);
-
-                    &:hover {
-                        color: $color-success;
+                    a {
+                        color: white;
                     }
                 }
             }
@@ -390,17 +377,17 @@
                 font-family: $custom-font;
             }
 
-            .social-media{
+            .social-media {
                 padding: 10px 0;
                 border-top: 1px solid #efefef;
 
-                .item{
+                .item {
                     display: inline-block;
                     margin-right: 5px;
                     position: relative;
                 }
 
-                .social-media-twitter{
+                .social-media-twitter {
                     top: 6px;
                 }
             }
@@ -415,28 +402,112 @@
         text-transform: uppercase;
         border-bottom: 1px solid #efefef;
     }
+
+    .btn {
+        margin: 0;
+        padding: 5px;
+    }
 }
 
-.tags {
+.filter-category-wrapper {
     font-family: $custom-font;
 
-    .tags-list {
+    .filters-list {
         margin: 0;
         padding: 0;
         list-style-type: none;
 
-        li.tag {
-            background-color: $color-danger;
+        li.filter-item {
+            color: white;
             display: inline-block;
-            padding: 3px 10px;
+            padding: 5px 10px;
             margin-right: 5px;
             margin-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+
+            @include with-animated-background(300ms);
 
             a {
                 color: white;
                 text-transform: uppercase;
                 font-size: 12px;
                 font-weight: 600;
+            }
+        }
+    }
+
+    .generic-list {
+        li.filter-item {
+            background-color: $color-default;
+            color: $color-dark;
+
+            &:hover {
+                background-color: darken($color-default, 10%);
+            }
+        }
+
+        li.default-item {
+            background-color: white;
+            cursor: default;
+
+            &:hover {
+                background-color: white;
+            }
+        }
+    }
+
+    .authors-list {
+        li.filter-item {
+            background-color: $color-dark;
+
+            &:hover {
+                background-color: lighten($color-dark, 10%);
+            }
+        }
+    }
+
+    .tags-list {
+        li.filter-item {
+            background-color: $color-danger;
+
+            &:hover {
+                background-color: lighten($color-danger, 10%);
+            }
+        }
+    }
+}
+
+.filter-summary-wrapper {
+    font-family: $custom-font;
+    margin-bottom: 10px;
+
+    ul.filter-summary {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+
+        li.default-item {
+            background-color: white;
+            padding: 6px;
+            padding-left: 0;
+        }
+
+        li.color-item {
+            color: $color-dark;
+            background-color: $color-default;
+            padding: 6px;
+        }
+
+        li.filter-summary-item {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 16px;
+
+            a {
+                color: $color-dark;
             }
         }
     }
@@ -475,10 +546,15 @@
             }
 
             a {
+                display: block;
                 color: $color-default;
 
                 &:hover {
                     text-decoration: none;
+
+                    .title {
+                        text-decoration: underline;
+                    }
                 }
 
                 .title {
@@ -508,6 +584,51 @@
                             display: inline-block;
                             margin-right: 5px;
                             font-family: $custom-font;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.error-message-page {
+    position: relative;
+    top: 50px;
+    padding: 10px;
+
+    .error-message {
+        font-family: "Open Sans", Helvetica, sans-serif;
+        text-align: center;
+    }
+
+    .extra-content {
+        margin-top: 50px;
+
+        ul.pages-list {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+
+            li.pages-list-item {
+                display: inline-block;
+
+                a.link {
+                    color: white;
+
+                    p {
+                        width: 150px;
+                        margin: 10px;
+                        background-color: $color-dark;
+                        color: white;
+                        padding: 10px 20px;
+
+                        @include with-animated-background(300ms);
+                    }
+
+                    &:hover {
+                        p {
+                            background-color: $color-success;
                         }
                     }
                 }

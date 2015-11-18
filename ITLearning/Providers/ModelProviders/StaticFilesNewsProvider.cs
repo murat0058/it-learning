@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ITLearning.Frontend.Web.Model;
+using ITLearning.Frontend.Web.Contract.Data.Model.News;
 using System.IO;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Dnx.Runtime;
@@ -32,9 +32,9 @@ namespace ITLearning.Frontend.Web.Providers.ModelProviders
             _newsImagesPath = _pathsConfiguration.Value.NewsImages;
         }
 
-        public IEnumerable<News> GetAll()
+        public IEnumerable<NewsData> GetAll()
         {
-            var newsList = new List<News>();
+            var newsList = new List<NewsData>();
             newsList.AddRange(GetAllWithoutContent());
 
             var fileProvider = _hostingEnvironment.WebRootFileProvider;
@@ -51,9 +51,9 @@ namespace ITLearning.Frontend.Web.Providers.ModelProviders
             return newsList;
         }
 
-        public IEnumerable<News> GetAllWithoutContent()
+        public IEnumerable<NewsData> GetAllWithoutContent()
         {
-            var newsList = new List<News>();
+            var newsList = new List<NewsData>();
 
             var fileProvider = _hostingEnvironment.WebRootFileProvider;
             var directoryContents = fileProvider.GetDirectoryContents(_newsPath).Where(x => x.Name.EndsWith(".json"));
@@ -66,7 +66,7 @@ namespace ITLearning.Frontend.Web.Providers.ModelProviders
             return newsList;
         }
 
-        public News GetById(string id)
+        public NewsData GetById(string id)
         {
             var fileProvider = _hostingEnvironment.WebRootFileProvider;
 
@@ -80,7 +80,7 @@ namespace ITLearning.Frontend.Web.Providers.ModelProviders
                 return null;
             }
 
-            News news = GetNewsFromJsonFile(newsJsonInfoFile);
+            NewsData news = GetNewsFromJsonFile(newsJsonInfoFile);
             news.Content = GetHtmlContentFromMarkdownFile(newsContentFile);
 
             return news;
@@ -92,10 +92,10 @@ namespace ITLearning.Frontend.Web.Providers.ModelProviders
             return CommonMarkConverter.Convert(markdownContent);
         }
 
-        private News GetNewsFromJsonFile(IFileInfo contentFile)
+        private NewsData GetNewsFromJsonFile(IFileInfo contentFile)
         {
             var jsonNews = File.ReadAllText(contentFile.PhysicalPath);
-            var news = JsonConvert.DeserializeObject<News>(jsonNews);
+            var news = JsonConvert.DeserializeObject<NewsData>(jsonNews);
             news.ImagePath = _newsImagesPath + news.ImagePath;
 
             return news;

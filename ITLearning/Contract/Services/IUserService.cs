@@ -2,7 +2,7 @@
 using ITLearning.Frontend.Web.Contract.Data.Requests;
 using ITLearning.Frontend.Web.Contract.Data.Results;
 using ITLearning.Frontend.Web.Contract.Data.Results.FileUpload;
-using ITLearning.Frontend.Web.Contract.Data.User;
+using ITLearning.Frontend.Web.Contract.Data.Model.User;
 using Microsoft.AspNet.Http;
 
 namespace ITLearning.Frontend.Web.Contract.Services

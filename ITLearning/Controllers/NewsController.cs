@@ -1,19 +1,19 @@
-﻿using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
+using ITLearning.Frontend.Web.Contract.Data.Requests;
 using ITLearning.Frontend.Web.Contract.Services;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
 using ITLearning.Frontend.Web.Core.Identity.Enums;
 using ITLearning.Frontend.Web.ViewModels.News;
 using Microsoft.AspNet.Mvc;
-using ITLearning.Frontend.Web.Contract.Data.Requests;
-using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using ITLearning.Frontend.Web.Model;
+using System.Linq;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ITLearning.Frontend.Web.Controllers
 {
+    [Route("News")]
     [AuthorizeClaim(Type = ClaimTypeEnum.Controller, Value = ClaimValueEnum.Controller_NewsController)]
     public class NewsController : BaseController
     {
@@ -24,32 +24,49 @@ namespace ITLearning.Frontend.Web.Controllers
             _newsService = newsService;
         }
 
-        public IActionResult List(NewsListFilterRequest filterRequest)
+        [HttpGet("All")]
+        public IActionResult All()
         {
-            var result = _newsService.GetAll(withContent: false);
-            var newsCollection = result.Item;
-            var model = new NewsListViewModel();
+            var request = _newsService.GetInitialRequest().Item;
 
-            model.Authors = result.Item.Select(x => x.Author).Distinct();
-            model.Tags = result.Item.SelectMany(x => x.Tags).Distinct();
-
-            model.News = result.Item.Select(x => Mapper.Map<NewsThumbnailViewModel>(x));
-
-            return View("List", model);
+            return View("List", JsonConvert.SerializeObject(Mapper.Map<NewsListViewModel>(request)));
         }
 
+        [HttpGet("Tag/{tag}")]
+        public IActionResult Tag(string tag)
+        {
+            var request = _newsService.GetInitialRequest().Item;
+            request.FilterRequest = new NewsFilterRequest { Tags = new string[] { tag } }; ;
+
+            return View("List", JsonConvert.SerializeObject(Mapper.Map<NewsListViewModel>(request)));
+        }
+
+        [HttpGet("Author/{author}")]
+        public IActionResult Author(string author)
+        {
+            var request = _newsService.GetInitialRequest().Item;
+            request.FilterRequest = new NewsFilterRequest { Authors = new string[] { author } };
+
+            return View("List", JsonConvert.SerializeObject(Mapper.Map<NewsListViewModel>(request)));
+        }
+
+        [HttpGet("Single/{id}")]
         public IActionResult Single(string id)
         {
             var result = _newsService.GetById(id);
 
-            if (result.IsSuccess)
-            {
-                return View(result.Item);
-            }
-            else
-            {
-                return RedirectToAction("List");
-            }
+            return result.IsSuccess ?
+                (ActionResult)View(result.Item) :
+                (ActionResult)RedirectToAction("All");
+        }
+
+        [HttpPost("List")]
+        [AllowAnonymous]
+        public IActionResult List(NewsFilterRequest request)
+        {
+            var result = _newsService.GetFiltered(request);
+
+            return new JsonResult(result.Item);
         }
     }
 }

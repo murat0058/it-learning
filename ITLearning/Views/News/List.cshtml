@@ -1,38 +1,82 @@
-﻿@model NewsListViewModel
+﻿@model string
 
 <div class="content-wrapper">
-    <div class="container news-container">
-        <div class="row">
+    <div class="container news-container" ng-controller="NewsListController as newsListVm">
+        <div class="row" ng-init="newsListVm.activate(@Model)">
             <div class="col-md-3 news-list-side-section">
                 <h4>Wyszukaj</h4>
+                <div class="search-row">
+                    <input type="text" class="form-control" placeholder="Szukaj w tytule..." ng-model="newsListVm.filters.query" ng-model-options="{ debounce: 1000 }" />
+                </div>
                 <h4>Tagi</h4>
-                @Html.Partial("Partials/News/TagsList", Model.Tags)
+                <div class="filter-category-wrapper">
+                    <ul class="filters-list tags-list">
+                        <li class="filter-item"
+                            ng-repeat="tag in newsListVm.tags"
+                            ng-bind="newsListVm.formatTag(tag)"
+                            ng-click="newsListVm.toggleTagFilter(tag)">
+                        </li>
+                    </ul>
+                </div>
+                <h4>Autorzy</h4>
+                <div class="filter-category-wrapper">
+                    <ul class="filters-list authors-list">
+                        <li class="filter-item"
+                            ng-repeat="author in newsListVm.authors"
+                            ng-click="newsListVm.toggleAuthorFilter(author)">
+                            <i class="fa fa-user"></i> {{author}}
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="col-md-9">
-                @foreach (var news in Model.News)
-                {
-                    <div class="row news-row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <a href="/News/Single/@news.Id" class="news-link">
-                                <article class="news news-big" style="background-image: url('@news.ImagePath')">
-                                    <div class="news-info-wrapper">
-                                        <ul>
-                                            <li>
-                                                <div class="icon-wrapper"><i class="fa fa-pencil-square-o"></i> @news.Date.ToShortDateString()</div>
-                                            </li>
-                                            <li>
-                                                <div class="icon-wrapper"><i class="fa fa-user"></i> @news.Author</div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="news-description-wrapper">
-                                        <p class="news-text">@news.Title</p>
-                                    </div>
-                                </article>
+                <div class="filter-category-wrapper" ng-show="newsListVm.filters.tagsNotEmpty">
+                    <ul class="filters-list generic-list">
+                        <li class="filter-item default-item">Wg tagów:</li>
+                        <li class="filter-item"
+                            ng-repeat="tag in newsListVm.filters.tags"
+                            ng-click="newsListVm.toggleTagFilter(tag)">
+                            {{newsListVm.formatTag(tag)}} <i class="fa fa-times"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="filter-category-wrapper" ng-show="newsListVm.filters.authorsNotEmpty">
+                    <ul class="filters-list generic-list">
+                        <li class="filter-item default-item">Wg autorów:</li>
+                        <li class="filter-item"
+                            ng-repeat="author in newsListVm.filters.authors"
+                            ng-click="newsListVm.toggleAuthorFilter(author)">
+                            <i class="fa fa-user"></i> {{author}} <i class="fa fa-times"></i>
+                        </li>
+                    </ul>
+                </div>
+                <itl-loading-indicator parent-vm="newsListVm"
+                                       dot-background="#333"
+                                       dot-size="10px"
+                                       loading-text="Ładuję newsy..."></itl-loading-indicator>
+                <div class="row news-row" ng-repeat="news in newsListVm.news">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <article class="news news-big" ng-style="newsListVm.getNewsStyle(news)">
+                            <div class="news-info-wrapper">
+                                <ul>
+                                    <li>
+                                        <div class="icon-wrapper"><i class="fa fa-pencil-square-o"></i> {{news.Date | date:'dd.MM.yyyy'}}</div>
+                                    </li>
+                                    <li>
+                                        <div class="icon-wrapper">
+                                            <a ng-href="/News/Author/{{news.Author}}">
+                                                <i class="fa fa-user"></i> {{news.Author}}
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a ng-href="/News/Single/{{news.Id}}" class="news-description-wrapper news-link">
+                                <p class="news-text" ng-bind="news.Title"></p>
                             </a>
-                        </div>
+                        </article>
                     </div>
-                }
+                </div>
             </div>
         </div>
     </div>
