@@ -12,7 +12,7 @@ namespace ITLearning.Frontend.Web.Core.Identity.Providers
             {
                 CreateClaimByClaimEnums(ClaimTypeEnum.Controller, ClaimValueEnum.Controller_HomeController),
                 CreateClaimByClaimEnums(ClaimTypeEnum.Controller, ClaimValueEnum.Controller_NewsController),
-                CreateClaimByClaimEnums(ClaimTypeEnum.Controller, ClaimValueEnum.Controller_GroupController),
+                CreateClaimByClaimEnums(ClaimTypeEnum.Controller, ClaimValueEnum.Controller_GroupsController),
 
                 //TODO To be removed
                 CreateClaimByClaimEnums(ClaimTypeEnum.UserWidgetTab, ClaimValueEnum.UserWidgetTab_ProfileEditing),

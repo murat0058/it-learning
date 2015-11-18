@@ -98,13 +98,13 @@
                                         <h5 class="learning-hub-title">TWOJE GRUPY</h5>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <itl-group-list-small>
+                                                <itl-groups-basic-list no-of-groups="3">
                                                     <itl-loading-indicator parent-vm="groupListVm"
                                                                            dot-background="#333"
                                                                            dot-size="5px"
                                                                            loading-text="Ładuję twoje grupy..."></itl-loading-indicator>
-                                                </itl-group-list-small>
-                                                <a href="#" class="btn btn-default pull-right">Więcej</a>
+                                                </itl-groups-basic-list>
+                                                <a asp-controller="Groups" asp-action="Index" class="btn btn-default pull-right">Więcej</a>
                                             </div>
                                         </div>
                                     </div>

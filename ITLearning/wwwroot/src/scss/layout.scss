@@ -529,63 +529,56 @@
             line-height: 1.5;
             border-bottom: 1px solid $color-dark;
         }
+    }
+}
 
+.group-basic-data-item {
+    background-color: $color-dark;
+    margin-bottom: 15px;
+    font-family: $custom-font;
+    padding: 3px 6px;
+    color: white;
+    box-shadow: 0 11px 9px -10px rgba(0, 0, 0, 0.4);
+    border-radius: 3px;
 
+    @include with-animated-background(300ms);
 
-        .group-container {
+    &:hover {
+        background-color: darken($color-primary, 5%);
+    }
+
+    a {
+        color: white;
+
+        &:hover {
+            text-decoration: none;
+        }
+
+        .content {
             position: relative;
-            width: 100%;
-            height: 33px;
-            margin-bottom: 15px;
-            box-shadow: 0 11px 9px -10px rgba(0, 0, 0, 0.4);
-            background-color: $color-primary;
-            @include with-animated-background(300ms);
 
-            &:hover {
-                background-color: $color-dark;
+            p {
+                margin: 0;
+                padding: 0;
             }
 
-            a {
-                display: block;
-                color: $color-default;
+            p.group-title {
+                font-weight: 600;
 
-                &:hover {
-                    text-decoration: none;
+                @include wrap-dots();
+            }
 
-                    .title {
-                        text-decoration: underline;
-                    }
-                }
+            p.group-summary {
+                margin: 4px 0;
 
-                .title {
-                    position: relative;
-                    top: 3px;
-                    font-weight: 600;
-                    margin: 0 5px;
-                    padding: 3px;
-                    font-family: $custom-font;
-                    width: 100%;
-                    display: block;
-
-                    @include wrap-dots;
-                }
-
-                .group-summary {
-                    width: 100%;
-
-                    ul {
-                        margin: 0;
-                        padding: 0;
-                        text-align: center;
-                        position: relative;
-                        top: 5px;
-
-                        li {
-                            display: inline-block;
-                            margin-right: 5px;
-                            font-family: $custom-font;
-                        }
-                    }
+                span {
+                    display: inline-block;
+                    background-color: $color-primary;
+                    color: $color-default;
+                    border-radius: 4px;
+                    min-width: 50px;
+                    padding: 0 5px;
+                    text-align: center;
                 }
             }
         }

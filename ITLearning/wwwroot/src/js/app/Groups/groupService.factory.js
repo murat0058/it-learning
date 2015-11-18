@@ -2,21 +2,31 @@
 
     angular
         .module('app.groups')
-        .factory('groupService', groupService);
+        .factory('groupsService', groupsService);
 
-    groupService.$inject = ['$http'];
+    groupsService.$inject = ['$http'];
 
-    function groupService($http) {
+    function groupsService($http) {
 
         var service = {
-            getUserGroups: getUserGroups
+            getUserGroupsBasicData: getUserGroupsBasicData
         };
 
         return service;
         ////////////////////////////
 
-        function getUserGroups() {
-            
+        function getUserGroupsBasicData(requestData) {
+            return $http.post('/Groups/UserGroupsBasicData', requestData)
+                .then(getUserGroupsBasicDataComplete)
+                .catch(getUserGroupsBasicDataFailed);
+
+            function getUserGroupsBasicDataComplete(response) {
+                return response.data;
+            }
+
+            function getUserGroupsBasicDataFailed(error) {
+                console.log('Request failed for getUserGroupsBasicData method.' + error.data);
+            }
         }
     }
 

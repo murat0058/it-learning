@@ -9,7 +9,7 @@ namespace ITLearning.Frontend.Web.Core.Identity.Enums
     {
         Controller_HomeController,
         Controller_NewsController,
-        Controller_GroupController,
+        Controller_GroupsController,
 
         //TODO To be removed
         UserWidgetTab_ProfileEditing,
