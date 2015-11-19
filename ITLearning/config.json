@@ -5,6 +5,7 @@
   "Paths": {
     "News":  "/static/news/",
     "NewsImages": "/static/news-images/",
-    "ProfileImagesPath": "/static/profile/"
+    "ProfileImagesPath": "/wwwroot/static/profile/",
+    "ProfileImagesInternalPath": "/static/profile/"
   }
 }

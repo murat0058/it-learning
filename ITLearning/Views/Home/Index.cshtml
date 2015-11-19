@@ -13,11 +13,8 @@
             <div class="col-md-3">
                 <section class="user-profile-container">
                     <div class="user-data user-profile-section">
-                        <div class="user-profile-actions">
-                            <a href="/User/Index" title="Ustawienia profilu"><i class="fa fa-cog"></i></a>
-                        </div>
                         <div class="user-photo" style="background-image: url('@userData.ProfileImagePath')"></div>
-                        <p class="user-name">@userData.DisplayName</p>
+                        <p class="user-name">@userData.UserName</p>
                     </div>
                     @Html.Partial("Partials/UserShortcutsWidget", widgetViewModel)
                 </section>

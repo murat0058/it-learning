@@ -1,0 +1,73 @@
+﻿@model ITLearning.Frontend.Web.ViewModels.User.UserProfileViewModel
+
+@{
+    var json = Json.Serialize(Model);
+}
+
+<link href="~/src/css/common/croppic.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="row" style="margin-bottom: 25px;">
+        <div class="col-md-5" style="margin-top: 50px;">
+            <div class="col-md-12">
+                <div id="croppic"></div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="col-md-12" style="margin-top: 50px;">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form asp-controller="User" asp-action="UpdateProfile" method="post" class="form-horizontal" role="form">
+                            <div class="form-horizontal">
+                                <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
+
+                                <div class="form-group">
+                                    <label asp-for="UserName" class="col-md-3 control-label"></label>
+                                    <div class="col-md-9">
+                                        <span style="line-height: 35px;">@Model.UserName</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="FirstName" class="col-md-3 control-label"></label>
+                                    <div class="col-md-9">
+                                        <input asp-for="FirstName" class="form-control"/>
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="LastName" class="col-md-3 control-label"></label>
+                                    <div class="col-md-9">
+                                        <input asp-for="LastName" class="form-control" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Email" class="col-md-3 control-label"></label>
+                                    <div class="col-md-9">
+                                        <input asp-for="Email" class="form-control" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <input type="submit" value="Zapisz" class="btn btn-default" style="margin-left: 0px;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/src/js/common/croppic/croppic.js"></script>
+    <script src="~/src/js/common/croppic/croppicinit.js"></script>
+    <script>
+        $(document).ready(function () {
+            startCropper(@json);
+        });
+    </script>
+}

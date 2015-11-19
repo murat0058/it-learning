@@ -6,10 +6,8 @@ using ITLearning.Frontend.Web.ViewModels.Home;
 using ITLearning.Frontend.Web.ViewModels.News;
 using System.Collections.Generic;
 using ITLearning.Frontend.Web.ViewModels.User;
-using ITLearning.Frontend.Web.Contract.Providers.ViewModelProviders;
 using ITLearning.Frontend.Web.Contract.Services;
 using AutoMapper;
-using System.Net.Mime;
 using Microsoft.Net.Http.Headers;
 
 namespace ITLearning.Frontend.Web.Controllers
@@ -18,13 +16,13 @@ namespace ITLearning.Frontend.Web.Controllers
     [AuthorizeClaim(Type = ClaimTypeEnum.Controller, Value = ClaimValueEnum.Controller_HomeController)]
     public class HomeController : BaseController
     {
-        private IUserBasicDataViewModelProvider _userBasicDataViewModelProvider;
-        private INewsService _newsService;
+        private readonly INewsService _newsService;
+        private readonly IUserService _userService;
 
-        public HomeController(IUserBasicDataViewModelProvider userBasicDataViewModelProvider, INewsService newsService)
+        public HomeController(INewsService newsService, IUserService userService)
         {
-            _userBasicDataViewModelProvider = userBasicDataViewModelProvider;
             _newsService = newsService;
+            _userService = userService;
         }
 
         [HttpGet("Index")]
@@ -54,12 +52,11 @@ namespace ITLearning.Frontend.Web.Controllers
                         StatusCode = int.Parse(code)
                     };
             }
-            
         }
 
         private void FillModelWithBasicUserData(HomeViewModel model)
         {
-            model.UserData = _userBasicDataViewModelProvider.GetUserBasicDataViewModel();
+            model.UserData = Mapper.Map<UserProfileViewModel>(_userService.GetUserProfile().Item);
         }
 
         private void FillModelWithNews(HomeViewModel model)

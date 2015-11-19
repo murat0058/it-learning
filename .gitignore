@@ -198,3 +198,7 @@ FakesAssemblies/
 ITLearning/config.Development.json
 ITLearning/config.Production.json
 ITLearning/project.lock.json
+ITLearning/wwwroot/src/css/layout.css
+ITLearning/wwwroot/static/profile/cropped/
+ITLearning/wwwroot/static/profile/original/e9915393-dff7-4e3a-88c4-10ea46c806fb.jpg
+ITLearning/wwwroot/static/profile/original/

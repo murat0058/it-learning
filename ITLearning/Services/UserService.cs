@@ -4,25 +4,25 @@ using ITLearning.Frontend.Web.Contract.Data.Results.FileUpload;
 using ITLearning.Frontend.Web.Contract.Data.Model.User;
 using ITLearning.Frontend.Web.Contract.Services;
 using Microsoft.AspNet.Http;
-using Microsoft.Dnx.Runtime;
-using Microsoft.Net.Http.Headers;
 using System.Drawing;
 using System.IO;
 using ITLearning.Frontend.Web.Contract.Data.Requests;
 using AutoMapper;
 using ITLearning.Frontend.Web.Common;
+using ITLearning.Frontend.Web.Contract.Providers;
+using System;
 
 namespace ITLearning.Frontend.Web.Services
 {
     public class UserService : IUserService
     {
-        private readonly IApplicationEnvironment _hostingEnvironment;
         private readonly IUserRepository _userRepository;
+        private readonly IAppConfigurationProvider _configurationProvider;
 
-        public UserService(IApplicationEnvironment hostingEnvironment, IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IAppConfigurationProvider configurationProvider)
         {
-            _hostingEnvironment = hostingEnvironment;
             _userRepository = userRepository;
+            _configurationProvider = configurationProvider;
         }
 
         public CommonResult<UserProfileData> GetUserProfile()
@@ -37,10 +37,8 @@ namespace ITLearning.Frontend.Web.Services
 
         public async System.Threading.Tasks.Task<CommonResult<UploadImageResult>> SaveProfileImage(IFormFile file)
         {
-            var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition)
-                                                        .FileName
-                                                        .Trim('"');
-            var filePath = _hostingEnvironment.ApplicationBasePath + "\\wwwroot\\" + fileName;
+            var fileName = Guid.NewGuid().ToString() + ".jpg";
+            var filePath = _configurationProvider.GetProfileOriginalImagesFolderPath() + fileName;
 
             await file.SaveAsAsync(filePath);
 
@@ -53,13 +51,13 @@ namespace ITLearning.Frontend.Web.Services
                 Status = "success",
                 Width = image.Width,
                 Height = image.Height,
-                Url = "..//" + fileName
+                Url = _configurationProvider.GetProfileOriginalImagesFolderInternalPath() + fileName
             });
         }
 
         public CommonResult<CropImageResult> CropProfileImage(CropImageData cropImageData)
         {
-            var originalFilePath = _hostingEnvironment.ApplicationBasePath + "\\wwwroot\\" + cropImageData.ImageUrl.Remove(0, 4);
+            var originalFilePath = _configurationProvider.GetHostingEnvironmentWWWRootPath() + cropImageData.ImageUrl;
 
             OnBeforeCropImage(cropImageData);
 
@@ -68,7 +66,7 @@ namespace ITLearning.Frontend.Web.Services
             return CommonResult<CropImageResult>.Success(new CropImageResult
             {
                 Status = "success",
-                Url = "../Cropped/" + fileName
+                Url = _configurationProvider.GetProfileCroppedImagesFolderInternalPath() + fileName
             });
         }
 
@@ -106,8 +104,13 @@ namespace ITLearning.Frontend.Web.Services
             }
 
             var fileName = Path.GetFileName(originalFilePath);
-            var folder = _hostingEnvironment.ApplicationBasePath + "\\wwwroot\\Cropped\\";
+            var folder = _configurationProvider.GetProfileCroppedImagesFolderPath();
             var croppedPath = Path.Combine(folder, fileName);
+
+            if (File.Exists(croppedPath))
+            {
+                croppedPath = Path.Combine(folder, Guid.NewGuid().ToString());
+            }
 
             targetImage.Save(croppedPath);
 
