@@ -61,7 +61,6 @@ namespace ITLearning.Frontend.Web.Controllers
         }
 
         [HttpPost("List")]
-        [AllowAnonymous]
         public IActionResult List(NewsFilterRequest request)
         {
             var result = _newsService.GetFiltered(request);

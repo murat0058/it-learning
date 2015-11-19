@@ -1,0 +1,18 @@
+﻿<ng-transclude></ng-transclude>
+<div ng-repeat="group in groupListVm.groups track by $index">
+    <div class="group-basic-data-item">
+        <a ng-href="/Groups/{{group.Id}}">
+            <div class="content">
+                <p class="group-title" ng-bind="group.Name"></p>
+                <p class="group-summary">
+                    <span  ng-show="group.IsPrivate">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                    <span>
+                        <i class="fa fa-users"></i> {{group.NoOfUsers}}
+                    </span>
+                </p>
+            </div>
+        </a>
+    </div>
+</div>
