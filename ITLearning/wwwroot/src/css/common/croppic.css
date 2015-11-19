@@ -1,18 +1,13 @@
 .crop-image-container {
-    width: 200px;
-    height: 230px;
-}
-
-.crop-image-control {
-    margin-left: 15px;
-    margin-top: 20px;
+    width: 158px;
+    height: 150px;
 }
 
 #croppic {
-    width: 400px; /* MANDATORY */
-    height: 208px; /* MANDATORY */
+    margin: 0 auto;
+    width: 288px; /* MANDATORY */
+    height: 280px; /* MANDATORY */
     position: relative; /* MANDATORY */
-    margin: 50px 70px 20px;
     border: 3px solid #FFF;
     box-sizing: content-box;
     -moz-box-sizing: content-box;

@@ -1,11 +1,32 @@
-﻿$(document).ready(function () {
-    var cropperOptions = {
+﻿var cropper = null;
+var cropperOptions = null;
+
+function startCropper(data) {
+    cropperOptions = {
         uploadUrl: "UploadImage",
         cropUrl: "CropImage",
-        //loadPicture: '../Cropped/Przechwytywanie.PNG',
         onReset: function () {
-            //todo call to controller and reset img
+            onResetCropper();
+        }
+    };
 
+    if (data.ProfileImagePath && data.ProfileImagePath.indexOf("default") == -1) {
+        cropperOptions.loadPicture = data.ProfileImagePath;
+    }
+
+    initializeCropper(cropperOptions);
+}
+
+function initializeCropper(cropperOptions) {
+    cropper = new Croppic('croppic', cropperOptions);
+}
+
+function onResetCropper() {
+    $.ajax(
+        {
+            method: "POST",
+            url: "/User/DeleteImage/"
+        }).success(function () {
             cropper.destroy();
 
             var newOptions = {
@@ -13,9 +34,6 @@
                 cropUrl: cropperOptions.cropUrl,
             }
 
-            cropper = new Croppic('croppic', newOptions);
-        }
-    }
-
-    var cropper = new Croppic('croppic', cropperOptions);
-});
+            initializeCropper(newOptions);
+        });
+}

@@ -1,6 +1,6 @@
-﻿namespace ITLearning.Frontend.Web.Contract.Data.Model.User
+﻿namespace ITLearning.Frontend.Web.ViewModels.User
 {
-    public class UserProfileData
+    public class UserProfileViewModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

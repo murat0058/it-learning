@@ -6,7 +6,7 @@ namespace ITLearning.Frontend.Web.ViewModels.Home
 {
     public class HomeViewModel
     {
-        public UserBasicDataViewModel UserData { get; set; }
+        public UserProfileViewModel UserData { get; set; }
         public NewsThumbnailViewModel MainNews { get; set; }
         public IEnumerable<NewsThumbnailViewModel> SmallNews { get; set; }
         public IEnumerable<UserWidgetDirectiveViewModel> UserWidgetViewModel {get;set;}

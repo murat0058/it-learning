@@ -5,16 +5,20 @@ using ITLearning.Frontend.Web.Contract.Data.Results;
 using ITLearning.Frontend.Web.Contract.Data.Model.User;
 using Microsoft.Framework.OptionsModel;
 using System.Linq;
+using ITLearning.Frontend.Web.Contract.Providers;
+using System.IO;
 
 namespace ITLearning.Frontend.Web.DAL.Respoitories
 {
     public class UserRepository : IUserRepository
     {
         private readonly IOptions<DatabaseConfiguration> _dbConfiguration;
+        private readonly IAppConfigurationProvider _configurationProvider;
 
-        public UserRepository(IOptions<DatabaseConfiguration> dbConfiguration)
+        public UserRepository(IOptions<DatabaseConfiguration> dbConfiguration, IAppConfigurationProvider configurationProvider)
         {
             _dbConfiguration = dbConfiguration;
+            _configurationProvider = configurationProvider;
         }
 
         public CommonResult<UserProfileData> GetUserProfile(string userName)
@@ -23,7 +27,26 @@ namespace ITLearning.Frontend.Web.DAL.Respoitories
             {
                 var user = context.Users.First(x => x.UserName == userName);
 
-                return CommonResult<UserProfileData>.Success(Mapper.Map<UserProfileData>(user));
+                var mapped = Mapper.Map<UserProfileData>(user);
+
+                if (!string.IsNullOrEmpty(user.ImageName))
+                {
+                    var croppedProfileImage = _configurationProvider.GetProfileCroppedImagesFolderPath() + user.ImageName;
+                    if (File.Exists(croppedProfileImage))
+                    {
+                        mapped.ProfileImagePath = _configurationProvider.GetProfileCroppedImagesFolderInternalPath() + user.ImageName;
+                    }
+                    else
+                    {
+                        mapped.ProfileImagePath = _configurationProvider.GetProfileOriginalImagesFolderInternalPath() + user.ImageName;
+                    }
+                }
+                else
+                {
+                    mapped.ProfileImagePath = _configurationProvider.GetProfileDefaultImagePath();
+                }
+
+                return CommonResult<UserProfileData>.Success(mapped);
             }
         }
 

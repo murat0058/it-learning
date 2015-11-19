@@ -291,21 +291,19 @@
         },
         afterUpload: function (data) {
             var that = this;
-
             response = typeof data == 'object' ? data : jQuery.parseJSON(data);
 
+            if (response.Status == 'success') {
 
-            if (response.status == 'success') {
-
-                that.imgInitW = that.imgW = response.width;
-                that.imgInitH = that.imgH = response.height;
+                that.imgInitW = that.imgW = response.Width;
+                that.imgInitH = that.imgH = response.Height;
 
                 if (that.options.modal) { that.createModal(); }
                 if (!$.isEmptyObject(that.croppedImg)) { that.croppedImg.remove(); }
 
-                that.imgUrl = response.url;
+                that.imgUrl = response.Url;
 
-                var img = $('<img src="' + response.url + '">')
+                var img = $('<img src="' + response.Url + '">')
 
                 that.obj.append(img);
 
@@ -319,7 +317,7 @@
 
             }
 
-            if (response.status == 'error') {
+            if (response.Status == 'error') {
                 alert(response.message);
                 if (that.options.onError) that.options.onError.call(that, response.message);
                 that.hideLoader();
@@ -359,7 +357,7 @@
 
             if (that.options.imgEyecandy) { that.createEyecandy(); }
             that.initDrag();
-            that.initialScaleImg();
+            //that.initialScaleImg();
         },
         createEyecandy: function () {
             var that = this;
@@ -677,13 +675,9 @@
                     processData: false,
                     type: 'POST'
                 }).always(function (data) {
-
                     that.afterCrop(data);
-
                 });
             }
-
-            //
         },
         afterCrop: function (data) {
             var that = this;
@@ -694,15 +688,15 @@
                 response = typeof data == 'object' ? data : jQuery.parseJSON(data);
             }
 
-            if (response.status == 'success') {
+            if (response.Status == 'success') {
 
                 if (that.options.imgEyecandy)
                     that.imgEyecandy.hide();
 
                 that.destroy();
 
-                that.obj.append('<img class="croppedImg" src="' + response.url + '">');
-                if (that.options.outputUrlId !== '') { $('#' + that.options.outputUrlId).val(response.url); }
+                that.obj.append('<img class="croppedImg" src="' + response.Url + '">');
+                if (that.options.outputUrlId !== '') { $('#' + that.options.outputUrlId).val(response.Url); }
 
                 that.croppedImg = that.obj.find('.croppedImg');
 
@@ -710,7 +704,7 @@
 
                 that.hideLoader();
             }
-            if (response.status == 'error') {
+            if (response.Status == 'error') {
                 if (that.options.onError) that.options.onError.call(that, response.message);
                 that.hideLoader();
                 setTimeout(function () { that.reset(); }, 2000)
