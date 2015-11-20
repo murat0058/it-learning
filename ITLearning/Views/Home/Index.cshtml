@@ -12,11 +12,13 @@
         <div class="row">
             <div class="col-md-3">
                 <section class="user-profile-container">
-                    <div class="user-data user-profile-section">
-                        <div class="user-photo" style="background-image: url('@userData.ProfileImagePath')"></div>
-                        <p class="user-name">@userData.UserName</p>
+                    <img class="user-image" src="@userData.ProfileImagePath" alt="Zdjęcie profilowe" />
+                    <div class="user-data-container">
+                        <div class="user-name">
+                            <p>@userData.UserName</p>
+                        </div>
+                        @Html.Partial("Partials/UserShortcutsWidget", widgetViewModel)
                     </div>
-                    @Html.Partial("Partials/UserShortcutsWidget", widgetViewModel)
                 </section>
             </div>
             <div class="col-md-9">
