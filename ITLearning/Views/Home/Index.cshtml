@@ -15,6 +15,9 @@
                     <img class="user-image" src="@userData.ProfileImagePath" alt="Zdjęcie profilowe" />
                     <div class="user-data-container">
                         <div class="user-name">
+                            <a asp-controller="User" asp-action="Profile" class="profile-link">
+                                <i class="fa fa-cog"></i>
+                            </a>
                             <p>@userData.UserName</p>
                         </div>
                         @Html.Partial("Partials/UserShortcutsWidget", widgetViewModel)
