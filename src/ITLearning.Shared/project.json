@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0-*",
+  "description": "ITLearning.Shared Class Library",
+  "authors": [ "przem" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "frameworks": {
+    "net451": { }
+  },
+  "dependencies": {
+    "ITLearning.Contract": "1.0.0-*",
+    "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final",
+    "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
+  }
+}

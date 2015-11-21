@@ -3,21 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ITLearning.Frontend.Web", "ITLearning\ITLearning.Frontend.Web.xproj", "{60B65CD2-3BDE-4253-967F-10BDAE3CB4F5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EF864125-2AEE-47CB-B6FB-54BCF8C3857A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ITLearning.Documentation", "ITLearning.Documentation", "{DFB9D4D7-6EC7-4D3E-860B-8AC84E410BAB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{93070E82-A937-44F4-B11B-59B8974F3B46}"
 	ProjectSection(SolutionItems) = preProject
-		ITLearning.Documentation\AspNet.md = ITLearning.Documentation\AspNet.md
-		ITLearning.Documentation\DnvmDnxDnu.md = ITLearning.Documentation\DnvmDnxDnu.md
-		ITLearning.Documentation\EntityFramework7.md = ITLearning.Documentation\EntityFramework7.md
-		ITLearning.Documentation\Environment.md = ITLearning.Documentation\Environment.md
-		ITLearning.Documentation\Utils.md = ITLearning.Documentation\Utils.md
+		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{D6EC4F7E-0D6E-4E60-B69B-011305A2BEDA}"
-	ProjectSection(SolutionItems) = preProject
-		NuGet.Config = NuGet.Config
-	EndProjectSection
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ITLearning.Frontend.Web", "src\ITLearning.Frontend.Web\ITLearning.Frontend.Web.xproj", "{84C3268E-D05B-42FB-9BF8-512912E979B6}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ITLearning.Backend.Database", "src\ITLearning.Backend.Database\ITLearning.Backend.Database.xproj", "{F9FF87BC-627A-43A4-A3D0-DE0D35DEEF5D}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ITLearning.Backend.DataAccess", "src\ITLearning.Backend.DataAccess\ITLearning.Backend.DataAccess.xproj", "{D4E4B8EE-70BA-4AC5-A23F-6FF8652A38B4}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ITLearning.Contract", "src\ITLearning.Contract\ITLearning.Contract.xproj", "{A5930DC3-6F9F-4D77-9092-C0736D381D10}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ITLearning.Shared", "src\ITLearning.Shared\ITLearning.Shared.xproj", "{85B2DFBC-CF0D-446D-A7E2-8110502304F2}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ITLearning.Backend.Business", "src\ITLearning.Backend.Services\ITLearning.Backend.Business.xproj", "{7C9F18F1-80E0-42B0-B059-7E1F041E1256}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,12 +28,40 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{60B65CD2-3BDE-4253-967F-10BDAE3CB4F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{60B65CD2-3BDE-4253-967F-10BDAE3CB4F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{60B65CD2-3BDE-4253-967F-10BDAE3CB4F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{60B65CD2-3BDE-4253-967F-10BDAE3CB4F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84C3268E-D05B-42FB-9BF8-512912E979B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84C3268E-D05B-42FB-9BF8-512912E979B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84C3268E-D05B-42FB-9BF8-512912E979B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84C3268E-D05B-42FB-9BF8-512912E979B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9FF87BC-627A-43A4-A3D0-DE0D35DEEF5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9FF87BC-627A-43A4-A3D0-DE0D35DEEF5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9FF87BC-627A-43A4-A3D0-DE0D35DEEF5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9FF87BC-627A-43A4-A3D0-DE0D35DEEF5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4E4B8EE-70BA-4AC5-A23F-6FF8652A38B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4E4B8EE-70BA-4AC5-A23F-6FF8652A38B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4E4B8EE-70BA-4AC5-A23F-6FF8652A38B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4E4B8EE-70BA-4AC5-A23F-6FF8652A38B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5930DC3-6F9F-4D77-9092-C0736D381D10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5930DC3-6F9F-4D77-9092-C0736D381D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5930DC3-6F9F-4D77-9092-C0736D381D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5930DC3-6F9F-4D77-9092-C0736D381D10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85B2DFBC-CF0D-446D-A7E2-8110502304F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85B2DFBC-CF0D-446D-A7E2-8110502304F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85B2DFBC-CF0D-446D-A7E2-8110502304F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85B2DFBC-CF0D-446D-A7E2-8110502304F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C9F18F1-80E0-42B0-B059-7E1F041E1256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C9F18F1-80E0-42B0-B059-7E1F041E1256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C9F18F1-80E0-42B0-B059-7E1F041E1256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C9F18F1-80E0-42B0-B059-7E1F041E1256}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{84C3268E-D05B-42FB-9BF8-512912E979B6} = {EF864125-2AEE-47CB-B6FB-54BCF8C3857A}
+		{F9FF87BC-627A-43A4-A3D0-DE0D35DEEF5D} = {EF864125-2AEE-47CB-B6FB-54BCF8C3857A}
+		{D4E4B8EE-70BA-4AC5-A23F-6FF8652A38B4} = {EF864125-2AEE-47CB-B6FB-54BCF8C3857A}
+		{A5930DC3-6F9F-4D77-9092-C0736D381D10} = {EF864125-2AEE-47CB-B6FB-54BCF8C3857A}
+		{85B2DFBC-CF0D-446D-A7E2-8110502304F2} = {EF864125-2AEE-47CB-B6FB-54BCF8C3857A}
+		{7C9F18F1-80E0-42B0-B059-7E1F041E1256} = {EF864125-2AEE-47CB-B6FB-54BCF8C3857A}
 	EndGlobalSection
 EndGlobal

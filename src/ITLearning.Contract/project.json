@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0-*",
+  "description": "ITLearning.Contract Class Library",
+  "authors": [ "przem" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "frameworks": {
+    "net451": { }
+  },
+  "dependencies": {
+    "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final"
+  }
+}

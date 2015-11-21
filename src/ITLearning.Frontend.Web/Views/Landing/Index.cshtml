@@ -1,0 +1,156 @@
+﻿@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+@{
+    Layout = null;
+    var appName = "IT Learning";
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>@appName</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic' rel='stylesheet' type='text/css'>
+    <link href="~/lib/Font-Awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/src/css/landing/landing.css" rel="stylesheet" />
+    <link href="~/src/css/header.css" rel="stylesheet" />
+    <!--[if lte IE 8]><link href="~/src/css/landing/ie8.css" rel="stylesheet" /><![endif]-->
+    <!--[if lte IE 9]><link href="~/src/css/landing/ie9.css" rel="stylesheet" /><![endif]-->
+</head>
+<body class="landing">
+
+    @Html.Partial("~/Views/Shared/Partials/Header.cshtml")
+
+    <div id="page-wrapper">
+
+        <section id="banner">
+            <div class="inner">
+                <h2>@appName.ToUpper()</h2>
+                <p>Poznaj_programowanie</p>
+                <ul class="actions">
+                    <li><a asp-action="Login" asp-controller="Account" class="button">Zaloguj się</a></li>
+                    <li><a asp-action="SignUp" asp-controller="Account" class="button special">Załóż konto</a></li>
+                </ul>
+            </div>
+            <a href="#one" class="more scrolly">@appName.ToUpper() w akcji</a>
+        </section>
+
+        <section id="one" class="wrapper style1 special">
+            <div class="inner">
+                <header class="major">
+                    <h2>Skuteczna platforma edukacyjna<br /> dla branży IT</h2>
+                    <p>
+                        Nauka programowania to dla ciebie czarna magia? <br>A może chcesz podnieść swoje
+                        kwalifikacje?<br> Pomożemy Ci zrealizować swój cel!
+                    </p>
+                </header>
+                <ul class="icons major">
+                    <li><span class="icon fa fa-code major style3"><span class="label">Dolor</span></span></li>
+                    <li><span class="icon fa fa-comments-o major style1"><span class="label">Lorem</span></span></li>
+                    <li><span class="icon fa fa-heart-o major style2"><span class="label">Ipsum</span></span></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="two" class="wrapper alt style2">
+            <section class="spotlight">
+                <div class="image"><img src="~/common/images/landing/pic02.jpg" alt="" /></div><div class="content">
+                    <h2>
+                        Bądź gotowy na wyzwania rynku<br />
+                        przygotujemy cię do pracy
+                    </h2>
+                    <p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
+                </div>
+            </section>
+            <section class="spotlight">
+                <div class="image"><img src="~/common/images/landing/pic01.jpg" alt="" /></div><div class="content">
+                    <h2>
+                        W nauce pomogą ci ludzie<br />
+                        a nie roboty i algorytmy
+                    </h2>
+                    <p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
+                </div>
+            </section>
+            <section class="spotlight">
+                <div class="image"><img src="~/common/images/landing/pic03.jpg" alt="" /></div><div class="content">
+                    <h2>
+                        Szukasz materiałów do nauki?<br />
+                        Wskażemy ci te najlepsze
+                    </h2>
+                    <p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
+                </div>
+            </section>
+        </section>
+
+        <section id="three" class="wrapper style3 special">
+            <div class="inner">
+                <header class="major">
+                    <h2>A co więcej...</h2>
+                    <p>
+                        Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend<br />
+                        fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.
+                    </p>
+                </header>
+                <ul class="features">
+                    <li class="icon fa-paper-plane-o">
+                        <h3>Najnowsze technologie</h3>
+                        <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
+                    </li>
+                    <li class="icon fa-laptop">
+                        <h3>Rzeczywiste wyzwania</h3>
+                        <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
+                    </li>
+                    <li class="icon fa-check-square-o">
+                        <h3>Najlepsi eksperci</h3>
+                        <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
+                    </li>
+                    <li class="icon fa-comment-o">
+                        <h3>Feedback</h3>
+                        <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
+                    </li>
+                    <li class="icon fa-heart-o">
+                        <h3>Społeczność</h3>
+                        <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
+                    </li>
+                    <li class="icon fa-flag-o">
+                        <h3>Rozwój</h3>
+                        <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="cta" class="wrapper style4">
+            <div class="inner">
+                <header>
+                    <h2>2 minuty</h2>
+                    <p>
+                        Średnio tyle trwa założenie nowego konta w @appName. <br>
+                        No dalej, liczymy na Ciebie!
+                    </p>
+                </header>
+                <ul class="actions vertical">
+                    <li><a asp-action="SignUp" asp-controller="Account" class="button fit special">Załóż konto</a></li>
+                    <li><a asp-action="Login" asp-controller="Account" class="button fit">Zaloguj się</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <footer id="footer">
+            <ul class="icons">
+                <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+            </ul>
+            <ul class="copyright">
+                <li>IT Learning</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </footer>
+
+        @Html.Partial("~/Views/Shared/Partials/BaseScripts/LandingBaseScripts.cshtml")
+        <!--[if lte IE 8]><script src="~/lib/html5shiv/dist/html5shiv.js"></script><![endif]-->
+    </div>
+</body>
+</html>
