@@ -200,3 +200,5 @@ src/ITLearning.Frontend.Web/wwwroot/lib
 src/ITLearning.Frontend.Web/wwwroot/src/css
 src/ITLearning.Frontend.Web/wwwroot/static/profile/original/*.jpg
 src/ITLearning.Frontend.Web/wwwroot/static/profile/cropped/*.jpg
+src/ITLearning.Frontend.Web/appsettings.Development.json
+src/ITLearning.Frontend.Web/appsettings.Production.json
