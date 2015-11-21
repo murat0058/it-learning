@@ -1,10 +1,10 @@
 {
   "userSecretsId": "aspnet5-ITLearning-b23d33a8-8858-4c49-9355-d52d3a0e835d",
   "version": "1.0.0-*",
+  "webroot":  "wwwroot",
   "compilationOptions": {
     "emitEntryPoint": true
   },
-
   "dependencies": {
     "EntityFramework.Commands": "7.0.0-rc1-final",
     "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
@@ -53,6 +53,6 @@
     "**.vspscc"
   ],
   "scripts": {
-    "prepublish": [ "npm install", "bower install", "gulp jquery:build", "gulp scss:compileBaseScss", "gulp scss:compileDirectivesScss" ]
+    "prepublish": [ "npm install", "bower install", "gulp jquery:build", "gulp styles" ]
   }
 }
