@@ -1,0 +1,40 @@
+﻿<div class="form-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form role="form" asp-action="Create" asp-controller="Groups">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <span><i class="fa fa-plus"></i> | Utwórz nową grupę</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="Name">Nazwa</label>
+                                @*<span class="label-validation-message">@Html.ValidationMessageFor(p => p.Login)</span>*@
+                                <input type="text" class="form-control" id="Name" name="Name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Description">Opis</label>
+                                @*<span class="label-validation-message">@Html.ValidationMessageFor(p => p.Login)</span>*@
+                                <textarea class="form-control" id="Description" name="Description" rows="3" style="max-width: 100%;"></textarea>
+                            </div>
+                            @*<div class="form-group">
+                                <label for="Password">Hasło</label>
+                                <span class="label-validation-message">@Html.ValidationMessageFor(p => p.Password)</span>
+                                <input type="password" class="form-control" id="Password" name="Password" />
+                            </div>*@
+                            @*<div class="checkbox">
+                                <label for="RememberMe">
+                                    <input type="checkbox" id="RememberMe" name="RememberMe" /> Zapamiętaj mnie
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary pull-right">Zaloguj się</button>
+                            </div>*@
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -20,6 +20,12 @@ namespace ITLearning.Frontend.Web.Controllers
             return View();
         }
 
+        [HttpGet("Create")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         [HttpGet("{id}")]
         public IActionResult Single(int id)
         {
