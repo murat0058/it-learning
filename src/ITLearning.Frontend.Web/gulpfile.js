@@ -1,4 +1,4 @@
-﻿/// <binding ProjectOpened='scss:watchBaseScss, scss:watchDirectivesScss' />
+﻿/// <binding />
 /* =========== Modules =========== */
 
 var project = require('./project.json'),

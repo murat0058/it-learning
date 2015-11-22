@@ -3,11 +3,7 @@
 <div class="content-wrapper">
     <div class="container news-container" ng-controller="NewsListController as newsListVm">
         <div class="row" ng-init="newsListVm.activate(@Model)">
-            <div class="col-md-3 news-list-side-section">
-                <h4>Wyszukaj</h4>
-                <div class="search-row">
-                    <input type="text" class="form-control" placeholder="Szukaj w tytule..." ng-model="newsListVm.filters.query" ng-model-options="{ debounce: 1000 }" />
-                </div>
+            <div class="col-md-3 side-section">
                 <h4>Tagi</h4>
                 <div class="filter-category-wrapper">
                     <ul class="filters-list tags-list">
@@ -30,6 +26,9 @@
                 </div>
             </div>
             <div class="col-md-9">
+                <div class="search-row">
+                    <input type="text" class="form-control search-control" placeholder="Wyszukaj newsa" ng-model="newsListVm.filters.query" ng-model-options="{ debounce: 1000 }" />
+                </div>
                 <div class="filter-category-wrapper" ng-show="newsListVm.filters.tagsNotEmpty">
                     <ul class="filters-list generic-list">
                         <li class="filter-item default-item">Wg tagów:</li>
