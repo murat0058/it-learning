@@ -208,3 +208,13 @@ ITLearning/config.Development.json
 ITLearning/config.Production.json
 src/ITLearning.Frontend.Web/wwwroot/_references.js
 ITLearning/wwwroot/src/css/layout.css
+ITLearning/wwwroot/src/_bower/angular/.bower.json
+ITLearning/wwwroot/src/_bower/angular/README.md
+ITLearning/wwwroot/src/_bower/angular/angular-csp.css
+ITLearning/wwwroot/src/_bower/angular/angular.js
+ITLearning/wwwroot/src/_bower/angular/angular.min.js
+ITLearning/wwwroot/src/_bower/angular/angular.min.js.gzip
+ITLearning/wwwroot/src/_bower/angular/angular.min.js.map
+ITLearning/wwwroot/src/_bower/angular/bower.json
+ITLearning/wwwroot/src/_bower/angular/index.js
+ITLearning/wwwroot/src/_bower/angular/package.json
