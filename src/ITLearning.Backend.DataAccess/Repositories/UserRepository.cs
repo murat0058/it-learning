@@ -29,23 +29,7 @@ namespace ITLearning.Backend.DataAccess.Repositories
                 var user = context.Users.First(x => x.UserName == userName);
 
                 var mapped = Mapper.Map<UserProfileData>(user);
-
-                if (!string.IsNullOrEmpty(user.ImageName))
-                {
-                    var croppedProfileImage = _configurationProvider.GetProfileCroppedImagesFolderPath() + user.ImageName;
-                    if (File.Exists(croppedProfileImage))
-                    {
-                        mapped.ProfileImagePath = _configurationProvider.GetProfileCroppedImagesFolderInternalPath() + user.ImageName;
-                    }
-                    else
-                    {
-                        mapped.ProfileImagePath = _configurationProvider.GetProfileOriginalImagesFolderInternalPath() + user.ImageName;
-                    }
-                }
-                else
-                {
-                    mapped.ProfileImagePath = _configurationProvider.GetProfileDefaultImagePath();
-                }
+                mapped.ProfileImagePath = GenerateImagePath(user.ImageName);
 
                 return CommonResult<UserProfileData>.Success(mapped);
             }
@@ -62,7 +46,10 @@ namespace ITLearning.Backend.DataAccess.Repositories
 
                 context.SaveChanges();
 
-                return CommonResult<UserProfileData>.Success(Mapper.Map<UserProfileData>(user));
+                var mapped = Mapper.Map<UserProfileData>(user);
+                mapped.ProfileImagePath = GenerateImagePath(user.ImageName);
+
+                return CommonResult<UserProfileData>.Success(mapped);
             }
         }
 
@@ -76,6 +63,26 @@ namespace ITLearning.Backend.DataAccess.Repositories
                 context.SaveChanges();
 
                 return CommonResult<UserProfileData>.Success(Mapper.Map<UserProfileData>(user));
+            }
+        }
+
+        private string GenerateImagePath(string imageName)
+        {
+            if (!string.IsNullOrEmpty(imageName))
+            {
+                var croppedProfileImage = _configurationProvider.GetProfileCroppedImagesFolderPath() + imageName;
+                if (File.Exists(croppedProfileImage))
+                {
+                    return _configurationProvider.GetProfileCroppedImagesFolderInternalPath() + imageName;
+                }
+                else
+                {
+                    return _configurationProvider.GetProfileOriginalImagesFolderInternalPath() + imageName;
+                }
+            }
+            else
+            {
+                return _configurationProvider.GetProfileDefaultImagePath();
             }
         }
     }
