@@ -1,4 +1,4 @@
-﻿/// <binding />
+/// <binding ProjectOpened='scss:watchScss' />
 /* =========== Modules =========== */
 
 var project = require('./project.json'),
@@ -77,19 +77,10 @@ gulp.task('scss:compileLandingScss', function () {
 
 });
 
-gulp.task('scss:watchBaseScss', function () {
+gulp.task('scss:watchScss', function () {
     gulp.watch(paths.srcBaseScss + '*.scss', ['scss:compileBaseScss']);
-});
-
-gulp.task('scss:watchBaseScss', function () {
     gulp.watch(paths.srcCommonScss + '*.scss', ['scss:compileCommonScss']);
-});
-
-gulp.task('scss:watchBaseScss', function () {
     gulp.watch(paths.srcLandingScss + '*.scss', ['scss:compileLandingScss']);
-});
-
-gulp.task('scss:watchDirectivesScss', function () {
     gulp.watch(paths.srcDirectivesScss + '*.scss', ['scss:compileDirectivesScss']);
 });
 
