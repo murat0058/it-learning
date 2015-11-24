@@ -9,7 +9,7 @@ namespace ITLearning.Backend.Database.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string ImageName { get; set; }
-
+        public ICollection<Group> OwnedGroups { get; set; }
         public ICollection<UserGroup> Groups { get; set; }
         public ICollection<Task> Tasks { get; set; }
         public ICollection<TaskInstance> TaskInstances { get; set; }

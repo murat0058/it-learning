@@ -58,6 +58,7 @@ namespace ITLearning.Backend.Database
             #region GitBranchEntity
             builder.Entity<GitBranch>()
                 .HasKey(p => p.Id);
+
             builder.Entity<GitBranch>()
                 .Property(p => p.Name)
                 .IsRequired();
@@ -70,7 +71,7 @@ namespace ITLearning.Backend.Database
 
             #region UserGroup
             builder.Entity<UserGroup>()
-                .HasKey(x => new { x.UserId, x.GroupId });
+                .HasKey(p => p.Id);
             #endregion
 
             #region Event

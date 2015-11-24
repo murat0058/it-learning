@@ -9,8 +9,6 @@
         public string Name { get; set; }
         public string LastSHA { get; set; }
         public bool IsVisible { get; set; }
-
-        public int RepositoryId { get; set; }
         public GitRepository Repository { get; set; }
     }
 }
