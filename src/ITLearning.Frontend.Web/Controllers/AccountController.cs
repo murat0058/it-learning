@@ -22,15 +22,15 @@ namespace ITLearning.Frontend.Web.Controllers
         }
 
         [HttpGet("Login")]
-        public IActionResult Login(LoginViewModel model)
+        public IActionResult Login()
         {
-            return View(model ?? new LoginViewModel());
+            return View(new LoginViewModel());
         }
 
         [HttpGet("SignUp")]
-        public IActionResult SignUp(SignUpViewModel model)
+        public IActionResult SignUp()
         {
-            return View(model ?? new SignUpViewModel());
+            return View(new SignUpViewModel());
         }
 
         [HttpGet("Logout")]
