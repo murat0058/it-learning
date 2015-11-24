@@ -40,12 +40,12 @@
         {
         }
 
-        public static CommonResult<T> Success<T>(T item)
+        public static CommonResult<T> Success(T item)
         {
             return new CommonResult<T>(item);
         }
 
-        public static CommonResult<T> Failure<T>(string errorMessage)
+        public static new CommonResult<T> Failure(string errorMessage)
         {
             return new CommonResult<T>(errorMessage);
         }

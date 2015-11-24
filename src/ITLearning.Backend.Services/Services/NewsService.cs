@@ -57,7 +57,7 @@ namespace ITLearning.Backend.Business.Services
             }
             else
             {
-                return CommonResult<NewsData>.Failure<NewsData>("News o podanym identyfikatorze nie istnieje.");
+                return CommonResult<NewsData>.Failure("News o podanym identyfikatorze nie istnieje.");
             }
         }
 

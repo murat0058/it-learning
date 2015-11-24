@@ -25,11 +25,14 @@ namespace ITLearning.Frontend.Web.Core.IoC
             services.AddTransient<IPermissionsProvider, PermissionsProvider>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<INewsService, NewsService>();
+            services.AddTransient<IGroupsService, GroupsService>();
+
             services.AddTransient<INewsProvider, StaticFilesNewsProvider>();
             #endregion
 
             #region Repositories
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IGroupsRepository, GroupsRepository>();
             #endregion
 
             #region Utils

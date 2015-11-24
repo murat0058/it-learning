@@ -1,36 +1,56 @@
-﻿<div class="form-wrapper">
+﻿@model CreateGroupViewModel
+
+<div class="form-wrapper">
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <form role="form" asp-action="Create" asp-controller="Groups">
+                <form asp-action="CreateGroup" asp-controller="Groups" method="post" role="form" ng-controller="CreateGroupController as createGroupVm">
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <span><i class="fa fa-plus"></i> | Utwórz nową grupę</span>
                         </div>
                         <div class="panel-body">
+                            @Html.ValidationSummary(excludePropertyErrors: true)
                             <div class="form-group">
-                                <label for="Name">Nazwa</label>
-                                @*<span class="label-validation-message">@Html.ValidationMessageFor(p => p.Login)</span>*@
-                                <input type="text" class="form-control" id="Name" name="Name" />
+                                <label asp-for="Name" class="control-label"></label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label for="Description">Opis</label>
-                                @*<span class="label-validation-message">@Html.ValidationMessageFor(p => p.Login)</span>*@
-                                <textarea class="form-control" id="Description" name="Description" rows="3" style="max-width: 100%;"></textarea>
-                            </div>
-                            @*<div class="form-group">
-                                <label for="Password">Hasło</label>
-                                <span class="label-validation-message">@Html.ValidationMessageFor(p => p.Password)</span>
-                                <input type="password" class="form-control" id="Password" name="Password" />
-                            </div>*@
-                            @*<div class="checkbox">
-                                <label for="RememberMe">
-                                    <input type="checkbox" id="RememberMe" name="RememberMe" /> Zapamiętaj mnie
-                                </label>
+                                <label asp-for="Description" class="control-label"></label>
+                                <textarea asp-for="Description" class="form-control" rows="3" style="max-width: 100%;"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary pull-right">Zaloguj się</button>
-                            </div>*@
+                                <div class="checkbox">
+                                    <label asp-for="IsPrivate">
+                                        <input asp-for="IsPrivate" ng-model="createGroupVm.IsPrivate" /> Grupa prywatna
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row form-controls-row" ng-show="createGroupVm.IsPrivate">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label asp-for="Password" class="control-label"></label>
+                                        <input asp-for="Password" class="form-control" ng-disabled="!createGroupVm.IsPrivate" />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label asp-for="PasswordConfirmation" class="control-label"></label>
+                                        <input asp-for="PasswordConfirmation" class="form-control" ng-disabled="!createGroupVm.IsPrivate" />
+                                        <span asp-validation-for="PasswordConfirmation" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary pull-right" value="Utwórz" />
+                            </div>
                         </div>
                     </div>
                 </form>

@@ -5,16 +5,16 @@ namespace ITLearning.Frontend.Web.ViewModels.User
     public class UserProfileViewModel
     {
         [Display(Name="Imię")]
-        [MaxLength(50, ErrorMessage = "Podane imię jest zbyt długie")]
+        [MaxLength(50, ErrorMessage = "Podane imię jest zbyt długie (max. 50 znaków).")]
         public string FirstName { get; set; }
 
         [Display(Name = "Nazwisko")]
-        [MaxLength(50, ErrorMessage = "Podane nazwisko jest zbyt długie")]
+        [MaxLength(50, ErrorMessage = "Podane nazwisko jest zbyt długie (max. 50 znaków).")]
         public string LastName { get; set; }
 
-        [Display(Name = "Adres email")]
-        [Required(ErrorMessage = "Adres email nie może być pusty")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "Adres email jest niepoprawny")]
+        [Display(Name = "E-mail")]
+        [Required(ErrorMessage = "E-mail jest wymagany.")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Format adresu e-mail jest niepoprawny.")]
         public string Email { get; set; }
 
         [Display(Name = "Login")]

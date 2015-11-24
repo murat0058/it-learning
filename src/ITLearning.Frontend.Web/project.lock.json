@@ -225,6 +225,7 @@
         "dependencies": {
           "AutoMapper": "4.1.1",
           "CommonMark.NET": "0.10.0",
+          "FluentValidation": "5.6.2",
           "ITLearning.Contract": "1.0.0",
           "ITLearning.Shared": "1.0.0",
           "Microsoft.AspNet.FileProviders.Abstractions": "1.0.0-rc1-final",
@@ -2429,6 +2430,7 @@
         "dependencies": {
           "AutoMapper": "4.1.1",
           "CommonMark.NET": "0.10.0",
+          "FluentValidation": "5.6.2",
           "ITLearning.Contract": "1.0.0",
           "ITLearning.Shared": "1.0.0",
           "Microsoft.AspNet.FileProviders.Abstractions": "1.0.0-rc1-final",
@@ -4636,6 +4638,7 @@
         "dependencies": {
           "AutoMapper": "4.1.1",
           "CommonMark.NET": "0.10.0",
+          "FluentValidation": "5.6.2",
           "ITLearning.Contract": "1.0.0",
           "ITLearning.Shared": "1.0.0",
           "Microsoft.AspNet.FileProviders.Abstractions": "1.0.0-rc1-final",

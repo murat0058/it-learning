@@ -4,6 +4,7 @@ using ITLearning.Contract.Data.Model.News;
 using ITLearning.Contract.Data.Model.User;
 using ITLearning.Contract.Data.Requests;
 using ITLearning.Frontend.Web.Core.Identity.Models;
+using ITLearning.Frontend.Web.ViewModels.Group;
 using ITLearning.Frontend.Web.ViewModels.Identity;
 using ITLearning.Frontend.Web.ViewModels.News;
 using ITLearning.Frontend.Web.ViewModels.User;
@@ -26,6 +27,8 @@ namespace ITLearning.Shared.Mappings
             Mapper.CreateMap<UserProfileData, UserProfileViewModel>();
 
             Mapper.CreateMap<UpdateUserProfileRequestData, UserProfileData>();
+
+            Mapper.CreateMap<CreateGroupViewModel, CreateGroupRequestData>();
         }
     }
 }
