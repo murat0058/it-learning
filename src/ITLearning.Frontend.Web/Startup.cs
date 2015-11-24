@@ -78,8 +78,7 @@ namespace ITLearning
                 {
                     using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
                     {
-                        serviceScope.ServiceProvider.GetService<AppDbContext>().Database.EnsureDeleted();
-
+                        //TODO - better production release scenario
                         serviceScope.ServiceProvider.GetService<AppDbContext>().Database.Migrate();
                     }
                 }
