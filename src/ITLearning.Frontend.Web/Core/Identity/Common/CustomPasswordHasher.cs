@@ -1,4 +1,5 @@
 ﻿using ITLearning.Backend.Database.Entities;
+using ITLearning.Shared.Extensions;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Text;
@@ -9,17 +10,12 @@ namespace ITLearning.Frontend.Web.Core.Identity.Common
     {
         public string HashPassword(User user, string password)
         {
-            return ToBase64(password);
+            return password.ToBase64();
         }
 
         public PasswordVerificationResult VerifyHashedPassword(User user, string hashedPassword, string providedPassword)
         {
-            return string.Equals(hashedPassword, ToBase64(providedPassword)) ? PasswordVerificationResult.Success : PasswordVerificationResult.Failed;
-        }
-
-        private string ToBase64(string textToEncode)
-        {
-            return Convert.ToBase64String(Encoding.UTF8.GetBytes(textToEncode));
+            return string.Equals(hashedPassword, providedPassword.ToBase64()) ? PasswordVerificationResult.Success : PasswordVerificationResult.Failed;
         }
     }
 }
