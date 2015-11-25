@@ -9,7 +9,6 @@ namespace ITLearning.Backend.Database
     public class AppDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public DbSet<Task> Task { get; set; }
-        public DbSet<TaskCategory> TaskCategories { get; set; }
         public DbSet<TaskInstance> TaskInstances { get; set; }
         public DbSet<TaskInstanceReview> TaskInstanceReviews { get; set; }
         public DbSet<GitRepository> GitRepositories { get; set; }
@@ -28,11 +27,6 @@ namespace ITLearning.Backend.Database
 
             #region Task
             builder.Entity<Task>()
-                .HasKey(p => p.Id);
-            #endregion
-
-            #region TaskCategory
-            builder.Entity<TaskCategory>()
                 .HasKey(p => p.Id);
             #endregion
 
