@@ -25,14 +25,15 @@
         return directive;
     }
 
-    GroupsBasicListController.$inject = ['groupsService'];
+    GroupsBasicListController.$inject = ['groupsService', 'loadingIndicatorService'];
 
-    function GroupsBasicListController(groupsService) {
+    function GroupsBasicListController(groupsService, loadingIndicatorService) {
 
-        var groupListVm = this;
+        var groupListVm = this,
+            loadingMessage = "Ładuję twoje grupy...";
 
-        groupListVm.isLoadingIndicatorVisible = false;
         groupListVm.groups = [];
+        groupListVm.loadingIndicator = loadingIndicatorService.getIndicator(loadingMessage);
 
         activate();
 
@@ -43,7 +44,7 @@
         };
 
         function getGroups() {
-            groupListVm.isLoadingIndicatorVisible = true;
+            groupListVm.loadingIndicator.SetLoading(loadingMessage);
 
             var request = {
                 noOfGroups: groupListVm.noOfGroups
@@ -52,8 +53,13 @@
             return groupsService
                 .getUserGroupsBasicData(request)
                 .then(function (data) {
-                    groupListVm.groups = data;
-                    groupListVm.isLoadingIndicatorVisible = false;
+
+                    if (data.IsSuccess) {
+                        groupListVm.groups = data.Item;
+                        groupListVm.loadingIndicator.Hide();
+                    } else {
+                        groupListVm.loadingIndicator.SetLoaded(data.ErrorMessage);
+                    }
                 });
         }
     }

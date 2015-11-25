@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ITLearning.Frontend.Web.ViewModels.Group
+namespace ITLearning.Contract.Data.Results.Groups
 {
-    public class GroupBasicDataViewModel
+    public class GroupBasicDataResult
     {
         public int Id { get; set; }
         public string Name { get; set; }

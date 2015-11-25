@@ -11,5 +11,7 @@ namespace ITLearning.Contract.Services
     public interface IGroupsService
     {
         CommonResult<CreateGroupResult> CreateGroup(CreateGroupRequestData request);
+
+        CommonResult<IEnumerable<GroupBasicDataResult>> GetGroupBasicData(string userName, int noOfGroups);
     }
 }

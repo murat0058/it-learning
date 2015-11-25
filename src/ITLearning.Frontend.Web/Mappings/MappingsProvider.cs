@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using ITLearning.Backend.Database.Entities;
+using ITLearning.Contract.Data.Model.Groups;
 using ITLearning.Contract.Data.Model.News;
 using ITLearning.Contract.Data.Model.User;
 using ITLearning.Contract.Data.Requests;
+using ITLearning.Contract.Data.Results.Groups;
 using ITLearning.Frontend.Web.Core.Identity.Models;
 using ITLearning.Frontend.Web.ViewModels.Group;
 using ITLearning.Frontend.Web.ViewModels.Identity;
@@ -29,6 +31,7 @@ namespace ITLearning.Shared.Mappings
             Mapper.CreateMap<UpdateUserProfileRequestData, UserProfileData>();
 
             Mapper.CreateMap<CreateGroupViewModel, CreateGroupRequestData>();
+            Mapper.CreateMap<GroupBasicData, GroupBasicDataResult>();
         }
     }
 }

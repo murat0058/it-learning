@@ -17,9 +17,9 @@
             restrict: 'E',
             scope: {
                 parentVm: '=',
+                parentVmScoped: '@',
                 dotBackground: '@',
-                dotSize: '@',
-                loadingText: '@'
+                dotSize: '@'
             },
             link: link
         };
@@ -31,13 +31,23 @@
         function link(scope, elem, attrs) {
 
             scope.loadingIndicatorVm = {
-                loadingText: scope.loadingText,
+                loadingIndicator: getIndicator(scope),
                 style: {
                     'background-color': scope.dotBackground,
                     'width': scope.dotSize,
                     'height': scope.dotSize
                 }
             };
+        }
+
+        function getIndicator(scope) {
+            if (scope.parentVm) {
+                return scope.parentVm.loadingIndicator;
+            }
+
+            if (scope.parentVmScoped) {
+                return scope.$parent.$parent[scope.parentVmScoped].loadingIndicator;
+            }
         }
     }
 

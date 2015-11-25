@@ -1,8 +1,8 @@
-﻿<div class="loading-indicator-wrapper" ng-show="parentVm.isLoadingIndicatorVisible">
-    <div class="dots">
+﻿<div class="loading-indicator-wrapper" ng-show="loadingIndicatorVm.loadingIndicator.isVisible">
+    <div class="dots" ng-show="loadingIndicatorVm.loadingIndicator.isLoading">
         <div class="dot bounce1" ng-style="loadingIndicatorVm.style"></div>
         <div class="dot bounce2" ng-style="loadingIndicatorVm.style"></div>
         <div class="dot bounce3" ng-style="loadingIndicatorVm.style"></div>
     </div>
-    <p class="text" ng-bind="loadingIndicatorVm.loadingText"></p>
+    <p class="text" ng-bind="loadingIndicatorVm.loadingIndicator.loadingText"></p>
 </div>

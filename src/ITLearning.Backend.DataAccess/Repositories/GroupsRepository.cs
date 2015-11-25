@@ -12,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ITLearning.Contract.Data.Model.Groups;
+using Microsoft.Data.Entity;
 
 namespace ITLearning.Backend.DataAccess.Repositories
 {
@@ -34,30 +36,73 @@ namespace ITLearning.Backend.DataAccess.Repositories
 
                 if(user != null)
                 {
-                    var group = new Group
+                    var groupWithGivenName = context.Groups.FirstOrDefault(x => x.Name == requestData.Name);
+
+                    if (groupWithGivenName == null)
                     {
-                        Name = requestData.Name,
-                        Description = requestData.Description,
-                        IsPrivate = requestData.IsPrivate,
-                        Password = requestData.Password,
-                        Owner = user
-                    };
+                        var group = new Group
+                        {
+                            Name = requestData.Name,
+                            Description = requestData.Description,
+                            IsPrivate = requestData.IsPrivate,
+                            Password = requestData.Password,
+                            Owner = user
+                        };
 
-                    context.Groups.Add(group);
+                        context.Groups.Add(group);
 
-                    context.UserGroups.Add(new UserGroup
+                        context.UserGroups.Add(new UserGroup
+                        {
+                            User = user,
+                            Group = group
+                        });
+
+                        context.SaveChanges();
+
+                        return CommonResult<CreateGroupResult>.Success(new CreateGroupResult { Id = group.Id });
+                    }
+                    else
                     {
-                        User = user,
-                        Group = group
-                    });
-
-                    context.SaveChanges();
-
-                    return CommonResult<CreateGroupResult>.Success(new CreateGroupResult { Id = group.Id });
+                        return CommonResult<CreateGroupResult>.Failure("Grupa o podanej nazwie już istnieje.");
+                    }
                 }
                 else
                 {
                     return CommonResult<CreateGroupResult>.Failure("Nie znaleziono podanego użytkownika.");
+                }
+            }
+        }
+
+        public CommonResult<IEnumerable<GroupBasicData>> GetGroupsBasicData()
+        {
+            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            {
+                var groups = context.Groups
+                    .Include(g => g.Owner)
+                    .Include(g => g.Users)
+                    .Include(g => g.Tasks)
+                    .ToList();
+
+                var result = groups.Select(x => new GroupBasicData
+                 {
+                     Id = x.Id,
+                     Name = x.Name,
+                     IsPrivate = x.IsPrivate,
+                     Description = x.Description,
+                     OwnerId = x.Owner.Id,
+                     OwnerUserName = x.Owner.UserName,
+                     OwnerFullName = $"{x.Owner.FirstName} {x.Owner.LastName}",
+                     NoOfUsers = x.Users.Count(),
+                     NoOfTasks = x.Tasks.Count()
+                 });
+
+                if (result.Any())
+                {
+                    return CommonResult<IEnumerable<GroupBasicData>>.Success(result);
+                }
+                else
+                {
+                    return CommonResult<IEnumerable<GroupBasicData>>.Failure("Aktualnie nie ma żadnych grup.");
                 }
             }
         }

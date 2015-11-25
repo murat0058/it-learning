@@ -22,14 +22,15 @@
         return directive;
     }
 
-    TasksController.$inject = ['taskService', 'uiFeaturesService'];
+    TasksController.$inject = ['taskService', 'uiFeaturesService', 'loadingIndicatorService'];
 
-    function TasksController(taskService, uiFeaturesService) {
+    function TasksController(taskService, uiFeaturesService, loadingIndicatorService) {
 
-        var taskListVm = this;
+        var taskListVm = this,
+            loadingMessage = "Ładuję twoje zadania...";
 
-        taskListVm.isLoadingIndicatorVisible = true;
         taskListVm.tasks = [];
+        taskListVm.loadingIndicator = loadingIndicatorService.getIndicator(loadingMessage);
 
         activate();
 
@@ -73,6 +74,7 @@
                 }
             ];
 
+            taskListVm.loadingIndicator.SetLoaded("Załadowano!");
         };
     }
 
