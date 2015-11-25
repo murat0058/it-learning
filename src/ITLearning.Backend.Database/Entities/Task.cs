@@ -13,7 +13,6 @@ namespace ITLearning.Backend.Database.Entities
         public Language Language { get; set; }
         public bool IsVisibleOnlyInGroup { get; set; }
         public Group Group { get; set; }
-        public TaskCategory TaskCategory { get; set; }
         public User User { get; set; }
 
         public ICollection<TaskInstance> TaskInstances { get; set; }
