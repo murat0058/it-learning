@@ -4,6 +4,7 @@ using ITLearning.Contract.Data.Model.Groups;
 using ITLearning.Contract.Data.Model.News;
 using ITLearning.Contract.Data.Model.User;
 using ITLearning.Contract.Data.Requests;
+using ITLearning.Contract.Data.Requests.Groups;
 using ITLearning.Contract.Data.Results.Groups;
 using ITLearning.Frontend.Web.Core.Identity.Models;
 using ITLearning.Frontend.Web.ViewModels.Group;

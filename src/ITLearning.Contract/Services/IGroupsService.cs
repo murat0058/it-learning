@@ -5,13 +5,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ITLearning.Contract.Enums;
 
 namespace ITLearning.Contract.Services
 {
     public interface IGroupsService
     {
         CommonResult<CreateGroupResult> CreateGroup(CreateGroupRequestData request);
+        
+        CommonResult<GroupBasicDataResult> GetGroupById(int id);
 
-        CommonResult<IEnumerable<GroupBasicDataResult>> GetGroupBasicData(string userName, int noOfGroups);
+        CommonResult<IEnumerable<GroupBasicDataResult>> GetGroupsBasicDataLimitedByNo(string userName, int noOfGroups);
+        
+        CommonResult<GroupAccessTypeEnum> GetUserAccessType(int id, string userName);
+        
+        CommonResult UpdateGroupAccess(GroupAccessUpdateRequestData request);
     }
 }
