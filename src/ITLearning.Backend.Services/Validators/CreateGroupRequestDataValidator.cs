@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using ITLearning.Contract.Data.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation.Results;
 using ITLearning.Shared.Extensions;
+using ITLearning.Contract.Data.Requests.Groups;
 
 namespace ITLearning.Backend.Business.Validators
 {

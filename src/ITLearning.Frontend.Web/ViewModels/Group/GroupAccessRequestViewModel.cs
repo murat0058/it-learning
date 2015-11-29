@@ -4,7 +4,7 @@ namespace ITLearning.Frontend.Web.ViewModels.Group
 {
 	public class GroupAccessRequestViewModel
 	{
-		public string UserName { get; set; }
-		public int GroupId { get; set; }
-	}
+        public int Id { get; set; }
+        public string Password { get; set; }
+    }
 }

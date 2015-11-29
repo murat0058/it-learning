@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ITLearning.Contract.Data.Requests.Groups;
+using ITLearning.Contract.Enums;
 
 namespace ITLearning.Backend.Business.Services
 {
@@ -55,7 +57,7 @@ namespace ITLearning.Backend.Business.Services
             }
         }
 
-        public CommonResult<IEnumerable<GroupBasicDataResult>> GetGroupBasicData(string userName, int noOfGroups)
+        public CommonResult<IEnumerable<GroupBasicDataResult>> GetGroupsBasicDataLimitedByNo(string userName, int noOfGroups)
         {
             var result = _groupsRepository.GetGroupsBasicData();
 
@@ -76,6 +78,21 @@ namespace ITLearning.Backend.Business.Services
             {
                 return CommonResult<IEnumerable<GroupBasicDataResult>>.Failure(result.ErrorMessage);
             }
+        }
+
+        public CommonResult<GroupBasicDataResult> GetGroupById(int id)
+        {
+            return _groupsRepository.GetGroupById(id);
+        }
+
+        public CommonResult<GroupAccessTypeEnum> GetUserAccessType(int id, string userName)
+        {
+            return CommonResult<GroupAccessTypeEnum>.Success(GroupAccessTypeEnum.RequirePassword);
+        }
+
+        public CommonResult UpdateGroupAccess(GroupAccessUpdateRequestData request)
+        {
+            return CommonResult.Failure("test");
         }
     }
 }

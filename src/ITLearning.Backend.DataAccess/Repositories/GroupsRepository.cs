@@ -1,19 +1,18 @@
 ﻿using ITLearning.Backend.Database;
 using ITLearning.Backend.Database.Entities;
 using ITLearning.Backend.Database.Entities.JunctionTables;
-using ITLearning.Contract.Data.Requests;
+using ITLearning.Contract.Data.Model.Groups;
+using ITLearning.Contract.Data.Requests.Groups;
 using ITLearning.Contract.Data.Results;
 using ITLearning.Contract.Data.Results.Groups;
 using ITLearning.Contract.DataAccess.Repositories;
 using ITLearning.Contract.Providers;
 using ITLearning.Shared.Configs;
+using Microsoft.Data.Entity;
 using Microsoft.Extensions.OptionsModel;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using ITLearning.Contract.Data.Model.Groups;
-using Microsoft.Data.Entity;
+using System;
 
 namespace ITLearning.Backend.DataAccess.Repositories
 {
@@ -105,6 +104,32 @@ namespace ITLearning.Backend.DataAccess.Repositories
                     return CommonResult<IEnumerable<GroupBasicData>>.Failure("Aktualnie nie ma żadnych grup.");
                 }
             }
+        }
+
+        public CommonResult<GroupBasicDataResult> GetGroupById(int id)
+        {
+            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            {
+                var group = context.Groups
+                    .Include(x => x.Users)
+                    .FirstOrDefault(x => x.Id == id);
+
+                if(group == null) { return CommonResult<GroupBasicDataResult>.Failure("Nie istnieje grupa o podanym id."); }
+
+                return CommonResult<GroupBasicDataResult>.Success(new GroupBasicDataResult
+                {
+                    Id = group.Id,
+                    Name = group.Name,
+                    Description = group.Description,
+                    IsPrivate = group.IsPrivate,
+                    NoOfUsers = group.Users.Count
+                });
+            }
+        }
+
+        public CommonResult<IEnumerable<GroupBasicData>> GetGroupsByUserName(string userName)
+        {
+            throw new NotImplementedException();
         }
     }
 }

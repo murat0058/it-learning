@@ -662,5 +662,29 @@
     margin: 3px;
     margin-bottom: 10px;
     padding-top: 7px;
+}
 
+.group-access-container {
+    margin-top: 15px;
+    text-align: center;
+    font-family: $custom-font;
+}
+
+.divider{
+    height: 1px;
+    display: block;
+    margin: 10px auto;
+    background: #efefef;
+}
+
+.divider-full {
+    width: 100%;
+}
+
+.divider-medium {
+    width: 75%;
+}
+
+.divider-half {
+    width: 50%;
 }

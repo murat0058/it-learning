@@ -76,7 +76,7 @@ namespace ITLearning.Frontend.Web.Controllers
                 return RedirectToAction("ConfirmAccess", new { groupId = id});
             }
             
-            var viewModel = Mapper.Map<SingleGroupViewModel>(getGroupResult);
+            var viewModel = Mapper.Map<SingleGroupViewModel>(getGroupResult.Item);
             
             viewModel.AccessType = accessTypeEnum;
             
@@ -85,7 +85,7 @@ namespace ITLearning.Frontend.Web.Controllers
             return View();
         }
         
-        [HttpGet("ConfirmAccess")]
+        [HttpGet("ConfirmAccess/{groupId}")]
         public IActionResult ConfirmAccess(int groupId)
         {
             var getGroupResult = _groupsService.GetGroupById(groupId);
@@ -108,17 +108,15 @@ namespace ITLearning.Frontend.Web.Controllers
         [HttpPost("ConfirmAccess")]
         public IActionResult ConfirmGroupAccess(GroupAccessRequestViewModel viewModel)
         {
-            viewModel.UserName = User.Identity.Name;
             var updateGroupAccessResult = _groupsService.UpdateGroupAccess(Mapper.Map<GroupAccessUpdateRequestData>(viewModel));
             
             if(updateGroupAccessResult.IsSuccess)
             {
-                return RedirectToAction("Single", new { id = viewModel.GroupId });   
+                return RedirectToAction("Single", new { id = viewModel.Id });   
             }
             else
             {
-                ModelState.AddModelError("", updateGroupAccessResult.ErrorMessage);
-                return View("ConfirmAccess", viewModel);
+                return RedirectToAction("ConfirmAccess", new { groupId = viewModel.Id });
             }
         }
 

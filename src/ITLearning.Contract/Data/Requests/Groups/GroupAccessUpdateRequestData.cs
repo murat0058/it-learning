@@ -7,6 +7,8 @@ namespace ITLearning.Contract.Data.Requests.Groups
 {
     public class GroupAccessUpdateRequestData
     {
-       public string UserName { get; set; }
+        public string UserName { get; set; }
+        public int GroupId { get; set; }
+        public string Password { get; set; }
     }
 }

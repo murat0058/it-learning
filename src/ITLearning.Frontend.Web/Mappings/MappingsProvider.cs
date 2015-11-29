@@ -33,6 +33,9 @@ namespace ITLearning.Shared.Mappings
 
             Mapper.CreateMap<CreateGroupViewModel, CreateGroupRequestData>();
             Mapper.CreateMap<GroupBasicData, GroupBasicDataResult>();
+            Mapper.CreateMap<GroupBasicDataResult, SingleGroupViewModel>();
+            Mapper.CreateMap<GroupBasicDataResult, ConfirmGroupAccessViewModel>();
+            Mapper.CreateMap<GroupAccessRequestViewModel, GroupAccessUpdateRequestData>();
         }
     }
 }
