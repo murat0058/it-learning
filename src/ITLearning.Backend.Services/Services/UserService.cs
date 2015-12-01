@@ -30,7 +30,7 @@ namespace ITLearning.Backend.Business.Services
             return _userRepository.GetUserProfile(StaticManager.UserName);
         }
 
-        public CommonResult<UserProfileData> UpdateUserProfile(UpdateUserProfileRequestData requestData)
+        public CommonResult<UserProfileData> UpdateUserProfile(UpdateUserProfileRequest requestData)
         {
             return _userRepository.UpdateUserProfile(StaticManager.UserName, Mapper.Map<UserProfileData>(requestData));
         }

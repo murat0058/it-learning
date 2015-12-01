@@ -11,6 +11,7 @@ using ITLearning.Frontend.Web.ViewModels.Group;
 using ITLearning.Frontend.Web.ViewModels.Identity;
 using ITLearning.Frontend.Web.ViewModels.News;
 using ITLearning.Frontend.Web.ViewModels.User;
+using System.Linq;
 
 namespace ITLearning.Shared.Mappings
 {
@@ -26,16 +27,16 @@ namespace ITLearning.Shared.Mappings
 
             Mapper.CreateMap<User, UserProfileData>();
             Mapper.CreateMap<UserProfileData, User>();
-
             Mapper.CreateMap<UserProfileData, UserProfileViewModel>();
+            Mapper.CreateMap<UpdateUserProfileRequest, UserProfileData>();
 
-            Mapper.CreateMap<UpdateUserProfileRequestData, UserProfileData>();
-
-            Mapper.CreateMap<CreateGroupViewModel, CreateGroupRequestData>();
-            Mapper.CreateMap<GroupBasicData, GroupBasicDataResult>();
-            Mapper.CreateMap<GroupBasicDataResult, SingleGroupViewModel>();
-            Mapper.CreateMap<GroupBasicDataResult, ConfirmGroupAccessViewModel>();
-            Mapper.CreateMap<GroupAccessRequestViewModel, GroupAccessUpdateRequestData>();
+            Mapper.CreateMap<CreateGroupViewModel, CreateGroupRequest>();
+            Mapper.CreateMap<GroupData, GroupBasicData>();
+            Mapper.CreateMap<GroupBasicData, GroupBasicDataViewModel>();
+            Mapper.CreateMap<Group, GroupData>()
+                .ForMember(dest => dest.Owner, opt => opt.Ignore())
+                .ForMember(dest => dest.Users, opt => opt.Ignore());
+            //  .ForMember(dest => dest.Tasks, opt => opt.Ignore());
         }
     }
 }

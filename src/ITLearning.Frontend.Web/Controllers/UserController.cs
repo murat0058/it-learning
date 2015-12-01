@@ -29,7 +29,7 @@ namespace ITLearning.Frontend.Web.Controllers
         }
 
         [HttpPost("UpdateProfile")]
-        public IActionResult UpdateProfile(UpdateUserProfileRequestData requestData)
+        public IActionResult UpdateProfile(UpdateUserProfileRequest requestData)
         {
             var result = _userService.UpdateUserProfile(requestData);
 

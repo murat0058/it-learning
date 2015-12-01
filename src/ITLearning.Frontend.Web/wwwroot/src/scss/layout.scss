@@ -424,6 +424,7 @@
 
     .btn {
         margin: 0;
+        margin-bottom: 15px;
         padding: 5px;
     }
 }
@@ -670,7 +671,7 @@
     font-family: $custom-font;
 }
 
-.divider{
+.divider {
     height: 1px;
     display: block;
     margin: 10px auto;
@@ -687,4 +688,54 @@
 
 .divider-half {
     width: 50%;
+}
+
+.group-basic-data-header {
+    background-color: darken($color-dark, 5%);
+    margin-bottom: 15px;
+    padding: 10px;
+    color: white;
+    box-shadow: 0 11px 9px -10px rgba(0, 0, 0, 0.4);
+
+    @include with-animated-background(300ms);
+
+    &:hover {
+        background-color: darken($color-dark, 7%);
+    }
+
+    a{
+        color: white;
+        display: inline-block;
+    }
+
+    h3 {
+        font-weight: 600;
+    }
+
+    h3, h4 {
+        margin: 0;
+        margin-bottom: 10px;
+        padding: 0;
+        font-family: $custom-font;
+    }
+
+    .content {
+        margin-top: 15px;
+
+        .group-summary {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+
+            li {
+                display: inline-block;
+                background-color: $color-primary;
+                color: $color-default;
+                border-radius: 4px;
+                min-width: 50px;
+                padding: 0 5px;
+                text-align: center;
+            }
+        }
+    }
 }

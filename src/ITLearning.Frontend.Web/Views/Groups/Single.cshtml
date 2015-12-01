@@ -1,1 +1,22 @@
-﻿<h3>Grupa</h3>
+﻿@model SingleGroupViewModel
+
+@Html.Partial("Partials/Groups/GroupHeader", Model.BasicDataViewModel)
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 side-section">
+                @if (Model.AccessType == GroupAccessTypeEnum.Owner)
+                {
+                    <h4>Zarządzaj</h4>
+                    <a asp-action="Manage" asp-controller="Groups" asp-route-group-id="" class="btn btn-block btn-primary">
+                        <i class="fa fa-wrench"></i> Zarządzaj grupą
+                    </a>
+                }
+            </div>
+            <div class="col-md-9">
+
+            </div>
+        </div>
+    </div>
+</div>

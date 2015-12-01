@@ -15,11 +15,11 @@
         ////////////
 
         function getIndicator(text) {
-            return new LoadingIndicator(true, true, text);
+            return new LoadingIndicator(text, true, true);
         }
     }
 
-    function LoadingIndicator(isVisible, isLoading, loadingText) {
+    function LoadingIndicator(loadingText, isVisible, isLoading) {
         this.isVisible = isVisible;
         this.isLoading = isLoading;
         this.loadingText = loadingText;

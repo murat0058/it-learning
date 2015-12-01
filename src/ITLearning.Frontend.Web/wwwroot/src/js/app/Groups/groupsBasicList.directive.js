@@ -55,7 +55,7 @@
                 .then(function (data) {
 
                     if (data.IsSuccess) {
-                        groupListVm.groups = data.Item;
+                        groupListVm.groups = data.Item.Groups;
                         groupListVm.loadingIndicator.Hide();
                     } else {
                         groupListVm.loadingIndicator.SetLoaded(data.ErrorMessage);

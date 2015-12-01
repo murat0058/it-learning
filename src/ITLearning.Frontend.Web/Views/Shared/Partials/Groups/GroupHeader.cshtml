@@ -1,0 +1,15 @@
+﻿@model GroupBasicDataViewModel
+
+<div class="group-basic-data-header">
+    <a href="/Groups/@Model.Id"><h3 class="name">@Model.Name</h3></a>
+    <h4 class="description">@Model.Description</h4>
+    <div class="content">
+        <ul class="group-summary">
+            @if (Model.IsPrivate)
+            {
+                <li><i class="fa fa-lock"></i></li>
+            }
+            <li><i class="fa fa-users"></i> @Model.NoOfUsers</li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿@model SingleGroupViewModel
+
+@Html.Partial("Partials/Groups/GroupHeader", Model.BasicDataViewModel)
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row" ng-controller="ManageGroupController as manageGroupVm">
+            <div class="col-md-3 side-section">
+                <h4>Zarządzaj</h4>
+                <button class="btn btn-block btn-default btn-default" ng-click="manageGroupVm.groupDeleteManager.toggleGroupDeleting()">
+                    Usuń grupę
+                </button>
+                <div class="row" ng-if="manageGroupVm.groupDeleteManager.isGroupDeletingInProgress">
+                    <div class="col-xs-6">
+                        <form method="POST" action="/Groups/Delete/@Model.GroupId">
+                            <button class="btn btn-block btn-danger" ng-click="cmanageGroupVm.groupDeleteManager.confirmGroupDeleting()">
+                                <i class="fa fa-warning"></i> Usuń
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-xs-6">
+                        <button class="btn btn-block btn-dark" ng-click="manageGroupVm.groupDeleteManager.cancelGroupDeleting()">
+                            <i class="fa fa-times"></i> Anuluj
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <itl-loading-indicator parent-vm="manageGroupVm.groupDeleteManager" dot-background="#333" dot-size="5px"></itl-loading-indicator>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+
+            </div>
+            <div class="col-md-3">
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,11 +11,12 @@ namespace ITLearning.Contract.DataAccess.Repositories
 {
     public interface IGroupsRepository
     {
-        CommonResult<CreateGroupResult> CreateGroup(CreateGroupRequestData requestData);
-
-        CommonResult<IEnumerable<GroupBasicData>> GetGroupsBasicData();
-        CommonResult<GroupBasicDataResult> GetGroupById(int id);
-
-        CommonResult<IEnumerable<GroupBasicData>> GetGroupsByUserName(string userName);
+        CommonResult<GroupData> Get(int groupId, bool withOwner = false, bool withUsers = false, bool withTasks = false);
+        CommonResult<IEnumerable<GroupData>> GetAll(bool withOwner = false, bool withUsers = false, bool withTasks = false);
+        CommonResult<CreateGroupResult> Create(CreateGroupRequest request);
+        CommonResult Update(UpdateGroupRequest request);
+        CommonResult Delete(int groupId);
+        CommonResult AddUsers(UserGroupRequest request);
+        CommonResult RemoveUsers(UserGroupRequest request);
     }
 }
