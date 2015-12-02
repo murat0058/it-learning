@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ITLearning.Backend.Database.Entities;
+using ITLearning.Backend.Database.Entities.JunctionTables;
 using ITLearning.Contract.Data.Model.Groups;
 using ITLearning.Contract.Data.Model.News;
 using ITLearning.Contract.Data.Model.User;

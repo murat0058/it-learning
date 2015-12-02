@@ -26,6 +26,8 @@ namespace ITLearning.Contract.Services
         CommonResult DeleteGroup(DeleteGroupRequest request);
 
         CommonResult UpdateGroup(UpdateGroupRequest request);
+
+        CommonResult TryAddUserToGroup(AddUserToGroupRequest request);
     }
         
 }

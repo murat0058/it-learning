@@ -242,7 +242,11 @@ namespace ITLearning.Backend.DataAccess.Repositories
                         return CommonResult.Failure("Podany użytkownik został już dodany.");
                     }
 
-                    context.UserGroups.Add(Mapper.Map<UserGroup>(request));
+                    context.UserGroups.Add(new UserGroup
+                    {
+                        Group = new Group { Id = request.GroupId },
+                        User = new User { Id = userId }
+                    });
                 }
 
                 context.SaveChanges();

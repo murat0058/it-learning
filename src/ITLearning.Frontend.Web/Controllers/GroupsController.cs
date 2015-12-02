@@ -123,6 +123,11 @@ namespace ITLearning.Frontend.Web.Controllers
             {
                 var accessType = accessTypeResult.Item.GroupAccessTypeEnum;
 
+                if(accessType == GroupAccessTypeEnum.RequirePassword)
+                {
+                    return RedirectToAction("Password", new { groupId = groupId });
+                }
+
                 var basicDataViewModel = Mapper.Map<GroupBasicDataViewModel>(groupResult.Item);
 
                 var viewModel = new SingleGroupViewModel
@@ -133,6 +138,54 @@ namespace ITLearning.Frontend.Web.Controllers
                 };
 
                 return View("Single", viewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpGet("Password/{groupId}")]
+        public IActionResult Password(int groupId)
+        {
+            var groupResult = _groupsService.GetDataWithUsers(new GetGroupRequest { GroupId = groupId });
+
+            if (groupResult.IsSuccess)
+            {
+                var basicDataViewModel = Mapper.Map<GroupBasicDataViewModel>(groupResult.Item);
+
+                var entryViewModel = new PasswordEntryViewModel
+                {
+                    BasicDataViewModel = basicDataViewModel,
+                    PasswordEntryDataViewModel = new PasswordEntryDataViewModel
+                    {
+                        GroupId = basicDataViewModel.Id
+                    }
+                };
+
+                return View("Password", entryViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost("PasswordEntry")]
+        public IActionResult PasswordEntry(PasswordEntryViewModel viewModel)
+        {
+            var vm = viewModel.PasswordEntryDataViewModel;
+
+            var result = _groupsService.TryAddUserToGroup(new AddUserToGroupRequest
+            {
+                GroupId = vm.GroupId,
+                UserName = User.Identity.Name,
+                Password = vm.Password
+            });
+
+            if (result.IsSuccess)
+            {
+                return RedirectToAction("Single", new { groupId = vm.GroupId });
             }
             else
             {

@@ -20,10 +20,12 @@ namespace ITLearning.Backend.Business.Services
     public class GroupsService : IGroupsService
     {
         private IGroupsRepository _groupsRepository;
+        private IUserRepository _userRepository;
 
-        public GroupsService(IGroupsRepository groupsRepository)
+        public GroupsService(IGroupsRepository groupsRepository, IUserRepository userRepository)
         {
             _groupsRepository = groupsRepository;
+            _userRepository = userRepository;
         }
 
         public CommonResult<CreateGroupResult> CreateGroup(CreateGroupRequest request)
@@ -180,6 +182,47 @@ namespace ITLearning.Backend.Business.Services
             else
             {
                 return CommonResult<GroupWithUsersData>.Failure(getGroupResult.ErrorMessage);
+            }
+        }
+
+        public CommonResult TryAddUserToGroup(AddUserToGroupRequest request)
+        {
+            var getUserProfileDataResult = _userRepository.GetUserProfile(request.UserName);
+            var getGroup = GetData(new GetGroupRequest { GroupId = request.GroupId });
+
+            if (getUserProfileDataResult.IsSuccess && getGroup.IsSuccess)
+            {
+                if (getGroup.Item.IsPrivate)
+                {
+                    var isPasswordCorrect = getGroup.Item.Password == request.Password.ToBase64();
+
+                    if (!isPasswordCorrect)
+                    {
+                        return CommonResult.Failure("Błędne hasło.");
+                    }
+                }
+
+                var userGroupRequest = new UserGroupRequest
+                {
+                    GroupId = request.GroupId,
+                    Users = new List<int> { getUserProfileDataResult.Item.Id }
+                };
+
+                var addUserResult = _groupsRepository.AddUsers(userGroupRequest);
+
+                if (addUserResult.IsSuccess)
+                {
+                    return CommonResult.Success();
+                }
+                else
+                {
+                    return CommonResult.Failure(addUserResult.ErrorMessage);
+                }
+
+            }
+            else
+            {
+                return CommonResult.Failure("Błąd pobierania danych.");
             }
         }
     }
