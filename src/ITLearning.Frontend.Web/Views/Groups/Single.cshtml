@@ -1,5 +1,9 @@
 ﻿@model SingleGroupViewModel
 
+@{
+    ViewBag.PageTitle = Model.BasicDataViewModel.Name;
+}
+
 @Html.Partial("Partials/Groups/GroupHeader", Model.BasicDataViewModel)
 
 <div class="content-wrapper">

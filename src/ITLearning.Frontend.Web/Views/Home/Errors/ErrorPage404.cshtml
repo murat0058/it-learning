@@ -1,4 +1,8 @@
-﻿<div class="error-message-page">
+﻿@{
+    ViewBag.PageTitle = "404!";
+}
+
+<div class="error-message-page">
     <h2 class="error-message">404 - Nie odnaleziono podanej strony :(</h2>
     <div class="extra-content">
         <h4 class="error-message">Zobacz co dla ciebie przygotowaliśmy:</h4>
@@ -9,7 +13,7 @@
                 </a>
             </li>
             <li class="pages-list-item">
-                <a class="link" href="#">
+                <a class="link" asp-controller="User" asp-action="Profile">
                     <p><i class="fa fa-user"></i> Twój profil</p>
                 </a>
             </li>
