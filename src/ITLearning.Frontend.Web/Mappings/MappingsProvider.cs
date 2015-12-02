@@ -5,13 +5,11 @@ using ITLearning.Contract.Data.Model.News;
 using ITLearning.Contract.Data.Model.User;
 using ITLearning.Contract.Data.Requests;
 using ITLearning.Contract.Data.Requests.Groups;
-using ITLearning.Contract.Data.Results.Groups;
 using ITLearning.Frontend.Web.Core.Identity.Models;
 using ITLearning.Frontend.Web.ViewModels.Group;
 using ITLearning.Frontend.Web.ViewModels.Identity;
 using ITLearning.Frontend.Web.ViewModels.News;
 using ITLearning.Frontend.Web.ViewModels.User;
-using System.Linq;
 
 namespace ITLearning.Shared.Mappings
 {
@@ -31,8 +29,11 @@ namespace ITLearning.Shared.Mappings
             Mapper.CreateMap<UpdateUserProfileRequest, UserProfileData>();
 
             Mapper.CreateMap<CreateGroupViewModel, CreateGroupRequest>();
+            Mapper.CreateMap<UpdateGroupViewModel, UpdateGroupRequest>();
             Mapper.CreateMap<GroupData, GroupBasicData>();
-            Mapper.CreateMap<GroupBasicData, GroupBasicDataViewModel>();
+            Mapper.CreateMap<GroupData, GroupWithUsersData>();
+            Mapper.CreateMap<GroupWithUsersData, GroupBasicDataViewModel>();
+            Mapper.CreateMap<GroupWithUsersData, UpdateGroupViewModel>();
             Mapper.CreateMap<Group, GroupData>()
                 .ForMember(dest => dest.Owner, opt => opt.Ignore())
                 .ForMember(dest => dest.Users, opt => opt.Ignore());

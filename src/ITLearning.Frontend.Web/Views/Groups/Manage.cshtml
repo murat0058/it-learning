@@ -1,25 +1,25 @@
-﻿@model SingleGroupViewModel
+﻿@model ManageGroupViewModel
 
 @Html.Partial("Partials/Groups/GroupHeader", Model.BasicDataViewModel)
 
 <div class="content-wrapper">
     <div class="container">
-        <div class="row" ng-controller="ManageGroupController as manageGroupVm">
-            <div class="col-md-3 side-section">
-                <h4>Zarządzaj</h4>
-                <button class="btn btn-block btn-default btn-default" ng-click="manageGroupVm.groupDeleteManager.toggleGroupDeleting()">
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-md-3 side-section" ng-controller="DeletingGroupController as deletingGroupVm">
+                <h4>Edytuj</h4>
+                <button class="btn btn-block btn-default btn-default" ng-click="deletingGroupVm.toggleGroupDeleting()">
                     Usuń grupę
                 </button>
-                <div class="row" ng-if="manageGroupVm.groupDeleteManager.isGroupDeletingInProgress">
+                <div class="row ng-cloak" ng-show="deletingGroupVm.isGroupDeletingInProgress">
                     <div class="col-xs-6">
                         <form method="POST" action="/Groups/Delete/@Model.GroupId">
-                            <button class="btn btn-block btn-danger" ng-click="cmanageGroupVm.groupDeleteManager.confirmGroupDeleting()">
+                            <button class="btn btn-block btn-danger" ng-click="deletingGroupVm.confirmGroupDeleting()">
                                 <i class="fa fa-warning"></i> Usuń
                             </button>
                         </form>
                     </div>
                     <div class="col-xs-6">
-                        <button class="btn btn-block btn-dark" ng-click="manageGroupVm.groupDeleteManager.cancelGroupDeleting()">
+                        <button class="btn btn-block btn-dark" ng-click="deletingGroupVm.cancelGroupDeleting()">
                             <i class="fa fa-times"></i> Anuluj
                         </button>
                     </div>
@@ -30,11 +30,60 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-9">
-
+            <div class="col-md-6">
+                <div class="center-section">
+                    <h4>Zarządzaj</h4>
+                </div>
+                <form asp-action="UpdateGroup" asp-controller="Groups" method="post" role="form" ng-controller="EditGroupController as editGroupVm">
+                    <div class="panel panel-success" ng-init="editGroupVm.IsPrivate = @Model.UpdateGroupViewModel.IsPrivate.ToString().ToLower()">
+                        <div class="panel-heading">
+                            <span><i class="fa fa-pencil"></i> | Edytuj dane grupy</span>
+                        </div>
+                        <div class="panel-body">
+                            @Html.ValidationSummary(excludePropertyErrors: true)
+                            <input asp-for="UpdateGroupViewModel.Id" type="hidden" class="form-control" />
+                            <div class="form-group">
+                                <label asp-for="UpdateGroupViewModel.Name" class="control-label"></label>
+                                <input asp-for="UpdateGroupViewModel.Name" class="form-control" />
+                                <span asp-validation-for="UpdateGroupViewModel.Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="UpdateGroupViewModel.Description" class="control-label"></label>
+                                <textarea asp-for="UpdateGroupViewModel.Description" class="form-control" rows="3" style="max-width: 100%;"></textarea>
+                                <span asp-validation-for="UpdateGroupViewModel.Description" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label asp-for="UpdateGroupViewModel.IsPrivate">
+                                        <input asp-for="UpdateGroupViewModel.IsPrivate" ng-model="editGroupVm.IsPrivate"/> Grupa prywatna
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row form-controls-row ng-cloak" ng-show="editGroupVm.IsPrivate">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label asp-for="UpdateGroupViewModel.Password" class="control-label"></label>
+                                        <input asp-for="UpdateGroupViewModel.Password" class="form-control" placeholder="Nowe hasło" ng-disabled="!editGroupVm.IsPrivate" />
+                                        <span asp-validation-for="UpdateGroupViewModel.Password" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label asp-for="UpdateGroupViewModel.PasswordConfirmation" class="control-label"></label>
+                                        <input asp-for="UpdateGroupViewModel.PasswordConfirmation" class="form-control" placeholder="Potwierdź nowe hasło" ng-disabled="!editGroupVm.IsPrivate" />
+                                        <span asp-validation-for="UpdateGroupViewModel.PasswordConfirmation" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary pull-right" value="Zapisz" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="col-md-3">
-
+            <div class="col-md-3 side-section" ng-controller="GroupUsersController as groupUsersVm">
+                <h4>Kontroluj</h4>
             </div>
         </div>
     </div>

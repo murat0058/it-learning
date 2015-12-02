@@ -24,12 +24,12 @@
     @RenderSection("BodyScripts", required: false)
 
     @Html.Partial("~/Views/Shared/Partials/Header.cshtml")
-
-    <div id="page-wrapper">
-        <article class="main-content">
+    <article class="main-content">
+        <div class="content">
             @RenderBody()
-        </article>
-    </div>
+        </div>
+    </article>
+    @Html.Partial("~/Views/Shared/Partials/Footer.cshtml")
 
     @Html.Partial("~/Views/Shared/Partials/BaseScripts/AppBaseScripts.cshtml")
     @RenderSection("Scripts", required: false)

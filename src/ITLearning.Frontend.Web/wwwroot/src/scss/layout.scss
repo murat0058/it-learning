@@ -4,9 +4,27 @@
 @import 'mixins/globals.scss';
 @import 'mixins/validation.scss';
 
+$footer-height: 40px;
+
+[ng\:cloak], [ng-cloak], .ng-cloak { display: none; }
+
+html,
+body {
+    height: 100%;
+}
+
 .main-content {
-    position: relative;
-    top: 50px;
+    height: 100%;
+}
+
+body > .main-content {
+    height: auto;
+    min-height: 100%;
+}
+
+body > .main-content > .content {
+    padding-top: 50px;
+    padding-bottom: $footer-height;
 }
 
 .form-wrapper {
@@ -16,7 +34,9 @@
 
 .content-wrapper {
     position: relative;
+    min-height: 100%;
     top: 20px;
+    margin-bottom: 20px;
 }
 
 .form-group {
@@ -414,7 +434,7 @@
     }
 }
 
-.side-section {
+.side-section, .center-section {
     font-family: $custom-font;
 
     h1, h2, h3, h4, h5, h6 {
@@ -703,7 +723,7 @@
         background-color: darken($color-dark, 7%);
     }
 
-    a{
+    a {
         color: white;
         display: inline-block;
     }
@@ -736,6 +756,33 @@
                 padding: 0 5px;
                 text-align: center;
             }
+        }
+    }
+}
+
+footer {
+    clear: both;
+    position: relative;
+    height: $footer-height;
+    margin-top: -$footer-height;
+    width: 100%;
+    background-color: $color-dark;
+    text-align: left;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    a {
+        color: $color-default;
+        font-family: $custom-font;
+        font-weight: 600;
+
+        .beta-sign{
+            color: $color-success;
+        }
+
+        &:hover {
+            color: $color-default;
         }
     }
 }

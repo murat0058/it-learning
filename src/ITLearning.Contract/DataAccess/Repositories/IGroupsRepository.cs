@@ -13,6 +13,8 @@ namespace ITLearning.Contract.DataAccess.Repositories
     {
         CommonResult<GroupData> Get(int groupId, bool withOwner = false, bool withUsers = false, bool withTasks = false);
         CommonResult<IEnumerable<GroupData>> GetAll(bool withOwner = false, bool withUsers = false, bool withTasks = false);
+        CommonResult<IEnumerable<GroupData>> GetAllForUser(string userName, bool withOwner = false, bool withUsers = false, bool withTasks = false);
+
         CommonResult<CreateGroupResult> Create(CreateGroupRequest request);
         CommonResult Update(UpdateGroupRequest request);
         CommonResult Delete(int groupId);

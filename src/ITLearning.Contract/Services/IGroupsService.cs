@@ -13,15 +13,19 @@ namespace ITLearning.Contract.Services
     public interface IGroupsService
     {
 
+        CommonResult<GroupBasicData> GetData(GetGroupRequest request);
+
+        CommonResult<GroupWithUsersData> GetDataWithUsers(GetGroupRequest request);
+
+        CommonResult<GetLatestGroupsDataResult> GetLatestGroupsData(GetLatestGroupsBasicDataRequest request);
+
+        CommonResult<GroupAccessTypeResult> GetAccessType(GroupAccessTypeRequest request);
+
         CommonResult<CreateGroupResult> CreateGroup(CreateGroupRequest request);
 
         CommonResult DeleteGroup(DeleteGroupRequest request);
 
-        CommonResult<GroupBasicData> GetBasicData(GroupBasicDataRequest request);
-
-        CommonResult<GroupAccessTypeResult> GetAccessType(GroupAccessTypeRequest request);
-
-        CommonResult<GetLatestGroupsBasicDataResult> GetLatestGroupsBasicData(GetLatestGroupsBasicDataRequest request);
+        CommonResult UpdateGroup(UpdateGroupRequest request);
     }
         
 }

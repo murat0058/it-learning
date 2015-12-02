@@ -1,4 +1,11 @@
-﻿using ITLearning.Backend.Database;
+﻿using Microsoft.Data.Entity;
+using Microsoft.Extensions.OptionsModel;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
+using ITLearning.Shared.Extensions;
+using ITLearning.Contract.Data.Model.User;
+using ITLearning.Backend.Database;
 using ITLearning.Backend.Database.Entities;
 using ITLearning.Backend.Database.Entities.JunctionTables;
 using ITLearning.Contract.Data.Model.Groups;
@@ -8,14 +15,7 @@ using ITLearning.Contract.Data.Results.Groups;
 using ITLearning.Contract.DataAccess.Repositories;
 using ITLearning.Contract.Providers;
 using ITLearning.Shared.Configs;
-using Microsoft.Data.Entity;
-using Microsoft.Extensions.OptionsModel;
-using System.Collections.Generic;
-using System.Linq;
 using System;
-using AutoMapper;
-using ITLearning.Shared.Extensions;
-using ITLearning.Contract.Data.Model.User;
 
 namespace ITLearning.Backend.DataAccess.Repositories
 {
@@ -111,18 +111,7 @@ namespace ITLearning.Backend.DataAccess.Repositories
             {
                 var groups = context.Groups.AsQueryable();
 
-                if (withOwner)
-                {
-                    groups = groups.Include(x => x.Owner);
-                }
-                if (withUsers)
-                {
-                    groups = groups.Include(x => x.Users);
-                }
-                if (withTasks)
-                {
-                    groups = groups.Include(x => x.Tasks);
-                }
+                groups = IncludeAdditionalDataForGroups(withOwner, withUsers, withTasks, groups);
 
                 var group = groups.SingleOrDefault(x => x.Id == groupId);
 
@@ -147,18 +136,7 @@ namespace ITLearning.Backend.DataAccess.Repositories
             {
                 var groups = context.Groups.AsQueryable();
 
-                if (withOwner)
-                {
-                    groups = groups.Include(x => x.Owner);
-                }
-                if (withUsers)
-                {
-                    groups = groups.Include(x => x.Users);
-                }
-                if (withTasks)
-                {
-                    groups = groups.Include(x => x.Tasks);
-                }
+                groups = IncludeAdditionalDataForGroups(withOwner, withUsers, withTasks, groups);
 
                 var groupDataList = new List<GroupData>();
 
@@ -175,11 +153,39 @@ namespace ITLearning.Backend.DataAccess.Repositories
             }
         }
 
+        public CommonResult<IEnumerable<GroupData>> GetAllForUser(string userName, bool withOwner = false, bool withUsers = false, bool withTasks = false)
+        {
+            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            {
+                var groups = context.UserGroups
+                    .Where(x => x.User.UserName == userName)
+                    .Select(x => x.Group);
+
+                groups = IncludeAdditionalDataForGroups(withOwner, withUsers, withTasks, groups);
+
+                var groupDataList = new List<GroupData>();
+
+                foreach (var group in groups)
+                {
+                    var groupData = Mapper.Map<GroupData>(group);
+
+                    GetAdditionalDataForGroup(group, groupData, withOwner, withUsers, withTasks);
+
+                    groupDataList.Add(groupData);
+                }
+
+                return CommonResult<IEnumerable<GroupData>>.Success(groupDataList);
+
+            }
+        }
+
         public CommonResult Update(UpdateGroupRequest request)
         {
             using (var context = ContextFactory.GetDbContext(_dbConfiguration))
             {
-                var group = context.Groups.FirstOrDefault(x => x.Id == request.Id);
+                var group = context.Groups
+                    .Include(x => x.Owner)
+                    .FirstOrDefault(x => x.Id == request.Id);
 
                 if (group == null)
                 {
@@ -196,9 +202,18 @@ namespace ITLearning.Backend.DataAccess.Repositories
                     group.IsPrivate = request.IsPrivate;
                     group.Password = request.Password;
 
-                    var userGroups = context.UserGroups.Where(x => x.User.Id != group.Owner.Id);
+                    var userGroups = context.UserGroups.Where(x => x.User.Id != group.Owner.Id).ToList();
 
-                    context.Remove(userGroups);
+                    if (userGroups.Any())
+                    {
+                        context.Remove(userGroups);
+                    }
+                }
+
+                if(wasPrivate && !request.IsPrivate)
+                {
+                    group.IsPrivate = request.IsPrivate;
+                    group.Password = string.Empty;
                 }
 
                 context.SaveChanges();
@@ -275,14 +290,41 @@ namespace ITLearning.Backend.DataAccess.Repositories
                 }
                 if (withUsers)
                 {
-                    var users = group.Users
-                        .Select(userGroup => context.Users.FirstOrDefault(u => u.Id == userGroup.User.Id))
-                        .Select(user => Mapper.Map<UserProfileData>(user))
-                        .ToList();
+                    var userIdentifiers = context.UserGroups.Where(x => x.Group.Id == group.Id).Select(x => x.User.Id);
+
+                    var users = new List<UserProfileData>();
+
+                    foreach (var id in userIdentifiers)
+                    {
+                        var user = context.Users.FirstOrDefault(x => x.Id == id);
+                        
+                        if(user != null)
+                        {
+                            users.Add(Mapper.Map<UserProfileData>(user));
+                        }
+                    }
 
                     groupData.Users = users;
                 }
             }
+        }
+
+        private IQueryable<Group> IncludeAdditionalDataForGroups(bool withOwner, bool withUsers, bool withTasks, IQueryable<Group> groups)
+        {
+            if (withOwner)
+            {
+                groups = groups.Include(x => x.Owner);
+            }
+            if (withUsers)
+            {
+                groups = groups.Include(x => x.Users);
+            }
+            if (withTasks)
+            {
+                groups = groups.Include(x => x.Tasks);
+            }
+
+            return groups;
         }
     }
 }

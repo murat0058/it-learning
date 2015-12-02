@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using ITLearning.Contract.Data.Requests.Groups;
 using ITLearning.Contract.Enums;
 using ITLearning.Contract.Data.Model.Groups;
+using ITLearning.Contract.Data.Model.User;
 
 namespace ITLearning.Backend.Business.Services
 {
@@ -81,7 +82,12 @@ namespace ITLearning.Backend.Business.Services
             }
         }
 
-        public CommonResult<GroupBasicData> GetBasicData(GroupBasicDataRequest request)
+        public CommonResult UpdateGroup(UpdateGroupRequest request)
+        {
+            return _groupsRepository.Update(request);
+        }
+
+        public CommonResult<GroupBasicData> GetData(GetGroupRequest request)
         {
             var groupResult = _groupsRepository.Get(request.GroupId);
 
@@ -94,6 +100,7 @@ namespace ITLearning.Backend.Business.Services
                 return CommonResult<GroupBasicData>.Failure(groupResult.ErrorMessage);
             }
         }
+
         public CommonResult<GroupAccessTypeResult> GetAccessType(GroupAccessTypeRequest request)
         {
             var groupResult = _groupsRepository.Get(request.GroupId, withOwner: true, withUsers: true);
@@ -122,25 +129,57 @@ namespace ITLearning.Backend.Business.Services
             }
         }
 
-        public CommonResult<GetLatestGroupsBasicDataResult> GetLatestGroupsBasicData(GetLatestGroupsBasicDataRequest request)
+        public CommonResult<GetLatestGroupsDataResult> GetLatestGroupsData(GetLatestGroupsBasicDataRequest request)
         {
-            //var groupsResult = _groupsRepository.GetAll(false, true, false);
+            var getGroupsForUserResult = _groupsRepository.GetAllForUser(request.UserName, false, true, false);
 
-            if (true)
+            if (getGroupsForUserResult.IsSuccess)
             {
-                return CommonResult<GetLatestGroupsBasicDataResult>.Success(new GetLatestGroupsBasicDataResult
+                var groups = getGroupsForUserResult.Item.Take(request.NoOfGroups);
+
+                if (groups.Any())
                 {
-                    Groups = new List<GroupWithUsersBasicData>
+                    var result = new GetLatestGroupsDataResult
                     {
-                        new GroupWithUsersBasicData { Id = 16, Name = "Test 1", Description = "Aaaaaaa", IsPrivate = true, NoOfUsers = 10 },
-                        new GroupWithUsersBasicData { Id = 17, Name = "Test 2", Description = "Aaaaaaa", IsPrivate = false, NoOfUsers = 5 },
-                        new GroupWithUsersBasicData { Id = 18, Name = "Test 3", Description = "Aaaaaaa", IsPrivate = false, NoOfUsers = 17 }
-                    }
-                });
+                        Groups = groups.Select(x => Mapper.Map<GroupWithUsersData>(x))
+                    };
+
+                    return CommonResult<GetLatestGroupsDataResult>.Success(result);
+                }
+                else
+                {
+                    return CommonResult<GetLatestGroupsDataResult>.Failure("Nie jesteś członkiem żadnej grupy.");
+                }
             }
             else
             {
-                return CommonResult<GetLatestGroupsBasicDataResult>.Failure("Test message");
+                return CommonResult<GetLatestGroupsDataResult>.Failure(getGroupsForUserResult.ErrorMessage);
+            }
+        }
+
+        public CommonResult<GroupWithUsersData> GetDataWithUsers(GetGroupRequest request)
+        {
+            var getGroupResult = _groupsRepository.Get(request.GroupId, withOwner: true, withUsers: true);
+
+            if (getGroupResult.IsSuccess)
+            {
+                var group = getGroupResult.Item;
+
+                GroupWithUsersData data = new GroupWithUsersData
+                {
+                    Id = group.Id,
+                    Name = group.Name,
+                    Description = group.Description,
+                    IsPrivate = group.IsPrivate,
+                    Password = group.Password,
+                    Users = group.Users.Select(x => Mapper.Map<UserProfileData>(x)),
+                };
+
+                return CommonResult<GroupWithUsersData>.Success(data);
+            }
+            else
+            {
+                return CommonResult<GroupWithUsersData>.Failure(getGroupResult.ErrorMessage);
             }
         }
     }

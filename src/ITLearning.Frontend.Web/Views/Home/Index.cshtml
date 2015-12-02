@@ -18,7 +18,7 @@
                             <a asp-controller="User" asp-action="Profile" class="profile-link">
                                 <i class="fa fa-cog"></i>
                             </a>
-                            <p>@userData.UserName</p>
+                            <p>@( userData.FirstName ?? userData.UserName) </p>
                         </div>
                         @Html.Partial("Partials/UserShortcutsWidget", widgetViewModel)
                     </div>

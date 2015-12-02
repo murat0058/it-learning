@@ -66,14 +66,16 @@ namespace ITLearning.Frontend.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            var groupResult = _groupsService.GetBasicData(new GroupBasicDataRequest { GroupId = groupId });
+            var groupResult = _groupsService.GetDataWithUsers(new GetGroupRequest { GroupId = groupId });
 
             var basicDataViewModel = Mapper.Map<GroupBasicDataViewModel>(groupResult.Item);
+            var updateGroupViewModel = Mapper.Map<UpdateGroupViewModel>(groupResult.Item);
 
-            var viewModel = new SingleGroupViewModel
+            var viewModel = new ManageGroupViewModel
             {
                 GroupId = groupResult.Item.Id,
                 BasicDataViewModel = basicDataViewModel,
+                UpdateGroupViewModel = updateGroupViewModel,
                 AccessType = GroupAccessTypeEnum.Owner
             };
 
@@ -99,16 +101,10 @@ namespace ITLearning.Frontend.Web.Controllers
             if (deleteGroupResult.IsSuccess)
             {
                 return RedirectToAction("Index");
-                
             }
             else
             {
-                var result = _groupsService.GetBasicData(new GroupBasicDataRequest { GroupId = groupId });
-                var vm = Mapper.Map<DeleteGroupViewModel>(result.Item);
-
-                ModelState.AddModelError("", deleteGroupResult.ErrorMessage);
-
-                return View(vm);
+                return RedirectToAction("Single", new { groupId = groupId });
             }
         }
 
@@ -121,7 +117,7 @@ namespace ITLearning.Frontend.Web.Controllers
                 UserName = User.Identity.Name
             });
 
-            var groupResult = _groupsService.GetBasicData(new GroupBasicDataRequest { GroupId = groupId });
+            var groupResult = _groupsService.GetDataWithUsers(new GetGroupRequest { GroupId = groupId });
 
             if (accessTypeResult.IsSuccess && groupResult.IsSuccess)
             {
@@ -144,51 +140,24 @@ namespace ITLearning.Frontend.Web.Controllers
             }
         }
 
-        private bool CheckIfOwner(int groupId, string userName)
+        [HttpPost("UpdateGroup")]
+        public IActionResult UpdateGroup(ManageGroupViewModel viewModel)
         {
-            var accessTypeResult = _groupsService.GetAccessType(new GroupAccessTypeRequest
+            var groupId = viewModel.UpdateGroupViewModel.Id;
+
+            if (!CheckIfOwner(groupId, User.Identity.Name))
             {
-                GroupId = groupId,
-                UserName = userName
-            });
+                return RedirectToAction("Index");
+            }
 
-            return accessTypeResult.IsSuccess && accessTypeResult.Item.GroupAccessTypeEnum == GroupAccessTypeEnum.Owner;
+            var updateGroupViewModel = viewModel.UpdateGroupViewModel;
+
+            var request = Mapper.Map<UpdateGroupRequest>(updateGroupViewModel);
+
+            var result = _groupsService.UpdateGroup(request);
+
+            return RedirectToAction("Manage", new { groupId = groupId });
         }
-
-        //[HttpGet("ConfirmAccess/{groupId}")]
-        //public IActionResult ConfirmAccess(int groupId)
-        //{
-        //    var getGroupResult = _groupsService.GetGroupById(groupId);
-        //    var getAccessTypeResult =_groupsService.GetUserAccessType(groupId, User.Identity.Name);
-
-        //    var accessTypeEnum = getAccessTypeResult.Item;
-
-        //    if(accessTypeEnum != GroupAccessTypeEnum.RequirePassword)
-        //    {
-        //        return RedirectToAction("Single", new {id = groupId});    
-        //    }
-
-        //    var groupBasicData = getGroupResult.Item;
-
-        //    var vm = Mapper.Map<ConfirmGroupAccessViewModel>(groupBasicData);
-
-        //    return View(vm);
-        //}
-
-        //[HttpPost("ConfirmAccess")]
-        //public IActionResult ConfirmGroupAccess(GroupAccessRequestViewModel viewModel)
-        //{
-        //    var updateGroupAccessResult = _groupsService.UpdateGroupAccess(Mapper.Map<GroupAccessUpdateRequestData>(viewModel));
-
-        //    if(updateGroupAccessResult.IsSuccess)
-        //    {
-        //        return RedirectToAction("Single", new { id = viewModel.Id });   
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("ConfirmAccess", new { groupId = viewModel.Id });
-        //    }
-        //}
 
         [HttpPost("UserGroupsBasicData")]
         public IActionResult GetUserGroupsBasicData(int noOfGroups)
@@ -199,9 +168,20 @@ namespace ITLearning.Frontend.Web.Controllers
                 NoOfGroups = noOfGroups
             };
 
-            var result = _groupsService.GetLatestGroupsBasicData(request);
+            var result = _groupsService.GetLatestGroupsData(request);
 
             return new JsonResult(result);
+        }
+
+        private bool CheckIfOwner(int groupId, string userName)
+        {
+            var accessTypeResult = _groupsService.GetAccessType(new GroupAccessTypeRequest
+            {
+                GroupId = groupId,
+                UserName = userName
+            });
+
+            return accessTypeResult.IsSuccess && accessTypeResult.Item.GroupAccessTypeEnum == GroupAccessTypeEnum.Owner;
         }
     }
 }

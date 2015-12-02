@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ITLearning.Contract.Data.Results.Groups
 {
-    public class GetLatestGroupsBasicDataResult
+    public class GetLatestGroupsDataResult
     {
-        public IEnumerable<GroupWithUsersBasicData> Groups { get; set; }
+        public IEnumerable<GroupWithUsersData> Groups { get; set; }
     }
 }
