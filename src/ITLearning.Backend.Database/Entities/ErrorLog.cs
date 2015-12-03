@@ -8,7 +8,7 @@ namespace ITLearning.Backend.Database.Entities
         public int Id { get; set; }
 
         public DateTime Date { get; set; }
-        public ErrorSource ErrorSource { get; set; }
+        public ErrorSourceEnum ErrorSource { get; set; }
         public string ErrorMessage { get; set; }
     }
 }

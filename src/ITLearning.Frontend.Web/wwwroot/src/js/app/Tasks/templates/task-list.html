@@ -2,13 +2,13 @@
     <ng-transclude></ng-transclude>
     <div class="task" ng-repeat="task in taskListVm.tasks">
         <div class="task-title">
-            <span class="label" ng-style="task.style" ng-bind="task.language"></span>
-            <a ng-href="#/{{task.id}}" ng-bind="task.name"></a>
+            <span class="label" ng-style="task.style" ng-bind="task.Language"></span>
+            <a ng-href="#/{{task.Id}}" ng-bind="task.Name"></a>
         </div>
         <div class="task-group-info">
-            <a ng-href="#/{{task.groupId}}" ng-bind="task.groupName"></a>
+            <a ng-href="#/{{task.GroupId}}" ng-bind="task.GroupName"></a>
         </div>
-        <div class="task-status" ng-class="task.isCompleted ? 'task-completed' : 'task-notcompleted'">
+        <div class="task-status" ng-class="task.IsCompleted ? 'task-completed' : 'task-notcompleted'">
             <i class="fa fa-check"></i>
         </div>
     </div>

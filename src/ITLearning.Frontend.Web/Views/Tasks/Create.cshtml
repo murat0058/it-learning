@@ -1,0 +1,191 @@
+﻿@model string
+
+<link href="~/lib/bootstrap-markdown/css/bootstrap-markdown.min.css" rel="stylesheet" />
+
+<style>
+    .panel .hint {
+        color: darkgoldenrod;
+        font-size: 11px;
+    }
+
+    #create-task-container {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+        #create-task-container .short-input {
+            max-width: 250px;
+        }
+
+        #create-task-container .medium-input {
+            max-width: 350px;
+        }
+
+        #create-task-container .button {
+            margin-left: 0px;
+        }
+
+        #create-task-container #add-branch-section {
+            margin-top: 15px;
+            border: dashed;
+            background-color: #FFFDFA;
+            padding: 5px;
+            border-color: antiquewhite;
+        }
+
+        #create-task-container #add-task-button {
+            max-width: 250px;
+        }
+</style>
+
+<div class="container" id="create-task-container" ng-controller="CreateTaskController as createTaskVm" ng-init="createTaskVm.init(@Model)">
+    <div class="row">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <span><i class="fa fa-file"></i> | Utwórz nowe zadanie</span>
+            </div>
+            <div class="panel-body">
+                <form name="addTaskForm" ng-submit="createTaskVm.addTask(addTaskForm)">
+                    <!-- Main column -->
+                    <div class="col-md-8">
+                        <label class="control-label"><i class="fa fa-info-circle" style="margin-right: 5px;"></i> Informacje podstawowe</label>
+                        <hr style="margin-top: 0px;" />
+                        <div class="form-group">
+                            <label class="control-label">Nazwa</label>
+                            <input ng-model="createTaskVm.taskName" name="taskName" class="form-control" required ng-minlength="15" ng-maxlength="40" />
+                            <span ng-show="addTaskForm.taskName.$error.required" class="text-danger">Nazwa jest wymagana.</span>
+                            <span ng-show="addTaskForm.taskName.$error.minlength" class="text-danger">Nazwa jest zbyt krótka.</span>
+                            <span ng-show="addTaskForm.taskName.$error.maxlength" class="text-danger">Nazwa jest zbyt długa.</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Opis</label>
+                            <textarea ng-model="createTaskVm.taskDescription" name="taskDescription" id="description-text-area" class="form-control" required ng-minlength="300" ng-maxlength="2000"></textarea>
+                            <span ng-show="addTaskForm.taskDescription.$error.required" class="text-danger">Opis jest wymagany.</span>
+                            <span ng-show="addTaskForm.taskDescription.$error.minlength" class="text-danger">Opis jest zbyt krótki.</span>
+                            <span ng-show="addTaskForm.taskDescription.$error.maxlength" class="text-danger">Opis jest zbyt długi.</span>
+                        </div>
+                        <div class="form-group short-input">
+                            <label class="control-label">Język</label>
+                            <select class="form-control"
+                                    ng-model="createTaskVm.selectedLanguage"
+                                    ng-options="option.Name for option in createTaskVm.availableLanguages track by option.Id">
+                            </select>
+                        </div>
+                        <div class="hint">
+                            Brakuje Twojego języka programowania na liście? Daj nam znać! support@itlearning.com.
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="control-label" ng-model="createTaskVm.isTaskActive" /> Zadanie aktywne
+                                </label>
+                            </div>
+                            <div class="hint">
+                                Możesz dodać zadanie teraz, ale aktywować je w czasie późniejszym. Gdy zadanie jest nieaktywne nie jest widoczne
+                                dla użytkowników portalu.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Side column -->
+                    <label class="control-label"><i class="fa fa-thumb-tack" style="margin-right: 5px;"></i> Opcje dodatkowe</label>
+                    <hr style="margin-top: 0px;" />
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Grupa</label>
+                            <select class="form-control medium-input"
+                                    ng-model="createTaskVm.selectedUserGroup"
+                                    ng-options="option.Name for option in createTaskVm.userGroups track by option.Id"></select>
+                        </div>
+                        <div class="hint">
+                            Zadanie dodane do grupy, będzie widoczne jedynie dla jej użytkowników.
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <label class="control-label">Link do repozytorium GIT</label>
+                            <input class="form-control" value="http:/SvoemSvownS/Repository.git" readonly />
+                        </div>
+                        <div class="hint">
+                            Prywatne repozytorium, gdzie możesz umieścić kod, z którego będą mogli korzystać użytkownicy Twojego zadania.
+                        </div>
+                        <div>
+                            <label class="control-label" style="margin-top: 15px;">Branches</label>
+                        </div>
+                        <table class="table" id="branches-table">
+                            <thead>
+                                <tr>
+                                    <th>Nazwa</th>
+                                    <th>Opis</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="branch in createTaskVm.branches">
+                                    <td>{{branch.name}}</td>
+                                    <td style="word-break: break-word">{{branch.description}}</td>
+                                    <td style="min-width: 27px;">
+                                        <a ng-hide="{{branch.id == 1}}" ng-click="createTaskVm.deleteBranch(branch.id)"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="form-group">
+                            <div class="btn btn-success button" id="add-branch-button" ng-click="createTaskVm.isAddBranchPanelVisible = !createTaskVm.isAddBranchPanelVisible">
+                                <i ng-class="createTaskVm.isAddBranchPanelVisible ? 'fa fa-arrow-circle-up' : 'fa fa-arrow-circle-down'"></i>
+                                Dodaj branch
+                            </div>
+                        </div>
+                        <div class="hint">
+                            Zapewnimy Ci dostęp do informacji, czy użytkownik korzystał z dodatkowych branch'y, czy nie. W związku z tym
+                            proponujemy, abyś dodał branch'e z przykładowym rozwiązaniem lub wskazówkami.
+                        </div>
+                        <div id="add-branch-section" ng-show="createTaskVm.isAddBranchPanelVisible">
+                            <div class="inner-container" style="padding: 5px;">
+                                <div ng-form="addBranchForm">
+                                    <div class="form-group">
+                                        <label class="control-label">Nazwa</label>
+                                        <input ng-model="createTaskVm.branchName" name="branchName" class="form-control medium-input" ng-required="createTaskVm.isAddBranchPanelVisible" ng-minlength="4" ng-maxlength="10" />
+                                        <span ng-show="addBranchForm.branchName.$error.required" class="text-danger">Nazwa jest wymagana.</span>
+                                        <span ng-show="addBranchForm.branchName.$error.minlength" class="text-danger">Nazwa jest zbyt krótka.</span>
+                                        <span ng-show="addBranchForm.branchName.$error.maxlength" class="text-danger">Nazwa jest zbyt długa.</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Opis</label>
+                                        <textarea ng-model="createTaskVm.branchDescription" name="branchDescription" class="form-control medium-input" ng-required="createTaskVm.isAddBranchPanelVisible" ng-minlength="20" ng-maxlength="80" style="max-width: 100%;"></textarea>
+                                        <span ng-show="addBranchForm.branchDescription.$error.required" class="text-danger">Opis jest wymagany.</span>
+                                        <span ng-show="addBranchForm.branchDescription.$error.minlength" class="text-danger">Opis jest zbyt krótki.</span>
+                                        <span ng-show="addBranchForm.branchDescription.$error.maxlength" class="text-danger">Opis jest zbyt długi.</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-success button" id="add-branch-button" ng-click="createTaskVm.addBranch(addBranchForm)"><i class="fa fa-plus"></i> Dodaj</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Create Button -->
+                    <div class="col-md-12">
+                        <div style="text-align: center; margin-top: 30px;">
+                            <button class="btn btn-success" id="add-task-button" type="submit"><i class="fa fa-check"></i> Dodaj zadanie</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/markdown-js/dist/markdown.js"></script>
+    <script src="~/lib/bootstrap-markdown/js/bootstrap-markdown.js"></script>
+    <script>
+        $(document).ready(function () {
+            var markdownOptions = {
+                autofocus: false,
+                savable: false,
+                height: 350
+            }
+
+            $("#description-text-area").markdown(markdownOptions);
+        });
+    </script>
+}

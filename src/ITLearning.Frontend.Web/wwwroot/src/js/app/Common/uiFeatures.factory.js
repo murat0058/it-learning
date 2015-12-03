@@ -12,8 +12,15 @@
             'JS': '#ffbc00'
         };
 
+        var languageEnumDisplayName = {
+            'CSharp': 'C#',
+            'JavaScript': 'JS',
+            'Other': 'Brak'
+        };
+
         var service = {
-            languageToColorMappings: languageToColorMappings
+            languageToColorMappings: languageToColorMappings,
+            languageEnumDisplayName: languageEnumDisplayName
         };
 
         return service;

@@ -10,7 +10,7 @@ namespace ITLearning.Backend.Database.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
-        public Language Language { get; set; }
+        public LanguageEnum Language { get; set; }
         public bool IsVisibleOnlyInGroup { get; set; }
         public Group Group { get; set; }
         public User User { get; set; }

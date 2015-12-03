@@ -26,6 +26,7 @@ namespace ITLearning.Frontend.Web.Core.IoC
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<IGroupsService, GroupsService>();
+            services.AddTransient<ITasksService, TasksService>();
 
             services.AddTransient<INewsProvider, StaticFilesNewsProvider>();
             #endregion

@@ -22,9 +22,9 @@
         return directive;
     }
 
-    TasksController.$inject = ['taskService', 'uiFeaturesService', 'loadingIndicatorService'];
+    TasksController.$inject = ['tasksService', 'uiFeaturesService', 'loadingIndicatorService'];
 
-    function TasksController(taskService, uiFeaturesService, loadingIndicatorService) {
+    function TasksController(tasksService, uiFeaturesService, loadingIndicatorService) {
 
         var taskListVm = this,
             loadingMessage = "Ładuję twoje zadania...";
@@ -37,45 +37,28 @@
         ////////////////////////////
 
         function activate() {
-
-            taskListVm.tasks = [
-                {
-                    id: 0,
-                    name: 'Test 1',
-                    groupId: 99,
-                    language: 'C#',
-                    groupName: 'Grupa testowa 123',
-                    isCompleted: true,
-                    style: {
-                        'background-color': uiFeaturesService.languageToColorMappings['C#']
-                    }
-                },
-                {
-                    id: 1,
-                    name: 'Test 2',
-                    groupId: 99,
-                    language: 'JAVA',
-                    groupName: 'Grupa testowa 345',
-                    isCompleted: false,
-                    style: {
-                        'background-color': uiFeaturesService.languageToColorMappings['JAVA']
-                    }
-                },
-                {
-                    id: 3,
-                    name: 'Test 3',
-                    groupId: 99,
-                    language: 'JS',
-                    groupName: 'Grupa testowa 654',
-                    isCompleted: true,
-                    style: {
-                        'background-color': uiFeaturesService.languageToColorMappings['JS']
-                    }
-                }
-            ];
-
-            taskListVm.loadingIndicator.SetLoaded("Załadowano!");
+            getTasks();
         };
-    }
 
+        function getTasks() {
+            taskListVm.loadingIndicator.SetLoading(loadingMessage);
+
+            return tasksService
+                .getLatestTasks()
+                .then(function (data) {
+                    if (data.IsSuccess) {
+                        data.Item.forEach(function (item) {
+                            item.Language = uiFeaturesService.languageEnumDisplayName[item.Language];
+                            item.style = {
+                                'background-color': uiFeaturesService.languageToColorMappings[item.Language]
+                            };
+                        });
+                        taskListVm.tasks = data.Item;
+                        taskListVm.loadingIndicator.Hide();
+                    } else {
+                        taskListVm.loadingIndicator.SetLoaded(data.ErrorMessage);
+                    }
+                });
+        }
+    }
 })();
