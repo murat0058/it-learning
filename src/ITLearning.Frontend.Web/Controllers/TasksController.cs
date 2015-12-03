@@ -21,6 +21,85 @@ namespace ITLearning.Frontend.Web.Controllers
             _tasksService = tasksService;
         }
 
+        [HttpGet("{id:int}/{taskViewType}")]
+        public IActionResult Single(int id)
+        {
+            //todo get taskVieType by id && user
+            var taskViewType = TaskViewTypeEnum.PublicView;
+
+            if (taskViewType == TaskViewTypeEnum.OwnerView)
+            {
+                return RedirectToAction("OwnerSingleView", new { id = id });
+            }
+
+            if (taskViewType == TaskViewTypeEnum.InstanceView)
+            {
+                return RedirectToAction("InstanceSingleView", new { id = id });
+            }
+
+            return RedirectToAction("PublicSingleView", new { id = id });
+        }
+
+        [HttpGet("OwnerSingleView/{id:int}")]
+        public IActionResult OwnerSingleView(int id)
+        {
+            var task = new TaskData()
+            {
+                Id = 1,
+                Title = "Nowe zadanie #1",
+                Description = "Opis zadania pierwszego...",
+                IsActive = true,
+                SelectedLanguage = LanguageEnum.CSharp,
+                UserGroup = new UserGroupData()
+                {
+                    Id = 32,
+                    Name = "Ludzie i c#"
+                }
+            };
+
+            return View("SingleOwner", JsonConvert.SerializeObject(task));
+        }
+
+        [HttpGet("InstanceSingleView/{id:int}")]
+        public IActionResult InstanceSingleView(int id)
+        {
+            var task = new TaskData()
+            {
+                Id = 1,
+                Title = "Nowe zadanie #1",
+                Description = "Opis zadania pierwszego...",
+                IsActive = true,
+                SelectedLanguage = LanguageEnum.CSharp,
+                UserGroup = new UserGroupData()
+                {
+                    Id = 32,
+                    Name = "Ludzie i c#"
+                }
+            };
+
+            return View("SingleInstance", JsonConvert.SerializeObject(task));
+        }
+
+        [HttpGet("PublicSingleView/{id:int}")]
+        public IActionResult PublicSingleView(int id)
+        {
+            var task = new TaskData()
+            {
+                Id = 1,
+                Title = "Nowe zadanie #1",
+                Description = "Opis zadania pierwszego...",
+                IsActive = true,
+                SelectedLanguage = LanguageEnum.CSharp,
+                UserGroup = new UserGroupData()
+                {
+                    Id = 32,
+                    Name = "Ludzie i c#"
+                }
+            };
+
+            return View("Single", JsonConvert.SerializeObject(task));
+        }
+
         [HttpGet("TasksList")]
         public IActionResult List()
         {
@@ -73,9 +152,9 @@ namespace ITLearning.Frontend.Web.Controllers
 
             var tasks = new List<TaskListItemData>
             {
-                new TaskListItemData() {Id = 0, Name = "Wprowadzenie do C#", GroupName = "Ludzie i c#", IsCompleted = false, Language = LanguageEnum.CSharp.ToString(), GroupId = 1 },
-                new TaskListItemData() {Id = 1, Name = "Wprowadzenie do JS", GroupName = "Ludzie i js", IsCompleted = false, Language = LanguageEnum.JavaScript.ToString(), GroupId = 2 },
-                new TaskListItemData() {Id = 2, Name = "Wprowadzenie do JAVA", GroupName = "Ludzie i java", IsCompleted = true, Language = LanguageEnum.Other.ToString(), GroupId = 3 }
+                new TaskListItemData() { Id = 0, Name = "Wprowadzenie do C#", GroupName = "Ludzie i c#", IsCompleted = false, Language = LanguageEnum.CSharp.ToString(), GroupId = 1 },
+                new TaskListItemData() { Id = 1, Name = "Wprowadzenie do JS", GroupName = "Ludzie i js", IsCompleted = false, Language = LanguageEnum.JavaScript.ToString(), GroupId = 1 },
+                new TaskListItemData() { Id = 2, Name = "Wprowadzenie do JAVA", GroupName = "Ludzie i java", IsCompleted = true, Language = LanguageEnum.Other.ToString(), GroupId = 1 }
             };
 
             var result = CommonResult<List<TaskListItemData>>.Success(tasks);

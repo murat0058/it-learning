@@ -3,10 +3,10 @@
     <div class="task" ng-repeat="task in taskListVm.tasks">
         <div class="task-title">
             <span class="label" ng-style="task.style" ng-bind="task.Language"></span>
-            <a ng-href="#/{{task.Id}}" ng-bind="task.Name"></a>
+            <a ng-href="/Tasks/{{task.Id}}" ng-bind="task.Name"></a>
         </div>
         <div class="task-group-info">
-            <a ng-href="#/{{task.GroupId}}" ng-bind="task.GroupName"></a>
+            <a ng-href="/Groups/{{task.GroupId}}" ng-bind="task.GroupName"></a>
         </div>
         <div class="task-status" ng-class="task.IsCompleted ? 'task-completed' : 'task-notcompleted'">
             <i class="fa fa-check"></i>
