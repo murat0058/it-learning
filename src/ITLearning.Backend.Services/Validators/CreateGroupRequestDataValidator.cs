@@ -9,7 +9,7 @@ using ITLearning.Contract.Data.Requests.Groups;
 
 namespace ITLearning.Backend.Business.Validators
 {
-    public class CreateGroupRequestDataValidator : AbstractValidator<CreateGroupRequestData>
+    public class CreateGroupRequestDataValidator : AbstractValidator<CreateGroupRequest>
     {
         public CreateGroupRequestDataValidator()
         {
@@ -23,13 +23,13 @@ namespace ITLearning.Backend.Business.Validators
                 .WithMessage("Hasła nie pasują do siebie lub są puste.");
         }
 
-        private bool HaveCorrectPasswords(CreateGroupRequestData data)
+        private bool HaveCorrectPasswords(CreateGroupRequest data)
         {
             return data.Password.NotNullNorEmpty() && data.PasswordConfirmation.NotNullNorEmpty() 
                 && data.Password == data.PasswordConfirmation;
         }
 
-        private bool HaveValidNameAndDescription(CreateGroupRequestData data)
+        private bool HaveValidNameAndDescription(CreateGroupRequest data)
         {
             return data.Name.NotNullNorEmpty() && data.Description.NotNullNorEmpty();
         }

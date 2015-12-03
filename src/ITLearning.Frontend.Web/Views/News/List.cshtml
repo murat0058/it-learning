@@ -1,5 +1,9 @@
 ﻿@model string
 
+@{ 
+    ViewBag.PageTitle = "Newsy";
+}
+
 <div class="content-wrapper">
     <div class="container news-container" ng-controller="NewsListController as newsListVm">
         <div class="row" ng-init="newsListVm.activate(@Model)">

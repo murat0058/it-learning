@@ -1,5 +1,9 @@
 ﻿@model NewsData
 
+@{ 
+    ViewBag.PageTitle = Model.Title;
+}
+
 @section BodyScripts{
     <div id="fb-root"></div>
     <script>

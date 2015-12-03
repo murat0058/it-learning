@@ -50,6 +50,15 @@
                     color: $color-success;
                 }
             }
+
+            .beta-sign {
+                color: $color-success;
+                font-size: 12px;
+                letter-spacing: 0.2px;
+                text-transform: none;
+                position: absolute;
+                top: -2px;
+            }
         }
     }
 
@@ -124,7 +133,7 @@
 
                                 &:hover {
                                     text-decoration: none;
-                                        background-color: rgba(46, 56, 66, 0.5);
+                                    background-color: rgba(46, 56, 66, 0.5);
                                 }
                             }
                         }

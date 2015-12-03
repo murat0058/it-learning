@@ -2,9 +2,9 @@
 
 <div class="form-wrapper">
     <div class="container">
-        <div class="row">
+        <div class="row" style="margin-bottom: 20px;">
             <div class="col-md-6 col-md-offset-3">
-                <form asp-action="CreateGroup" asp-controller="Groups" method="post" role="form" ng-controller="CreateGroupController as createGroupVm">
+                <form asp-action="CreateGroup" asp-controller="Groups" method="post" role="form" ng-controller="EditGroupController as editGroupVm">
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <span><i class="fa fa-plus"></i> | Utwórz nową grupę</span>
@@ -24,29 +24,25 @@
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label asp-for="IsPrivate">
-                                        <input asp-for="IsPrivate" ng-model="createGroupVm.IsPrivate" /> Grupa prywatna
+                                        <input asp-for="IsPrivate" ng-model="editGroupVm.IsPrivate" /> Grupa prywatna
                                     </label>
                                 </div>
                             </div>
-                            <div class="row form-controls-row" ng-show="createGroupVm.IsPrivate">
+                            <div class="row form-controls-row ng-cloak" ng-show="editGroupVm.IsPrivate">
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label asp-for="Password" class="control-label"></label>
-                                        <input asp-for="Password" class="form-control" ng-disabled="!createGroupVm.IsPrivate" />
+                                        <input asp-for="Password" class="form-control" ng-disabled="!editGroupVm.IsPrivate" />
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label asp-for="PasswordConfirmation" class="control-label"></label>
-                                        <input asp-for="PasswordConfirmation" class="form-control" ng-disabled="!createGroupVm.IsPrivate" />
+                                        <input asp-for="PasswordConfirmation" class="form-control" ng-disabled="!editGroupVm.IsPrivate" />
                                         <span asp-validation-for="PasswordConfirmation" class="text-danger"></span>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary pull-right" value="Utwórz" />

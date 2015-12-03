@@ -1,4 +1,11 @@
-﻿using ITLearning.Backend.Database;
+﻿using Microsoft.Data.Entity;
+using Microsoft.Extensions.OptionsModel;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
+using ITLearning.Shared.Extensions;
+using ITLearning.Contract.Data.Model.User;
+using ITLearning.Backend.Database;
 using ITLearning.Backend.Database.Entities;
 using ITLearning.Backend.Database.Entities.JunctionTables;
 using ITLearning.Contract.Data.Model.Groups;
@@ -8,10 +15,6 @@ using ITLearning.Contract.Data.Results.Groups;
 using ITLearning.Contract.DataAccess.Repositories;
 using ITLearning.Contract.Providers;
 using ITLearning.Shared.Configs;
-using Microsoft.Data.Entity;
-using Microsoft.Extensions.OptionsModel;
-using System.Collections.Generic;
-using System.Linq;
 using System;
 
 namespace ITLearning.Backend.DataAccess.Repositories
@@ -27,24 +30,24 @@ namespace ITLearning.Backend.DataAccess.Repositories
             _configurationProvider = configurationProvider;
         }
 
-        public CommonResult<CreateGroupResult> CreateGroup(CreateGroupRequestData requestData)
+        public CommonResult<CreateGroupResult> Create(CreateGroupRequest request)
         {
-            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            using(var context = ContextFactory.GetDbContext(_dbConfiguration))
             {
-                var user = context.Users.SingleOrDefault(u => u.UserName == requestData.UserName);
+                var user = context.Users.SingleOrDefault(u => u.UserName == request.UserName);
 
-                if(user != null)
+                if (user != null)
                 {
-                    var groupWithGivenName = context.Groups.FirstOrDefault(x => x.Name == requestData.Name);
+                    var groupWithGivenName = context.Groups.FirstOrDefault(x => x.Name == request.Name);
 
                     if (groupWithGivenName == null)
                     {
                         var group = new Group
                         {
-                            Name = requestData.Name,
-                            Description = requestData.Description,
-                            IsPrivate = requestData.IsPrivate,
-                            Password = requestData.Password,
+                            Name = request.Name,
+                            Description = request.Description,
+                            IsPrivate = request.IsPrivate,
+                            Password = request.Password,
                             Owner = user
                         };
 
@@ -72,64 +75,260 @@ namespace ITLearning.Backend.DataAccess.Repositories
             }
         }
 
-        public CommonResult<IEnumerable<GroupBasicData>> GetGroupsBasicData()
+        public CommonResult Delete(int groupId)
         {
             using (var context = ContextFactory.GetDbContext(_dbConfiguration))
             {
-                var groups = context.Groups
-                    .Include(g => g.Owner)
-                    .Include(g => g.Users)
-                    .Include(g => g.Tasks)
-                    .ToList();
+                var group = context.Groups.SingleOrDefault(x => x.Id == groupId);
 
-                var result = groups.Select(x => new GroupBasicData
-                 {
-                     Id = x.Id,
-                     Name = x.Name,
-                     IsPrivate = x.IsPrivate,
-                     Description = x.Description,
-                     OwnerId = x.Owner.Id,
-                     OwnerUserName = x.Owner.UserName,
-                     OwnerFullName = $"{x.Owner.FirstName} {x.Owner.LastName}",
-                     NoOfUsers = x.Users.Count(),
-                     NoOfTasks = x.Tasks.Count()
-                 });
+                var userGroups = context.UserGroups.Where(x => x.Group.Id == groupId);
 
-                if (result.Any())
+                if(userGroups != null && userGroups.Any())
                 {
-                    return CommonResult<IEnumerable<GroupBasicData>>.Success(result);
+                    foreach (var userGroup in userGroups)
+                    {
+                        context.Remove(userGroup);
+                    }
+                }
+
+                if (group != null)
+                {
+                    context.Remove(group);
+                    context.SaveChanges();
+
+                    return CommonResult.Success();
                 }
                 else
                 {
-                    return CommonResult<IEnumerable<GroupBasicData>>.Failure("Aktualnie nie ma żadnych grup.");
+                    return CommonResult.Failure("Podana grupa nie istnieje.");
                 }
             }
         }
 
-        public CommonResult<GroupBasicDataResult> GetGroupById(int id)
+        public CommonResult<GroupData> Get(int groupId, bool withOwner = false, bool withUsers = false, bool withTasks = false)
+        {
+            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            {
+                var groups = context.Groups.AsQueryable();
+
+                groups = IncludeAdditionalDataForGroups(withOwner, withUsers, withTasks, groups);
+
+                var group = groups.SingleOrDefault(x => x.Id == groupId);
+
+                if (group != null)
+                {
+                    var groupData = Mapper.Map<GroupData>(group);
+
+                    GetAdditionalDataForGroup(group, groupData, withOwner, withUsers, withTasks);
+
+                    return CommonResult<GroupData>.Success(groupData);
+                }
+                else
+                {
+                    return CommonResult<GroupData>.Failure("Podana grupa nie istnieje.");
+                }
+            }
+        }
+
+        public CommonResult<IEnumerable<GroupData>> GetAll(bool withOwner = false, bool withUsers = false, bool withTasks = false)
+        {
+            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            {
+                var groups = context.Groups.AsQueryable();
+
+                groups = IncludeAdditionalDataForGroups(withOwner, withUsers, withTasks, groups);
+
+                var groupDataList = new List<GroupData>();
+
+                foreach (var group in groups)
+                {
+                    var groupData = Mapper.Map<GroupData>(group);
+
+                    GetAdditionalDataForGroup(group, groupData, withOwner, withUsers, withTasks);
+
+                    groupDataList.Add(groupData);
+                }
+
+                return CommonResult<IEnumerable<GroupData>>.Success(groupDataList);
+            }
+        }
+
+        public CommonResult<IEnumerable<GroupData>> GetAllForUser(string userName, bool withOwner = false, bool withUsers = false, bool withTasks = false)
+        {
+            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            {
+                var groups = context.UserGroups
+                    .Where(x => x.User.UserName == userName)
+                    .Select(x => x.Group);
+
+                groups = IncludeAdditionalDataForGroups(withOwner, withUsers, withTasks, groups);
+
+                var groupDataList = new List<GroupData>();
+
+                foreach (var group in groups)
+                {
+                    var groupData = Mapper.Map<GroupData>(group);
+
+                    GetAdditionalDataForGroup(group, groupData, withOwner, withUsers, withTasks);
+
+                    groupDataList.Add(groupData);
+                }
+
+                return CommonResult<IEnumerable<GroupData>>.Success(groupDataList);
+
+            }
+        }
+
+        public CommonResult Update(UpdateGroupRequest request)
         {
             using (var context = ContextFactory.GetDbContext(_dbConfiguration))
             {
                 var group = context.Groups
-                    .Include(x => x.Users)
-                    .FirstOrDefault(x => x.Id == id);
+                    .Include(x => x.Owner)
+                    .FirstOrDefault(x => x.Id == request.Id);
 
-                if(group == null) { return CommonResult<GroupBasicDataResult>.Failure("Nie istnieje grupa o podanym id."); }
-
-                return CommonResult<GroupBasicDataResult>.Success(new GroupBasicDataResult
+                if (group == null)
                 {
-                    Id = group.Id,
-                    Name = group.Name,
-                    Description = group.Description,
-                    IsPrivate = group.IsPrivate,
-                    NoOfUsers = group.Users.Count
-                });
+                    return CommonResult.Failure("Podana grupa nie istnieje.");
+                }
+
+                group.Name = request.Name.NotNullNorEmpty() ? request.Name : group.Name;
+                group.Description = request.Description.NotNullNorEmpty() ? request.Description : group.Description;
+
+                var wasPrivate = group.IsPrivate;
+
+                if(!wasPrivate && request.IsPrivate && request.Password.NotNullNorEmpty())
+                {
+                    group.IsPrivate = request.IsPrivate;
+                    group.Password = request.Password;
+
+                    var userGroups = context.UserGroups.Where(x => x.User.Id != group.Owner.Id).ToList();
+
+                    if (userGroups.Any())
+                    {
+                        context.Remove(userGroups);
+                    }
+                }
+
+                if(wasPrivate && !request.IsPrivate)
+                {
+                    group.IsPrivate = request.IsPrivate;
+                    group.Password = string.Empty;
+                }
+
+                context.SaveChanges();
+
+                return CommonResult.Success();
             }
         }
 
-        public CommonResult<IEnumerable<GroupBasicData>> GetGroupsByUserName(string userName)
+        public CommonResult AddUsers(UserGroupRequest request)
         {
-            throw new NotImplementedException();
+            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            {
+                var group = context.Groups.FirstOrDefault(x => x.Id == request.GroupId);
+
+                if (group == null)
+                {
+                    return CommonResult.Failure("Podana grupa nie istnieje.");
+                }
+
+                foreach (var userId in request.Users)
+                {
+                    var userGroup = context.UserGroups.FirstOrDefault(x => x.Group.Id == request.GroupId && x.User.Id == userId);
+
+                    if (userGroup != null)
+                    {
+                        return CommonResult.Failure("Podany użytkownik został już dodany.");
+                    }
+
+                    context.UserGroups.Add(new UserGroup
+                    {
+                        Group = new Group { Id = request.GroupId },
+                        User = new User { Id = userId }
+                    });
+                }
+
+                context.SaveChanges();
+
+                return CommonResult.Success();
+            }
+        }
+
+        public CommonResult RemoveUsers(UserGroupRequest request)
+        {
+            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            {
+                var group = context.Groups.FirstOrDefault(x => x.Id == request.GroupId);
+
+                if (group == null)
+                {
+                    return CommonResult.Failure("Podana grupa nie istnieje.");
+                }
+
+                foreach (var userId in request.Users)
+                {
+                    var userGroup = context.UserGroups.FirstOrDefault(x => x.Group.Id == request.GroupId && x.User.Id == userId);
+
+                    if (userGroup == null)
+                    {
+                        return CommonResult.Failure("Podany użytkownik nie jest członkiem tej grupy.");
+                    }
+
+                    context.Remove(userGroup);
+                }
+
+                context.SaveChanges();
+
+                return CommonResult.Success();
+            }
+        }
+
+        private void GetAdditionalDataForGroup(Group group, GroupData groupData, bool withOwner = false, bool withUsers = false, bool withTasks = false)
+        {
+            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            {
+                if (withOwner)
+                {
+                    groupData.Owner = Mapper.Map<UserProfileData>(group.Owner);
+                }
+                if (withUsers)
+                {
+                    var userIdentifiers = context.UserGroups.Where(x => x.Group.Id == group.Id).Select(x => x.User.Id);
+
+                    var users = new List<UserProfileData>();
+
+                    foreach (var id in userIdentifiers)
+                    {
+                        var user = context.Users.FirstOrDefault(x => x.Id == id);
+                        
+                        if(user != null)
+                        {
+                            users.Add(Mapper.Map<UserProfileData>(user));
+                        }
+                    }
+
+                    groupData.Users = users;
+                }
+            }
+        }
+
+        private IQueryable<Group> IncludeAdditionalDataForGroups(bool withOwner, bool withUsers, bool withTasks, IQueryable<Group> groups)
+        {
+            if (withOwner)
+            {
+                groups = groups.Include(x => x.Owner);
+            }
+            if (withUsers)
+            {
+                groups = groups.Include(x => x.Users);
+            }
+            if (withTasks)
+            {
+                groups = groups.Include(x => x.Tasks);
+            }
+
+            return groups;
         }
     }
 }

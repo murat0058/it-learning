@@ -1,7 +1,6 @@
 ﻿/**
 * @desc Loading indicator. 
 *       Should be loaded into other directives via transclusion.
-*       Requires 'isLoadingIndicatorVisible' property in PARENT scope.
 * @example <itl-loading-indicator></itl-loading-indicator>
 */
 (function () {
