@@ -21,6 +21,12 @@ namespace ITLearning.Frontend.Web.Controllers
             _tasksService = tasksService;
         }
 
+        [HttpGet("TasksList")]
+        public IActionResult List()
+        {
+            return View();
+        }
+
         [HttpGet("Create")]
         public IActionResult Create()
         {
