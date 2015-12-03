@@ -1,0 +1,16 @@
+﻿@import '../mixins/validation.scss';
+@import '../mixins/animations.scss';
+@import '../mixins/utils.scss';
+@import '../mixins/globals.scss';
+
+.group-users-directive {
+
+    .users-search {
+        margin-bottom: 10px;
+    }
+
+    .users-list{
+        height: 300px;
+        border-radius: 3px;
+    }
+}

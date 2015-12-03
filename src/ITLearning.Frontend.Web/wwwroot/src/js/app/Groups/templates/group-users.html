@@ -1,0 +1,17 @@
+﻿<div class="panel panel-success group-users-directive" style="height: 420px;">
+    <div class="panel-heading">
+        <span><i class="fa fa-user-plus"></i> | Użytkownicy</span>
+    </div>
+    <div class="panel-body">
+        <div class="users-search">
+            <label for="UserSearch">Dodaj użytkownika</label>
+            <input type="text" placeholder="Jan Kowalski" class="form-control" name="UserSearch" id="UserSearch"
+                   ng-model="groupUsersVm.userSearchModel"
+                   ng-model-options="{ debounce: 1000 }" />
+        </div>
+        <div class="users-list">
+
+            <ng-transclude></ng-transclude>
+        </div>
+    </div>
+</div>

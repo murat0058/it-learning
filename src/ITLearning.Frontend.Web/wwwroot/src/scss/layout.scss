@@ -6,7 +6,9 @@
 
 $footer-height: 40px;
 
-[ng\:cloak], [ng-cloak], .ng-cloak { display: none; }
+[ng\:cloak], [ng-cloak], .ng-cloak {
+    display: none;
+}
 
 html,
 body {
@@ -711,6 +713,11 @@ body > .main-content > .content {
 }
 
 .group-basic-data-header {
+    background-image: url('/common/images/groups/group-header-banner.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
     background-color: darken($color-dark, 5%);
     margin-bottom: 15px;
     padding: 10px;
@@ -733,14 +740,20 @@ body > .main-content > .content {
     }
 
     h3, h4 {
-        margin: 0;
-        margin-bottom: 10px;
+        margin: 5px;
+        margin-left: 0;
         padding: 0;
         font-family: $custom-font;
     }
 
-    .content {
-        margin-top: 15px;
+    .extras {
+        font-family: $custom-font;
+        border: 1px solid $color-dark;
+        background-color: rgba($color-dark, 0.5);
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+        border-radius: 3px;
 
         .group-summary {
             margin: 0;
@@ -778,7 +791,7 @@ footer {
         font-family: $custom-font;
         font-weight: 600;
 
-        .beta-sign{
+        .beta-sign {
             color: $color-success;
         }
 

@@ -5,39 +5,16 @@
 <div class="content-wrapper">
     <div class="container">
         <div class="row" style="margin-bottom: 20px;">
-            <div class="col-md-3 side-section" ng-controller="DeletingGroupController as deletingGroupVm">
-                <h4>Edytuj</h4>
-                <button class="btn btn-block btn-default btn-default" ng-click="deletingGroupVm.toggleGroupDeleting()">
-                    Usuń grupę
-                </button>
-                <div class="row ng-cloak" ng-show="deletingGroupVm.isGroupDeletingInProgress">
-                    <div class="col-xs-6">
-                        <form method="POST" action="/Groups/Delete/@Model.GroupId">
-                            <button class="btn btn-block btn-danger" ng-click="deletingGroupVm.confirmGroupDeleting()">
-                                <i class="fa fa-warning"></i> Usuń
-                            </button>
-                        </form>
-                    </div>
-                    <div class="col-xs-6">
-                        <button class="btn btn-block btn-dark" ng-click="deletingGroupVm.cancelGroupDeleting()">
-                            <i class="fa fa-times"></i> Anuluj
-                        </button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <itl-loading-indicator parent-vm="manageGroupVm.groupDeleteManager" dot-background="#333" dot-size="5px"></itl-loading-indicator>
-                    </div>
-                </div>
+            <div class="col-md-3 side-section">
+                <itl-group-users group-id="@Model.GroupId">
+                    <itl-loading-indicator parent-vm-scoped="groupUsersVm" dot-background="#333" dot-size="5px"></itl-loading-indicator>
+                </itl-group-users>
             </div>
             <div class="col-md-6">
-                <div class="center-section">
-                    <h4>Zarządzaj</h4>
-                </div>
                 <form asp-action="UpdateGroup" asp-controller="Groups" method="post" role="form" ng-controller="EditGroupController as editGroupVm">
-                    <div class="panel panel-success" ng-init="editGroupVm.IsPrivate = @Model.UpdateGroupViewModel.IsPrivate.ToString().ToLower()">
+                    <div class="panel panel-success" ng-init="editGroupVm.IsPrivate = @Model.UpdateGroupViewModel.IsPrivate.ToString().ToLower()" style="min-height: 420px;">
                         <div class="panel-heading">
-                            <span><i class="fa fa-pencil"></i> | Edytuj dane grupy</span>
+                            <span><i class="fa fa-pencil"></i> | Dane</span>
                         </div>
                         <div class="panel-body">
                             @Html.ValidationSummary(excludePropertyErrors: true)
@@ -55,7 +32,7 @@
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label asp-for="UpdateGroupViewModel.IsPrivate">
-                                        <input asp-for="UpdateGroupViewModel.IsPrivate" ng-model="editGroupVm.IsPrivate"/> Grupa prywatna
+                                        <input asp-for="UpdateGroupViewModel.IsPrivate" ng-model="editGroupVm.IsPrivate" /> Grupa prywatna
                                     </label>
                                 </div>
                             </div>
@@ -82,8 +59,36 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-3 side-section" ng-controller="GroupUsersController as groupUsersVm">
-                <h4>Kontroluj</h4>
+            <div class="col-md-3 side-section" ng-controller="DeletingGroupController as deletingGroupVm">
+                <div class="panel panel-success" style="height: 420px;">
+                    <div class="panel-heading">
+                        <span><i class="fa fa-cog"></i> | Pozostałe</span>
+                    </div>
+                    <div class="panel-body">
+                        <button class="btn btn-block btn-default btn-default" ng-click="deletingGroupVm.toggleGroupDeleting()">
+                            Usuń grupę
+                        </button>
+                        <div class="row ng-cloak" ng-show="deletingGroupVm.isGroupDeletingInProgress">
+                            <div class="col-xs-6">
+                                <form method="POST" action="/Groups/Delete/@Model.GroupId">
+                                    <button class="btn btn-block btn-danger" ng-click="deletingGroupVm.confirmGroupDeleting()">
+                                        <i class="fa fa-warning"></i> Usuń
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="btn btn-block btn-dark" ng-click="deletingGroupVm.cancelGroupDeleting()">
+                                    <i class="fa fa-times"></i> Anuluj
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <itl-loading-indicator parent-vm="manageGroupVm.groupDeleteManager" dot-background="#333" dot-size="5px"></itl-loading-indicator>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

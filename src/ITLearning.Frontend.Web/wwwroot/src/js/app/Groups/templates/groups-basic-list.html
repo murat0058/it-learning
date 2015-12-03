@@ -5,9 +5,14 @@
             <div class="content">
                 <p class="group-title" ng-bind="group.Name"></p>
                 <p class="group-summary">
-                    <span  ng-show="group.IsPrivate">
-                        <i class="fa fa-lock"></i>
-                    </span>
+                    <div ng-switch="group.IsPrivate">
+                        <div ng-switch-when="true">
+                            <i class="fa fa-lock"></i>
+                        </div>
+                        <div ng-switch-when="false">
+                            <i class="fa fa-unlock"></i>
+                        </div>
+                    </div>
                     <span>
                         <i class="fa fa-users"></i> {{group.NoOfUsers}}
                     </span>
