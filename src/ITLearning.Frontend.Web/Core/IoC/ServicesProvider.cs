@@ -46,6 +46,7 @@ namespace ITLearning.Frontend.Web.Core.IoC
 
             #region Configs
             services.Configure<PathsConfiguration>(configuration.GetSection("Paths"));
+            services.Configure<DisqusConfiguration>(configuration.GetSection("Disqus"));
             services.Configure<DatabaseConfiguration>(x => x.ConnectionString = configuration["Data:DefaultConnection:ConnectionString"]);
             #endregion
         }

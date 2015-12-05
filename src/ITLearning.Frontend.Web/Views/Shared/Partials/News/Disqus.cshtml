@@ -1,0 +1,26 @@
+﻿@model NewsData
+
+@{ 
+    var siteUrl = $"http://{this.Context.Request.Host}";
+    var newsIdentifier = $"/News/Single/{Model.Id}";
+
+    var disqusUrl = (string)ViewBag.DisqusUrl;
+}
+
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+        this.page.url = @Html.ToJsString(siteUrl);
+        this.page.identifier = @Html.ToJsString(newsIdentifier);
+    };
+
+    (function () {
+        var d = document, s = d.createElement('script');
+
+        s.src = @Html.ToJsString(disqusUrl);
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>

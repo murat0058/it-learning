@@ -8,5 +8,6 @@
         string GetProfileOriginalImagesFolderInternalPath();
         string GetProfileCroppedImagesFolderInternalPath();
         string GetProfileDefaultImagePath();
+        string GetDisqusPageUrl();
     }
 }

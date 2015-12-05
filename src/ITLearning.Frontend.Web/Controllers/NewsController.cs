@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ITLearning.Contract.Data.Requests;
+using ITLearning.Contract.Providers;
 using ITLearning.Contract.Services;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
 using ITLearning.Frontend.Web.Core.Identity.Enums;
@@ -16,10 +17,12 @@ namespace ITLearning.Frontend.Web.Controllers
     public class NewsController : BaseController
     {
         private INewsService _newsService;
+        private IAppConfigurationProvider _configurationProvider;
 
-        public NewsController(INewsService newsService)
+        public NewsController(INewsService newsService, IAppConfigurationProvider configurationProvider)
         {
             _newsService = newsService;
+            _configurationProvider = configurationProvider;
         }
 
         [HttpGet("All")]
@@ -52,6 +55,11 @@ namespace ITLearning.Frontend.Web.Controllers
         public IActionResult Single(string id)
         {
             var result = _newsService.GetById(id);
+
+            if (result.IsSuccess)
+            {
+                ViewBag.DisqusUrl = _configurationProvider.GetDisqusPageUrl();
+            }
 
             return result.IsSuccess ?
                 (ActionResult)View(result.Item) :
