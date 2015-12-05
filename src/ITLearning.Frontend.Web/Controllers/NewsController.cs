@@ -5,6 +5,7 @@ using ITLearning.Contract.Services;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
 using ITLearning.Frontend.Web.Core.Identity.Enums;
 using ITLearning.Frontend.Web.ViewModels.News;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using Newtonsoft.Json;
 
@@ -51,6 +52,7 @@ namespace ITLearning.Frontend.Web.Controllers
             return View("List", JsonConvert.SerializeObject(Mapper.Map<NewsListViewModel>(request)));
         }
 
+        [AllowAnonymous]
         [HttpGet("Single/{id}")]
         public IActionResult Single(string id)
         {
