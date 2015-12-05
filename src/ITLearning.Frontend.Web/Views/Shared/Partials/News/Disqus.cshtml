@@ -1,8 +1,8 @@
 ﻿@model NewsData
 
 @{ 
-    var siteUrl = $"http://{this.Context.Request.Host}";
-    var newsIdentifier = $"/News/Single/{Model.Id}";
+    var siteUrl = $"http://{this.Context.Request.Host}/News/Single/{Model.Id}";
+    var newsIdentifier = $"{Model.Id}";
 
     var disqusUrl = (string)ViewBag.DisqusUrl;
 }
