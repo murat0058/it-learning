@@ -339,8 +339,8 @@ body > .main-content > .content {
     }
 
     .news-info-wrapper {
-        position: absolute;
-        right: -15px;
+        float: right;
+        position: relative;
 
         ul {
             margin: 0;
@@ -379,11 +379,10 @@ body > .main-content > .content {
     }
 
     .news-content-wrapper {
-        position: absolute;
+        position: relative;
         width: 100%;
-        top: 45px;
+        top: 25px;
         box-shadow: 0 2px 30px -5px rgba(0,0,0,0.3);
-        height: 100%;
         margin-bottom: 100px;
 
         &:hover {
@@ -719,7 +718,6 @@ body > .main-content > .content {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-
     background-color: darken($color-dark, 5%);
     margin-bottom: 15px;
     padding: 10px;
