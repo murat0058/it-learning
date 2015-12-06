@@ -46,12 +46,6 @@
             getUsers();
         }
 
-        function deleteUser(user) {
-            var indexOfUser = groupUsersVm.users.indexOf(user);
-
-            groupUsersVm.users.splice(indexOfUser, 1);
-        }
-
         function getUsers() {
             groupUsersVm.loadingIndicator.SetLoading(loadingMessage);
 
@@ -75,6 +69,28 @@
                         groupUsersVm.loadingIndicator.SetLoaded(data.ErrorMessage);
                     }
                 });
+        }
+
+        function deleteUser(user, failureCallback) {
+
+            var request = {
+                UserId: user.id,
+                GroupId: groupUsersVm.groupId
+            };
+
+            return groupsService
+               .deleteUser(request)
+               .then(function (data) {
+                   if (data.IsSuccess) {
+                       var indexOfUser = groupUsersVm.users.indexOf(user);
+                       groupUsersVm.users.splice(indexOfUser, 1);
+                   } else {
+                       if (typeof (failureCallback) === "function") {
+                           failureCallback();
+                       }
+                   }
+               });
+
         }
 
     }

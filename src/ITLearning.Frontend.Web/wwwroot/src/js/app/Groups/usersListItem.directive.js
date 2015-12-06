@@ -42,7 +42,9 @@
         function confirmUserDeleting(user) {
             user.isDeletingConfirmed = true;
 
-            deleteUserFunc(user);
+            deleteUserFunc(user, function () {
+                user.isDeletingConfirmed = false;
+            });
         }
 
         function cancelUserDeleting(user) {

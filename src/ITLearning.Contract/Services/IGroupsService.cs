@@ -30,6 +30,10 @@ namespace ITLearning.Contract.Services
         CommonResult TryAddUserToPrivateGroup(AddUserToGroupRequest request);
 
         CommonResult<GetUsersForGroupResult> GetUsersForGroup(GetUsersForGroupRequest request);
+
+        CommonResult RemoveUsers(UserGroupRequest request);
+
+        CommonResult AddUsers(UserGroupRequest request);
     }
         
 }

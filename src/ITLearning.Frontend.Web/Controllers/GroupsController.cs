@@ -123,7 +123,7 @@ namespace ITLearning.Frontend.Web.Controllers
             {
                 var accessType = accessTypeResult.Item.GroupAccessTypeEnum;
 
-                if(accessType == GroupAccessTypeEnum.RequirePassword)
+                if (accessType == GroupAccessTypeEnum.RequirePassword)
                 {
                     return RedirectToAction("Password", new { groupId = groupId });
                 }
@@ -236,6 +236,20 @@ namespace ITLearning.Frontend.Web.Controllers
             };
 
             var result = _groupsService.GetUsersForGroup(request);
+
+            return new JsonResult(result);
+        }
+
+        [HttpPost("DeleteUser")]
+        public IActionResult DeleteUser(DeleteUserFromGroupViewModel viewModel)
+        {
+            var request = new UserGroupRequest
+            {
+                GroupId = viewModel.GroupId,
+                Users = new int[] { viewModel.UserId }
+            };
+
+            var result = _groupsService.RemoveUsers(request);
 
             return new JsonResult(result);
         }

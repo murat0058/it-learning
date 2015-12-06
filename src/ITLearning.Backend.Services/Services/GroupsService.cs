@@ -258,5 +258,15 @@ namespace ITLearning.Backend.Business.Services
                 return CommonResult<GetUsersForGroupResult>.Failure(getUsersResult.ErrorMessage);
             }
         }
+
+        public CommonResult RemoveUsers(UserGroupRequest request)
+        {
+            return _groupsRepository.RemoveUsers(request);
+        }
+
+        public CommonResult AddUsers(UserGroupRequest request)
+        {
+            return _groupsRepository.AddUsers(request);
+        }
     }
 }
