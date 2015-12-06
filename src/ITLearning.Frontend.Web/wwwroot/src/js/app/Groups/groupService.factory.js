@@ -9,10 +9,13 @@
     function groupsService($http) {
 
         var service = {
-            getUserGroupsBasicData: getUserGroupsBasicData
+            getUserGroupsBasicData: getUserGroupsBasicData,
+            getUsersForGroup: getUsersForGroup,
+            deleteUser: deleteUser
         };
 
         return service;
+
         ////////////////////////////
 
         function getUserGroupsBasicData(requestData) {
@@ -26,6 +29,34 @@
 
             function getUserGroupsBasicDataFailed(error) {
                 console.log('Request failed for getUserGroupsBasicData method.' + error.data);
+            }
+        }
+
+        function getUsersForGroup(requestData) {
+            return $http.post('/Groups/GetUsersForGroup', requestData)
+                .then(getUsersForGroupComplete)
+                .catch(getUsersForGroupFailed);
+
+            function getUsersForGroupComplete(response){
+                return response.data;
+            }
+
+            function getUsersForGroupFailed(error) {
+                console.log('Request failed for getUsersForGroup method.' + error.data);
+            }
+        }
+
+        function deleteUser(requestData) {
+            return $http.post('/Groups/DeleteUser', requestData)
+                .then(deleteUserComplete)
+                .catch(deleteUserFailed);
+
+            function deleteUserComplete(response) {
+                return response.data;
+            }
+
+            function deleteUserFailed(error) {
+                console.log('Request failed for deleteUser method.' + error.data);
             }
         }
     }

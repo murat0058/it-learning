@@ -36,41 +36,61 @@
         groupUsersVm.users = [];
         groupUsersVm.loadingIndicator = loadingIndicatorService.getIndicator(loadingMessage);
 
+        groupUsersVm.deleteUser = deleteUser;
+
         activate();
 
-        function activate() {
-            groupUsersVm.users = [
-                {
-                    id: 0,
-                    name: 'Przemek Smyrdek'
-                },
-                {
-                    id: 1,
-                    name: 'Janek Kowalski'
-                },
-                {
-                    id: 2,
-                    name: 'Tomek Frankowski'
-                },
-                {
-                    id: 3,
-                    name: 'Marek Nowak'
-                },
-                {
-                    id: 4,
-                    name: 'Janek Nowak'
-                },
-                {
-                    id: 5,
-                    name: 'Tomek Frankowski'
-                },
-                {
-                    id: 6,
-                    name: 'Tomek Frankowski'
-                }
-            ];
+        /////////////////
 
-            groupUsersVm.loadingIndicator.Hide();
+        function activate() {
+            getUsers();
+        }
+
+        function getUsers() {
+            groupUsersVm.loadingIndicator.SetLoading(loadingMessage);
+
+            var request = {
+                GroupId: groupUsersVm.groupId
+            };
+
+            return groupsService
+                .getUsersForGroup(request)
+                .then(function (data) {
+                    if (data.IsSuccess) {
+                        groupUsersVm.users = data.Item.Users.map(function (user) {
+                            return {
+                                id: user.Id,
+                                name: user.Name
+                            }
+                        });
+
+                        groupUsersVm.loadingIndicator.Hide();
+                    } else {
+                        groupUsersVm.loadingIndicator.SetLoaded(data.ErrorMessage);
+                    }
+                });
+        }
+
+        function deleteUser(user, failureCallback) {
+
+            var request = {
+                UserId: user.id,
+                GroupId: groupUsersVm.groupId
+            };
+
+            return groupsService
+               .deleteUser(request)
+               .then(function (data) {
+                   if (data.IsSuccess) {
+                       var indexOfUser = groupUsersVm.users.indexOf(user);
+                       groupUsersVm.users.splice(indexOfUser, 1);
+                   } else {
+                       if (typeof (failureCallback) === "function") {
+                           failureCallback();
+                       }
+                   }
+               });
+
         }
 
     }

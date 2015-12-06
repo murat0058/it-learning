@@ -32,12 +32,12 @@ namespace ITLearning.Backend.Business.Services
         {
             var validator = new CreateGroupRequestDataValidator();
 
-            request.Password = request.Password != null ? 
-                request.Password.ToBase64() : 
+            request.Password = request.Password != null ?
+                request.Password.ToBase64() :
                 request.Password;
 
-            request.PasswordConfirmation = request.PasswordConfirmation != null ? 
-                request.PasswordConfirmation.ToBase64() : 
+            request.PasswordConfirmation = request.PasswordConfirmation != null ?
+                request.PasswordConfirmation.ToBase64() :
                 request.Password;
 
             var validationResult = validator.Validate(request);
@@ -69,7 +69,7 @@ namespace ITLearning.Backend.Business.Services
             {
                 var group = groupResult.Item;
 
-                if(group.Owner.UserName == request.UserName)
+                if (group.Owner.UserName == request.UserName)
                 {
                     return _groupsRepository.Delete(request.GroupId);
                 }
@@ -117,7 +117,7 @@ namespace ITLearning.Backend.Business.Services
                 {
                     accessType = GroupAccessTypeEnum.Owner;
                 }
-                else if(group.Users.FirstOrDefault(x => x.UserName == request.UserName) != null || !group.IsPrivate)
+                else if (group.Users.FirstOrDefault(x => x.UserName == request.UserName) != null || !group.IsPrivate)
                 {
                     accessType = GroupAccessTypeEnum.Standard;
                 }
@@ -185,7 +185,7 @@ namespace ITLearning.Backend.Business.Services
             }
         }
 
-        public CommonResult TryAddUserToGroup(AddUserToGroupRequest request)
+        public CommonResult TryAddUserToPrivateGroup(AddUserToGroupRequest request)
         {
             var getUserProfileDataResult = _userRepository.GetUserProfile(request.UserName);
             var getGroup = GetData(new GetGroupRequest { GroupId = request.GroupId });
@@ -224,6 +224,49 @@ namespace ITLearning.Backend.Business.Services
             {
                 return CommonResult.Failure("Błąd pobierania danych.");
             }
+        }
+
+        public CommonResult<GetUsersForGroupResult> GetUsersForGroup(GetUsersForGroupRequest request)
+        {
+            var getUsersResult = _groupsRepository.Get(request.GroupId, true, true);
+
+            if (getUsersResult.IsSuccess)
+            {
+                var group = getUsersResult.Item;
+
+                if (group.Owner.UserName != request.OwnerName)
+                {
+                    return CommonResult<GetUsersForGroupResult>.Failure("Jedynie założyciel grupy może widzieć te dane.");
+                }
+
+                var users = group.Users.Where(x => x.UserName != request.OwnerName).ToList();
+
+                if (users.Any())
+                {
+                    return CommonResult<GetUsersForGroupResult>.Success(new GetUsersForGroupResult
+                    {
+                        Users = users.Select(x => Mapper.Map<UserData>(x))
+                    });
+                }
+                else
+                {
+                    return CommonResult<GetUsersForGroupResult>.Failure("Jesteś jedynym użytkownikiem tej grupy.");
+                }
+            }
+            else
+            {
+                return CommonResult<GetUsersForGroupResult>.Failure(getUsersResult.ErrorMessage);
+            }
+        }
+
+        public CommonResult RemoveUsers(UserGroupRequest request)
+        {
+            return _groupsRepository.RemoveUsers(request);
+        }
+
+        public CommonResult AddUsers(UserGroupRequest request)
+        {
+            return _groupsRepository.AddUsers(request);
         }
     }
 }

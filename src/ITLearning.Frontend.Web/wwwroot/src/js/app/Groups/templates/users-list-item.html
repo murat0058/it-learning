@@ -1,4 +1,5 @@
 ﻿<div class="user-item">
+    <div class="overlay ng-cloak" ng-show="user.isDeletingConfirmed"></div>
     <div class="content">
         <p class="user-name" ng-bind="user.name"></p>
         <button class="delete-btn btn btn-default" ng-click="toggleUserDeleting(user)">
