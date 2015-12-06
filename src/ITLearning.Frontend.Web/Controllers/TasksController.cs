@@ -1,6 +1,9 @@
-﻿using ITLearning.Contract.Data.Model;
+﻿using CommonMark;
+using ITLearning.Contract.Data.Model;
+using ITLearning.Contract.Data.Model.Branches;
 using ITLearning.Contract.Data.Model.Groups;
 using ITLearning.Contract.Data.Model.Tasks;
+using ITLearning.Contract.Data.Model.User;
 using ITLearning.Contract.Data.Requests.Tasks;
 using ITLearning.Contract.Data.Results;
 using ITLearning.Contract.Enums;
@@ -21,11 +24,11 @@ namespace ITLearning.Frontend.Web.Controllers
             _tasksService = tasksService;
         }
 
-        [HttpGet("{id:int}/{taskViewType}")]
+        [HttpGet("{id:int}")]
         public IActionResult Single(int id)
         {
             //todo get taskVieType by id && user
-            var taskViewType = TaskViewTypeEnum.PublicView;
+            var taskViewType = TaskViewTypeEnum.OwnerView;
 
             if (taskViewType == TaskViewTypeEnum.OwnerView)
             {
@@ -47,17 +50,31 @@ namespace ITLearning.Frontend.Web.Controllers
             {
                 Id = 1,
                 Title = "Nowe zadanie #1",
-                Description = "Opis zadania pierwszego...",
+                Description = CommonMarkConverter.Convert("Zaczynamy! **Przykładowy opis 1,2,3...**"),
                 IsActive = true,
                 SelectedLanguage = LanguageEnum.CSharp,
                 UserGroup = new UserGroupData()
                 {
                     Id = 32,
                     Name = "Ludzie i c#"
-                }
+                },
+                Branches = new List<BranchShortData>
+                {
+                    new BranchShortData()
+                    {
+                        Name = "master",
+                        Description = "Główny branch. Pobież kod, od którego możesz zacząć!"
+                    },
+                    new BranchShortData()
+                    {
+                        Name = "Podpowiedź 1",
+                        Description = "Pierwsza podpowiedź"
+                    }
+                },
+                RepositoryLink = "https:/azure.git/asdsadsadds/"
             };
 
-            return View("SingleOwner", JsonConvert.SerializeObject(task));
+            return View("SingleOwner", task);
         }
 
         [HttpGet("InstanceSingleView/{id:int}")]
@@ -67,17 +84,35 @@ namespace ITLearning.Frontend.Web.Controllers
             {
                 Id = 1,
                 Title = "Nowe zadanie #1",
-                Description = "Opis zadania pierwszego...",
+                Description = CommonMarkConverter.Convert("Zaczynamy! **Przykładowy opis 1,2,3...**"),
                 IsActive = true,
                 SelectedLanguage = LanguageEnum.CSharp,
                 UserGroup = new UserGroupData()
                 {
                     Id = 32,
                     Name = "Ludzie i c#"
+                },
+                Branches = new List<BranchShortData>
+                {
+                    new BranchShortData()
+                    {
+                        Name = "master",
+                        Description = "Główny branch. Pobież kod, od którego możesz zacząć!"
+                    },
+                    new BranchShortData()
+                    {
+                        Name = "Podpowiedź 1",
+                        Description = "Pierwsza podpowiedź"
+                    }
+                },
+                Author = new UserShortData()
+                {
+                    Id = 5,
+                    UserName = "Adrianno"
                 }
             };
 
-            return View("SingleInstance", JsonConvert.SerializeObject(task));
+            return View("SingleInstance", task);
         }
 
         [HttpGet("PublicSingleView/{id:int}")]
@@ -87,17 +122,35 @@ namespace ITLearning.Frontend.Web.Controllers
             {
                 Id = 1,
                 Title = "Nowe zadanie #1",
-                Description = "Opis zadania pierwszego...",
+                Description = CommonMarkConverter.Convert("Zaczynamy! **Przykładowy opis 1,2,3...**"),
                 IsActive = true,
                 SelectedLanguage = LanguageEnum.CSharp,
                 UserGroup = new UserGroupData()
                 {
                     Id = 32,
                     Name = "Ludzie i c#"
+                },
+                Branches = new List<BranchShortData>
+                {
+                    new BranchShortData()
+                    {
+                        Name = "master",
+                        Description = "Główny branch. Pobież kod, od którego możesz zacząć!"
+                    },
+                    new BranchShortData()
+                    {
+                        Name = "Podpowiedź 1",
+                        Description = "Pierwsza podpowiedź"
+                    }
+                },
+                Author = new UserShortData()
+                {
+                    Id = 5,
+                    UserName = "Adrianno"
                 }
             };
 
-            return View("Single", JsonConvert.SerializeObject(task));
+            return View("Single", task);
         }
 
         [HttpGet("TasksList")]
@@ -139,6 +192,14 @@ namespace ITLearning.Frontend.Web.Controllers
 
         [HttpPost("Create")]
         public IActionResult Create(CreateTaskRequestData requestData)
+        {
+            //_tasksService.Create(requestData);
+
+            return RedirectToAction("ActionName");
+        }
+
+        [HttpPost("BeginTask/{taskId:int}")]
+        public IActionResult BeginTask(int taskId)
         {
             //_tasksService.Create(requestData);
 
