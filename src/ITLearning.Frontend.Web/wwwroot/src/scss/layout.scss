@@ -611,10 +611,13 @@ body > .main-content > .content {
                 @include wrap-dots();
             }
 
-            p.group-summary {
-                margin: 4px 0;
+            ul.group-summary {
+                margin: 5px;
+                margin-left: 0;
+                padding: 0;
+                list-style-type: none;
 
-                span {
+                li {
                     display: inline-block;
                     background-color: $color-primary;
                     color: $color-default;
@@ -622,6 +625,7 @@ body > .main-content > .content {
                     min-width: 50px;
                     padding: 0 5px;
                     text-align: center;
+                    margin-right: 3px;
                 }
             }
         }

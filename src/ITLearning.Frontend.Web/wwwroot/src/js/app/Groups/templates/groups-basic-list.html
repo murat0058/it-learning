@@ -4,19 +4,17 @@
         <a ng-href="/Groups/{{group.Id}}">
             <div class="content">
                 <p class="group-title" ng-bind="group.Name"></p>
-                <p class="group-summary">
-                    <div ng-switch="group.IsPrivate">
-                        <div ng-switch-when="true">
-                            <i class="fa fa-lock"></i>
-                        </div>
-                        <div ng-switch-when="false">
-                            <i class="fa fa-unlock"></i>
-                        </div>
-                    </div>
-                    <span>
+                <ul class="group-summary">
+                    <li ng-if="group.IsPrivate" title="Grupa prywatna">
+                        <i class="fa fa-lock"></i>
+                    </li>
+                    <li ng-if="!group.IsPrivate" title="Grupa publiczna">
+                        <i class="fa fa-unlock"></i>
+                    </li>
+                    <li title="Liczba użytkowników">
                         <i class="fa fa-users"></i> {{group.NoOfUsers}}
-                    </span>
-                </p>
+                    </li>
+                </ul>
             </div>
         </a>
     </div>
