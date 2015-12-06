@@ -9,8 +9,52 @@
         margin-bottom: 10px;
     }
 
-    .users-list{
-        height: 300px;
+    .users-list {
+        height: 280px;
         border-radius: 3px;
+        overflow-y: scroll;
+        padding-right: 5px;
+
+        .user-item {
+            width: 100%;
+            position: relative;
+            font-weight: 600;
+            font-family: $custom-font;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #efefef;
+
+            @include with-animated-background(300ms);
+
+            &:hover {
+                background-color: $color-default;
+            }
+
+            .content {
+                .user-name {
+                    width: 80%;
+                    margin: 0;
+                    padding: 0;
+
+                    @include wrap-dots();
+                }
+
+                .delete-btn {
+                    position: absolute;
+                    right: 10px;
+                    top: 4px;
+                    width: 30px;
+                }
+            }
+
+            .delete-actions {
+
+                .btn {
+                    margin-bottom: 0;
+                    margin-top: 12px;
+                    padding: 1px 3px;
+                }
+            }
+        }
     }
 }

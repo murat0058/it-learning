@@ -33,7 +33,45 @@
 
         var loadingMessage = "Pobieram dane...";
 
+        groupUsersVm.users = [];
         groupUsersVm.loadingIndicator = loadingIndicatorService.getIndicator(loadingMessage);
+
+        activate();
+
+        function activate() {
+            groupUsersVm.users = [
+                {
+                    id: 0,
+                    name: 'Przemek Smyrdek'
+                },
+                {
+                    id: 1,
+                    name: 'Janek Kowalski'
+                },
+                {
+                    id: 2,
+                    name: 'Tomek Frankowski'
+                },
+                {
+                    id: 3,
+                    name: 'Marek Nowak'
+                },
+                {
+                    id: 4,
+                    name: 'Janek Nowak'
+                },
+                {
+                    id: 5,
+                    name: 'Tomek Frankowski'
+                },
+                {
+                    id: 6,
+                    name: 'Tomek Frankowski'
+                }
+            ];
+
+            groupUsersVm.loadingIndicator.Hide();
+        }
 
     }
 

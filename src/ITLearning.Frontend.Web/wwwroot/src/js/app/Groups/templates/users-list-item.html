@@ -1,0 +1,22 @@
+﻿<div class="user-item">
+    <div class="content">
+        <p class="user-name" ng-bind="user.name"></p>
+        <button class="delete-btn btn btn-default" ng-click="toggleUserDeleting(user)">
+            <i class="fa fa-times"></i>
+        </button>
+    </div>
+    <div class="delete-actions">
+        <div class="row ng-cloak" ng-show="user.isDeletingInProgress">
+            <div class="col-xs-6">
+                <button class="btn btn-block btn-danger" ng-click="confirmUserDeleting(user)">
+                    <i class="fa fa-times"></i> Usuń
+                </button>
+            </div>
+            <div class="col-xs-6">
+                <button class="btn btn-block btn-dark" ng-click="cancelUserDeleting(user)">
+                    Anuluj
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
