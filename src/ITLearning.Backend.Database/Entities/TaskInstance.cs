@@ -13,6 +13,9 @@ namespace ITLearning.Backend.Database.Entities
         public GitRepository GitRepository { get; set; }
         public User User { get; set; }
 
+        //TODO AB change relation to one-to-one
         public ICollection<TaskInstanceReview> TaskInstanceReviews { get; set; }
+
+        //TODO AB add property for creation date
     }
 }

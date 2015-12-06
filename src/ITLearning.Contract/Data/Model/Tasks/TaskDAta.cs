@@ -25,5 +25,7 @@ namespace ITLearning.Contract.Data.Model.Tasks
         public IEnumerable<BranchShortData> Branches { get; set; }
 
         public UserShortData Author { get; set; }
+
+        public IEnumerable<TaskInstanceData> TaskInstances { get; set; }
     }
 }

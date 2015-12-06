@@ -71,7 +71,45 @@ namespace ITLearning.Frontend.Web.Controllers
                         Description = "Pierwsza podpowiedź"
                     }
                 },
-                RepositoryLink = "https:/azure.git/asdsadsadds/"
+                RepositoryLink = "https:/azure.git/asdsadsadds/",
+                TaskInstances = new List<TaskInstanceData>
+                {
+                    new TaskInstanceData()
+                    {
+                        User = new UserShortData
+                        {
+                            Id = 1,
+                            UserName = "Ziutek"
+                        },
+                        Finished = false,
+                        CreateDate = "2015-11-23",
+                        CodeReviewExist = false
+                    },
+                    new TaskInstanceData()
+                    {
+                        User = new UserShortData
+                        {
+                            Id = 1,
+                            UserName = "Zdzisek"
+                        },
+                        Finished = true,
+                        CreateDate = "2015-11-24",
+                        FinishDate = "2015-11-29",
+                        CodeReviewExist = false
+                    },
+                    new TaskInstanceData()
+                    {
+                        User = new UserShortData
+                        {
+                            Id = 1,
+                            UserName = "Zbigniew"
+                        },
+                        Finished = true,
+                        CreateDate = "2015-11-21",
+                        FinishDate = "2015-11-26",
+                        CodeReviewExist = true
+                    }
+                }
             };
 
             return View("SingleOwner", task);
