@@ -28,7 +28,7 @@ namespace ITLearning.Frontend.Web.Controllers
         public IActionResult Single(int id)
         {
             //todo get taskVieType by id && user
-            var taskViewType = TaskViewTypeEnum.PublicView;
+            var taskViewType = TaskViewTypeEnum.OwnerView;
 
             if (taskViewType == TaskViewTypeEnum.OwnerView)
             {
@@ -71,11 +71,7 @@ namespace ITLearning.Frontend.Web.Controllers
                         Description = "Pierwsza podpowiedź"
                     }
                 },
-                Author = new UserShortData()
-                {
-                    Id = 5,
-                    UserName = "Adrianno"
-                }
+                RepositoryLink = "https:/azure.git/asdsadsadds/"
             };
 
             return View("SingleOwner", task);
