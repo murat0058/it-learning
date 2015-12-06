@@ -10,7 +10,9 @@
                    ng-model-options="{ debounce: 1000 }" />
         </div>
         <div class="users-list">
-
+            <div ng-repeat="user in groupUsersVm.users">
+                <itl-users-list-item user="user"></itl-users-list-item>
+            </div>
             <ng-transclude></ng-transclude>
         </div>
     </div>
