@@ -1,6 +1,76 @@
-﻿@model string
+﻿@model ITLearning.Contract.Data.Model.Tasks.TaskData
 
-@Model
+@{
+    var language = Model.SelectedLanguage.ToString();
+}
 
+<div class="task-header" ng-style="publicSingleTaskVM.BackgroundImage" ng-controller="PublicSingleTaskViewController as publicSingleTaskVM"
+     ng-init="publicSingleTaskVM.init('@language')">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div ng-style="publicSingleTaskVM.BackgroundColor" style="width: 100px; height: 26px; border-radius: 3px; margin-left: 1px;">
+                    <div style="display: inline-block;">
+                        <i class="fa fa-file" style="font-size: 26px;"></i>
+                    </div>
+                    <div style="display: inline-block; margin-left: 5px;">
+                        <h3 class="name" style="font-size: 20px; position:absolute; top: -3px;"> {{publicSingleTaskVM.Language}}</h3>
+                    </div>
+                </div>
+                <h4 class="description">@Model.Title</h4>
+            </div>
+            <div class="col-md-4">
+                <p>Grupa</p>
+                @if (Model.UserGroup != null)
+                {
+                    <div><a href="/Groups/@Model.UserGroup.Id"><i class="fa fa-users"></i> @Model.UserGroup.Name</a></div>
+                }
+                else
+                {
+                    <div>Brak przydzielonej grupy</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
-Single Public!
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                @Html.Raw(Model.Description)
+                <div style="margin-top: 30px;">
+                    Autor:
+                    <a href="#">@Model.Author.UserName</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <label class="control-label">Dostępne branch'e:</label>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="min-width: 110px;">Nazwa</th>
+                            <th>Opis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Branches)
+                        {
+                            <tr>
+                                <td style="min-width: 110px;">@item.Name</td>
+                                <td style="word-break: break-word">@item.Description</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div style="margin-left: -10px; margin-top: 50px; margin-bottom: 50px;">
+                    <form asp-action="BeginTask" asp-controller="Tasks" asp-route-id="@Model.Id">
+                        <button class="btn btn-success" type="submit"><i class="fa fa-check"></i> Rozpocznij zadanie</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

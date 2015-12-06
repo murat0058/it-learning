@@ -1,5 +1,6 @@
 ﻿using ITLearning.Contract.Data.Model.Branches;
 using ITLearning.Contract.Data.Model.Groups;
+using ITLearning.Contract.Data.Model.User;
 using ITLearning.Contract.Enums;
 using System.Collections.Generic;
 
@@ -13,7 +14,7 @@ namespace ITLearning.Contract.Data.Model.Tasks
 
         public string Description { get; set; }
 
-        //public string RepositoryLink { get; set; }
+        public string RepositoryLink { get; set; }
 
         public bool IsActive { get; set; }
 
@@ -21,6 +22,8 @@ namespace ITLearning.Contract.Data.Model.Tasks
 
         public UserGroupData UserGroup { get; set; }
 
-        //public IEnumerable<BranchShortData> Branches { get; set; }
+        public IEnumerable<BranchShortData> Branches { get; set; }
+
+        public UserShortData Author { get; set; }
     }
 }
