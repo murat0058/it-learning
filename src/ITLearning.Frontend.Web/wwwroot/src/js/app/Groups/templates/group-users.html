@@ -11,7 +11,7 @@
         </div>
         <div class="users-list">
             <div ng-repeat="user in groupUsersVm.users">
-                <itl-users-list-item user="user"></itl-users-list-item>
+                <itl-users-list-item user="user" delete-user="groupUsersVm.deleteUser"></itl-users-list-item>
             </div>
             <ng-transclude></ng-transclude>
         </div>

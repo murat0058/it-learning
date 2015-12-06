@@ -14,18 +14,24 @@
             templateUrl: '/src/js/app/Groups/templates/users-list-item.html',
             restrict: 'E',
             scope: {
-                user: '='
+                user: '=',
+                deleteUser: '='
             },
             link: link
         };
 
+        var deleteUserFunc = null;
+
         function link(scope, element, attrs) {
 
             scope.user.isDeletingInProgress = false;
+            scope.user.isDeletingConfirmed = false;
 
             scope.toggleUserDeleting = toggleUserDeleting;
             scope.confirmUserDeleting = confirmUserDeleting;
             scope.cancelUserDeleting = cancelUserDeleting;
+
+            deleteUserFunc = scope.deleteUser;
         }
 
         function toggleUserDeleting(user) {
@@ -34,7 +40,9 @@
         }
 
         function confirmUserDeleting(user) {
-            //TODO
+            user.isDeletingConfirmed = true;
+
+            deleteUserFunc(user);
         }
 
         function cancelUserDeleting(user) {

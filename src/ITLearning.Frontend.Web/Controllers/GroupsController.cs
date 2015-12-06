@@ -176,7 +176,7 @@ namespace ITLearning.Frontend.Web.Controllers
         {
             var vm = viewModel.PasswordEntryDataViewModel;
 
-            var result = _groupsService.TryAddUserToGroup(new AddUserToGroupRequest
+            var result = _groupsService.TryAddUserToPrivateGroup(new AddUserToGroupRequest
             {
                 GroupId = vm.GroupId,
                 UserName = User.Identity.Name,
@@ -222,6 +222,20 @@ namespace ITLearning.Frontend.Web.Controllers
             };
 
             var result = _groupsService.GetLatestGroupsData(request);
+
+            return new JsonResult(result);
+        }
+
+        [HttpPost("GetUsersForGroup")]
+        public IActionResult GetUsersForGroup(UsersForGroupViewModel viewModel)
+        {
+            var request = new GetUsersForGroupRequest
+            {
+                OwnerName = User.Identity.Name,
+                GroupId = viewModel.GroupId
+            };
+
+            var result = _groupsService.GetUsersForGroup(request);
 
             return new JsonResult(result);
         }

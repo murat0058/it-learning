@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using ITLearning.Backend.Database.Entities;
 using ITLearning.Backend.Database.Entities.JunctionTables;
 using ITLearning.Contract.Data.Model.Groups;
@@ -28,6 +29,8 @@ namespace ITLearning.Shared.Mappings
             Mapper.CreateMap<UserProfileData, User>();
             Mapper.CreateMap<UserProfileData, UserProfileViewModel>();
             Mapper.CreateMap<UpdateUserProfileRequest, UserProfileData>();
+            Mapper.CreateMap<UserProfileData, UserData>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => GetUserName(src)));
 
             Mapper.CreateMap<CreateGroupViewModel, CreateGroupRequest>();
             Mapper.CreateMap<UpdateGroupViewModel, UpdateGroupRequest>();
@@ -39,6 +42,18 @@ namespace ITLearning.Shared.Mappings
                 .ForMember(dest => dest.Owner, opt => opt.Ignore())
                 .ForMember(dest => dest.Users, opt => opt.Ignore());
             //  .ForMember(dest => dest.Tasks, opt => opt.Ignore());
+        }
+
+        private static string GetUserName(UserProfileData src)
+        {
+            if(string.IsNullOrEmpty(src.FirstName) || string.IsNullOrEmpty(src.LastName))
+            {
+                return src.UserName;
+            }
+            else
+            {
+                return $"{src.FirstName} {src.LastName}";
+            }
         }
     }
 }

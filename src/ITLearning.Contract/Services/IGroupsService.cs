@@ -27,7 +27,9 @@ namespace ITLearning.Contract.Services
 
         CommonResult UpdateGroup(UpdateGroupRequest request);
 
-        CommonResult TryAddUserToGroup(AddUserToGroupRequest request);
+        CommonResult TryAddUserToPrivateGroup(AddUserToGroupRequest request);
+
+        CommonResult<GetUsersForGroupResult> GetUsersForGroup(GetUsersForGroupRequest request);
     }
         
 }
