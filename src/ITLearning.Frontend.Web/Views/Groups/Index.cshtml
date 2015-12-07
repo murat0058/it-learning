@@ -1,15 +1,66 @@
 ﻿<div class="content-wrapper">
     <div class="container">
-        <div class="row">
+        <div class="row" ng-controller="GroupsListController as groupsListVm">
             <div class="col-md-3 side-section">
                 <h4>Grupy</h4>
                 <a asp-action="Create" asp-controller="Groups" class="btn btn-block btn-success">
                     <i class="fa fa-plus"></i> Utwórz grupę
                 </a>
+                <h4>Filtruj</h4>
+                <p class="group-title-small">Założyciel grupy</p>
+                <form name="myForm" role="form" class="itl-form">
+                    <div class="radio">
+                        <label for="ownerTypeAll" class="radio-label">
+                            <input type="radio" id="ownerTypeAll" name="ownerTypeAll"
+                                   ng-model="groupsListVm.filters.ownerType"
+                                   ng-value="groupsListVm.groupOwnerEnum.all">
+                            <span>Wszyscy</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="ownerTypeMineOnly" class="radio-label">
+                            <input type="radio" id="ownerTypeMineOnly" name="ownerTypeMineOnly"
+                                   ng-model="groupsListVm.filters.ownerType"
+                                   ng-value="groupsListVm.groupOwnerEnum.onlyMine">
+                            <span>Tylko moje</span>
+                        </label>
+                    </div>
+                </form>
+                <p class="group-title-small">Typ dostępu</p>
+                <form name="myForm" role="form" class="itl-form">
+                    <div class="radio">
+                        <label for="accessTypeAll" class="radio-label">
+                            <input type="radio" id="accessTypeAll" name="accessTypeAll"
+                                   ng-model="groupsListVm.filters.accessType"
+                                   ng-value="groupsListVm.groupAccessEnum.all">
+                            <span>Wszystkie</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="accessTypePrivateOnly" class="radio-label">
+                            <input type="radio" id="accessTypePrivateOnly" name="accessTypePrivateOnly"
+                                   ng-model="groupsListVm.filters.accessType"
+                                   ng-value="groupsListVm.groupAccessEnum.privateOnly">
+                            <span>Tylko prywatne</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="accessTypePublicOnly" class="radio-label">
+                            <input type="radio" id="accessTypePublicOnly" name="accessTypePublicOnly"
+                                   ng-model="groupsListVm.filters.accessType"
+                                   ng-value="groupsListVm.groupAccessEnum.publicOnly">
+                            <span>Tylko publiczne</span>
+                        </label>
+                    </div>
+                </form>
             </div>
             <div class="col-md-9">
                 <div class="groups-list">
-                    <input type="text" placeholder="Wyszukaj grupę" class="form-control search-control"/>
+                    <input type="text" placeholder="Wyszukaj grupę" class="form-control search-control" 
+                           ng-model="groupsListVm.filters.query"
+                           ng-model-options="{ debounce: 1000 }"/>
+                    <itl-loading-indicator parent-vm="groupsListVm" dot-background="#333" dot-size="10px"></itl-loading-indicator>
+                    
                 </div>
             </div>
         </div>

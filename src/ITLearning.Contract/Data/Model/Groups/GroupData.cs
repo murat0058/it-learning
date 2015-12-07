@@ -1,4 +1,5 @@
-﻿using ITLearning.Contract.Data.Model.User;
+﻿using ITLearning.Contract.Data.Model.Tasks;
+using ITLearning.Contract.Data.Model.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,6 @@ namespace ITLearning.Contract.Data.Model.Groups
         public string Password { get; set; }
         public UserProfileData Owner { get; set; }
         public IEnumerable<UserProfileData> Users { get; set; }
-
-        //TODO
-        //public IEnumerable<TaskData> Tasks { get; set; }
+        public IEnumerable<TaskData> Tasks { get; set; }
     }
 }

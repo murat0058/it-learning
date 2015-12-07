@@ -452,6 +452,13 @@ body > .main-content > .content {
     }
 }
 
+.side-section {
+    .group-title-small {
+        font-weight: 600;
+        font-family: $custom-font;
+    }
+}
+
 .filter-category-wrapper {
     font-family: $custom-font;
 
@@ -862,6 +869,54 @@ footer {
 
         &:hover {
             color: $color-default;
+        }
+    }
+}
+
+.itl-form {
+    .radio {
+        color: $color-dark;
+        padding: 5px;
+        border-radius: 4px;
+
+        @include with-animated-background(300ms);
+
+        &:hover {
+            background-color: $color-default;
+        }
+
+        .radio-label{
+            margin-left: 20px;
+        }
+
+        input[type=radio] {
+            border: 0;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+
+        $size: 15px;
+
+        input[type="radio"] + span::before {
+            content: '';
+            display: inline-block;
+            width: $size;
+            height: $size;
+            border-radius: 100%;
+            margin-right: 0.75em;
+            border: 2px solid gray;
+            position: absolute;
+            left: 22px;
+            top: 8px;
+        }
+
+        input[type="radio"]:checked + span::before {
+            background: $color-success;
+            box-shadow: 0 2px 4px rgba($color-dark, 0.2);
         }
     }
 }

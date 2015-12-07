@@ -4,10 +4,12 @@
         .module('app.news')
         .controller('NewsListController', NewsListController);
 
-    NewsListController.$inject = ['$scope', 'newsService']
+    NewsListController.$inject = ['$scope', 'newsService', 'loadingIndicatorService']
 
-    function NewsListController($scope, newsService) {
+    function NewsListController($scope, newsService, loadingIndicatorService) {
         var newsListVm = this;
+
+        var loadingMessage = "Ładuję newsy...";
 
         newsListVm.filters = {
             query: '',
@@ -19,7 +21,7 @@
 
         newsListVm.tags = [];
         newsListVm.authors = [];
-        newsListVm.isLoadingIndicatorVisible = false;
+        newsListVm.loadingIndicator = loadingIndicatorService.getIndicator(loadingMessage);
 
         newsListVm.activate = activate;
         newsListVm.toggleTagFilter = toggleTagFilter;
@@ -57,7 +59,7 @@
         }
 
         function getNews() {
-            newsListVm.isLoadingIndicatorVisible = true;
+            newsListVm.loadingIndicator.SetLoading(loadingMessage);
 
             var request = {
                 Query: newsListVm.filters.query,
@@ -69,7 +71,7 @@
                 .getNewsList(request)
                 .then(function (data) {
                     newsListVm.news = data;
-                    newsListVm.isLoadingIndicatorVisible = false;
+                    newsListVm.loadingIndicator.Hide();
                 });
         }
 

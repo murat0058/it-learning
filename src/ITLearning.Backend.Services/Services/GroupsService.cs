@@ -185,6 +185,13 @@ namespace ITLearning.Backend.Business.Services
             }
         }
 
+        public CommonResult<GroupData> GetFullData(GetGroupRequest request)
+        {
+            var getGroupResult = _groupsRepository.Get(request.GroupId, withOwner: true, withUsers: true, withTasks: true);
+
+            return getGroupResult;
+        }
+
         public CommonResult TryAddUserToPrivateGroup(AddUserToGroupRequest request)
         {
             var getUserProfileDataResult = _userRepository.GetUserProfile(request.UserName);

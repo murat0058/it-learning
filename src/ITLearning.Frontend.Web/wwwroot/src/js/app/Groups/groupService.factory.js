@@ -9,6 +9,7 @@
     function groupsService($http) {
 
         var service = {
+            getGroups: getGroups,
             getUserGroupsBasicData: getUserGroupsBasicData,
             getUsersForGroup: getUsersForGroup,
             deleteUser: deleteUser
@@ -17,6 +18,20 @@
         return service;
 
         ////////////////////////////
+
+        function getGroups(requestData) {
+            return $http.post('/Groups/GetGroupsList', requestData)
+                .then(getGroupsComplete)
+                .catch(getGroupsFailed);
+
+            function getGroupsComplete(response) {
+                return response.data;
+            }
+
+            function getGroupsFailed(error) {
+                console.log('Request failed for getGroups method.' + error.data);
+            }
+        }
 
         function getUserGroupsBasicData(requestData) {
             return $http.post('/Groups/UserGroupsBasicData', requestData)
