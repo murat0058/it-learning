@@ -4,7 +4,7 @@
     var language = Model.SelectedLanguage.ToString();
 }
 
-<div class="task-header" ng-style="publicSingleTaskVM.BackgroundImage" ng-controller="OwnerSingleTaskViewController as ownerSingleTaskVM"
+<div class="task-header" ng-style="ownerSingleTaskVM.BackgroundImage" ng-controller="OwnerSingleTaskViewController as ownerSingleTaskVM"
      ng-init="ownerSingleTaskVM.init('@language')">
     <div class="container">
         <div class="row">
