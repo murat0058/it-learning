@@ -38,13 +38,86 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                @Html.Raw(Model.Description)
+                <div id="task-description" ng-show="ownerSingleTaskVM.IsDescriptionVisible">
+                    @Html.Raw(Model.Description)
+                </div>
+                <div class="btn btn-success" ng-click="ownerSingleTaskVM.IsDescriptionVisible = !ownerSingleTaskVM.IsDescriptionVisible" style="margin-left: 0px;">
+                    <i ng-class="ownerSingleTaskVM.IsDescriptionVisible ? 'fa fa-arrow-circle-up' : 'fa fa-arrow-circle-down'"></i>
+                    {{ ownerSingleTaskVM.IsDescriptionVisible ? "Ukryj" : "Pokaż" }} Opis
+                </div>
+                <div>
+                    <label class="control-label" style="margin-top: 42px;">Instancje zadania:</label>
+                    <div class="table-responsive">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th style="min-width: 110px;">Użytkownik</th>
+                                    <th>Rozpoczęto</th>
+                                    <th>Zakończono</th>
+                                    <th>Code Review</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.TaskInstances)
+                                {
+                                    <tr>
+                                        <td style="min-width: 110px;">@item.User.UserName</td>
+                                        <td>@item.CreateDate</td>
+                                        @if (@item.Finished)
+                                        {
+                                            <td>@item.FinishDate</td>
+                                        }
+                                        else
+                                        {
+                                            <td>-</td>
+                                        }
+                                        <td>
+                                            @if (item.CodeReviewExist)
+                                            {
+                                                <a href="#"><i class="fa fa-check"></i> Wyświetl</a>
+                                            }
+                                            else if (item.Finished)
+                                            {
+                                                <a href="#"><i class="fa fa-plus"></i> Dodaj</a>
+                                            }
+                                            else
+                                            {
+                                                <span>-</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.CodeReviewExist)
+                                            {
+                                                <span style="background-color: forestgreen; border-radius: 3px; padding: 5px; color: white;">
+                                                    Zakończone
+                                                </span>
+                                            }
+                                            else if (item.Finished)
+                                            {
+                                                <span style="background-color: orange; border-radius: 3px; padding: 5px; color: white;">
+                                                    Oczekujące na ocenę
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span style="background-color: dimgray; border-radius: 3px; padding: 5px; color: white;">
+                                                    W trakcie
+                                                </span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="control-label">Link do repozytorium GIT</label>
-                        <input class="form-control" value="@Model.RepositoryLink" readonly />
-                    </div>
+                <div class="form-group">
+                    <label class="control-label">Link do repozytorium GIT</label>
+                    <input class="form-control" value="@Model.RepositoryLink" readonly />
+                </div>
                 <div>
                     <label class="control-label">Dostępne branch'e:</label>
                 </div>
