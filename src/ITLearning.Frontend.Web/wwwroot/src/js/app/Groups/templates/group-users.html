@@ -3,12 +3,6 @@
         <span><i class="fa fa-user-plus"></i> | Użytkownicy</span>
     </div>
     <div class="panel-body">
-        <div class="users-search">
-            <label for="UserSearch">Dodaj użytkownika</label>
-            <input type="text" placeholder="Jan Kowalski" class="form-control" name="UserSearch" id="UserSearch"
-                   ng-model="groupUsersVm.userSearchModel"
-                   ng-model-options="{ debounce: 1000 }" />
-        </div>
         <div class="users-list">
             <div ng-repeat="user in groupUsersVm.users">
                 <itl-users-list-item user="user" delete-user="groupUsersVm.deleteUser"></itl-users-list-item>

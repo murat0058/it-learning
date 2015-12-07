@@ -68,18 +68,25 @@
                         <button class="btn btn-block btn-default btn-default" ng-click="deletingGroupVm.toggleGroupDeleting()">
                             Usuń grupę
                         </button>
-                        <div class="row ng-cloak" ng-show="deletingGroupVm.isGroupDeletingInProgress">
-                            <div class="col-xs-6">
-                                <form method="POST" action="/Groups/Delete/@Model.GroupId">
-                                    <button class="btn btn-block btn-danger" ng-click="deletingGroupVm.confirmGroupDeleting()">
-                                        <i class="fa fa-times"></i> Usuń
+                        <div class="ng-cloak" ng-show="deletingGroupVm.isGroupDeletingInProgress">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <form method="POST" action="/Groups/Delete/@Model.GroupId">
+                                        <button class="btn btn-block btn-danger" ng-click="deletingGroupVm.confirmGroupDeleting()">
+                                            <i class="fa fa-times"></i> Usuń
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col-xs-6">
+                                    <button class="btn btn-block btn-dark" ng-click="deletingGroupVm.cancelGroupDeleting()">
+                                        Anuluj
                                     </button>
-                                </form>
+                                </div>
                             </div>
-                            <div class="col-xs-6">
-                                <button class="btn btn-block btn-dark" ng-click="deletingGroupVm.cancelGroupDeleting()">
-                                    Anuluj
-                                </button>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <p style="color: red; text-align: center;">UWAGA! Ta operacja jest nieodwracalna!</p>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
