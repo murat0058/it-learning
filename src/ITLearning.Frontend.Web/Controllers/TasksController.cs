@@ -63,7 +63,7 @@ namespace ITLearning.Frontend.Web.Controllers
                     new BranchShortData()
                     {
                         Name = "master",
-                        Description = "Główny branch. Pobież kod, od którego możesz zacząć!"
+                        Description = "Główny branch. Pobierz kod, od którego możesz zacząć!"
                     },
                     new BranchShortData()
                     {
@@ -83,7 +83,8 @@ namespace ITLearning.Frontend.Web.Controllers
                         },
                         Finished = false,
                         CreateDate = "2015-11-23",
-                        CodeReviewExist = false
+                        CodeReviewExist = false,
+                        RepositoryLink = "http:/itlearning.com/repozad1.git"
                     },
                     new TaskInstanceData()
                     {
@@ -95,7 +96,8 @@ namespace ITLearning.Frontend.Web.Controllers
                         Finished = true,
                         CreateDate = "2015-11-24",
                         FinishDate = "2015-11-29",
-                        CodeReviewExist = false
+                        CodeReviewExist = false,
+                        RepositoryLink = "http:/itlearning.com/repozad2.git"
                     },
                     new TaskInstanceData()
                     {
@@ -107,7 +109,8 @@ namespace ITLearning.Frontend.Web.Controllers
                         Finished = true,
                         CreateDate = "2015-11-21",
                         FinishDate = "2015-11-26",
-                        CodeReviewExist = true
+                        CodeReviewExist = true,
+                        RepositoryLink = "http:/itlearning.com/repozad3.git"
                     }
                 }
             };
@@ -135,7 +138,7 @@ namespace ITLearning.Frontend.Web.Controllers
                     new BranchShortData()
                     {
                         Name = "master",
-                        Description = "Główny branch. Pobież kod, od którego możesz zacząć!"
+                        Description = "Główny branch. Pobierz kod, od którego możesz zacząć!"
                     },
                     new BranchShortData()
                     {
@@ -173,7 +176,7 @@ namespace ITLearning.Frontend.Web.Controllers
                     new BranchShortData()
                     {
                         Name = "master",
-                        Description = "Główny branch. Pobież kod, od którego możesz zacząć!"
+                        Description = "Główny branch. Pobierz kod, od którego możesz zacząć!"
                     },
                     new BranchShortData()
                     {
@@ -236,8 +239,80 @@ namespace ITLearning.Frontend.Web.Controllers
             return RedirectToAction("ActionName");
         }
 
-        [HttpPost("BeginTask/{taskId:int}")]
-        public IActionResult BeginTask(int taskId)
+        [HttpGet("Edit/{id:int}")]
+        public IActionResult Edit(int id)
+        {
+            var viewModel = new EditTaskRequestData()
+            {
+                Title = "Nowe zadanie 1",
+                Description = "Zaczynamy! **Przykładowy opis 1,2,3...**",
+                IsActive = false,
+                RepositoryLink = "http:/itlearning.com/repozad3.git",
+                SelectedLanguage = new EnumDisplayData()
+                {
+                    Id = 2,
+                    Name = LanguageEnum.CSharp.ToString()
+                },
+                Branches= new List<BranchShortData>
+                {
+                    new BranchShortData()
+                    {
+                        Name = "master",
+                        Description = "Główny branch. Nie można go usunąć."
+                    },
+                    new BranchShortData()
+                    {
+                        Name = "podp1",
+                        Description = "Podpowiedź 1."
+                    }
+                },
+                SelectedGroup = new UserGroupData() { Name = "Brak", Id = -1 },
+                AvailableLanguages = new List<EnumDisplayData>()
+                {
+                    new EnumDisplayData()
+                    {
+                        Id = (int)LanguageEnum.Other,
+                        Name = LanguageEnum.Other.ToString()
+                    },
+                    new EnumDisplayData() {
+                        Id = (int)LanguageEnum.CSharp,
+                        Name = LanguageEnum.CSharp.ToString()
+                    },
+                    new EnumDisplayData() {
+                        Id = (int)LanguageEnum.JavaScript,
+                        Name = LanguageEnum.JavaScript.ToString()
+                    }
+                }
+            };
+
+            return View("Edit", JsonConvert.SerializeObject(viewModel));
+        }
+
+        [HttpPost("Edit")]
+        public IActionResult Edit(EditTaskRequestData requestData)
+        {
+            return RedirectToAction("ActionName");
+        }
+
+        [HttpGet("Delete/{id:int}")]
+        public IActionResult Delete(int id)
+        {
+            var deleteTaskData = new DeleteTaskRequestData()
+            {
+                Id = id
+            };
+
+            return View(deleteTaskData);
+        }
+
+        [HttpPost("Delete/{id:int}")]
+        public IActionResult DeletePost(int id)
+        {
+            return RedirectToAction("Action");
+        }
+
+        [HttpPost("BeginTask/{id:int}")]
+        public IActionResult BeginTask(int id)
         {
             //_tasksService.Create(requestData);
 

@@ -10,7 +10,8 @@
 
         var service = {
             getLatestTasks: getLatestTasks,
-            createTask: createTask
+            createTask: createTask,
+            editTask: editTask
         };
 
         return service;
@@ -18,6 +19,10 @@
 
         function createTask(requestData) {
             return $http.post('/Tasks/Create', requestData);
+        }
+
+        function editTask(requestData) {
+            return $http.post('/Tasks/Edit', requestData);
         }
 
         function getLatestTasks(requestData) {

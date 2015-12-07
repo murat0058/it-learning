@@ -1,0 +1,32 @@
+﻿@model ITLearning.Contract.Data.Requests.Tasks.DeleteTaskRequestData
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div style="margin-top: 50px;" class="col-md-4 col-md-offset-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <span><i class="fa fa-trash"></i> | Usuń zadanie</span>
+                    </div>
+                    <div class="panel-body">
+
+                        Czy na pewno chcesz usunąć to zadanie?
+
+                        @using (Html.BeginForm("Delete", "Tasks"))
+                        {
+                            @Html.HiddenFor(m => m.Id)
+
+                            <div style="margin-top: 50px;"></div>
+
+                            <div style="display: inline-block; margin-left: -10px;">
+                                <button type="submit" class="btn btn-danger">Tak</button>
+                                <a href="/Tasks/@Model.Id"><div class="btn btn-default">Nie</div></a>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+</div>

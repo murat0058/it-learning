@@ -22,5 +22,13 @@
             ownerSingleTaskVM.BackgroundImage = { 'background-image': "url('/common/images/tasks/" + uiFeaturesService.languageToTaskHeaderBackgroundImage[ownerSingleTaskVM.Language] + "')" };
             ownerSingleTaskVM.BackgroundColor = { 'background-color': uiFeaturesService.languageToColorMappings[ownerSingleTaskVM.Language] };
         };
+
+        ownerSingleTaskVM.edit = function (language) {
+            
+        };
+
+        ownerSingleTaskVM.delete = function (language) {
+        
+        };
     }
 })();
