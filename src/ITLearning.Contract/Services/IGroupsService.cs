@@ -12,10 +12,11 @@ namespace ITLearning.Contract.Services
 {
     public interface IGroupsService
     {
-
         CommonResult<GroupBasicData> GetData(GetGroupRequest request);
 
         CommonResult<GroupWithUsersData> GetDataWithUsers(GetGroupRequest request);
+
+        CommonResult<GroupData> GetFullData(GetGroupRequest request);
 
         CommonResult<GetLatestGroupsDataResult> GetLatestGroupsData(GetLatestGroupsBasicDataRequest request);
 

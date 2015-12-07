@@ -36,12 +36,13 @@ namespace ITLearning.Shared.Mappings
             Mapper.CreateMap<UpdateGroupViewModel, UpdateGroupRequest>();
             Mapper.CreateMap<GroupData, GroupBasicData>();
             Mapper.CreateMap<GroupData, GroupWithUsersData>();
+            Mapper.CreateMap<GroupData, GroupBasicDataViewModel>();
             Mapper.CreateMap<GroupWithUsersData, GroupBasicDataViewModel>();
             Mapper.CreateMap<GroupWithUsersData, UpdateGroupViewModel>();
             Mapper.CreateMap<Group, GroupData>()
                 .ForMember(dest => dest.Owner, opt => opt.Ignore())
-                .ForMember(dest => dest.Users, opt => opt.Ignore());
-            //  .ForMember(dest => dest.Tasks, opt => opt.Ignore());
+                .ForMember(dest => dest.Users, opt => opt.Ignore())
+                .ForMember(dest => dest.Tasks, opt => opt.Ignore());
         }
 
         private static string GetUserName(UserProfileData src)

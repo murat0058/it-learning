@@ -117,7 +117,7 @@ namespace ITLearning.Frontend.Web.Controllers
                 UserName = User.Identity.Name
             });
 
-            var groupResult = _groupsService.GetDataWithUsers(new GetGroupRequest { GroupId = groupId });
+            var groupResult = _groupsService.GetFullData(new GetGroupRequest { GroupId = groupId });
 
             if (accessTypeResult.IsSuccess && groupResult.IsSuccess)
             {
@@ -224,6 +224,20 @@ namespace ITLearning.Frontend.Web.Controllers
             var result = _groupsService.GetLatestGroupsData(request);
 
             return new JsonResult(result);
+        }
+
+        [HttpPost("GetGroupsList")]
+        public IActionResult GetGroupsList(GetGroupsListViewModel model)
+        {
+            //var request = new GetLatestGroupsBasicDataRequest
+            //{
+            //    UserName = User.Identity.Name,
+            //    NoOfGroups = noOfGroups
+            //};
+
+            //var result = _groupsService.GetLatestGroupsData(request);
+
+            return new JsonResult("test");
         }
 
         [HttpPost("GetUsersForGroup")]

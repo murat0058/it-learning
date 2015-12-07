@@ -57,8 +57,7 @@
                 </div>
                 <itl-loading-indicator parent-vm="newsListVm"
                                        dot-background="#333"
-                                       dot-size="10px"
-                                       loading-text="Ładuję newsy..."></itl-loading-indicator>
+                                       dot-size="10px"></itl-loading-indicator>
                 <div class="row news-row" ng-repeat="news in newsListVm.news">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <article class="news news-big" ng-style="newsListVm.getNewsStyle(news)">
