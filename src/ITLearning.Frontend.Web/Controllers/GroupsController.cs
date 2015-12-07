@@ -237,7 +237,35 @@ namespace ITLearning.Frontend.Web.Controllers
 
             //var result = _groupsService.GetLatestGroupsData(request);
 
-            return new JsonResult("test");
+            var groups = new[]
+            {
+                new
+                {
+                    Id =  0,
+                    Name = "Grupa testowa 1",
+                    Owner = "Przemek Smyrdek",
+                    IsPrivate = true,
+                    NoOfUsers = 12
+                },
+                new
+                {
+                    Id =  1,
+                    Name = "Grupa testowa 2",
+                    Owner = "Przemek Smyrdek",
+                    IsPrivate = true,
+                    NoOfUsers = 12
+                },
+                new
+                {
+                    Id =  2,
+                    Name = "Grupa testowa 3",
+                    Owner = "Przemek Smyrdek",
+                    IsPrivate = true,
+                    NoOfUsers = 12
+                }
+            };
+
+            return new JsonResult(groups);
         }
 
         [HttpPost("GetUsersForGroup")]

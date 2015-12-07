@@ -618,6 +618,17 @@ body > .main-content > .content {
                 @include wrap-dots();
             }
 
+            p.group-title-big{
+                font-size: 22px;
+                margin-bottom: 10px;
+            }
+
+            p.group-owner{
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
             ul.group-summary {
                 margin: 5px;
                 margin-left: 0;

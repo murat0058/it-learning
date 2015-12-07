@@ -61,6 +61,28 @@
                            ng-model-options="{ debounce: 1000 }"/>
                     <itl-loading-indicator parent-vm="groupsListVm" dot-background="#333" dot-size="10px"></itl-loading-indicator>
                     
+                    <div ng-repeat="group in groupsListVm.groups track by $index">
+                        <div class="group-basic-data-item">
+                            <a ng-href="/Groups/{{group.Id}}">
+                                <div class="content">
+                                    <p class="group-title group-title-big" ng-bind="group.Name"></p>
+                                    <p class="group-title group-owner" ng-bind-template="Utworzył: {{group.Owner}}"></p>
+                                    <ul class="group-summary">
+                                        <li ng-if="group.IsPrivate" title="Grupa prywatna">
+                                            <i class="fa fa-lock"></i>
+                                        </li>
+                                        <li ng-if="!group.IsPrivate" title="Grupa publiczna">
+                                            <i class="fa fa-unlock"></i>
+                                        </li>
+                                        <li title="Liczba użytkowników">
+                                            <i class="fa fa-users"></i> {{group.NoOfUsers}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

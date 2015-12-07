@@ -39,9 +39,11 @@
         $scope.$watch('groupsListVm.filters.ownerType', handleFilterChange);
         $scope.$watch('groupsListVm.filters.accessType', handleFilterChange);
 
+        activate();
+
         //////////////
 
-        function activate(model) {
+        function activate() {
             getGroups();
         }
 
