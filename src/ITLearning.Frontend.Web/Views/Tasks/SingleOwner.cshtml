@@ -55,6 +55,7 @@
                                     <th>Rozpoczęto</th>
                                     <th>Zakończono</th>
                                     <th>Code Review</th>
+                                    <th>Repozytorium</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -85,6 +86,9 @@
                                             {
                                                 <span>-</span>
                                             }
+                                        </td>
+                                        <td>
+                                            <button style="padding: 0px; background-color: transparent;" class="btn btn-default" onclick="copyToClipboard('@item.User.UserName', '@item.RepositoryLink')"><i class="fa fa-git"></i> <i class="fa fa-mail-forward"></i></button>
                                         </td>
                                         <td>
                                             @if (item.CodeReviewExist)
@@ -146,3 +150,12 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        function copyToClipboard(user, text) {
+            var message = "Link do repozytorium użytkownika " + user + ". Ctrl+C, Enter";
+            window.prompt(message, text);
+        }
+    </script>
+}

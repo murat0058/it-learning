@@ -13,5 +13,7 @@ namespace ITLearning.Contract.Data.Model.Tasks
         public bool Finished { get; set; }
 
         public string FinishDate { get; set; }
+
+        public string RepositoryLink { get; set; }
     }
 }

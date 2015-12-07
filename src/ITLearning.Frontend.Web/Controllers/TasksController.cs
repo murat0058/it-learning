@@ -63,7 +63,7 @@ namespace ITLearning.Frontend.Web.Controllers
                     new BranchShortData()
                     {
                         Name = "master",
-                        Description = "Główny branch. Pobież kod, od którego możesz zacząć!"
+                        Description = "Główny branch. Pobierz kod, od którego możesz zacząć!"
                     },
                     new BranchShortData()
                     {
@@ -83,7 +83,8 @@ namespace ITLearning.Frontend.Web.Controllers
                         },
                         Finished = false,
                         CreateDate = "2015-11-23",
-                        CodeReviewExist = false
+                        CodeReviewExist = false,
+                        RepositoryLink = "http:/itlearning.com/repozad1.git"
                     },
                     new TaskInstanceData()
                     {
@@ -95,7 +96,8 @@ namespace ITLearning.Frontend.Web.Controllers
                         Finished = true,
                         CreateDate = "2015-11-24",
                         FinishDate = "2015-11-29",
-                        CodeReviewExist = false
+                        CodeReviewExist = false,
+                        RepositoryLink = "http:/itlearning.com/repozad2.git"
                     },
                     new TaskInstanceData()
                     {
@@ -107,7 +109,8 @@ namespace ITLearning.Frontend.Web.Controllers
                         Finished = true,
                         CreateDate = "2015-11-21",
                         FinishDate = "2015-11-26",
-                        CodeReviewExist = true
+                        CodeReviewExist = true,
+                        RepositoryLink = "http:/itlearning.com/repozad3.git"
                     }
                 }
             };
@@ -135,7 +138,7 @@ namespace ITLearning.Frontend.Web.Controllers
                     new BranchShortData()
                     {
                         Name = "master",
-                        Description = "Główny branch. Pobież kod, od którego możesz zacząć!"
+                        Description = "Główny branch. Pobierz kod, od którego możesz zacząć!"
                     },
                     new BranchShortData()
                     {
@@ -173,7 +176,7 @@ namespace ITLearning.Frontend.Web.Controllers
                     new BranchShortData()
                     {
                         Name = "master",
-                        Description = "Główny branch. Pobież kod, od którego możesz zacząć!"
+                        Description = "Główny branch. Pobierz kod, od którego możesz zacząć!"
                     },
                     new BranchShortData()
                     {
