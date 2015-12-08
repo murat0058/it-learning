@@ -133,7 +133,7 @@ namespace ITLearning.Backend.Business.Services
 
         public CommonResult<GetLatestGroupsDataResult> GetLatestGroupsData(GetLatestGroupsBasicDataRequest request)
         {
-            var getGroupsForUserResult = _groupsRepository.GetAllForUser(request.UserName, false, true, false);
+            var getGroupsForUserResult = _groupsRepository.GetAllForUser(request.UserName, true, true, true);
 
             if (getGroupsForUserResult.IsSuccess)
             {
@@ -143,7 +143,16 @@ namespace ITLearning.Backend.Business.Services
                 {
                     var result = new GetLatestGroupsDataResult
                     {
-                        Groups = groups.Select(x => Mapper.Map<GroupWithUsersData>(x))
+                        Groups = groups.Select(x => new GroupListItem
+                        {
+                            Id = x.Id,
+                            Name = x.Name,
+                            Description = x.Description,
+                            IsPrivate = x.IsPrivate,
+                            Owner = x.Owner != null ? GetOwnerName(x.Owner) : string.Empty,
+                            NoOfTasks = x.Tasks != null ? x.Tasks.Count() : 0,
+                            NoOfUsers = x.Users != null ? x.Users.Count() : 0
+                        })
                     };
 
                     return CommonResult<GetLatestGroupsDataResult>.Success(result);

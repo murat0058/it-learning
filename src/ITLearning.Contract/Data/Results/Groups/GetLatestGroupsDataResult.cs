@@ -8,6 +8,6 @@ namespace ITLearning.Contract.Data.Results.Groups
 {
     public class GetLatestGroupsDataResult
     {
-        public IEnumerable<GroupWithUsersData> Groups { get; set; }
+        public IEnumerable<GroupListItem> Groups { get; set; }
     }
 }
