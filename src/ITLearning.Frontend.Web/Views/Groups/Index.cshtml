@@ -65,8 +65,11 @@
                         <div class="group-basic-data-item">
                             <a ng-href="/Groups/{{group.Id}}">
                                 <div class="content">
-                                    <p class="group-title group-title-big" ng-bind="group.Name"></p>
-                                    <p class="group-title group-owner" ng-bind-template="Utworzył: {{group.Owner}}"></p>
+                                    <div class="group-list-text-content">
+                                        <p class="group-name" ng-bind="group.Name"></p>
+                                        <p class="group-description" ng-bind="group.Description"></p>
+                                        <p class="group-owner" ng-bind-template="Utworzył: {{group.Owner}}"></p>
+                                    </div>
                                     <ul class="group-summary">
                                         <li ng-if="group.IsPrivate" title="Grupa prywatna">
                                             <i class="fa fa-lock"></i>
@@ -76,6 +79,9 @@
                                         </li>
                                         <li title="Liczba użytkowników">
                                             <i class="fa fa-users"></i> {{group.NoOfUsers}}
+                                        </li>
+                                        <li title="Liczba zadań">
+                                            <i class="fa fa-file"></i> {{group.NoOfTasks}}
                                         </li>
                                     </ul>
                                 </div>

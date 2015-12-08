@@ -307,6 +307,7 @@ namespace ITLearning.Backend.Business.Services
                     {
                         Id = x.Id,
                         Name = x.Name,
+                        Description = x.Description,
                         IsPrivate = x.IsPrivate,
                         Owner = GetOwnerName(x.Owner),
                         NoOfTasks = x.Tasks != null ? x.Tasks.Count() : 0,
