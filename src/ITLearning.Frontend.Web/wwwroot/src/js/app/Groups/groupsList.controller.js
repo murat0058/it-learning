@@ -59,8 +59,15 @@
             return groupsService
                 .getGroups(request)
                 .then(function (data) {
-                    groupsListVm.groups = data;
-                    groupsListVm.loadingIndicator.Hide();
+                    
+                    if (data.IsSuccess) {
+                        groupsListVm.groups = data.Item.Groups;
+                        groupsListVm.loadingIndicator.Hide();
+                    } else {
+                        groupsListVm.groups = [];
+                        groupsListVm.loadingIndicator.SetLoaded(data.ErrorMessage);
+                    }
+
                 });
         }
 

@@ -229,43 +229,12 @@ namespace ITLearning.Frontend.Web.Controllers
         [HttpPost("GetGroupsList")]
         public IActionResult GetGroupsList(GetGroupsListViewModel model)
         {
-            //var request = new GetLatestGroupsBasicDataRequest
-            //{
-            //    UserName = User.Identity.Name,
-            //    NoOfGroups = noOfGroups
-            //};
+            var request = Mapper.Map<GetGroupListRequest>(model);
+            request.UserName = User.Identity.Name;
 
-            //var result = _groupsService.GetLatestGroupsData(request);
+            var result = _groupsService.GetList(request);
 
-            var groups = new[]
-            {
-                new
-                {
-                    Id =  0,
-                    Name = "Grupa testowa 1",
-                    Owner = "Przemek Smyrdek",
-                    IsPrivate = true,
-                    NoOfUsers = 12
-                },
-                new
-                {
-                    Id =  1,
-                    Name = "Grupa testowa 2",
-                    Owner = "Przemek Smyrdek",
-                    IsPrivate = true,
-                    NoOfUsers = 12
-                },
-                new
-                {
-                    Id =  2,
-                    Name = "Grupa testowa 3",
-                    Owner = "Przemek Smyrdek",
-                    IsPrivate = true,
-                    NoOfUsers = 12
-                }
-            };
-
-            return new JsonResult(groups);
+            return new JsonResult(result);
         }
 
         [HttpPost("GetUsersForGroup")]

@@ -18,6 +18,8 @@ namespace ITLearning.Contract.Services
 
         CommonResult<GroupData> GetFullData(GetGroupRequest request);
 
+        CommonResult<GroupListedData> GetList(GetGroupListRequest request);
+
         CommonResult<GetLatestGroupsDataResult> GetLatestGroupsData(GetLatestGroupsBasicDataRequest request);
 
         CommonResult<GroupAccessTypeResult> GetAccessType(GroupAccessTypeRequest request);

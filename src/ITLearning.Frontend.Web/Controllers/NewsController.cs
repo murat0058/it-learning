@@ -73,7 +73,7 @@ namespace ITLearning.Frontend.Web.Controllers
         {
             var result = _newsService.GetFiltered(request);
 
-            return new JsonResult(result.Item);
+            return new JsonResult(result);
         }
     }
 }
