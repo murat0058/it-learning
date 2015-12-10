@@ -44,7 +44,14 @@ namespace ITLearning.Backend.Business.Services
                 newsCollection = FilterByQuery(filterRequest, newsCollection);
             }
 
-            return CommonResult<IEnumerable<NewsData>>.Success(newsCollection);
+            if (newsCollection.Any())
+            {
+                return CommonResult<IEnumerable<NewsData>>.Success(newsCollection);
+            }
+            else
+            {
+                return CommonResult<IEnumerable<NewsData>>.Failure("Nie znaleziono newsów spełniających podane kryteria.");
+            }
         }
 
         public CommonResult<NewsData> GetById(string id)

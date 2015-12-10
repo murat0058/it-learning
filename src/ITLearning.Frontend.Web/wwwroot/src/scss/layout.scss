@@ -586,7 +586,7 @@ body > .main-content > .content {
     background-color: $color-dark;
     margin-bottom: 15px;
     font-family: $custom-font;
-    padding: 3px 6px;
+    padding: 4px 7px;
     color: white;
     box-shadow: 0 11px 9px -10px rgba(0, 0, 0, 0.4);
     border-radius: 3px;
@@ -633,6 +633,34 @@ body > .main-content > .content {
                     padding: 0 5px;
                     text-align: center;
                     margin-right: 3px;
+                }
+            }
+
+            .group-list-text-content {
+                font-family: $custom-font;
+
+                .group-name {
+                    font-size: 20px;
+                    font-weight: 600;
+                    width: 100%;
+                    border-bottom: 1px solid $color-primary;
+                    padding-bottom: 10px;
+                    margin-bottom: 5px;
+
+                    @include wrap-dots();
+                }
+
+                .group-description {
+                    margin-bottom: 10px;
+
+                    @include wrap-dots();
+                }
+
+                .group-owner {
+                    @include wrap-dots();
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
                 }
             }
         }
@@ -690,6 +718,10 @@ body > .main-content > .content {
     margin-bottom: 20px;
     border-radius: 0;
     height: 50px;
+
+    &:focus {
+        box-shadow: 0 5px 10px -5px rgba(0,0,0, 0.5);
+    }
 }
 
 .form-controls-row {
@@ -885,7 +917,7 @@ footer {
             background-color: $color-default;
         }
 
-        .radio-label{
+        .radio-label {
             margin-left: 20px;
         }
 

@@ -133,7 +133,7 @@ namespace ITLearning.Backend.Business.Services
 
         public CommonResult<GetLatestGroupsDataResult> GetLatestGroupsData(GetLatestGroupsBasicDataRequest request)
         {
-            var getGroupsForUserResult = _groupsRepository.GetAllForUser(request.UserName, false, true, false);
+            var getGroupsForUserResult = _groupsRepository.GetAllForUser(request.UserName, true, true, true);
 
             if (getGroupsForUserResult.IsSuccess)
             {
@@ -143,7 +143,16 @@ namespace ITLearning.Backend.Business.Services
                 {
                     var result = new GetLatestGroupsDataResult
                     {
-                        Groups = groups.Select(x => Mapper.Map<GroupWithUsersData>(x))
+                        Groups = groups.Select(x => new GroupListItem
+                        {
+                            Id = x.Id,
+                            Name = x.Name,
+                            Description = x.Description,
+                            IsPrivate = x.IsPrivate,
+                            Owner = x.Owner != null ? GetOwnerName(x.Owner) : string.Empty,
+                            NoOfTasks = x.Tasks != null ? x.Tasks.Count() : 0,
+                            NoOfUsers = x.Users != null ? x.Users.Count() : 0
+                        })
                     };
 
                     return CommonResult<GetLatestGroupsDataResult>.Success(result);
@@ -274,6 +283,72 @@ namespace ITLearning.Backend.Business.Services
         public CommonResult AddUsers(UserGroupRequest request)
         {
             return _groupsRepository.AddUsers(request);
+        }
+
+        public CommonResult<GroupListedData> GetList(GetGroupListRequest request)
+        {
+            var getGroupsResult = _groupsRepository.GetAll(true, true, true);
+
+            if (getGroupsResult.IsSuccess)
+            {
+                var groups = getGroupsResult.Item;
+
+                if (request.Query.NotNullNorEmpty())
+                {
+                    groups = groups.Where(x => x.Name.ToLower().Contains(request.Query.ToLower()));
+                }
+
+                if(request.AccessType != GroupAccessEnum.All)
+                {
+                    groups = groups.Where(x => x.IsPrivate == (request.AccessType == GroupAccessEnum.PrivateOnly ? true : false));
+                }
+
+                if(request.OwnerType != GroupOwnerTypeEnum.All)
+                {
+                    groups = groups.Where(x => x.Owner.UserName == request.UserName);
+                }
+
+                if (groups.Any())
+                {
+                    var data = new GroupListedData();
+
+                    var groupsListedData = groups.Select(x => new GroupListItem
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        Description = x.Description,
+                        IsPrivate = x.IsPrivate,
+                        Owner = GetOwnerName(x.Owner),
+                        NoOfTasks = x.Tasks != null ? x.Tasks.Count() : 0,
+                        NoOfUsers = x.Users != null ? x.Users.Count() : 0
+                    });
+
+                    data.Groups = groupsListedData;
+
+                    return CommonResult<GroupListedData>.Success(data);
+                }
+                else
+                {
+                    return CommonResult<GroupListedData>.Failure("Nie znaleziono grup spełniających podane kryteria.");
+                }
+
+            }
+            else
+            {
+                return CommonResult<GroupListedData>.Failure(getGroupsResult.ErrorMessage);
+            }
+        }
+
+        private string GetOwnerName(UserProfileData user)
+        {
+            if (string.IsNullOrEmpty(user.FirstName) || string.IsNullOrEmpty(user.LastName))
+            {
+                return user.UserName;
+            }
+            else
+            {
+                return $"{user.FirstName} {user.LastName}";
+            }
         }
     }
 }

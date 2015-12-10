@@ -70,8 +70,14 @@
             return newsService
                 .getNewsList(request)
                 .then(function (data) {
-                    newsListVm.news = data;
-                    newsListVm.loadingIndicator.Hide();
+
+                    if (data.IsSuccess) {
+                        newsListVm.news = data.Item;
+                        newsListVm.loadingIndicator.Hide();
+                    } else {
+                        newsListVm.news = [];
+                        newsListVm.loadingIndicator.SetLoaded(data.ErrorMessage);
+                    }
                 });
         }
 

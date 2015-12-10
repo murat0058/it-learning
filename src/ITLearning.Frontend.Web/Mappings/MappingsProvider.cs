@@ -34,6 +34,8 @@ namespace ITLearning.Shared.Mappings
 
             Mapper.CreateMap<CreateGroupViewModel, CreateGroupRequest>();
             Mapper.CreateMap<UpdateGroupViewModel, UpdateGroupRequest>();
+            Mapper.CreateMap<GetGroupsListViewModel, GetGroupListRequest>();
+
             Mapper.CreateMap<GroupData, GroupBasicData>();
             Mapper.CreateMap<GroupData, GroupWithUsersData>();
             Mapper.CreateMap<GroupData, GroupBasicDataViewModel>();
@@ -47,7 +49,7 @@ namespace ITLearning.Shared.Mappings
 
         private static string GetUserName(UserProfileData src)
         {
-            if(string.IsNullOrEmpty(src.FirstName) || string.IsNullOrEmpty(src.LastName))
+            if (string.IsNullOrEmpty(src.FirstName) || string.IsNullOrEmpty(src.LastName))
             {
                 return src.UserName;
             }
