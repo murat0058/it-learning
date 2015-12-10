@@ -9,6 +9,7 @@ using ITLearning.Contract.Data.Results;
 using ITLearning.Contract.Enums;
 using ITLearning.Contract.Services;
 using Microsoft.AspNet.Mvc;
+using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -18,10 +19,19 @@ namespace ITLearning.Frontend.Web.Controllers
     public class TasksController : BaseController
     {
         private readonly ITasksService _tasksService;
+        private readonly IApplicationEnvironment _hostingEnvironment;
 
-        public TasksController(ITasksService tasksService)
+        public TasksController(ITasksService tasksService, IApplicationEnvironment hostingEnvironment)
         {
             _tasksService = tasksService;
+            _hostingEnvironment = hostingEnvironment;
+
+        }
+
+        [HttpGet("Path")]
+        public IActionResult Path()
+        {
+            return Json(_hostingEnvironment.ApplicationBasePath.ToString());
         }
 
         [HttpGet("{id:int}")]
