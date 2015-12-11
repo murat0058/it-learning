@@ -28,12 +28,6 @@ namespace ITLearning.Frontend.Web.Controllers
 
         }
 
-        [HttpGet("Path")]
-        public IActionResult Path()
-        {
-            return Json(_hostingEnvironment.ApplicationBasePath.ToString());
-        }
-
         [HttpGet("{id:int}")]
         public IActionResult Single(int id)
         {

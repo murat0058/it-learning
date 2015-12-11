@@ -7,16 +7,9 @@ using ITLearning.Frontend.Web.ViewModels.User;
 using ITLearning.Contract.Services;
 using ITLearning.Contract.Data.Requests;
 using ITLearning.Contract.Data.Model.User;
-using System.Collections.Generic;
-using Microsoft.Data.Entity.Internal;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
-    public static class Logger
-    {
-        public static List<string> errors = new List<string>();
-    }
-
     [Route("User")]
     public class UserController : BaseController
     {
@@ -43,76 +36,38 @@ namespace ITLearning.Frontend.Web.Controllers
             return View("Profile", Mapper.Map<UserProfileViewModel>(result.Item));
         }
 
-        [HttpGet("GetErrors")]
-        public IActionResult GetErrors()
-        {
-            return Json(Logger.errors.Join(","));
-        }
-
         [HttpPost("UploadImage")]
         public async Task<string> UploadImage(IFormFile img)
         {
-            try
-            {
-                var result = await _userService.SaveProfileImage(img);
+            var result = await _userService.SaveProfileImage(img);
 
-                return JsonConvert.SerializeObject(result.Item);
-            }
-            catch (System.Exception ex)
-            {
-                Logger.errors.Add(ex.ToString());
-
-
-                throw;
-            }
+            return JsonConvert.SerializeObject(result.Item);
         }
 
         [HttpPost("CropImage")]
         public string CropImage(string imgUrl, int imgInitW, int imgInitH, double imgW, double imgH, int imgY1, int imgX1, int cropH, int cropW)
         {
-            try { 
-
-            var result = _userService.CropProfileImage(new CropImageData
-            {
+            var result = _userService.CropProfileImage(new CropImageData {
                 ImageUrl = imgUrl,
                 ImageOriginalWidth = imgInitW,
                 ImageOriginalHeight = imgInitH,
                 ImageScaledWidth = (int)imgW,
                 ImageScaledHeight = (int)imgH,
                 ImageCropStartPointY = imgY1,
-                ImageCropStartPointX = imgX1,
+                ImageCropStartPointX =  imgX1,
                 ImageCropHeight = cropH,
                 ImageCropWidth = cropW
             });
 
             return JsonConvert.SerializeObject(result.Item);
         }
-            catch (System.Exception ex)
-            {
-                Logger.errors.Add(ex.ToString());
-
-
-                throw;
-            }
-}
 
         [HttpPost("DeleteImage")]
         public IActionResult DeleteImage()
         {
-            try
-            {
-
-                var result = _userService.DeleteUserProfileImage();
+            var result = _userService.DeleteUserProfileImage();
 
             return RedirectToAction("Profile");
         }
-            catch (System.Exception ex)
-            {
-                Logger.errors.Add(ex.ToString());
-
-
-                throw;
-            }
-}
     }
 }
