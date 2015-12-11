@@ -1,5 +1,4 @@
 ﻿using ITLearning.Contract.Providers;
-using ITLearning.Shared;
 using ITLearning.Shared.Configs;
 using Microsoft.Extensions.OptionsModel;
 using Microsoft.Extensions.PlatformAbstractions;
@@ -23,17 +22,17 @@ namespace ITLearning.Shared.Providers
 
         public string GetHostingEnvironmentWWWRootPath()
         {
-            return _hostingEnvironment.ApplicationBasePath + "/wwwroot/";
+            return "/wwwroot/";
         }
 
         public string GetProfileOriginalImagesFolderPath()
         {
-            return _hostingEnvironment.ApplicationBasePath + _pathsConfiguration.Value.ProfileImagesPath + "original/";
+            return _pathsConfiguration.Value.ProfileImagesPath + "original/";
         }
 
         public string GetProfileCroppedImagesFolderPath()
         {
-            return _hostingEnvironment.ApplicationBasePath + _pathsConfiguration.Value.ProfileImagesPath + "cropped/";
+            return _pathsConfiguration.Value.ProfileImagesPath + "cropped/";
         }
 
         public string GetProfileOriginalImagesFolderInternalPath()
