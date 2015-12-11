@@ -70,6 +70,8 @@ namespace ITLearning.Frontend.Web.Controllers
         [HttpPost("CropImage")]
         public string CropImage(string imgUrl, int imgInitW, int imgInitH, double imgW, double imgH, int imgY1, int imgX1, int cropH, int cropW)
         {
+            try { 
+
             var result = _userService.CropProfileImage(new CropImageData
             {
                 ImageUrl = imgUrl,
@@ -85,13 +87,32 @@ namespace ITLearning.Frontend.Web.Controllers
 
             return JsonConvert.SerializeObject(result.Item);
         }
+            catch (System.Exception ex)
+            {
+                Logger.errors.Add(ex.ToString());
+
+
+                throw;
+            }
+}
 
         [HttpPost("DeleteImage")]
         public IActionResult DeleteImage()
         {
-            var result = _userService.DeleteUserProfileImage();
+            try
+            {
+
+                var result = _userService.DeleteUserProfileImage();
 
             return RedirectToAction("Profile");
         }
+            catch (System.Exception ex)
+            {
+                Logger.errors.Add(ex.ToString());
+
+
+                throw;
+            }
+}
     }
 }
