@@ -22,7 +22,7 @@ namespace ITLearning.Shared.Providers
 
         public string GetHostingEnvironmentWWWRootPath()
         {
-            return "/wwwroot/";
+            return _pathsConfiguration.Value.RootFolderPath;
         }
 
         public string GetProfileOriginalImagesFolderPath()
