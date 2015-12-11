@@ -43,7 +43,7 @@ namespace ITLearning.Frontend.Web.Controllers
             return View("Profile", Mapper.Map<UserProfileViewModel>(result.Item));
         }
 
-        [HttpPost("GetErrors")]
+        [HttpGet("GetErrors")]
         public IActionResult GetErrors()
         {
             return Json(Logger.errors.Join(","));
