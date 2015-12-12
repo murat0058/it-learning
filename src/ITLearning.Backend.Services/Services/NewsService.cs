@@ -6,6 +6,10 @@ using ITLearning.Contract.Data.Model.News;
 using ITLearning.Contract.Data.Results;
 using ITLearning.Contract.Data.Requests;
 using ITLearning.Shared.Extensions;
+using ITLearning.Contract.Data.Requests.News;
+using System;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace ITLearning.Backend.Business.Services
 {
@@ -81,7 +85,43 @@ namespace ITLearning.Backend.Business.Services
             return CommonResult<NewsListRequest>.Success(request);
         }
 
+        public async Task<CommonResult> CreateNewsAsync(CreateNewsRequest request)
+        {
+            var newsId = GetNewsId();
+
+            var data = new NewsData
+            {
+                Id = newsId,
+                Author = request.Author,
+                Title = request.Title,
+                Date = DateTime.Now,
+                ImagePath = "google-campus.jpg",
+                Tags = GetTagsFromTagsString(request.TagsString),
+            };
+
+            var contentData = new NewsContentData
+            {
+                Id = newsId,
+                Content = request.Content
+            };
+
+            await _newsProvider.SaveDataAsync(data);
+            await _newsProvider.SaveContentAsync(contentData);
+
+            return CommonResult.Success();
+        }
+
         #region Helpers
+        private string GetNewsId()
+        {
+            return _newsProvider.GetNewNewsId();
+        }
+
+        private IEnumerable<string> GetTagsFromTagsString(string tagsString)
+        {
+            return tagsString.Split(new char[] { ' ' }).Where(tag => tag.Length > 0);
+        }
+
         private static IEnumerable<NewsData> FilterByTags(NewsFilterRequest filterRequest, IEnumerable<NewsData> newsCollection)
         {
             return newsCollection.Where(news => filterRequest.Tags.All(x => news.Tags.Contains(x)));

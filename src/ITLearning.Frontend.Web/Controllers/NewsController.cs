@@ -1,5 +1,8 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
+using ITLearning.Contract.Data.Model.User;
 using ITLearning.Contract.Data.Requests;
+using ITLearning.Contract.Data.Requests.News;
 using ITLearning.Contract.Providers;
 using ITLearning.Contract.Services;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
@@ -8,8 +11,7 @@ using ITLearning.Frontend.Web.ViewModels.News;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using Newtonsoft.Json;
-
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+using System.Threading.Tasks;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -18,11 +20,13 @@ namespace ITLearning.Frontend.Web.Controllers
     public class NewsController : BaseController
     {
         private INewsService _newsService;
+        private IUserService _userService;
         private IAppConfigurationProvider _configurationProvider;
 
-        public NewsController(INewsService newsService, IAppConfigurationProvider configurationProvider)
+        public NewsController(INewsService newsService, IUserService userService, IAppConfigurationProvider configurationProvider)
         {
             _newsService = newsService;
+            _userService = userService;
             _configurationProvider = configurationProvider;
         }
 
@@ -79,13 +83,36 @@ namespace ITLearning.Frontend.Web.Controllers
         [HttpGet("Create")]
         public IActionResult Create()
         {
-            return View();
+            var viewModel = new CreateNewsViewModel();
+
+            return View("Create", JsonConvert.SerializeObject(viewModel));
         }
 
         [HttpPost("CreateNews")]
-        public IActionResult CreateNews(CreateNewsViewModel model)
+        public async Task<IActionResult> CreateNews(CreateNewsRequestViewModel model)
         {
-            return View("Create", model);
+            var request = Mapper.Map<CreateNewsRequest>(model);
+
+            var userData = _userService.GetUserProfile();
+            request.Author = GetUserName(userData.Item);
+
+            await _newsService.CreateNewsAsync(request);
+
+            return View("Create", JsonConvert.SerializeObject(Mapper.Map<CreateNewsViewModel>(model)));
         }
+
+        #region Helpers
+        private string GetUserName(UserProfileData data)
+        {
+            if (string.IsNullOrEmpty(data.FirstName) || string.IsNullOrEmpty(data.LastName))
+            {
+                return data.UserName;
+            }
+            else
+            {
+                return $"{data.FirstName} {data.LastName}";
+            }
+        }
+        #endregion
     }
 }

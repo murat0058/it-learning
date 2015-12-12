@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System;
+using System.Threading.Tasks;
 
 namespace ITLearning.Backend.Business.Providers
 {
@@ -96,6 +98,52 @@ namespace ITLearning.Backend.Business.Providers
             news.ImagePath = _newsImagesPath + news.ImagePath;
 
             return news;
+        }
+
+        public async Task SaveDataAsync(NewsData data)
+        {
+            var fileName = $"{data.Id}.json";
+            var path = Path.Combine(_newsPath, fileName);
+
+            await SaveFileAsync(path, JsonConvert.SerializeObject(data));
+        }
+
+        public async Task SaveContentAsync(NewsContentData data)
+        {
+            var fileName = $"{data.Id}_content.md";
+            var path = Path.Combine(_newsPath, fileName);
+
+            await SaveFileAsync(path, data.Content);
+        }
+
+        public async Task SaveFileAsync(string subPath, string content)
+        {
+            var rootPath = _hostingEnvironment.WebRootPath;
+
+            var root = rootPath.Replace('\\', '/');
+            var path = root + subPath;
+
+            using (var writer = new StreamWriter(path))
+            {
+                await writer.WriteAsync(content);
+            }
+        }
+
+        public string GetNewNewsId()
+        {
+            var fileProvider = _hostingEnvironment.WebRootFileProvider;
+            var directoryContents = fileProvider.GetDirectoryContents(_newsPath).Where(x => x.Name.EndsWith(".json"));
+
+            if (directoryContents.Any())
+            {
+                var lastNewsId = directoryContents.Count() / 2;
+
+                return $"{DateTime.Now.ToShortDateString()}_{lastNewsId + 1}";
+            }
+            else
+            {
+                return $"{DateTime.Now.ToShortDateString()}_1";
+            }
         }
     }
 }

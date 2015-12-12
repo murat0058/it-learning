@@ -12,6 +12,7 @@ using ITLearning.Frontend.Web.ViewModels.Group;
 using ITLearning.Frontend.Web.ViewModels.Identity;
 using ITLearning.Frontend.Web.ViewModels.News;
 using ITLearning.Frontend.Web.ViewModels.User;
+using ITLearning.Contract.Data.Requests.News;
 
 namespace ITLearning.Shared.Mappings
 {
@@ -24,6 +25,8 @@ namespace ITLearning.Shared.Mappings
             Mapper.CreateMap<NewsData, NewsThumbnailViewModel>();
 
             Mapper.CreateMap<NewsListRequest, NewsListViewModel>();
+            Mapper.CreateMap<CreateNewsRequestViewModel, CreateNewsViewModel>();
+            Mapper.CreateMap<CreateNewsRequestViewModel, CreateNewsRequest>();
 
             Mapper.CreateMap<User, UserProfileData>();
             Mapper.CreateMap<UserProfileData, User>();
