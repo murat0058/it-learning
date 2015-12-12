@@ -75,5 +75,17 @@ namespace ITLearning.Frontend.Web.Controllers
 
             return new JsonResult(result);
         }
+
+        [HttpGet("Create")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost("CreateNews")]
+        public IActionResult CreateNews(CreateNewsViewModel model)
+        {
+            return View("Create", model);
+        }
     }
 }

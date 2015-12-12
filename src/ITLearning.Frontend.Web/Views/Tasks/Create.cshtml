@@ -1,7 +1,5 @@
 ﻿@model string
 
-<link href="~/lib/bootstrap-markdown/css/bootstrap-markdown.min.css" rel="stylesheet" />
-
 <style>
     .panel .hint {
         color: darkgoldenrod;
@@ -42,7 +40,7 @@
     <div class="row">
         <div class="panel panel-success">
             <div class="panel-heading">
-                <span><i class="fa fa-file"></i> | Utwórz nowe zadanie</span>
+                <span><i class="fa fa-file"></i> | Utwórz zadanie</span>
             </div>
             <div class="panel-body">
                 <form name="addTaskForm" ng-submit="createTaskVm.addTask(addTaskForm)">
@@ -51,14 +49,14 @@
                         <label class="control-label"><i class="fa fa-info-circle" style="margin-right: 5px;"></i> Informacje podstawowe</label>
                         <hr style="margin-top: 0px;" />
                         <div class="form-group">
-                            <label class="control-label">Nazwa</label>
+                            <label class="control-label" for="taskName">Nazwa</label>
                             <input ng-model="createTaskVm.taskName" name="taskName" class="form-control" required ng-minlength="15" ng-maxlength="40" />
                             <span ng-show="addTaskForm.taskName.$error.required" class="text-danger">Nazwa jest wymagana.</span>
                             <span ng-show="addTaskForm.taskName.$error.minlength" class="text-danger">Nazwa jest zbyt krótka.</span>
                             <span ng-show="addTaskForm.taskName.$error.maxlength" class="text-danger">Nazwa jest zbyt długa.</span>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Opis</label>
+                            <label class="control-label" for="taskDescription">Opis</label>
                             <textarea ng-model="createTaskVm.taskDescription" name="taskDescription" id="description-text-area" class="form-control" required ng-minlength="300" ng-maxlength="2000"></textarea>
                             <span ng-show="addTaskForm.taskDescription.$error.required" class="text-danger">Opis jest wymagany.</span>
                             <span ng-show="addTaskForm.taskDescription.$error.minlength" class="text-danger">Opis jest zbyt krótki.</span>
@@ -175,8 +173,6 @@
 </div>
 
 @section Scripts {
-    <script src="~/lib/markdown-js/dist/markdown.js"></script>
-    <script src="~/lib/bootstrap-markdown/js/bootstrap-markdown.js"></script>
     <script>
         $(document).ready(function () {
             var markdownOptions = {

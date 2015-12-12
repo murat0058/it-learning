@@ -1,0 +1,65 @@
+﻿@model string
+
+<div class="form-wrapper" ng-controller="CreateNewsController as createNewsVm" ng-init="createNewsVm.init(@Model)">
+    <div class="container">
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-md-8 col-md-offset-2">
+                <form asp-action="CreateNews" asp-controller="News" id="addNewsForm" class="create-news-form" ng-submit="createNewsVm.addNews(addNewsForm)">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <span><i class="fa fa-pencil"></i> | Utwórz newsa</span>
+                        </div>
+                        <div class="panel-body">
+                            @Html.ValidationSummary(excludePropertyErrors: true)
+                            <div class="form-group">
+                                <label class="control-label" for="newsTitle">Tytuł</label>
+                                <input ng-model="createNewsVm.newsTitle" name="newsTitle" id="newsTitle" class="form-control" required ng-minlength="3" ng-maxlength="100" />
+                                <span ng-show="addNewsForm.newsTitle.$error.required" class="text-danger">Tytuł jest wymagany.</span>
+                                <span ng-show="addNewsForm.newsTitle.$error.minlength" class="text-danger">Tytuł jest zbyt krótki.</span>
+                                <span ng-show="addNewsForm.newsTitle.$error.maxlength" class="text-danger">Tytuł jest zbyt długi.</span>
+                            </div>
+                            <div class="row news-image-upload-section">
+                                <div flow-init>
+                                    <div class="col-sm-8">
+                                        <div class="thumbnail">
+                                            <div class="img-placeholder" ng-show="!$flow.files.length">
+                                                <p>Nie wybrano</p>
+                                            </div>
+                                            <img ng-show="$flow.files.length" flow-img="$flow.files[0]" class="ng-cloak"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="btn btn-dark btn-block" ng-show="!$flow.files.length" flow-btn="">
+                                            <i class="fa fa-image"></i> Wybierz grafikę
+                                            <input style="visibility: hidden; position: absolute;" type="file">
+                                        </span>
+                                        <span class="btn btn-danger btn-block ng-cloak" ng-show="$flow.files.length" ng-click="$flow.cancel()">
+                                            <i class="fa fa-times"></i> Usuń
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="taskContent">Treść</label>
+                                <textarea ng-model="createNewsVm.newsContent" name="newsContent" id="newsContent" class="form-control" required ng-minlength="50" ng-maxlength="2000" data-provide="markdown" rows="10" style="padding: 3px;"></textarea>
+                                <span ng-show="addNewsForm.newsContent.$error.required" class="text-danger">Treść jest wymagana.</span>
+                                <span ng-show="addNewsForm.newsContent.$error.minlength" class="text-danger">Treść jest zbyt krótka.</span>
+                                <span ng-show="addNewsForm.newsContent.$error.maxlength" class="text-danger">Treść jest zbyt długa.</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="newsTags">Tagi</label>
+                                <p class="form-info-small">Wpisz kolejne tagi oddzielając je spacją, np. ludzie blogi microsoft</p>
+                                <input ng-model="createNewsVm.newsTags" name="newsTags" id="newsTags" class="form-control" required ng-minlength="3" />
+                                <span ng-show="addNewsForm.newsTags.$error.required" class="text-danger">Tagi są wymagane.</span>
+                                <span ng-show="addNewsForm.newsTags.$error.minlength" class="text-danger">Dodaj przynajmniej jeden tag (min. 3 znaki).</span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary pull-right" value="Utwórz" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

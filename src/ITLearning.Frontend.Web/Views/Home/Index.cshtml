@@ -4,7 +4,6 @@
     var userData = Model.UserData;
     var mainNews = Model.MainNews;
     var smallNewsList = Model.SmallNews;
-    var widgetViewModel = Model.UserWidgetViewModel;
 
     ViewBag.PageTitle = "Strona główna";
 }
@@ -22,7 +21,7 @@
                             </a>
                             <p>@( userData.FirstName ?? userData.UserName) </p>
                         </div>
-                        @Html.Partial("Partials/UserShortcutsWidget", widgetViewModel)
+                        @Html.Partial("Partials/UserShortcutsWidget")
                     </div>
                 </section>
             </div>

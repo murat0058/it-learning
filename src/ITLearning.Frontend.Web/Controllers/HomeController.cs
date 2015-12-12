@@ -4,7 +4,6 @@ using ITLearning.Frontend.Web.Core.Identity.Enums;
 using System.Linq;
 using ITLearning.Frontend.Web.ViewModels.Home;
 using ITLearning.Frontend.Web.ViewModels.News;
-using System.Collections.Generic;
 using ITLearning.Frontend.Web.ViewModels.User;
 using AutoMapper;
 using Microsoft.Net.Http.Headers;
@@ -32,7 +31,6 @@ namespace ITLearning.Frontend.Web.Controllers
 
             FillModelWithBasicUserData(model);
             FillModelWithNews(model);
-            CreateUserShortcutsWidget(model);
 
             return View(model);
         }
@@ -78,26 +76,6 @@ namespace ITLearning.Frontend.Web.Controllers
                 }
             }
         }
-
-        private void CreateUserShortcutsWidget(HomeViewModel model)
-        {
-            model.UserWidgetViewModel = new List<UserWidgetDirectiveViewModel>
-            {
-                new UserWidgetDirectiveViewModel {
-                    DirectiveId = 0,
-                    DirectiveString = "<itl-widget-poc-first id=\"0\" type=\"tab-primary\" parent-vm=\"vm\"></itl-widget-poc-first>",
-                    TabType = "tab-primary",
-                    TabIcon = "fa-user",
-                    TabTitle = "First directive"
-                },
-                new UserWidgetDirectiveViewModel {
-                    DirectiveId = 1,
-                    DirectiveString = "<itl-widget-poc-second id=\"1\" type=\"tab-success\" parent-vm=\"vm\"></itl-widget-poc-second>",
-                    TabType = "tab-success",
-                    TabIcon = "fa-cog",
-                    TabTitle = "Second directive"
-                }
-            };
-        }
+       
     }
 }
