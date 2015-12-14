@@ -141,7 +141,9 @@ namespace ITLearning.Backend.Business.Providers
             {
                 var lastNewsId = directoryContents.Count();
 
-                return $"{lastNewsId + 1}_{DateTime.Now.ToShortDateString().Replace("-", "_") }";
+                var date = DateTime.Now;
+
+                return $"{lastNewsId + 1}_{date.Year}{date.Month}{date.Date}";
             }
             else
             {
