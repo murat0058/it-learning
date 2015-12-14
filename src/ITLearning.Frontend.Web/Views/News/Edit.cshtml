@@ -1,4 +1,5 @@
-﻿@model CreateUpdateNewsViewModel
+﻿
+@model CreateUpdateNewsViewModel
 
 <div class="form-wrapper">
     <div class="container">
@@ -7,10 +8,11 @@
                 <form asp-action="CreateNews" asp-controller="News" name="addNewsForm" class="create-news-form" enctype="multipart/form-data">
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            <span><i class="fa fa-pencil"></i> | Utwórz newsa</span>
+                            <span><i class="fa fa-pencil"></i> | Edytuj newsa</span>
                         </div>
                         <div class="panel-body">
                             @Html.ValidationSummary(excludePropertyErrors: true)
+                            <input asp-for="Id" type="hidden" />
                             <div class="form-group">
                                 <label asp-for="Title" class="control-label"></label>
                                 <input asp-for="Title" class="form-control" />

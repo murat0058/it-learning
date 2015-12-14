@@ -11,6 +11,8 @@ using System.IO;
 using System.Linq;
 using System;
 using System.Threading.Tasks;
+using ITLearning.Contract.Data.Requests.News;
+using ITLearning.Contract.Data.Results;
 
 namespace ITLearning.Backend.Business.Providers
 {
@@ -65,7 +67,7 @@ namespace ITLearning.Backend.Business.Providers
             return newsList;
         }
 
-        public NewsData GetById(string id)
+        public NewsData GetById(string id, bool contentAsHtml = true)
         {
             var fileProvider = _hostingEnvironment.WebRootFileProvider;
 
@@ -74,21 +76,21 @@ namespace ITLearning.Backend.Business.Providers
             var newsJsonInfoFile = directoryContents.SingleOrDefault(x => x.Name == $"{id}.json");
             var newsContentFile = directoryContents.SingleOrDefault(x => x.Name == $"{id}_content.md");
 
-            if(newsJsonInfoFile == null || newsContentFile == null)
+            if (newsJsonInfoFile == null || newsContentFile == null)
             {
                 return null;
             }
 
             NewsData news = GetNewsFromJsonFile(newsJsonInfoFile);
-            news.Content = GetHtmlContentFromMarkdownFile(newsContentFile);
+            news.Content = GetHtmlContentFromMarkdownFile(newsContentFile, contentAsHtml);
 
             return news;
         }
 
-        private string GetHtmlContentFromMarkdownFile(IFileInfo contentFile)
+        private string GetHtmlContentFromMarkdownFile(IFileInfo contentFile, bool contentAsHtml = true)
         {
             var markdownContent = File.ReadAllText(contentFile.PhysicalPath);
-            return CommonMarkConverter.Convert(markdownContent);
+            return contentAsHtml ? CommonMarkConverter.Convert(markdownContent) : markdownContent;
         }
 
         private NewsData GetNewsFromJsonFile(IFileInfo contentFile)
@@ -136,13 +138,41 @@ namespace ITLearning.Backend.Business.Providers
 
             if (directoryContents.Any())
             {
-                var lastNewsId = directoryContents.Count() / 2;
+                var lastNewsId = directoryContents.Count();
 
-                return $"{DateTime.Now.ToShortDateString()}_{lastNewsId + 1}";
+                return $"{lastNewsId + 1}_{DateTime.Now.ToShortDateString().Replace("-", "") }";
             }
             else
             {
-                return $"{DateTime.Now.ToShortDateString()}_1";
+                return $"1_{DateTime.Now.ToShortDateString()}";
+            }
+        }
+
+        public Task<CommonResult> EditNewsAsync(EditNewsRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CommonResult> DeleteNewsAsync(DeleteNewsRequest request)
+        {
+            var contentFile = $"{request.NewsId}_content.md";
+            var jsonFile = $"{request.NewsId}.json";
+
+            var rootPath = _hostingEnvironment.WebRootPath.Replace('\\', '/');
+
+            var contentPath = rootPath + Path.Combine(_newsPath, contentFile);
+            var jsonPath = rootPath + Path.Combine(_newsPath, jsonFile);
+
+            if (File.Exists(contentPath) && File.Exists(jsonPath))
+            {
+                File.Delete(contentPath);
+                File.Delete(jsonPath);
+
+                return new Task<CommonResult>(() => CommonResult.Success());
+            }
+            else
+            {
+                return new Task<CommonResult>(() => CommonResult.Failure("News o podanym Id nie istnieje."));
             }
         }
     }

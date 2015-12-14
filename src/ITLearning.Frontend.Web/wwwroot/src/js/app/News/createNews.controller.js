@@ -14,8 +14,6 @@
         createNewsVm.newsContent = '';
         createNewsVm.newsTags = '';
 
-        createNewsVm.flow = {};
-
         createNewsVm.init = init;
         createNewsVm.addNews = addNews;
 
@@ -36,8 +34,7 @@
             var request = {
                 Title: createNewsVm.newsTitle,
                 Content: createNewsVm.newsContent,
-                TagsString: createNewsVm.newsTags,
-                Image: createNewsVm.flow.files[0].file
+                TagsString: createNewsVm.newsTags
             };
 
             return newsService.createNews(request);

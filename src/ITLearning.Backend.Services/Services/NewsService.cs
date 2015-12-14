@@ -10,6 +10,7 @@ using ITLearning.Contract.Data.Requests.News;
 using System;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using ITLearning.Contract.Data.Results.News;
 
 namespace ITLearning.Backend.Business.Services
 {
@@ -58,9 +59,9 @@ namespace ITLearning.Backend.Business.Services
             }
         }
 
-        public CommonResult<NewsData> GetById(string id)
+        public CommonResult<NewsData> GetById(string id, bool contentAsHtml = true)
         {
-            var news = _newsProvider.GetById(id);
+            var news = _newsProvider.GetById(id, contentAsHtml);
 
             if(news != null)
             {
@@ -85,7 +86,7 @@ namespace ITLearning.Backend.Business.Services
             return CommonResult<NewsListRequest>.Success(request);
         }
 
-        public async Task<CommonResult> CreateNewsAsync(CreateNewsRequest request)
+        public async Task<CommonResult<CreateNewsResult>> CreateNewsAsync(CreateNewsRequest request)
         {
             var newsId = GetNewsId();
 
@@ -108,7 +109,7 @@ namespace ITLearning.Backend.Business.Services
             await _newsProvider.SaveDataAsync(data);
             await _newsProvider.SaveContentAsync(contentData);
 
-            return CommonResult.Success();
+            return CommonResult<CreateNewsResult>.Success(new CreateNewsResult { Id = newsId });
         }
 
         #region Helpers
@@ -135,6 +136,18 @@ namespace ITLearning.Backend.Business.Services
         private static IEnumerable<NewsData> FilterByQuery(NewsFilterRequest filterRequest, IEnumerable<NewsData> newsCollection)
         {
             return newsCollection.Where(news => news.Title.ToLower().Contains(filterRequest.Query.ToLower()));
+        }
+
+        public async Task<CommonResult> EditNewsAsync(EditNewsRequest request)
+        {
+            var result = await _newsProvider.EditNewsAsync(request);
+            return result;
+        }
+
+        public async Task<CommonResult> DeleteNewsAsync(DeleteNewsRequest request)
+        {
+            var result = await _newsProvider.DeleteNewsAsync(request);
+            return result;
         }
         #endregion
     }

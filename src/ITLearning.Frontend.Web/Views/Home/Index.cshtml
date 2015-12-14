@@ -26,7 +26,10 @@
                 </section>
             </div>
             <div class="col-md-9">
-                <h4 class="section-header section-header-success">IT Newsy</h4>
+                @if (mainNews != null)
+                {
+                    <h4 class="section-header section-header-success">IT Newsy</h4>
+                }
                 <section class="section-container news-container">
                     @if (mainNews != null)
                     {
