@@ -94,9 +94,9 @@ namespace ITLearning.Frontend.Web.Controllers
         }
 
         [HttpPost("EditNews")]
-        public async Task<IActionResult> EditNews(CreateUpdateNewsViewModel viewModel)
+        public IActionResult EditNews(CreateUpdateNewsViewModel viewModel)
         {
-            var result = await CommonEditDeletePostActionAsync<CreateUpdateNewsViewModel, EditNewsRequest>(viewModel.Id, viewModel, _newsService.EditNewsAsync);
+            var result = CommonEditDeletePostActionAsync<CreateUpdateNewsViewModel, EditNewsRequest>(viewModel.Id, viewModel, _newsService.EditNews);
 
             if (result.IsSuccess)
             {
@@ -109,9 +109,9 @@ namespace ITLearning.Frontend.Web.Controllers
         }
 
         [HttpPost("DeleteNews")]
-        public async Task<IActionResult> DeleteNews(DeleteNewsViewModel viewModel)
+        public IActionResult DeleteNews(DeleteNewsViewModel viewModel)
         {
-            var result = await CommonEditDeletePostActionAsync<DeleteNewsViewModel, DeleteNewsRequest>(viewModel.NewsId, viewModel, _newsService.DeleteNewsAsync);
+            var result = CommonEditDeletePostActionAsync<DeleteNewsViewModel, DeleteNewsRequest>(viewModel.NewsId, viewModel, _newsService.DeleteNews);
 
             if (result.IsSuccess)
             {
@@ -182,7 +182,7 @@ namespace ITLearning.Frontend.Web.Controllers
             }
         }
 
-        private async Task<CommonResult> CommonEditDeletePostActionAsync<TViewModel, TRequest>(string id, TViewModel viewModel, Func<TRequest, Task<CommonResult>> func)
+        private CommonResult CommonEditDeletePostActionAsync<TViewModel, TRequest>(string id, TViewModel viewModel, Func<TRequest, CommonResult> func)
         {
             var news = _newsService.GetById(id);
 
@@ -190,7 +190,7 @@ namespace ITLearning.Frontend.Web.Controllers
             {
                 var request = Mapper.Map<TRequest>(viewModel);
 
-                return await func(request);
+                return func(request);
             }
             else
             {

@@ -11,10 +11,12 @@ namespace ITLearning.Contract.Providers
         NewsData GetById(string id, bool contentAsHtml = true);
         IEnumerable<NewsData> GetAll();
         IEnumerable<NewsData> GetAllWithoutContent();
+
         Task SaveDataAsync(NewsData data);
         Task SaveContentAsync(NewsContentData data);
+
+        CommonResult DeleteNews(DeleteNewsRequest request);
+
         string GetNewNewsId();
-        Task<CommonResult> EditNewsAsync(EditNewsRequest request);
-        Task<CommonResult> DeleteNewsAsync(DeleteNewsRequest request);
     }
 }

@@ -8,9 +8,9 @@ using ITLearning.Contract.Data.Requests;
 using ITLearning.Shared.Extensions;
 using ITLearning.Contract.Data.Requests.News;
 using System;
-using Newtonsoft.Json;
 using System.Threading.Tasks;
 using ITLearning.Contract.Data.Results.News;
+using ITLearning.Shared.Extensions;
 
 namespace ITLearning.Backend.Business.Services
 {
@@ -96,7 +96,7 @@ namespace ITLearning.Backend.Business.Services
                 Author = request.Author,
                 Title = request.Title,
                 Date = DateTime.Now,
-                ImagePath = "google-campus.jpg",
+                ImageName = "google-campus.jpg",
                 Tags = GetTagsFromTagsString(request.TagsString),
             };
 
@@ -138,16 +138,35 @@ namespace ITLearning.Backend.Business.Services
             return newsCollection.Where(news => news.Title.ToLower().Contains(filterRequest.Query.ToLower()));
         }
 
-        public async Task<CommonResult> EditNewsAsync(EditNewsRequest request)
+        public CommonResult EditNews(EditNewsRequest request)
         {
-            var result = await _newsProvider.EditNewsAsync(request);
-            return result;
+            var data = _newsProvider.GetById(request.Id);
+
+            if (request.Title.NotNullNorEmpty())
+            {
+                data.Title = request.Title;
+            }
+
+            if (request.TagsString.NotNullNorEmpty() && GetTagsFromTagsString(request.TagsString).Any())
+            {
+                data.Tags = GetTagsFromTagsString(request.TagsString);
+            }
+
+            var contentData = new NewsContentData
+            {
+                Id = request.Id,
+                Content = request.Content
+            };
+
+            _newsProvider.SaveDataAsync(data);
+            _newsProvider.SaveContentAsync(contentData);
+
+            return CommonResult.Success();
         }
 
-        public async Task<CommonResult> DeleteNewsAsync(DeleteNewsRequest request)
+        public CommonResult DeleteNews(DeleteNewsRequest request)
         {
-            var result = await _newsProvider.DeleteNewsAsync(request);
-            return result;
+            return _newsProvider.DeleteNews(request);
         }
         #endregion
     }

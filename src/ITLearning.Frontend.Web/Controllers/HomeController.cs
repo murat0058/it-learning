@@ -65,14 +65,17 @@ namespace ITLearning.Frontend.Web.Controllers
             {
                 var allNewsItem = result.Item;
 
+                var ordered = allNewsItem
+                    .OrderByDescending(x => x.Id);
+
                 if (allNewsItem.Count() > 0)
                 {
-                    model.MainNews = Mapper.Map<NewsThumbnailViewModel>(allNewsItem.First());
+                    model.MainNews = Mapper.Map<NewsThumbnailViewModel>(ordered.First());
                 }
 
                 if (allNewsItem.Count() > 1)
                 {
-                    model.SmallNews = result.Item.Skip(1).Take(3).Select(x => Mapper.Map<NewsThumbnailViewModel>(x));
+                    model.SmallNews = ordered.Skip(1).Take(3).Select(x => Mapper.Map<NewsThumbnailViewModel>(x));
                 }
             }
         }

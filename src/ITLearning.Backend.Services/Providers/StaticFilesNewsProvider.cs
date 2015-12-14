@@ -13,6 +13,7 @@ using System;
 using System.Threading.Tasks;
 using ITLearning.Contract.Data.Requests.News;
 using ITLearning.Contract.Data.Results;
+using ITLearning.Shared.Extensions;
 
 namespace ITLearning.Backend.Business.Providers
 {
@@ -97,7 +98,6 @@ namespace ITLearning.Backend.Business.Providers
         {
             var jsonNews = File.ReadAllText(contentFile.PhysicalPath);
             var news = JsonConvert.DeserializeObject<NewsData>(jsonNews);
-            news.ImagePath = _newsImagesPath + news.ImagePath;
 
             return news;
         }
@@ -106,6 +106,7 @@ namespace ITLearning.Backend.Business.Providers
         {
             var fileName = $"{data.Id}.json";
             var path = Path.Combine(_newsPath, fileName);
+            data.ImagePath = _newsImagesPath + data.ImageName;
 
             await SaveFileAsync(path, JsonConvert.SerializeObject(data));
         }
@@ -148,12 +149,7 @@ namespace ITLearning.Backend.Business.Providers
             }
         }
 
-        public Task<CommonResult> EditNewsAsync(EditNewsRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<CommonResult> DeleteNewsAsync(DeleteNewsRequest request)
+        public CommonResult DeleteNews(DeleteNewsRequest request)
         {
             var contentFile = $"{request.NewsId}_content.md";
             var jsonFile = $"{request.NewsId}.json";
@@ -168,11 +164,11 @@ namespace ITLearning.Backend.Business.Providers
                 File.Delete(contentPath);
                 File.Delete(jsonPath);
 
-                return new Task<CommonResult>(() => CommonResult.Success());
+                return CommonResult.Success();
             }
             else
             {
-                return new Task<CommonResult>(() => CommonResult.Failure("News o podanym Id nie istnieje."));
+                return CommonResult.Failure("News o podanym Id nie istnieje.");
             }
         }
     }

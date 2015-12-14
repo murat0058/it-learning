@@ -22,8 +22,7 @@ namespace ITLearning.Frontend.Web.ViewModels.News
         [Required(ErrorMessage = "Dodaj przynajmniej jeden tag")]
         public string TagsString { get; set; }
 
-        [Display(Name = "Grafika newsa")]
-        [Required(ErrorMessage = "Grafika jest wymagana")]
+        [Display(Name = "Zdjęcie")]
         [DataType(DataType.Upload)]
         public IFormFile Image { get; set; }
     }

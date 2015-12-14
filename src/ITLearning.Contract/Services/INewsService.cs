@@ -16,7 +16,7 @@ namespace ITLearning.Contract.Services
         CommonResult<NewsListRequest> GetInitialRequest();
         Task<CommonResult<CreateNewsResult>> CreateNewsAsync(CreateNewsRequest createNewsRequest);
 
-        Task<CommonResult> EditNewsAsync(EditNewsRequest request);
-        Task<CommonResult> DeleteNewsAsync(DeleteNewsRequest request);
+        CommonResult EditNews(EditNewsRequest request);
+        CommonResult DeleteNews(DeleteNewsRequest request);
     }
 }
