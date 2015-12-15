@@ -94,6 +94,7 @@ namespace ITLearning.Backend.Business.Services
             {
                 Id = newsId,
                 Author = request.Author,
+                AuthorUserName = request.AuthorUserName,
                 Title = request.Title,
                 Date = DateTime.Now,
                 ImageName = "google-campus.jpg",

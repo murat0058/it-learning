@@ -9,6 +9,7 @@ namespace ITLearning.Contract.Data.Requests.News
     {
         public string Title { get; set; }
         public string Author { get; set; }
+        public string AuthorUserName { get; set; }
         public string Content { get; set; }
         public string TagsString { get; set; }
     }

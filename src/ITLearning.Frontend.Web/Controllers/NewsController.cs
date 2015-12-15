@@ -71,7 +71,7 @@ namespace ITLearning.Frontend.Web.Controllers
 
             var viewModel = Mapper.Map<SingleNewsViewModel>(result.Item);
 
-            bool isCurrentUserAnAuthor = CheckIfAuthor(viewModel.Author);
+            bool isCurrentUserAnAuthor = CheckIfAuthor(viewModel.AuthorUserName);
 
             viewModel.CanDelete = isCurrentUserAnAuthor;
             viewModel.CanEdit = isCurrentUserAnAuthor;
@@ -143,7 +143,8 @@ namespace ITLearning.Frontend.Web.Controllers
             var request = Mapper.Map<CreateNewsRequest>(model);
 
             var userData = _userService.GetUserProfile();
-            request.Author = GetUserName(userData.Item);
+            request.Author = GetUserFormattedName(userData.Item);
+            request.AuthorUserName = userData.Item.UserName;
 
             var result = await _newsService.CreateNewsAsync(request);
 
@@ -166,7 +167,7 @@ namespace ITLearning.Frontend.Web.Controllers
             {
                 var newsItem = news.Item;
 
-                if (CheckIfAuthor(newsItem.Author))
+                if (CheckIfAuthor(newsItem.AuthorUserName))
                 {
                     var vm = Mapper.Map<TViewModel>(newsItem);
                     return View(viewName, vm);
@@ -186,7 +187,7 @@ namespace ITLearning.Frontend.Web.Controllers
         {
             var news = _newsService.GetById(id);
 
-            if (news.IsSuccess && CheckIfAuthor(news.Item.Author))
+            if (news.IsSuccess && CheckIfAuthor(news.Item.AuthorUserName))
             {
                 var request = Mapper.Map<TRequest>(viewModel);
 
@@ -199,7 +200,7 @@ namespace ITLearning.Frontend.Web.Controllers
         }
 
         #region Helpers
-        private string GetUserName(UserProfileData data)
+        private string GetUserFormattedName(UserProfileData data)
         {
             if (string.IsNullOrEmpty(data.FirstName) || string.IsNullOrEmpty(data.LastName))
             {
@@ -213,10 +214,7 @@ namespace ITLearning.Frontend.Web.Controllers
 
         private bool CheckIfAuthor(string newsAuthorName)
         {
-            var userData = _userService.GetUserProfile();
-            var currentUserName = GetUserName(userData.Item);
-
-            var isCurrentUserAnAuthor = newsAuthorName == currentUserName;
+            var isCurrentUserAnAuthor = newsAuthorName == User.Identity.Name;
             return isCurrentUserAnAuthor;
         }
         #endregion
