@@ -1,0 +1,30 @@
+﻿@model SingleNewsViewModel
+
+<div class="form-wrapper">
+    <div class="container">
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-md-8 col-md-offset-2">
+                <form asp-action="DeleteNews" asp-controller="News" name="addNewsForm" class="create-news-form" enctype="multipart/form-data">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <span><i class="fa fa-pencil"></i> | Usuń newsa</span>
+                        </div>
+                        <div class="panel-body">
+                            @Html.ValidationSummary(excludePropertyErrors: true)
+                            <h3>Tytuł: @Model.Title</h3>
+                            <h4>Autor: @Model.Author</h4>
+                            
+                            <p style="color: red; font-weight: 600;">UWAGA! Tej operacji nie można cofnąć!</p>
+
+                            <input type="hidden" id="NewsId" name="NewsId" value="@Model.Id"/>
+
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-danger pull-right" value="Usuń" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

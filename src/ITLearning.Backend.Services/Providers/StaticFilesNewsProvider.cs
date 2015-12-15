@@ -9,6 +9,13 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System;
+using System.Threading.Tasks;
+using ITLearning.Contract.Data.Requests.News;
+using ITLearning.Contract.Data.Results;
+using ITLearning.Shared.Extensions;
+using ITLearning.Contract.Data.Results.News;
+using Microsoft.AspNet.Http;
 
 namespace ITLearning.Backend.Business.Providers
 {
@@ -63,7 +70,7 @@ namespace ITLearning.Backend.Business.Providers
             return newsList;
         }
 
-        public NewsData GetById(string id)
+        public NewsData GetById(string id, bool contentAsHtml = true)
         {
             var fileProvider = _hostingEnvironment.WebRootFileProvider;
 
@@ -72,30 +79,144 @@ namespace ITLearning.Backend.Business.Providers
             var newsJsonInfoFile = directoryContents.SingleOrDefault(x => x.Name == $"{id}.json");
             var newsContentFile = directoryContents.SingleOrDefault(x => x.Name == $"{id}_content.md");
 
-            if(newsJsonInfoFile == null || newsContentFile == null)
+            if (newsJsonInfoFile == null || newsContentFile == null)
             {
                 return null;
             }
 
             NewsData news = GetNewsFromJsonFile(newsJsonInfoFile);
-            news.Content = GetHtmlContentFromMarkdownFile(newsContentFile);
+            news.Content = GetHtmlContentFromMarkdownFile(newsContentFile, contentAsHtml);
 
             return news;
         }
 
-        private string GetHtmlContentFromMarkdownFile(IFileInfo contentFile)
+        private string GetHtmlContentFromMarkdownFile(IFileInfo contentFile, bool contentAsHtml = true)
         {
             var markdownContent = File.ReadAllText(contentFile.PhysicalPath);
-            return CommonMarkConverter.Convert(markdownContent);
+            return contentAsHtml ? CommonMarkConverter.Convert(markdownContent) : markdownContent;
         }
 
         private NewsData GetNewsFromJsonFile(IFileInfo contentFile)
         {
             var jsonNews = File.ReadAllText(contentFile.PhysicalPath);
             var news = JsonConvert.DeserializeObject<NewsData>(jsonNews);
-            news.ImagePath = _newsImagesPath + news.ImagePath;
 
             return news;
+        }
+
+        public async Task SaveDataAsync(NewsData data)
+        {
+            var fileName = $"{data.Id}.json";
+            var path = Path.Combine(_newsPath, fileName);
+            data.ImagePath = _newsImagesPath + data.ImageName;
+
+            await SaveFileAsync(path, JsonConvert.SerializeObject(data));
+        }
+
+        public async Task SaveContentAsync(NewsContentData data)
+        {
+            var fileName = $"{data.Id}_content.md";
+            var path = Path.Combine(_newsPath, fileName);
+
+            await SaveFileAsync(path, data.Content);
+        }
+
+        public async Task SaveFileAsync(string subPath, string content)
+        {
+            var rootPath = _hostingEnvironment.WebRootPath;
+
+            var root = rootPath.Replace('\\', '/');
+            var path = root + subPath;
+
+            using (var writer = new StreamWriter(path))
+            {
+                await writer.WriteAsync(content);
+            }
+        }
+
+        public string GetNewNewsId()
+        {
+            var fileProvider = _hostingEnvironment.WebRootFileProvider;
+            var directoryContents = fileProvider.GetDirectoryContents(_newsPath).Where(x => x.Name.EndsWith(".json"));
+
+            var date = DateTime.Now;
+
+            var newsId = string.Empty;
+
+            if (directoryContents.Any())
+            {
+                var lastNewsId = directoryContents.Count();
+
+                newsId = $"{lastNewsId + 1}_{date.Year}{date.Month}{date.Day}";
+            }
+            else
+            {
+                newsId = $"1_{date.Year}{date.Month}{date.Day}";
+            }
+
+            return newsId;
+        }
+
+        public CommonResult DeleteNews(DeleteNewsRequest request)
+        {
+            var contentFile = $"{request.NewsId}_content.md";
+            var jsonFile = $"{request.NewsId}.json";
+
+            var rootPath = _hostingEnvironment.WebRootPath.Replace('\\', '/');
+
+            var contentPath = rootPath + Path.Combine(_newsPath, contentFile);
+            var jsonPath = rootPath + Path.Combine(_newsPath, jsonFile);
+
+            if (File.Exists(contentPath) && File.Exists(jsonPath))
+            {
+                File.Delete(contentPath);
+                File.Delete(jsonPath);
+
+                return CommonResult.Success();
+            }
+            else
+            {
+                return CommonResult.Failure("News o podanym Id nie istnieje.");
+            }
+        }
+
+        public async Task<SaveNewsImageResult> SaveImageAsync(IFormFile image)
+        {
+            if (image == null)
+            {
+                return new SaveNewsImageResult
+                {
+                    ImagePath = "default/default-news-image.jpg"
+                };
+            }
+
+            var rootPath = _hostingEnvironment.WebRootPath.Replace('\\', '/') + "/static/news-images/";
+            var fileName = "uploaded/" + Guid.NewGuid().ToString() + GetExtension(image);
+            var path = rootPath + fileName;
+
+            await image.SaveAsAsync(path);
+
+            return new SaveNewsImageResult
+            {
+                ImagePath = fileName
+            };
+        }
+
+        private string GetExtension(IFormFile image)
+        {
+            var contentType = image.ContentType;
+
+            switch (contentType)
+            {
+                case "image/png":
+                    return ".png";
+                case "image/jpeg":
+                    return ".jpg";
+                case "image/gif":
+                    return ".gif";
+                default:
+                    return ".jpg";
+            }
         }
     }
 }

@@ -202,11 +202,15 @@ src/ITLearning.Frontend.Web/wwwroot/static/profile/original/*.jpg
 src/ITLearning.Frontend.Web/wwwroot/static/profile/cropped/*.jpg
 src/ITLearning.Frontend.Web/appsettings.Development.json
 src/ITLearning.Frontend.Web/appsettings.Production.json
-ITLearning/wwwroot/static/profile/cropped/
-ITLearning/wwwroot/static/profile/original/
-ITLearning/config.Development.json
-ITLearning/config.Production.json
+src/ITLearning.Frontend.Web/wwwroot/static/profile/cropped/*
+src/ITLearning.Frontend.Web/wwwroot/static/profile/original/*
+src/ITLearning.Frontend.Web/wwwroot/static/news/*.json
+src/ITLearning.Frontend.Web/wwwroot/static/news/*.md
+src/ITLearning.Frontend.Web/wwwroot/static/news-images/uploaded
 src/ITLearning.Frontend.Web/wwwroot/_references.js
+
+
+
 ITLearning/wwwroot/src/css/layout.css
 ITLearning/wwwroot/src/_bower/angular/.bower.json
 ITLearning/wwwroot/src/_bower/angular/README.md
@@ -218,4 +222,3 @@ ITLearning/wwwroot/src/_bower/angular/angular.min.js.map
 ITLearning/wwwroot/src/_bower/angular/bower.json
 ITLearning/wwwroot/src/_bower/angular/index.js
 ITLearning/wwwroot/src/_bower/angular/package.json
-src/ITLearning.Frontend.Web/wwwroot/static/profile/cropped/

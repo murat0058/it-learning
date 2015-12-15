@@ -15,7 +15,6 @@ namespace ITLearning.Frontend.Web.Core.Identity.Attributes
         public ClaimTypeEnum Type { get; set; }
         public ClaimValueEnum Value { get; set; }
 
-
         public override Task OnAuthorizationAsync(Microsoft.AspNet.Mvc.Filters.AuthorizationContext context)
         {
             if(IsClaimPermissionRequired(context) && HasUserRequestedClaim(context) == false)

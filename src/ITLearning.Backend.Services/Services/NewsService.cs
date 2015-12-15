@@ -6,6 +6,11 @@ using ITLearning.Contract.Data.Model.News;
 using ITLearning.Contract.Data.Results;
 using ITLearning.Contract.Data.Requests;
 using ITLearning.Shared.Extensions;
+using ITLearning.Contract.Data.Requests.News;
+using System;
+using System.Threading.Tasks;
+using ITLearning.Contract.Data.Results.News;
+using ITLearning.Shared.Extensions;
 
 namespace ITLearning.Backend.Business.Services
 {
@@ -54,9 +59,9 @@ namespace ITLearning.Backend.Business.Services
             }
         }
 
-        public CommonResult<NewsData> GetById(string id)
+        public CommonResult<NewsData> GetById(string id, bool contentAsHtml = true)
         {
-            var news = _newsProvider.GetById(id);
+            var news = _newsProvider.GetById(id, contentAsHtml);
 
             if(news != null)
             {
@@ -81,7 +86,46 @@ namespace ITLearning.Backend.Business.Services
             return CommonResult<NewsListRequest>.Success(request);
         }
 
+        public async Task<CommonResult<CreateNewsResult>> CreateNewsAsync(CreateNewsRequest request)
+        {
+            var newsId = GetNewsId();
+
+            var saveNewsImageResult = await _newsProvider.SaveImageAsync(request.Image);
+
+            var data = new NewsData
+            {
+                Id = newsId,
+                Author = request.Author,
+                AuthorUserName = request.AuthorUserName,
+                Title = request.Title,
+                Date = DateTime.Now,
+                ImageName = saveNewsImageResult.ImagePath,
+                Tags = GetTagsFromTagsString(request.TagsString),
+            };
+
+            var contentData = new NewsContentData
+            {
+                Id = newsId,
+                Content = request.Content
+            };
+
+            await _newsProvider.SaveDataAsync(data);
+            await _newsProvider.SaveContentAsync(contentData);
+
+            return CommonResult<CreateNewsResult>.Success(new CreateNewsResult { Id = newsId });
+        }
+
         #region Helpers
+        private string GetNewsId()
+        {
+            return _newsProvider.GetNewNewsId();
+        }
+
+        private IEnumerable<string> GetTagsFromTagsString(string tagsString)
+        {
+            return tagsString.Split(new char[] { ' ' }).Where(tag => tag.Length > 0);
+        }
+
         private static IEnumerable<NewsData> FilterByTags(NewsFilterRequest filterRequest, IEnumerable<NewsData> newsCollection)
         {
             return newsCollection.Where(news => filterRequest.Tags.All(x => news.Tags.Contains(x)));
@@ -95,6 +139,43 @@ namespace ITLearning.Backend.Business.Services
         private static IEnumerable<NewsData> FilterByQuery(NewsFilterRequest filterRequest, IEnumerable<NewsData> newsCollection)
         {
             return newsCollection.Where(news => news.Title.ToLower().Contains(filterRequest.Query.ToLower()));
+        }
+
+        public CommonResult EditNews(EditNewsRequest request)
+        {
+            var data = _newsProvider.GetById(request.Id);
+
+            if (request.Title.NotNullNorEmpty())
+            {
+                data.Title = request.Title;
+            }
+
+            if (request.TagsString.NotNullNorEmpty() && GetTagsFromTagsString(request.TagsString).Any())
+            {
+                data.Tags = GetTagsFromTagsString(request.TagsString);
+            }
+
+            var contentData = new NewsContentData
+            {
+                Id = request.Id,
+                Content = request.Content
+            };
+
+            if(request.Image != null)
+            {
+                var saveNewsImageResult = _newsProvider.SaveImageAsync(request.Image);
+                data.ImageName = saveNewsImageResult.Result.ImagePath;
+            }
+
+            _newsProvider.SaveDataAsync(data);
+            _newsProvider.SaveContentAsync(contentData);
+
+            return CommonResult.Success();
+        }
+
+        public CommonResult DeleteNews(DeleteNewsRequest request)
+        {
+            return _newsProvider.DeleteNews(request);
         }
         #endregion
     }

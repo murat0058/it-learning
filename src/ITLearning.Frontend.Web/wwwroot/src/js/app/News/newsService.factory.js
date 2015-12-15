@@ -9,7 +9,8 @@
     function newsServiceFactory($http) {
 
         var service = {
-            getNewsList: getNewsList
+            getNewsList: getNewsList,
+            createNews: createNews
         };
 
         return service;
@@ -29,6 +30,10 @@
             function getNewsListFailed(error) {
                 console.log('Request failed for getNewsList method.' + error.data);
             }
+        }
+
+        function createNews(requestData) {
+            return $http.post('/News/CreateNews', requestData);
         }
     };
 

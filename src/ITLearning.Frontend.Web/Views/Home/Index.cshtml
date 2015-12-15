@@ -4,7 +4,6 @@
     var userData = Model.UserData;
     var mainNews = Model.MainNews;
     var smallNewsList = Model.SmallNews;
-    var widgetViewModel = Model.UserWidgetViewModel;
 
     ViewBag.PageTitle = "Strona główna";
 }
@@ -22,12 +21,15 @@
                             </a>
                             <p>@( userData.FirstName ?? userData.UserName) </p>
                         </div>
-                        @Html.Partial("Partials/UserShortcutsWidget", widgetViewModel)
+                        @Html.Partial("Partials/UserShortcutsWidget")
                     </div>
                 </section>
             </div>
             <div class="col-md-9">
-                <h4 class="section-header section-header-success">IT Newsy</h4>
+                @if (mainNews != null)
+                {
+                    <h4 class="section-header section-header-success">IT Newsy</h4>
+                }
                 <section class="section-container news-container">
                     @if (mainNews != null)
                     {

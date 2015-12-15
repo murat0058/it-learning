@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AutoMapper;
 using ITLearning.Backend.Database.Entities;
 using ITLearning.Backend.Database.Entities.JunctionTables;
@@ -12,6 +13,7 @@ using ITLearning.Frontend.Web.ViewModels.Group;
 using ITLearning.Frontend.Web.ViewModels.Identity;
 using ITLearning.Frontend.Web.ViewModels.News;
 using ITLearning.Frontend.Web.ViewModels.User;
+using ITLearning.Contract.Data.Requests.News;
 
 namespace ITLearning.Shared.Mappings
 {
@@ -22,8 +24,15 @@ namespace ITLearning.Shared.Mappings
             Mapper.CreateMap<SignUpViewModel, SignUpModel>();
             Mapper.CreateMap<LoginViewModel, LoginModel>();
             Mapper.CreateMap<NewsData, NewsThumbnailViewModel>();
+            Mapper.CreateMap<NewsData, SingleNewsViewModel>();
+
+            Mapper.CreateMap<NewsData, CreateUpdateNewsViewModel>()
+                .ForMember(dest => dest.TagsString, opt => opt.ResolveUsing(src => src.Tags.Aggregate((prev, next) => $"{prev} {next}")));
 
             Mapper.CreateMap<NewsListRequest, NewsListViewModel>();
+            Mapper.CreateMap<CreateUpdateNewsViewModel, CreateNewsRequest>();
+            Mapper.CreateMap<CreateUpdateNewsViewModel, EditNewsRequest>();
+            Mapper.CreateMap<DeleteNewsViewModel, DeleteNewsRequest>();
 
             Mapper.CreateMap<User, UserProfileData>();
             Mapper.CreateMap<UserProfileData, User>();

@@ -1,4 +1,4 @@
-﻿@model NewsData
+﻿@model SingleNewsViewModel
 
 @{ 
     ViewBag.PageTitle = Model.Title;
@@ -39,6 +39,26 @@
                                     </a>
                                 </div>
                             </li>
+                            @if (Model.CanEdit)
+                            {
+                                <li>
+                                    <div class="icon-wrapper">
+                                        <a href="/News/Single/@Model.Id/Edit">
+                                            <i class="fa fa-pencil-square"></i> Edytuj
+                                        </a>
+                                    </div>
+                                </li>
+                            }
+                            @if (Model.CanDelete)
+                            {
+                                <li>
+                                    <div class="icon-wrapper">
+                                        <a href="/News/Single/@Model.Id/Delete">
+                                            <i class="fa fa-times-circle"></i> Usuń
+                                        </a>
+                                    </div>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>

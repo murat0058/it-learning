@@ -1,23 +1,20 @@
-@model IEnumerable<ITLearning.Frontend.Web.ViewModels.User.UserWidgetDirectiveViewModel>
-
-<section class="user-shortcuts-widget" ng-controller="UserShortcutsWidgetController as vm">
-    <div class="user-shortcuts-content" ng-style="vm.contentStyle">
-        <div class="content">
-            @foreach (var directive in Model)
-            {
-                <div ng-show="vm.activeDirectiveId === @directive.DirectiveId">
-                    <p class="title">@directive.TabTitle</p>
-                    @Html.Raw(directive.DirectiveString)
-                </div>
-            }
-        </div>
-    </div>
+﻿<section class="user-shortcuts-widget">
     <ul class="user-shortcuts-tabs">
-        @foreach (var directive in Model)
-        {
-            <li class="tab @directive.TabType" ng-class="{'active': vm.activeDirectiveId === @directive.DirectiveId }" title="@directive.TabTitle" ng-click="vm.activateDirective(@directive.DirectiveId)">
-                <i class="fa @directive.TabIcon"></i>
-            </li>}
+        <li class="tab tab-dark" data-toggle="tooltip" data-placement="bottom" title="Utwórz newsa">
+            <a asp-controller="News" asp-action="Create">
+                <i class="fa fa-plus"></i>  <i class="fa fa-pencil"></i>
+            </a>
+        </li>
+        <li class="tab tab-success" data-toggle="tooltip" data-placement="bottom" title="Utwórz grupę">
+            <a asp-controller="Groups" asp-action="Create">
+                <i class="fa fa-plus"></i>  <i class="fa fa-users"></i>
+            </a>
+        </li>
+        <li class="tab tab-primary" data-toggle="tooltip" data-placement="bottom" title="Utwórz zadanie">
+            <a asp-controller="Tasks" asp-action="Create">
+                <i class="fa fa-plus"></i>  <i class="fa fa-file"></i>
+            </a>
+        </li>
     </ul>
 </section>
 

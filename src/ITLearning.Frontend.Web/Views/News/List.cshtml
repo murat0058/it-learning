@@ -8,6 +8,10 @@
     <div class="container news-container" ng-controller="NewsListController as newsListVm">
         <div class="row" ng-init="newsListVm.activate(@Model)">
             <div class="col-md-3 side-section">
+                <h4>Newsy</h4>
+                <a asp-action="Create" asp-controller="News" class="btn btn-block btn-success">
+                    <i class="fa fa-plus"></i> Utwórz newsa
+                </a>
                 <h4>Tagi</h4>
                 <div class="filter-category-wrapper">
                     <ul class="filters-list tags-list">

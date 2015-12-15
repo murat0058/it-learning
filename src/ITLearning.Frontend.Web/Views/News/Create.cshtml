@@ -1,0 +1,44 @@
+﻿@model CreateUpdateNewsViewModel
+
+<div class="form-wrapper">
+    <div class="container">
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-md-8 col-md-offset-2">
+                <form asp-action="CreateNews" asp-controller="News" name="addNewsForm" class="create-news-form" enctype="multipart/form-data">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <span><i class="fa fa-pencil"></i> | Utwórz newsa</span>
+                        </div>
+                        <div class="panel-body">
+                            @Html.ValidationSummary(excludePropertyErrors: true)
+                            <div class="form-group">
+                                <label asp-for="Title" class="control-label"></label>
+                                <input asp-for="Title" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Image" class="control-label"></label>
+                                <input asp-for="Image" class="form-control" />
+                                <span asp-validation-for="Image" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Content" class="control-label"></label>
+                                <textarea asp-for="Content" class="form-control" data-provide="markdown" rows="10" style="padding: 3px;"></textarea>
+                                <span asp-validation-for="Content" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="TagsString" class="control-label"></label>
+                                <p class="form-info-small">Wpisz kolejne tagi oddzielając je spacją, np. ludzie blogi microsoft</p>
+                                <input asp-for="TagsString" class="form-control" />
+                                <span asp-validation-for="TagsString" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary pull-right" value="Utwórz" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
