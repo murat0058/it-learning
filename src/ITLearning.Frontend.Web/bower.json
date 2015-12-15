@@ -12,7 +12,6 @@
     "respond": "1.4.2",
     "skel": "3.0.0",
     "bootstrap-markdown": "~2.9.0",
-    "markdown-js": "~0.6.2",
-    "ng-flow": "2.6.1"
+    "markdown-js": "~0.6.2"
   }
 }
