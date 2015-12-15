@@ -206,6 +206,7 @@ src/ITLearning.Frontend.Web/wwwroot/static/profile/cropped/*
 src/ITLearning.Frontend.Web/wwwroot/static/profile/original/*
 src/ITLearning.Frontend.Web/wwwroot/static/news/*.json
 src/ITLearning.Frontend.Web/wwwroot/static/news/*.md
+src/ITLearning.Frontend.Web/wwwroot/static/news-images/uploaded
 src/ITLearning.Frontend.Web/wwwroot/_references.js
 
 
