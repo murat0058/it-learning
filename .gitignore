@@ -204,6 +204,8 @@ src/ITLearning.Frontend.Web/appsettings.Development.json
 src/ITLearning.Frontend.Web/appsettings.Production.json
 src/ITLearning.Frontend.Web/wwwroot/static/profile/cropped/*
 src/ITLearning.Frontend.Web/wwwroot/static/profile/original/*
+src/ITLearning.Frontend.Web/wwwroot/static/news/*.json
+src/ITLearning.Frontend.Web/wwwroot/static/news/*.md
 src/ITLearning.Frontend.Web/wwwroot/_references.js
 
 
