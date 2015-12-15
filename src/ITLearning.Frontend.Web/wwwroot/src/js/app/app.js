@@ -6,9 +6,7 @@
             'app.groups',
             'app.news',
             'app.common',
-            'app.userShortcutsWidget',
-            'app.uiWidgets',
-            'flow'
+            'app.uiWidgets'
         ],
         configureHttpProvider);
 
