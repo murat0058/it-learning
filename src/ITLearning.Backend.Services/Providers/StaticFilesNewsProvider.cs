@@ -137,18 +137,22 @@ namespace ITLearning.Backend.Business.Providers
             var fileProvider = _hostingEnvironment.WebRootFileProvider;
             var directoryContents = fileProvider.GetDirectoryContents(_newsPath).Where(x => x.Name.EndsWith(".json"));
 
+            var date = DateTime.Now;
+
+            var newsId = string.Empty;
+            
             if (directoryContents.Any())
             {
                 var lastNewsId = directoryContents.Count();
 
-                var date = DateTime.Now;
-
-                return $"{lastNewsId + 1}_{date.Year}{date.Month}{date.Date}";
+                newsId = $"{lastNewsId + 1}_{date.Year}{date.Month}{date.Day}";
             }
             else
             {
-                return $"1_{DateTime.Now.ToShortDateString()}";
+                newsId = $"1_{date.Year}{date.Month}{date.Day}";
             }
+
+            return newsId;
         }
 
         public CommonResult DeleteNews(DeleteNewsRequest request)
