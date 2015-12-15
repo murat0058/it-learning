@@ -2,6 +2,7 @@
 using ITLearning.Contract.Data.Model.Groups;
 using ITLearning.Contract.Data.Model.User;
 using ITLearning.Contract.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace ITLearning.Contract.Data.Model.Tasks
@@ -25,6 +26,13 @@ namespace ITLearning.Contract.Data.Model.Tasks
         public IEnumerable<BranchShortData> Branches { get; set; }
 
         public UserShortData Author { get; set; }
+
+        public string CreationDate { get; set; }
+        public string FinishDate { get; set; }
+
+        public bool CodeReviewExist { get; set; }
+
+        public bool Finished { get; set; }
 
         public IEnumerable<TaskInstanceData> TaskInstances { get; set; }
     }

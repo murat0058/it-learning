@@ -117,8 +117,8 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="branch in editTaskVm.branches">
-                                    <td>{{branch.name}}</td>
-                                    <td style="word-break: break-word">{{branch.description}}</td>
+                                    <td>{{branch.Name}}</td>
+                                    <td style="word-break: break-word">{{branch.Description}}</td>
                                     <td style="min-width: 50px;">
                                         <a ng-hide="{{branch.id == 1}}" ng-click="editTaskVm.editBranch(branch.id)"><i class="fa fa-edit"></i></a>
                                         <a ng-hide="{{branch.id == 1}}" ng-click="editTaskVm.deleteBranch(branch.id)"><i class="fa fa-trash"></i></a>
