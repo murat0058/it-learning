@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using ITLearning.Contract.Data.Requests.News;
 using ITLearning.Contract.Data.Results;
 using ITLearning.Shared.Extensions;
+using ITLearning.Contract.Data.Results.News;
+using Microsoft.AspNet.Http;
 
 namespace ITLearning.Backend.Business.Providers
 {
@@ -140,7 +142,7 @@ namespace ITLearning.Backend.Business.Providers
             var date = DateTime.Now;
 
             var newsId = string.Empty;
-            
+
             if (directoryContents.Any())
             {
                 var lastNewsId = directoryContents.Count();
@@ -175,6 +177,45 @@ namespace ITLearning.Backend.Business.Providers
             else
             {
                 return CommonResult.Failure("News o podanym Id nie istnieje.");
+            }
+        }
+
+        public async Task<SaveNewsImageResult> SaveImageAsync(IFormFile image)
+        {
+            if (image == null)
+            {
+                return new SaveNewsImageResult
+                {
+                    ImagePath = "default/default-news-image.jpg"
+                };
+            }
+
+            var rootPath = _hostingEnvironment.WebRootPath.Replace('\\', '/') + "/static/news-images/";
+            var fileName = "uploaded/" + Guid.NewGuid().ToString() + GetExtension(image);
+            var path = rootPath + fileName;
+
+            await image.SaveAsAsync(path);
+
+            return new SaveNewsImageResult
+            {
+                ImagePath = fileName
+            };
+        }
+
+        private string GetExtension(IFormFile image)
+        {
+            var contentType = image.ContentType;
+
+            switch (contentType)
+            {
+                case "image/png":
+                    return ".png";
+                case "image/jpeg":
+                    return ".jpg";
+                case "image/gif":
+                    return ".gif";
+                default:
+                    return ".jpg";
             }
         }
     }

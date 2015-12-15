@@ -3,6 +3,8 @@ using ITLearning.Contract.Data.Requests.News;
 using ITLearning.Contract.Data.Results;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Http;
+using ITLearning.Contract.Data.Results.News;
 
 namespace ITLearning.Contract.Providers
 {
@@ -18,5 +20,7 @@ namespace ITLearning.Contract.Providers
         CommonResult DeleteNews(DeleteNewsRequest request);
 
         string GetNewNewsId();
+
+        Task<SaveNewsImageResult> SaveImageAsync(IFormFile image);
     }
 }

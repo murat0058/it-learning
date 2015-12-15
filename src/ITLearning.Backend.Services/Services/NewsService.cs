@@ -90,6 +90,8 @@ namespace ITLearning.Backend.Business.Services
         {
             var newsId = GetNewsId();
 
+            var saveNewsImageResult = await _newsProvider.SaveImageAsync(request.Image);
+
             var data = new NewsData
             {
                 Id = newsId,
@@ -97,7 +99,7 @@ namespace ITLearning.Backend.Business.Services
                 AuthorUserName = request.AuthorUserName,
                 Title = request.Title,
                 Date = DateTime.Now,
-                ImageName = "google-campus.jpg",
+                ImageName = saveNewsImageResult.ImagePath,
                 Tags = GetTagsFromTagsString(request.TagsString),
             };
 
@@ -158,6 +160,12 @@ namespace ITLearning.Backend.Business.Services
                 Id = request.Id,
                 Content = request.Content
             };
+
+            if(request.Image != null)
+            {
+                var saveNewsImageResult = _newsProvider.SaveImageAsync(request.Image);
+                data.ImageName = saveNewsImageResult.Result.ImagePath;
+            }
 
             _newsProvider.SaveDataAsync(data);
             _newsProvider.SaveContentAsync(contentData);
