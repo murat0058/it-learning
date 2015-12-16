@@ -1,17 +1,17 @@
 ﻿/**
 * @desc Manage users in given group directive
-* @example <itl-group-users group-id="5"></itl-group-users>
+* @example <itl-group-users-management-item user="user" delete-user="groupUsersVm.deleteUser"></itl-group-users-management-item>
 */
 (function () {
 
     angular
         .module('app.groups')
-        .directive('itlUsersListItem', itlUsersListItem);
+        .directive('itlGroupUsersManagementItem', itlGroupUsersManagementItem);
 
-    function itlUsersListItem() {
+    function itlGroupUsersManagementItem() {
 
         var directive = {
-            templateUrl: '/src/js/app/Groups/templates/users-list-item.html',
+            templateUrl: '/src/js/app/Groups/templates/group-users-management-item.html',
             restrict: 'E',
             scope: {
                 user: '=',

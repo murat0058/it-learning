@@ -243,10 +243,26 @@ namespace ITLearning.Frontend.Web.Controllers
             var request = new GetUsersForGroupRequest
             {
                 OwnerName = User.Identity.Name,
-                GroupId = viewModel.GroupId
+                GroupId = viewModel.GroupId,
+                IsRequestForManagement = false
             };
 
             var result = _groupsService.GetUsersForGroup(request);
+
+            return new JsonResult(result);
+        }
+
+        [HttpPost("GetUsersForGroupManagement")]
+        public IActionResult GetUsersForGroupManagement(UsersForGroupViewModel viewModel)
+        {
+            var request = new GetUsersForGroupRequest
+            {
+                OwnerName = User.Identity.Name,
+                GroupId = viewModel.GroupId,
+                IsRequestForManagement = true
+            };
+
+            var result = _groupsService.GetUsersForGroupManagement(request);
 
             return new JsonResult(result);
         }

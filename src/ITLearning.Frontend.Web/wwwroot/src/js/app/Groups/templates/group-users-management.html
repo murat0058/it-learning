@@ -1,0 +1,13 @@
+﻿<div class="panel panel-success group-users-management-directive" style="height: 420px;">
+    <div class="panel-heading">
+        <span><i class="fa fa-user-plus"></i> | Użytkownicy</span>
+    </div>
+    <div class="panel-body">
+        <div class="users-list">
+            <div ng-repeat="user in groupUsersVm.users">
+                <itl-group-users-management-item user="user" delete-user="groupUsersVm.deleteUser"></itl-group-users-management-item>
+            </div>
+            <ng-transclude></ng-transclude>
+        </div>
+    </div>
+</div>
