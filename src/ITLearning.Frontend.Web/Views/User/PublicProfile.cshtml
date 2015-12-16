@@ -1,0 +1,34 @@
+﻿@model ITLearning.Contract.Data.Model.User.UserProfileData
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <section class="user-profile-container">
+                    <img class="user-image" src="@Model.ProfileImagePath" alt="Zdjęcie profilowe" />
+                    <div class="user-data-container">
+                        <div class="user-name">
+                            <p>@(Model.FirstName ?? Model.UserName)</p>
+                        </div>
+                    </div>
+                </section>
+                <div style="margin-top: 15px;">
+                    <label class="control-label"><i class="fa fa-info-circle" style="margin-right: 5px;"></i> Informacje</label>
+                    <hr style="margin-top: 0px;" />
+                    <div class="col-md-3" style="padding-left: 0px;">
+                        <label class="control-label">Email</label>
+                    </div>
+                    <div class="col-md-9">
+                        @Model.Email
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                TODO<br />
+                Grupy<br />
+                Zadania stworzone<br/>
+                Zadania rowiazane + link do repo publicznych
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,6 +7,7 @@ using ITLearning.Frontend.Web.ViewModels.User;
 using ITLearning.Contract.Services;
 using ITLearning.Contract.Data.Requests;
 using ITLearning.Contract.Data.Model.User;
+using ITLearning.Contract.Providers;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -14,10 +15,25 @@ namespace ITLearning.Frontend.Web.Controllers
     public class UserController : BaseController
     {
         private readonly IUserService _userService;
+        private readonly IAppConfigurationProvider _configurationProvider;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IAppConfigurationProvider configurationProvider)
         {
             _userService = userService;
+            _configurationProvider = configurationProvider;
+        }
+
+        [HttpGet("PublicProfile/{userName}")]
+        public IActionResult PublicProfile(string userName)
+        {
+            var result = new UserProfileData()
+            {
+                Email = "adrian.bystrek@gmail.com",
+                UserName = "Lazys",
+                ProfileImagePath = _configurationProvider.GetProfileDefaultImagePath()
+            };
+
+            return View(result);
         }
 
         [HttpGet("Profile")]
@@ -47,14 +63,15 @@ namespace ITLearning.Frontend.Web.Controllers
         [HttpPost("CropImage")]
         public string CropImage(string imgUrl, int imgInitW, int imgInitH, double imgW, double imgH, int imgY1, int imgX1, int cropH, int cropW)
         {
-            var result = _userService.CropProfileImage(new CropImageData {
+            var result = _userService.CropProfileImage(new CropImageData
+            {
                 ImageUrl = imgUrl,
                 ImageOriginalWidth = imgInitW,
                 ImageOriginalHeight = imgInitH,
                 ImageScaledWidth = (int)imgW,
                 ImageScaledHeight = (int)imgH,
                 ImageCropStartPointY = imgY1,
-                ImageCropStartPointX =  imgX1,
+                ImageCropStartPointX = imgX1,
                 ImageCropHeight = cropH,
                 ImageCropWidth = cropW
             });

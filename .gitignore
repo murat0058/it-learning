@@ -222,3 +222,5 @@ ITLearning/wwwroot/src/_bower/angular/angular.min.js.map
 ITLearning/wwwroot/src/_bower/angular/bower.json
 ITLearning/wwwroot/src/_bower/angular/index.js
 ITLearning/wwwroot/src/_bower/angular/package.json
+ITLearning/config.Development.json
+ITLearning/config.Production.json

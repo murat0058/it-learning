@@ -14,8 +14,12 @@
         instanceSingleTaskVM.BackgroundImage;
         instanceSingleTaskVM.branches = [];
 
-        instanceSingleTaskVM.min = 0;
-        instanceSingleTaskVM.max = 0;
+        instanceSingleTaskVM.archMin = 0;
+        instanceSingleTaskVM.archMax = 0;
+        instanceSingleTaskVM.optMin = 0;
+        instanceSingleTaskVM.optMax = 0;
+        instanceSingleTaskVM.tesMin = 0;
+        instanceSingleTaskVM.testMax = 0;
 
         instanceSingleTaskVM.init = function (language, branches) {
             instanceSingleTaskVM.Language = uiFeaturesService.languageEnumDisplayName[language];
