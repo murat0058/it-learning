@@ -115,6 +115,43 @@ namespace ITLearning.Backend.Business.Services
             return CommonResult<CreateNewsResult>.Success(new CreateNewsResult { Id = newsId });
         }
 
+        public CommonResult EditNews(EditNewsRequest request)
+        {
+            var data = _newsProvider.GetById(request.Id);
+
+            if (request.Title.NotNullNorEmpty())
+            {
+                data.Title = request.Title;
+            }
+
+            if (request.TagsString.NotNullNorEmpty() && GetTagsFromTagsString(request.TagsString).Any())
+            {
+                data.Tags = GetTagsFromTagsString(request.TagsString);
+            }
+
+            var contentData = new NewsContentData
+            {
+                Id = request.Id,
+                Content = request.Content
+            };
+
+            if (request.Image != null)
+            {
+                var saveNewsImageResult = _newsProvider.SaveImageAsync(request.Image);
+                data.ImageName = saveNewsImageResult.Result.ImagePath;
+            }
+
+            _newsProvider.SaveDataAsync(data);
+            _newsProvider.SaveContentAsync(contentData);
+
+            return CommonResult.Success();
+        }
+
+        public CommonResult DeleteNews(DeleteNewsRequest request)
+        {
+            return _newsProvider.DeleteNews(request);
+        }
+
         #region Helpers
         private string GetNewsId()
         {
@@ -139,43 +176,6 @@ namespace ITLearning.Backend.Business.Services
         private static IEnumerable<NewsData> FilterByQuery(NewsFilterRequest filterRequest, IEnumerable<NewsData> newsCollection)
         {
             return newsCollection.Where(news => news.Title.ToLower().Contains(filterRequest.Query.ToLower()));
-        }
-
-        public CommonResult EditNews(EditNewsRequest request)
-        {
-            var data = _newsProvider.GetById(request.Id);
-
-            if (request.Title.NotNullNorEmpty())
-            {
-                data.Title = request.Title;
-            }
-
-            if (request.TagsString.NotNullNorEmpty() && GetTagsFromTagsString(request.TagsString).Any())
-            {
-                data.Tags = GetTagsFromTagsString(request.TagsString);
-            }
-
-            var contentData = new NewsContentData
-            {
-                Id = request.Id,
-                Content = request.Content
-            };
-
-            if(request.Image != null)
-            {
-                var saveNewsImageResult = _newsProvider.SaveImageAsync(request.Image);
-                data.ImageName = saveNewsImageResult.Result.ImagePath;
-            }
-
-            _newsProvider.SaveDataAsync(data);
-            _newsProvider.SaveContentAsync(contentData);
-
-            return CommonResult.Success();
-        }
-
-        public CommonResult DeleteNews(DeleteNewsRequest request)
-        {
-            return _newsProvider.DeleteNews(request);
         }
         #endregion
     }
