@@ -6,18 +6,18 @@
 
     angular
         .module('app.groups')
-        .directive('itlGroupUsers', itlGroupUsers);
+        .directive('itlGroupUsersManagement', itlGroupUsersManagement);
 
-    function itlGroupUsers() {
+    function itlGroupUsersManagement() {
 
         var directive = {
-            templateUrl: '/src/js/app/Groups/templates/group-users.html',
+            templateUrl: '/src/js/app/Groups/templates/group-users-management.html',
             restrict: 'E',
             transclude: true,
             scope: {
                 groupId: '@'
             },
-            controller: GroupUsersController,
+            controller: GroupUsersManagementController,
             controllerAs: 'groupUsersVm',
             bindToController: true
         };
@@ -25,9 +25,9 @@
         return directive;
     }
 
-    GroupUsersController.$inject = ['groupsService', 'loadingIndicatorService'];
+    GroupUsersManagementController.$inject = ['groupsService', 'loadingIndicatorService'];
 
-    function GroupUsersController(groupsService, loadingIndicatorService) {
+    function GroupUsersManagementController(groupsService, loadingIndicatorService) {
 
         var groupUsersVm = this;
 
@@ -54,14 +54,13 @@
             };
 
             return groupsService
-                .getUsersForGroup(request)
+                .getUsersForGroupManagement(request)
                 .then(function (data) {
                     if (data.IsSuccess) {
                         groupUsersVm.users = data.Item.Users.map(function (user) {
                             return {
                                 id: user.Id,
-                                name: user.Name,
-                                imagePath: user.ProfileImagePath
+                                name: user.Name
                             }
                         });
 

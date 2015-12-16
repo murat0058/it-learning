@@ -6,9 +6,9 @@
     <div class="container">
         <div class="row" style="margin-bottom: 20px;">
             <div class="col-md-3 side-section">
-                <itl-group-users group-id="@Model.GroupId">
+                <itl-group-users-management group-id="@Model.GroupId">
                     <itl-loading-indicator parent-vm-scoped="groupUsersVm" dot-background="#333" dot-size="5px"></itl-loading-indicator>
-                </itl-group-users>
+                </itl-group-users-management>
             </div>
             <div class="col-md-6">
                 <form asp-action="UpdateGroup" asp-controller="Groups" method="post" role="form" ng-controller="EditGroupController as editGroupVm">

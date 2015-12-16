@@ -17,6 +17,10 @@
                         <i class="fa fa-wrench"></i> Zarządzaj grupą
                     </a>
                 }
+                <h4>Użytkownicy</h4>
+                <itl-group-users group-id="@Model.GroupId">
+                    <itl-loading-indicator parent-vm-scoped="groupUsersVm" dot-background="#333" dot-size="5px"></itl-loading-indicator>
+                </itl-group-users>
             </div>
             <div class="col-md-9">
 

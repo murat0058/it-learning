@@ -251,6 +251,20 @@ namespace ITLearning.Frontend.Web.Controllers
             return new JsonResult(result);
         }
 
+        [HttpPost("GetUsersForGroupManagement")]
+        public IActionResult GetUsersForGroupManagement(UsersForGroupViewModel viewModel)
+        {
+            var request = new GetUsersForGroupRequest
+            {
+                OwnerName = User.Identity.Name,
+                GroupId = viewModel.GroupId
+            };
+
+            var result = _groupsService.GetUsersForGroupManagement(request);
+
+            return new JsonResult(result);
+        }
+
         [HttpPost("DeleteUser")]
         public IActionResult DeleteUser(DeleteUserFromGroupViewModel viewModel)
         {

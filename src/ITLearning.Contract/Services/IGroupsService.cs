@@ -34,6 +34,8 @@ namespace ITLearning.Contract.Services
 
         CommonResult<GetUsersForGroupResult> GetUsersForGroup(GetUsersForGroupRequest request);
 
+        CommonResult<GetUsersForGroupResult> GetUsersForGroupManagement(GetUsersForGroupRequest request);
+
         CommonResult RemoveUsers(UserGroupRequest request);
 
         CommonResult AddUsers(UserGroupRequest request);

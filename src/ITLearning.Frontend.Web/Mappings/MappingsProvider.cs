@@ -38,8 +38,10 @@ namespace ITLearning.Shared.Mappings
             Mapper.CreateMap<UserProfileData, User>();
             Mapper.CreateMap<UserProfileData, UserProfileViewModel>();
             Mapper.CreateMap<UpdateUserProfileRequest, UserProfileData>();
+
             Mapper.CreateMap<UserProfileData, UserData>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => GetUserName(src)));
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => GetUserName(src)))
+                .ForMember(dest => dest.ProfileImagePath, opt => opt.MapFrom(src => src.ProfileImagePath ?? "default.jpg"));
 
             Mapper.CreateMap<CreateGroupViewModel, CreateGroupRequest>();
             Mapper.CreateMap<UpdateGroupViewModel, UpdateGroupRequest>();

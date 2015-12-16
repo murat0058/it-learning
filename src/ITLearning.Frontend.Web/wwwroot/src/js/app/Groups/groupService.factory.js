@@ -12,6 +12,7 @@
             getGroups: getGroups,
             getUserGroupsBasicData: getUserGroupsBasicData,
             getUsersForGroup: getUsersForGroup,
+            getUsersForGroupManagement: getUsersForGroupManagement,
             deleteUser: deleteUser
         };
 
@@ -52,12 +53,26 @@
                 .then(getUsersForGroupComplete)
                 .catch(getUsersForGroupFailed);
 
-            function getUsersForGroupComplete(response){
+            function getUsersForGroupComplete(response) {
                 return response.data;
             }
 
             function getUsersForGroupFailed(error) {
                 console.log('Request failed for getUsersForGroup method.' + error.data);
+            }
+        }
+
+        function getUsersForGroupManagement(requestData) {
+            return $http.post('/Groups/GetUsersForGroupManagement', requestData)
+                .then(getUsersForGroupComplete)
+                .catch(getUsersForGroupFailed);
+
+            function getUsersForGroupComplete(response){
+                return response.data;
+            }
+
+            function getUsersForGroupFailed(error) {
+                console.log('Request failed for getUsersForGroupManagement method.' + error.data);
             }
         }
 

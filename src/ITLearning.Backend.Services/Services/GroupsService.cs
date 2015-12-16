@@ -14,6 +14,8 @@ using ITLearning.Contract.Data.Requests.Groups;
 using ITLearning.Contract.Enums;
 using ITLearning.Contract.Data.Model.Groups;
 using ITLearning.Contract.Data.Model.User;
+using ITLearning.Contract.Providers;
+using System.IO;
 
 namespace ITLearning.Backend.Business.Services
 {
@@ -21,11 +23,13 @@ namespace ITLearning.Backend.Business.Services
     {
         private IGroupsRepository _groupsRepository;
         private IUserRepository _userRepository;
+        private IAppConfigurationProvider _configurationProvider;
 
-        public GroupsService(IGroupsRepository groupsRepository, IUserRepository userRepository)
+        public GroupsService(IGroupsRepository groupsRepository, IUserRepository userRepository, IAppConfigurationProvider configurationProvider)
         {
             _groupsRepository = groupsRepository;
             _userRepository = userRepository;
+            _configurationProvider = configurationProvider;
         }
 
         public CommonResult<CreateGroupResult> CreateGroup(CreateGroupRequest request)
@@ -255,13 +259,48 @@ namespace ITLearning.Backend.Business.Services
                     return CommonResult<GetUsersForGroupResult>.Failure("Jedynie założyciel grupy może widzieć te dane.");
                 }
 
-                var users = group.Users.Where(x => x.UserName != request.OwnerName).ToList();
+                var users = group.Users.ToList();
+
+                if (users.Any())
+                {
+                    var usersData = new List<UserData>();
+
+                    foreach (var user in users)
+                    {
+                        var userData = Mapper.Map<UserData>(user);
+                        userData.ProfileImagePath = GenerateImagePath(user.ProfileImagePath);
+                        usersData.Add(userData);
+                    }
+
+                    return CommonResult<GetUsersForGroupResult>.Success(new GetUsersForGroupResult
+                    {
+                        Users = usersData
+                    });
+                }
+                else
+                {
+                    return CommonResult<GetUsersForGroupResult>.Failure("Brak użytkowników.");
+                }
+            }
+            else
+            {
+                return CommonResult<GetUsersForGroupResult>.Failure(getUsersResult.ErrorMessage);
+            }
+        }
+
+        public CommonResult<GetUsersForGroupResult> GetUsersForGroupManagement(GetUsersForGroupRequest request)
+        {
+            var getUsersResult = GetUsersForGroup(request);
+
+            if (getUsersResult.IsSuccess)
+            {
+                var users = getUsersResult.Item.Users.Where(x => x.UserName != request.OwnerName).ToList();
 
                 if (users.Any())
                 {
                     return CommonResult<GetUsersForGroupResult>.Success(new GetUsersForGroupResult
                     {
-                        Users = users.Select(x => Mapper.Map<UserData>(x))
+                        Users = users
                     });
                 }
                 else
@@ -271,7 +310,7 @@ namespace ITLearning.Backend.Business.Services
             }
             else
             {
-                return CommonResult<GetUsersForGroupResult>.Failure(getUsersResult.ErrorMessage);
+                return getUsersResult;
             }
         }
 
@@ -348,6 +387,26 @@ namespace ITLearning.Backend.Business.Services
             else
             {
                 return $"{user.FirstName} {user.LastName}";
+            }
+        }
+
+        private string GenerateImagePath(string imageName)
+        {
+            if (!string.IsNullOrEmpty(imageName))
+            {
+                var croppedProfileImage = _configurationProvider.GetProfileCroppedImagesFolderPath() + imageName;
+                if (File.Exists(croppedProfileImage))
+                {
+                    return _configurationProvider.GetProfileCroppedImagesFolderInternalPath() + imageName;
+                }
+                else
+                {
+                    return _configurationProvider.GetProfileOriginalImagesFolderInternalPath() + imageName;
+                }
+            }
+            else
+            {
+                return _configurationProvider.GetProfileDefaultImagePath();
             }
         }
     }
