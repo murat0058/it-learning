@@ -891,14 +891,15 @@ footer {
     height: $footer-height;
     margin-top: -$footer-height;
     width: 100%;
-    background-color: $color-dark;
+    background-color: $color-default;
     text-align: left;
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
+    box-shadow: 0px 2px 5px 4px rgba(0,0,0,0.1);
 
     a {
-        color: $color-default;
+        color: $color-dark;
         font-family: $custom-font;
         font-weight: 600;
 
