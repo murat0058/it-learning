@@ -1,6 +1,6 @@
 ﻿/**
 * @desc Manage users in given group directive
-* @example <itl-group-users-management group-id="5"></itl-group-users-management>
+* @example <itl-group-users group-id="5"></itl-group-users>
 */
 (function () {
 

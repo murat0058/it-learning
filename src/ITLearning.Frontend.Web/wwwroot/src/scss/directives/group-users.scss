@@ -4,45 +4,60 @@
 @import '../mixins/globals.scss';
 
 .group-users-directive {
-    margin-bottom: 50px;
 
-    .users-list {
-        height: 350px;
-        border-radius: 3px;
-        overflow-y: scroll;
-        padding-right: 5px;
+    $item-height: 50px;
 
-        .user-item {
-            width: 100%;
-            position: relative;
-            font-weight: 600;
-            font-family: $custom-font;
-            padding: 10px;
-            margin-bottom: 5px;
-            border-bottom: 1px solid #efefef;
+    a {
+        color: $color-default;
+    }
 
-            @include with-animated-background(300ms);
+    .user-item {
+        height: $item-height;
+        background-color: $color-dark;
+        width: 100%;
+        position: relative;
+        border-radius: 4px;
+        font-weight: 600;
+        font-family: $custom-font;
+        margin-bottom: 5px;
+        box-shadow: 0px 7px 4px -4px rgba(0, 0, 0, 0.3);
 
-            &:hover {
-                background-color: $color-default;
-            }
+        @include with-animated-background(300ms);
 
-            .row {
+        &:hover {
+            background-color: lighten($color-dark, 10%);
+        }
 
-                .col-xs-4, .col-xs-8 {
-                    padding-left: 5px;
-                    padding-right: 5px;
-                }
+        .user-item-wrapper {
+            overflow: hidden;
+
+            .user-img-col {
+                position: absolute;
+                width: $item-height;
+                height: $item-height;
+                left: 2px;
+                top: 2px;
 
                 img {
-                    border: 1px solid $color-primary;
+                    width: 46px;
+                    height: 46px;
+                    border-radius: 4px;
                 }
+            }
 
-                .user-name {
+            .user-name-col {
+                position: absolute;
+                height: $item-height;
+                width: 100%;
+                padding-left: 60px;
+                left: 0;
+                top: 0;
+
+                p.user-name {
+                    position: relative;
+                    top: 14px;
+
                     @include wrap-dots();
-                    position: absolute;
-                    left: 0;
-                    top: 20px;
                 }
             }
         }
