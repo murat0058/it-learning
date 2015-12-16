@@ -1,6 +1,219 @@
-﻿@model string
+﻿@model ITLearning.Contract.Data.Model.Tasks.TaskData
 
-@Model
+<link href="~/lib/angular-rangeslider/angular.rangeslider.css" rel="stylesheet" />
 
+@{
+    var language = Model.SelectedLanguage.ToString();
+    var branches = Json.Serialize(Model.Branches).ToString();
+}
 
-Single instance!
+<div ng-controller="InstanceSingleTaskViewController as instanceSingleTaskVM" ng-init="instanceSingleTaskVM.init('@language', @branches);">
+    <div class="task-header" ng-style="instanceSingleTaskVM.BackgroundImage">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div ng-style="instanceSingleTaskVM.BackgroundColor" style="width: 100px; height: 26px; border-radius: 3px; margin-left: 1px;">
+                        <div style="display: inline-block;">
+                            <i class="fa fa-file" style="font-size: 26px;"></i>
+                        </div>
+                        <div style="display: inline-block; margin-left: 5px;">
+                            <h3 class="name" style="font-size: 20px; position:absolute; top: -3px;"> {{instanceSingleTaskVM.Language}}</h3>
+                        </div>
+                    </div>
+                    <h4 class="description">@Model.Title</h4>
+                </div>
+                <div class="col-md-4">
+                    <p>Grupa</p>
+                    @if (Model.UserGroup != null)
+                    {
+                        <div><a href="/Groups/@Model.UserGroup.Id"><i class="fa fa-users"></i> @Model.UserGroup.Name</a></div>
+                    }
+                    else
+                    {
+                        <div>Brak przydzielonej grupy</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div id="task-description" @*ng-show="instanceSingleTaskVM.IsDescriptionVisible" *@>
+                        @Html.Raw(Model.Description)
+                        <div style="margin-top: 25px; margin-bottom: 15px;">
+                            Autor:
+                            <a href="#">@Model.Author.UserName</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Link do repozytorium GIT</label>
+                        <input class="form-control" value="@Model.RepositoryLink" readonly />
+                    </div>
+                    <div>
+                        <label class="control-label">Dostępne branch'e:</label>
+                    </div>
+                    <table class="table" id="branches-table">
+                        <thead>
+                            <tr>
+                                <th>Nazwa</th>
+                                <th>Opis</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="branch in instanceSingleTaskVM.branches">
+                                <td style="min-width: 110px;">{{branch.Name}}</td>
+                                <td style="word-break: break-word">{{branch.Description}}</td>
+                                <td>
+                                    <div ng-show="{{branch.Visible == true}}">
+                                        <div style="text-align: center;">
+                                            <i class="fa fa-check"></i>
+                                        </div>
+                                    </div>
+                                    <div ng-show="{{branch.Visible == false}}">
+                                        <div ng-click="instanceSingleTaskVM.showBranch(branch.id)" class="btn btn-success">
+                                            <i class="fa fa-eye"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <label class="control-label"><i class="fa fa-thumb-tack" style="margin-right: 5px;"></i> Zarządzaj</label>
+                    <hr style="margin-top: 0px;" />
+                    <div style="height: 40px;">
+                        <div class="col-md-6" style="padding: 0px">
+                            <span>Rozpoczęto @Model.CreationDate</span>
+                        </div>
+                        <div class="col-md-6" style="padding: 0px">
+                            <span>Zakończono @Model.FinishDate</span>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        Status
+                        @if (Model.CodeReviewExist)
+                        {
+                            <span style="background-color: forestgreen; border-radius: 3px; padding: 5px; color: white;">
+                                Zakończone
+                            </span>
+                        }
+                        else if (Model.Finished)
+                        {
+                            <span style="background-color: orange; border-radius: 3px; padding: 5px; color: white;">
+                                Oczekujące na ocenę
+                            </span>
+                        }
+                        else
+                        {
+                            <span style="background-color: dimgray; border-radius: 3px; padding: 5px; color: white;">
+                                W trakcie
+                            </span>
+                        }
+                    </div>
+                    <div style="margin-left: -10px; margin-bottom: 15px;">
+                        @if (!Model.Finished)
+                        {
+                            <a href="/Tasks/Edit/@Model.Id">
+                                <div class="btn btn-success" ng-click="instanceSingleTaskVM.closeTask()">
+                                    <i class="fa fa-check"></i> Zakończ
+                                </div>
+                            </a>
+                        }
+                        @if (Model.CodeReviewExist)
+                        {
+                            <a data-toggle="modal" data-target="#showCodeReviewModal">
+                                <div class="btn btn-success">
+                                    <i class="fa fa-eye"></i> Wyświetl Code Review
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="showCodeReviewModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Code Review</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="control-label" style="margin-top: 15px;">
+                            Architektura
+                        </label>
+                    </div>
+                    <div class="col-md-9">
+                        <div range-slider
+                             min="0"
+                             pin-handle="min"
+                             max="100"
+                             step="20"
+                             model-min="instanceSingleTaskVM.min"
+                             model-max="instanceSingleTaskVM.max"
+                             disabled="true">
+                        </div>
+                        <span style="margin-top: -25px;" class="pull-left">Słabo</span>
+                        <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
+                        <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label" style="margin-top: 15px;">
+                            Wydajność
+                        </label>
+                    </div>
+                    <div class="col-md-9">
+                        <div range-slider
+                             min="0"
+                             pin-handle="min"
+                             max="100"
+                             step="20"
+                             model-min="instanceSingleTaskVM.min"
+                             model-max="instanceSingleTaskVM.max"
+                             disabled="true">
+                        </div>
+                        <span style="margin-top: -25px;" class="pull-left">Słabo</span>
+                        <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
+                        <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label" style="margin-top: 15px;">
+                            Pokrycie Testami
+                        </label>
+                    </div>
+                    <div class="col-md-9">
+                        <div range-slider
+                             min="0"
+                             pin-handle="min"
+                             max="100"
+                             step="20"
+                             model-min="instanceSingleTaskVM.min"
+                             model-max="instanceSingleTaskVM.max"
+                             disabled="true">
+                        </div>
+                        <span style="margin-top: -25px;" class="pull-left">Słabo</span>
+                        <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
+                        <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="control-label">Komentarz</label>
+                        <textarea class="form-control" style="max-width: 100%; min-height: 100px;" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                @*<button type="button" class="btn btn-primary">Save changes</button>*@
+            </div>
+        </div>
+    </div>
+</div>

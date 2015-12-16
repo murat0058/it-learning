@@ -21,16 +21,16 @@
         editTaskVm.isTaskActive =  true;
         editTaskVm.isAddBranchPanelVisible = false;
 
-        editTaskVm.branches = [
-            {
-                id: 1,
-                name: 'master',
-                description: 'Główny branch. Nie można go usunąć. Wrzuć swój kod, od którego użytkownicy mają zacząć.'
-            }
-        ];
+        editTaskVm.branches = [];
 
         editTaskVm.init = function (model) {
             editTaskVm.selectedUserGroup = model.SelectedGroup;
+
+            editTaskVm.branches = model.Branches;
+
+            for (var i = 0; i < editTaskVm.branches.length; i++) {
+                editTaskVm.branches[i].id = i + 1;
+            }
 
             editTaskVm.taskDescription = model.Description;
             editTaskVm.taskName = model.Title;

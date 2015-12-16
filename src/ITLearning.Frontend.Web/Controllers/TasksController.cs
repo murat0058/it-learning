@@ -11,6 +11,7 @@ using ITLearning.Contract.Services;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace ITLearning.Frontend.Web.Controllers
@@ -67,12 +68,12 @@ namespace ITLearning.Frontend.Web.Controllers
                     new BranchShortData()
                     {
                         Name = "master",
-                        Description = "Główny branch. Pobierz kod, od którego możesz zacząć!"
+                        Description = "Główny branch. Pobierz kod, od którego możesz zacząć!",
                     },
                     new BranchShortData()
                     {
                         Name = "Podpowiedź 1",
-                        Description = "Pierwsza podpowiedź"
+                        Description = "Pierwsza podpowiedź",
                     }
                 },
                 RepositoryLink = "https:/azure.git/asdsadsadds/",
@@ -142,19 +143,26 @@ namespace ITLearning.Frontend.Web.Controllers
                     new BranchShortData()
                     {
                         Name = "master",
-                        Description = "Główny branch. Pobierz kod, od którego możesz zacząć!"
+                        Description = "Główny branch. Pobierz kod, od którego możesz zacząć!",
+                        Visible = true
                     },
                     new BranchShortData()
                     {
                         Name = "Podpowiedź 1",
-                        Description = "Pierwsza podpowiedź"
+                        Description = "Pierwsza podpowiedź",
+                        Visible = false
                     }
                 },
                 Author = new UserShortData()
                 {
                     Id = 5,
                     UserName = "Adrianno"
-                }
+                },
+                RepositoryLink = "https:/azure.git/asdsadsadds/",
+                CreationDate = DateTime.Now.ToShortDateString(),
+                FinishDate = DateTime.Now.ToShortDateString(),
+                Finished = true,
+                CodeReviewExist = true
             };
 
             return View("SingleInstance", task);

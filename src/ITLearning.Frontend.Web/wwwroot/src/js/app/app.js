@@ -6,7 +6,9 @@
             'app.groups',
             'app.news',
             'app.common',
-            'app.uiWidgets'
+            'app.userShortcutsWidget',
+            'app.uiWidgets',
+            'ui-rangeSlider'
         ],
         configureHttpProvider);
 
