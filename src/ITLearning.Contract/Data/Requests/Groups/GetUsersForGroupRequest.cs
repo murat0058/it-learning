@@ -9,5 +9,6 @@ namespace ITLearning.Contract.Data.Requests.Groups
     {
         public string OwnerName { get; set; }
         public int GroupId { get; set; }
+        public bool IsRequestForManagement { get; set; }
     }
 }

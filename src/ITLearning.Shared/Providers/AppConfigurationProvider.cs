@@ -1,5 +1,6 @@
 ﻿using ITLearning.Contract.Providers;
 using ITLearning.Shared.Configs;
+using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.OptionsModel;
 using Microsoft.Extensions.PlatformAbstractions;
 
@@ -7,11 +8,11 @@ namespace ITLearning.Shared.Providers
 {
     public class AppConfigurationProvider : IAppConfigurationProvider
     {
-        private readonly IApplicationEnvironment _hostingEnvironment;
+        private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IOptions<PathsConfiguration> _pathsConfiguration;
         private readonly IOptions<DisqusConfiguration> _disqusConfiguration;
 
-        public AppConfigurationProvider(IApplicationEnvironment hostingEnvironment, 
+        public AppConfigurationProvider(IHostingEnvironment hostingEnvironment, 
             IOptions<PathsConfiguration> pathsConfiguration,
             IOptions<DisqusConfiguration> disqusConfiguration)
         {
@@ -22,17 +23,17 @@ namespace ITLearning.Shared.Providers
 
         public string GetHostingEnvironmentWWWRootPath()
         {
-            return _pathsConfiguration.Value.RootFolderPath;
+            return _hostingEnvironment.WebRootPath;
         }
 
         public string GetProfileOriginalImagesFolderPath()
         {
-            return _pathsConfiguration.Value.ProfileImagesPath + "original/";
+            return GetHostingEnvironmentWWWRootPath() + GetProfileOriginalImagesFolderInternalPath();
         }
 
         public string GetProfileCroppedImagesFolderPath()
         {
-            return _pathsConfiguration.Value.ProfileImagesPath + "cropped/";
+            return GetHostingEnvironmentWWWRootPath() + GetProfileCroppedImagesFolderInternalPath();
         }
 
         public string GetProfileOriginalImagesFolderInternalPath()

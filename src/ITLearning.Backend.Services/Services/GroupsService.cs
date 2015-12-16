@@ -1,21 +1,17 @@
 ﻿using AutoMapper;
 using ITLearning.Backend.Business.Validators;
-using ITLearning.Contract.Data.Requests;
 using ITLearning.Contract.Data.Results;
 using ITLearning.Contract.Data.Results.Groups;
 using ITLearning.Contract.DataAccess.Repositories;
 using ITLearning.Contract.Services;
 using ITLearning.Shared.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using ITLearning.Contract.Data.Requests.Groups;
 using ITLearning.Contract.Enums;
 using ITLearning.Contract.Data.Model.Groups;
 using ITLearning.Contract.Data.Model.User;
 using ITLearning.Contract.Providers;
-using System.IO;
 
 namespace ITLearning.Backend.Business.Services
 {
@@ -254,7 +250,7 @@ namespace ITLearning.Backend.Business.Services
             {
                 var group = getUsersResult.Item;
 
-                if (group.Owner.UserName != request.OwnerName)
+                if (request.IsRequestForManagement && group.Owner.UserName != request.OwnerName)
                 {
                     return CommonResult<GetUsersForGroupResult>.Failure("Jedynie założyciel grupy może widzieć te dane.");
                 }
@@ -267,9 +263,7 @@ namespace ITLearning.Backend.Business.Services
 
                     foreach (var user in users)
                     {
-                        var userData = Mapper.Map<UserData>(user);
-                        userData.ProfileImagePath = GenerateImagePath(user.ProfileImagePath);
-                        usersData.Add(userData);
+                        usersData.Add(Mapper.Map<UserData>(user));
                     }
 
                     return CommonResult<GetUsersForGroupResult>.Success(new GetUsersForGroupResult
@@ -387,26 +381,6 @@ namespace ITLearning.Backend.Business.Services
             else
             {
                 return $"{user.FirstName} {user.LastName}";
-            }
-        }
-
-        private string GenerateImagePath(string imageName)
-        {
-            if (!string.IsNullOrEmpty(imageName))
-            {
-                var croppedProfileImage = _configurationProvider.GetProfileCroppedImagesFolderPath() + imageName;
-                if (File.Exists(croppedProfileImage))
-                {
-                    return _configurationProvider.GetProfileCroppedImagesFolderInternalPath() + imageName;
-                }
-                else
-                {
-                    return _configurationProvider.GetProfileOriginalImagesFolderInternalPath() + imageName;
-                }
-            }
-            else
-            {
-                return _configurationProvider.GetProfileDefaultImagePath();
             }
         }
     }

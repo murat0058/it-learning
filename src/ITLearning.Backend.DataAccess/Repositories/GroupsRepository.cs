@@ -16,6 +16,7 @@ using ITLearning.Contract.DataAccess.Repositories;
 using ITLearning.Contract.Providers;
 using ITLearning.Shared.Configs;
 using System;
+using System.IO;
 
 namespace ITLearning.Backend.DataAccess.Repositories
 {
@@ -304,7 +305,9 @@ namespace ITLearning.Backend.DataAccess.Repositories
                         
                         if(user != null)
                         {
-                            users.Add(Mapper.Map<UserProfileData>(user));
+                            var mappedUserData = Mapper.Map<UserProfileData>(user);
+                            mappedUserData.ProfileImagePath = GenerateImagePath(user.ImageName);
+                            users.Add(mappedUserData);
                         }
                     }
 
@@ -329,6 +332,26 @@ namespace ITLearning.Backend.DataAccess.Repositories
             }
 
             return groups;
+        }
+
+        private string GenerateImagePath(string imageName)
+        {
+            if (!string.IsNullOrEmpty(imageName))
+            {
+                var croppedProfileImage = _configurationProvider.GetProfileCroppedImagesFolderPath() + imageName;
+                if (File.Exists(croppedProfileImage))
+                {
+                    return _configurationProvider.GetProfileCroppedImagesFolderInternalPath() + imageName;
+                }
+                else
+                {
+                    return _configurationProvider.GetProfileOriginalImagesFolderInternalPath() + imageName;
+                }
+            }
+            else
+            {
+                return _configurationProvider.GetProfileDefaultImagePath();
+            }
         }
     }
 }

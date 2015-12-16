@@ -11,6 +11,7 @@ using ITLearning.Contract.Data.Results;
 using ITLearning.Contract.Providers;
 using ITLearning.Contract.Data.Requests;
 using ITLearning.Contract.Data.Results.FileUpload;
+using Microsoft.AspNet.Hosting;
 
 namespace ITLearning.Backend.Business.Services
 {
@@ -38,6 +39,7 @@ namespace ITLearning.Backend.Business.Services
         public async System.Threading.Tasks.Task<CommonResult<UploadImageResult>> SaveProfileImage(IFormFile file)
         {
             var fileName = Guid.NewGuid().ToString() + ".jpg";
+
             var filePath = _configurationProvider.GetProfileOriginalImagesFolderPath() + fileName;
 
             await file.SaveAsAsync(filePath);

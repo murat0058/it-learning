@@ -243,7 +243,8 @@ namespace ITLearning.Frontend.Web.Controllers
             var request = new GetUsersForGroupRequest
             {
                 OwnerName = User.Identity.Name,
-                GroupId = viewModel.GroupId
+                GroupId = viewModel.GroupId,
+                IsRequestForManagement = false
             };
 
             var result = _groupsService.GetUsersForGroup(request);
@@ -257,7 +258,8 @@ namespace ITLearning.Frontend.Web.Controllers
             var request = new GetUsersForGroupRequest
             {
                 OwnerName = User.Identity.Name,
-                GroupId = viewModel.GroupId
+                GroupId = viewModel.GroupId,
+                IsRequestForManagement = true
             };
 
             var result = _groupsService.GetUsersForGroupManagement(request);
