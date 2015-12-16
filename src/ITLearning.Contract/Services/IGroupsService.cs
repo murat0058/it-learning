@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ITLearning.Contract.Enums;
 using ITLearning.Contract.Data.Requests.Groups;
 using ITLearning.Contract.Data.Model.Groups;
+using ITLearning.Contract.Data.Model.Tasks;
 
 namespace ITLearning.Contract.Services
 {
@@ -16,9 +17,9 @@ namespace ITLearning.Contract.Services
 
         CommonResult<GroupWithUsersData> GetDataWithUsers(GetGroupRequest request);
 
-        CommonResult<GroupData> GetFullData(GetGroupRequest request);
-
         CommonResult<GroupListedData> GetList(GetGroupListRequest request);
+
+        CommonResult<GetTasksForGroupResult> GetTasksForGroup(GetTasksForGroupRequest request);
 
         CommonResult<GetLatestGroupsDataResult> GetLatestGroupsData(GetLatestGroupsBasicDataRequest request);
 

@@ -836,6 +836,27 @@ body > .main-content > .content {
         font-family: $custom-font;
     }
 
+    .task-language-label {
+        width: 120px;
+        border-radius: 3px;
+        margin-left: 1px;
+        padding: 2px 5px;
+
+        p {
+            font-family: $custom-font;
+            font-size: 20px;
+            margin: 0;
+            padding: 0;
+            font-weight: 600;
+            text-shadow: 0px 0px 6px rgba(0,0,0,0.3);
+        }
+    }
+
+    .task-group-header-info {
+        font-family: $custom-font;
+        font-weight: 600;
+    }
+
     .extras {
         font-family: $custom-font;
         border: 1px solid $color-dark;
@@ -969,4 +990,29 @@ footer {
 
 .md-preview {
     padding: 10px 3px;
+}
+
+.task-status-label {
+    color: white;
+    font-weight: 600;
+    display: block;
+    text-align: center;
+    width: 100%;
+    font-family: $custom-font;
+    border-radius: 3px;
+    padding: 5px;
+
+    @include wrap-dots();
+}
+
+.task-status-label-finished {
+    background-color: $color-success;
+}
+
+.task-status-label-reviewed {
+    background-color: $color-danger;
+}
+
+.task-status-label-inprogress {
+    background-color: $color-primary;
 }

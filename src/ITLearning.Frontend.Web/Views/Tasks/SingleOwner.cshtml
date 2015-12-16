@@ -11,17 +11,14 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <div ng-style="ownerSingleTaskVM.BackgroundColor" style="width: 100px; height: 26px; border-radius: 3px; margin-left: 1px;">
-                    <div style="display: inline-block;">
-                        <i class="fa fa-file" style="font-size: 26px;"></i>
-                    </div>
-                    <div style="display: inline-block; margin-left: 5px;">
-                        <h3 class="name" style="font-size: 20px; position:absolute; top: -3px;"> {{ownerSingleTaskVM.Language}}</h3>
-                    </div>
+                <div ng-style="ownerSingleTaskVM.BackgroundColor" class="task-language-label">
+                    <p>
+                        <i class="fa fa-file"></i> {{ownerSingleTaskVM.Language}}
+                    </p>
                 </div>
                 <h4 class="description">@Model.Title</h4>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 task-group-header-info">
                 <p>Grupa</p>
                 @if (Model.UserGroup != null)
                 {
@@ -43,7 +40,7 @@
                 <div id="task-description" ng-show="ownerSingleTaskVM.IsDescriptionVisible">
                     @Html.Raw(Model.Description)
                 </div>
-                <div class="btn btn-success" ng-click="ownerSingleTaskVM.IsDescriptionVisible = !ownerSingleTaskVM.IsDescriptionVisible" style="margin-left: 0px;">
+                <div class="btn btn-dark" ng-click="ownerSingleTaskVM.IsDescriptionVisible = !ownerSingleTaskVM.IsDescriptionVisible" style="margin-left: 0px;">
                     <i ng-class="ownerSingleTaskVM.IsDescriptionVisible ? 'fa fa-arrow-circle-up' : 'fa fa-arrow-circle-down'"></i>
                     {{ ownerSingleTaskVM.IsDescriptionVisible ? "Ukryj" : "Pokaż" }} Opis
                 </div>
@@ -95,19 +92,19 @@
                                         <td>
                                             @if (item.CodeReviewExist)
                                             {
-                                                <span style="background-color: forestgreen; border-radius: 3px; padding: 5px; color: white;">
+                                                <span class="task-status-label task-status-label-finished">
                                                     Zakończone
                                                 </span>
                                             }
                                             else if (item.Finished)
                                             {
-                                                <span style="background-color: orange; border-radius: 3px; padding: 5px; color: white;">
+                                                <span class="task-status-label task-status-label-reviewed">
                                                     Oczekujące na ocenę
                                                 </span>
                                             }
                                             else
                                             {
-                                                <span style="background-color: dimgray; border-radius: 3px; padding: 5px; color: white;">
+                                                <span class="task-status-label task-status-label-inprogress">
                                                     W trakcie
                                                 </span>
                                             }
@@ -145,8 +142,8 @@
                     </tbody>
                 </table>
                 <div style="margin-left: -10px; margin-top: 50px; margin-bottom: 50px;">
-                    <a href="/Tasks/Edit/@Model.Id"><div class="btn btn-success"><i class="fa fa-pencil"></i> Edytuj</div></a>
-                    <a href="/Tasks/Delete/@Model.Id"><div class="btn btn-success"><i class="fa fa-trash"></i> Usuń</div></a>
+                    <a href="/Tasks/Edit/@Model.Id"><div class="btn btn-dark"><i class="fa fa-pencil"></i> Edytuj</div></a>
+                    <a href="/Tasks/Delete/@Model.Id"><div class="btn btn-dark"><i class="fa fa-trash"></i> Usuń</div></a>
                 </div>
             </div>
         </div>

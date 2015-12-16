@@ -12,17 +12,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <div ng-style="instanceSingleTaskVM.BackgroundColor" style="width: 100px; height: 26px; border-radius: 3px; margin-left: 1px;">
-                        <div style="display: inline-block;">
-                            <i class="fa fa-file" style="font-size: 26px;"></i>
-                        </div>
-                        <div style="display: inline-block; margin-left: 5px;">
-                            <h3 class="name" style="font-size: 20px; position:absolute; top: -3px;"> {{instanceSingleTaskVM.Language}}</h3>
-                        </div>
+                    <div ng-style="instanceSingleTaskVM.BackgroundColor" class="task-language-label">
+                        <p>
+                            <i class="fa fa-file"></i> {{instanceSingleTaskVM.Language}}
+                        </p>
                     </div>
                     <h4 class="description">@Model.Title</h4>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 task-group-header-info">
                     <p>Grupa</p>
                     @if (Model.UserGroup != null)
                     {
@@ -75,7 +72,7 @@
                                         </div>
                                     </div>
                                     <div ng-show="{{branch.Visible == false}}">
-                                        <div ng-click="instanceSingleTaskVM.showBranch(branch.id)" class="btn btn-success">
+                                        <div ng-click="instanceSingleTaskVM.showBranch(branch.id)" class="btn btn-dark">
                                             <i class="fa fa-eye"></i>
                                         </div>
                                     </div>
@@ -97,19 +94,19 @@
                         Status
                         @if (Model.CodeReviewExist)
                         {
-                            <span style="background-color: forestgreen; border-radius: 3px; padding: 5px; color: white;">
+                            <span class="task-status-label task-status-label-finished">
                                 Zakończone
                             </span>
                         }
                         else if (Model.Finished)
                         {
-                            <span style="background-color: orange; border-radius: 3px; padding: 5px; color: white;">
+                            <span class="task-status-label task-status-label-reviewed">
                                 Oczekujące na ocenę
                             </span>
                         }
                         else
                         {
-                            <span style="background-color: dimgray; border-radius: 3px; padding: 5px; color: white;">
+                            <span class="task-status-label task-status-label-inprogress">
                                 W trakcie
                             </span>
                         }

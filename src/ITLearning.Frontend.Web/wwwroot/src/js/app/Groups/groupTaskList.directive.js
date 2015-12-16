@@ -5,7 +5,7 @@
 (function () {
 
     angular
-        .module('app.tasks')
+        .module('app.groups')
         .directive('itlGroupTaskList', itlGroupTaskList);
 
     function itlGroupTaskList() {
@@ -37,20 +37,22 @@
         ////////////////////////////
 
         function activate(tasksList) {
-            if (tasksList && tasksList.length > 0) {
+            if (tasksList && tasksList.IsSuccess) {
 
-                angular.forEach(tasksList, function (value, key) {
+                var groupTasks = tasksList.Item;
+
+                angular.forEach(groupTasks, function (value, key) {
                     value.Language = uiFeaturesService.languageEnumDisplayName[value.Language];
                     value.style = {
                         'background-color': uiFeaturesService.languageToColorMappings[value.Language]
                     };
                 });
 
-                taskListVm.tasks = tasksList;
+                taskListVm.tasks = groupTasks;
 
                 taskListVm.loadingIndicator.Hide();
             } else {
-                taskListVm.loadingIndicator.SetLoaded("W tej grupie nie ma żadnych zadań.");
+                taskListVm.loadingIndicator.SetLoaded(tasksList.ErrorMessage);
             }
         }
     }

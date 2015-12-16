@@ -9,6 +9,5 @@ namespace ITLearning.Contract.Services
     {
         void Create(CreateTaskRequestData requestData);
         CommonResult<List<TaskListItemData>> GetLatest(int count);
-        CommonResult<List<TaskListItemData>> GetForGroup(int groupId);
     }
 }

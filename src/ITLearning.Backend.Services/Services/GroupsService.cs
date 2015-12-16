@@ -12,6 +12,7 @@ using ITLearning.Contract.Enums;
 using ITLearning.Contract.Data.Model.Groups;
 using ITLearning.Contract.Data.Model.User;
 using ITLearning.Contract.Providers;
+using ITLearning.Contract.Data.Model.Tasks;
 
 namespace ITLearning.Backend.Business.Services
 {
@@ -194,13 +195,6 @@ namespace ITLearning.Backend.Business.Services
             }
         }
 
-        public CommonResult<GroupData> GetFullData(GetGroupRequest request)
-        {
-            var getGroupResult = _groupsRepository.Get(request.GroupId, withOwner: true, withUsers: true, withTasks: true);
-
-            return getGroupResult;
-        }
-
         public CommonResult TryAddUserToPrivateGroup(AddUserToGroupRequest request)
         {
             var getUserProfileDataResult = _userRepository.GetUserProfile(request.UserName);
@@ -331,12 +325,12 @@ namespace ITLearning.Backend.Business.Services
                     groups = groups.Where(x => x.Name.ToLower().Contains(request.Query.ToLower()));
                 }
 
-                if(request.AccessType != GroupAccessEnum.All)
+                if (request.AccessType != GroupAccessEnum.All)
                 {
                     groups = groups.Where(x => x.IsPrivate == (request.AccessType == GroupAccessEnum.PrivateOnly ? true : false));
                 }
 
-                if(request.OwnerType != GroupOwnerTypeEnum.All)
+                if (request.OwnerType != GroupOwnerTypeEnum.All)
                 {
                     groups = groups.Where(x => x.Owner.UserName == request.UserName);
                 }
@@ -369,6 +363,39 @@ namespace ITLearning.Backend.Business.Services
             else
             {
                 return CommonResult<GroupListedData>.Failure(getGroupsResult.ErrorMessage);
+            }
+        }
+
+        public CommonResult<GetTasksForGroupResult> GetTasksForGroup(GetTasksForGroupRequest request)
+        {
+            //return CommonResult<GetTasksForGroupResult>.Success(new GetTasksForGroupResult
+            //{
+            //    Tasks = new List<TaskListItemData>
+            //    {
+            //        new TaskListItemData() { Id = 0, Name = "Wprowadzenie do C#", GroupName = "Ludzie i c#", IsCompleted = false, Language = LanguageEnum.CSharp.ToString(), GroupId = 1 },
+            //        new TaskListItemData() { Id = 1, Name = "Wprowadzenie do JS", GroupName = "Ludzie i js", IsCompleted = false, Language = LanguageEnum.JavaScript.ToString(), GroupId = 1 },
+            //        new TaskListItemData() { Id = 2, Name = "Wprowadzenie do JAVA", GroupName = "Ludzie i java", IsCompleted = true, Language = LanguageEnum.Other.ToString(), GroupId = 1 }
+            //    }
+            //});
+
+            var getGroupResult = _groupsRepository.Get(request.GroupId, false, false, true);
+
+            if (getGroupResult.IsSuccess)
+            {
+                var tasks = getGroupResult.Item.Tasks;
+
+                if(tasks != null && tasks.Any())
+                {
+                    return CommonResult<GetTasksForGroupResult>.Failure("Wdsań.");
+                }
+                else
+                {
+                    return CommonResult<GetTasksForGroupResult>.Failure("W tej grupie nie ma żadnych zadań.");
+                }
+            }
+            else
+            {
+                return CommonResult<GetTasksForGroupResult>.Failure(getGroupResult.ErrorMessage);
             }
         }
 
