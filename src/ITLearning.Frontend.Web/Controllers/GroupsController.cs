@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ITLearning.Contract.Enums;
+using ITLearning.Contract.Data.Model.Tasks;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -20,10 +21,12 @@ namespace ITLearning.Frontend.Web.Controllers
     public class GroupsController : BaseController
     {
         private IGroupsService _groupsService;
+        private ITasksService _tasksService;
 
-        public GroupsController(IGroupsService groupsService)
+        public GroupsController(IGroupsService groupsService, ITasksService tasksService)
         {
             _groupsService = groupsService;
+            _tasksService = tasksService;
         }
 
         [HttpGet("")]
@@ -117,7 +120,7 @@ namespace ITLearning.Frontend.Web.Controllers
                 UserName = User.Identity.Name
             });
 
-            var groupResult = _groupsService.GetFullData(new GetGroupRequest { GroupId = groupId });
+            var groupResult = _groupsService.GetDataWithUsers(new GetGroupRequest { GroupId = groupId });
 
             if (accessTypeResult.IsSuccess && groupResult.IsSuccess)
             {
@@ -130,10 +133,16 @@ namespace ITLearning.Frontend.Web.Controllers
 
                 var basicDataViewModel = Mapper.Map<GroupBasicDataViewModel>(groupResult.Item);
 
+                var tasks = new GroupTasksViewModel
+                {
+                    Tasks = _tasksService.GetForGroup(groupId).Item ?? new List<TaskListItemData>()
+                };
+
                 var viewModel = new SingleGroupViewModel
                 {
                     GroupId = groupResult.Item.Id,
                     BasicDataViewModel = basicDataViewModel,
+                    GroupTasks = tasks,
                     AccessType = accessType
                 };
 
