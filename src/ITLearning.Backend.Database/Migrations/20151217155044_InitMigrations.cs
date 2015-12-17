@@ -5,7 +5,7 @@ using Microsoft.Data.Entity.Metadata;
 
 namespace ITLearning.Backend.Database.Migrations
 {
-    public partial class InitMigration : Migration
+    public partial class InitMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,18 +36,6 @@ namespace ITLearning.Backend.Database.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Event", x => x.Id);
-                });
-            migrationBuilder.CreateTable(
-                name: "TaskCategory",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TaskCategory", x => x.Id);
                 });
             migrationBuilder.CreateTable(
                 name: "AspNetUsers",
@@ -232,7 +220,6 @@ namespace ITLearning.Backend.Database.Migrations
                     IsVisibleOnlyInGroup = table.Column<bool>(nullable: false),
                     Language = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    TaskCategoryId = table.Column<int>(nullable: true),
                     UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -242,12 +229,6 @@ namespace ITLearning.Backend.Database.Migrations
                         name: "FK_Task_Group_GroupId",
                         column: x => x.GroupId,
                         principalTable: "Group",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Task_TaskCategory_TaskCategoryId",
-                        column: x => x.TaskCategoryId,
-                        principalTable: "TaskCategory",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -263,6 +244,7 @@ namespace ITLearning.Backend.Database.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IsCompleted = table.Column<bool>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     IsPrivate = table.Column<bool>(nullable: false),
                     TaskId = table.Column<int>(nullable: true),
@@ -389,7 +371,6 @@ namespace ITLearning.Backend.Database.Migrations
             migrationBuilder.DropTable("TaskInstance");
             migrationBuilder.DropTable("Task");
             migrationBuilder.DropTable("Group");
-            migrationBuilder.DropTable("TaskCategory");
             migrationBuilder.DropTable("AspNetUsers");
         }
     }

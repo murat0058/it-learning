@@ -128,19 +128,7 @@ namespace ITLearning.Backend.Database.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("TaskCategoryId");
-
                     b.Property<int?>("UserId");
-
-                    b.HasKey("Id");
-                });
-
-            modelBuilder.Entity("ITLearning.Backend.Database.Entities.TaskCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
 
                     b.HasKey("Id");
                 });
@@ -149,6 +137,8 @@ namespace ITLearning.Backend.Database.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsCompleted");
 
                     b.Property<bool>("IsDeleted");
 
@@ -351,10 +341,6 @@ namespace ITLearning.Backend.Database.Migrations
                     b.HasOne("ITLearning.Backend.Database.Entities.Group")
                         .WithMany()
                         .HasForeignKey("GroupId");
-
-                    b.HasOne("ITLearning.Backend.Database.Entities.TaskCategory")
-                        .WithMany()
-                        .HasForeignKey("TaskCategoryId");
 
                     b.HasOne("ITLearning.Backend.Database.Entities.User")
                         .WithMany()
