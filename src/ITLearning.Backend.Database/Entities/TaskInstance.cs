@@ -8,6 +8,7 @@ namespace ITLearning.Backend.Database.Entities
 
         public bool IsPrivate { get; set; }
         public bool IsDeleted { get; set; }
+        public bool IsCompleted { get; set; }
 
         public Task Task { get; set; }
         public GitRepository GitRepository { get; set; }

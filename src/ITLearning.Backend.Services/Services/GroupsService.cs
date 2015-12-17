@@ -368,16 +368,6 @@ namespace ITLearning.Backend.Business.Services
 
         public CommonResult<GetTasksForGroupResult> GetTasksForGroup(GetTasksForGroupRequest request)
         {
-            //return CommonResult<GetTasksForGroupResult>.Success(new GetTasksForGroupResult
-            //{
-            //    Tasks = new List<TaskListItemData>
-            //    {
-            //        new TaskListItemData() { Id = 0, Name = "Wprowadzenie do C#", GroupName = "Ludzie i c#", IsCompleted = false, Language = LanguageEnum.CSharp.ToString(), GroupId = 1 },
-            //        new TaskListItemData() { Id = 1, Name = "Wprowadzenie do JS", GroupName = "Ludzie i js", IsCompleted = false, Language = LanguageEnum.JavaScript.ToString(), GroupId = 1 },
-            //        new TaskListItemData() { Id = 2, Name = "Wprowadzenie do JAVA", GroupName = "Ludzie i java", IsCompleted = true, Language = LanguageEnum.Other.ToString(), GroupId = 1 }
-            //    }
-            //});
-
             var getGroupResult = _groupsRepository.Get(request.GroupId, false, false, true);
 
             if (getGroupResult.IsSuccess)
@@ -386,7 +376,12 @@ namespace ITLearning.Backend.Business.Services
 
                 if(tasks != null && tasks.Any())
                 {
-                    return CommonResult<GetTasksForGroupResult>.Failure("Wdsań.");
+                    var tasksData = tasks.Select(x => Mapper.Map<TaskListItemData>(x));
+
+                    return CommonResult<GetTasksForGroupResult>.Success(new GetTasksForGroupResult
+                    {
+                        Tasks = tasksData
+                    });
                 }
                 else
                 {

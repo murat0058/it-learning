@@ -16,6 +16,6 @@ namespace ITLearning.Contract.Data.Model.Groups
         public string Password { get; set; }
         public UserProfileData Owner { get; set; }
         public IEnumerable<UserProfileData> Users { get; set; }
-        public IEnumerable<TaskData> Tasks { get; set; }
+        public IEnumerable<TaskListItemData> Tasks { get; set; }
     }
 }

@@ -17,6 +17,7 @@ using ITLearning.Contract.Providers;
 using ITLearning.Shared.Configs;
 using System;
 using System.IO;
+using ITLearning.Contract.Data.Model.Tasks;
 
 namespace ITLearning.Backend.DataAccess.Repositories
 {
@@ -156,27 +157,17 @@ namespace ITLearning.Backend.DataAccess.Repositories
 
         public CommonResult<IEnumerable<GroupData>> GetAllForUser(string userName, bool withOwner = false, bool withUsers = false, bool withTasks = false)
         {
-            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            var getAllResult = GetAll(true, true, true);
+
+            if (getAllResult.IsSuccess)
             {
-                var groups = context.UserGroups
-                    .Where(x => x.User.UserName == userName)
-                    .Select(x => x.Group);
+                var userGroups = getAllResult.Item.Where(x => x.Owner.UserName == userName);
 
-                groups = IncludeAdditionalDataForGroups(withOwner, withUsers, withTasks, groups);
-
-                var groupDataList = new List<GroupData>();
-
-                foreach (var group in groups)
-                {
-                    var groupData = Mapper.Map<GroupData>(group);
-
-                    GetAdditionalDataForGroup(group, groupData, withOwner, withUsers, withTasks);
-
-                    groupDataList.Add(groupData);
-                }
-
-                return CommonResult<IEnumerable<GroupData>>.Success(groupDataList);
-
+                return CommonResult<IEnumerable<GroupData>>.Success(userGroups);
+            }
+            else
+            {
+                return CommonResult<IEnumerable<GroupData>>.Failure(getAllResult.ErrorMessage);
             }
         }
 
@@ -312,6 +303,16 @@ namespace ITLearning.Backend.DataAccess.Repositories
                     }
 
                     groupData.Users = users;
+                }
+                if (withTasks)
+                {
+                    groupData.Tasks = group.Tasks != null ? group.Tasks.Select(x => Mapper.Map<TaskListItemData>(x)) : new List<TaskListItemData>();
+
+                    foreach (var task in groupData.Tasks)
+                    {
+                        task.GroupId = groupData.Id;
+                        task.GroupName = groupData.Name;
+                    }
                 }
             }
         }

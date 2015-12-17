@@ -16,6 +16,7 @@ using ITLearning.Frontend.Web.ViewModels.User;
 using ITLearning.Contract.Data.Requests.News;
 using ITLearning.Contract.Data.Results.Groups;
 using ITLearning.Contract.Data.Results;
+using ITLearning.Contract.Data.Model.Tasks;
 
 namespace ITLearning.Shared.Mappings
 {
@@ -59,7 +60,11 @@ namespace ITLearning.Shared.Mappings
                 .ForMember(dest => dest.Users, opt => opt.Ignore())
                 .ForMember(dest => dest.Tasks, opt => opt.Ignore());
 
-            Mapper.CreateMap<CommonResult<GetTasksForGroupResult>, GroupTasksViewModel>();
+            Mapper.CreateMap<Task, TaskListItemData>()
+                .ForMember(dest => dest.Language, opt => opt.MapFrom(src => src.Language.ToString()));
+
+            Mapper.CreateMap<CommonResult<GetTasksForGroupResult>, GroupTasksViewModel>()
+                .ForMember(dest => dest.Item, opt => opt.MapFrom(src => src.Item.Tasks));
         }
 
         private static string GetUserName(UserProfileData src)
