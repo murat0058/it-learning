@@ -20,12 +20,14 @@ namespace ITLearning.Backend.Business.Services
     {
         private IGroupsRepository _groupsRepository;
         private IUserRepository _userRepository;
+        private ITasksService _tasksService;
         private IAppConfigurationProvider _configurationProvider;
 
-        public GroupsService(IGroupsRepository groupsRepository, IUserRepository userRepository, IAppConfigurationProvider configurationProvider)
+        public GroupsService(IGroupsRepository groupsRepository, IUserRepository userRepository, IAppConfigurationProvider configurationProvider, ITasksService tasksService)
         {
             _groupsRepository = groupsRepository;
             _userRepository = userRepository;
+            _tasksService = tasksService;
             _configurationProvider = configurationProvider;
         }
 
@@ -376,7 +378,7 @@ namespace ITLearning.Backend.Business.Services
 
                 if(tasks != null && tasks.Any())
                 {
-                    var tasksData = tasks.Select(x => Mapper.Map<TaskListItemData>(x));
+                    var tasksData = GetTaskDataWithCompleteness(request, tasks.Select(x => Mapper.Map<TaskListItemData>(x)));
 
                     return CommonResult<GetTasksForGroupResult>.Success(new GetTasksForGroupResult
                     {
@@ -392,6 +394,29 @@ namespace ITLearning.Backend.Business.Services
             {
                 return CommonResult<GetTasksForGroupResult>.Failure(getGroupResult.ErrorMessage);
             }
+        }
+
+        private IEnumerable<TaskListItemData> GetTaskDataWithCompleteness(GetTasksForGroupRequest request, IEnumerable<TaskListItemData> tasksData)
+        {
+            List<TaskListItemData> data = new List<TaskListItemData>();
+
+            var getTaskInstances = _tasksService.GetCompletedTaskInstancesForUser(request.UserName);
+
+            if (getTaskInstances.IsSuccess)
+            {
+                var completedTasks = getTaskInstances.Item.Select(x => x.TaskId).Distinct();
+
+                foreach (var task in tasksData)
+                {
+                    if (completedTasks.Contains(task.Id))
+                    {
+                        task.IsCompleted = true;
+                    }
+                    data.Add(task);
+                }
+            }
+
+            return data;
         }
 
         private string GetOwnerName(UserProfileData user)

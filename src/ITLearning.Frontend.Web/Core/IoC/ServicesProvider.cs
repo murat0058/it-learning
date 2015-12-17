@@ -33,6 +33,7 @@ namespace ITLearning.Frontend.Web.Core.IoC
 
             #region Repositories
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ITasksRepository, TasksRepository>();
             services.AddTransient<IGroupsRepository, GroupsRepository>();
             #endregion
 

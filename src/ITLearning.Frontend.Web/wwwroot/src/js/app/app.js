@@ -7,7 +7,8 @@
             'app.news',
             'app.common',
             'app.uiWidgets',
-            'ui-rangeSlider'
+            'ui-rangeSlider',
+            'ui.bootstrap'
         ],
         configureHttpProvider);
 
