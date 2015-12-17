@@ -78,7 +78,7 @@
                                         <td>
                                             @if (item.CodeReviewExist)
                                             {
-                                                <a style="cursor: pointer;" data-toggle="modal" data-target="#showCodeReviewModal"><i class="fa fa-check"></i> Wyświetl</a>
+                                                <a style="cursor: pointer;" data-toggle="modal" data-target="#ownerViewCodeReviewModal"><i class="fa fa-check"></i> Wyświetl</a>
                                             }
                                             else if (item.Finished)
                                             {
@@ -272,6 +272,123 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
                 <button type="button" class="btn btn-primary">Zapisz</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="ownerViewCodeReviewModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Code Review - Ziutek</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="control-label">
+                            Czas trwania
+                        </label>
+                    </div>
+                    <div class="col-md-9">
+                        13 dni
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3" style="margin-top: 8px;">
+                        <div>
+                            <label class="control-label">Branch'e:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="min-width: 110px;">Nazwa</th>
+                                    <th>Opis</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Branches)
+                                {
+                                    <tr>
+                                        <td style="min-width: 110px;">@item.Name</td>
+                                        <td style="word-break: break-word">@item.Description</td>
+                                        <td>Wykorzystano</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="control-label" style="margin-top: 15px;">
+                            Architektura
+                        </label>
+                    </div>
+                    <div class="col-md-9">
+                        <div range-slider
+                             min="0"
+                             pin-handle="min"
+                             max="120"
+                             step="20"
+                             disabled="true"
+                             model-min="instanceSingleTaskVM.archMin"
+                             model-max="instanceSingleTaskVM.archMax">
+                        </div>
+                        <span style="margin-top: -25px;" class="pull-left">Słabo</span>
+                        <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
+                        <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label" style="margin-top: 15px;">
+                            Optymalizacja
+                        </label>
+                    </div>
+                    <div class="col-md-9">
+                        <div range-slider
+                             min="0"
+                             pin-handle="min"
+                             max="120"
+                             step="20"
+                             disabled="true"
+                             model-min="instanceSingleTaskVM.optMin"
+                             model-max="instanceSingleTaskVM.optMax">
+                        </div>
+                        <span style="margin-top: -25px;" class="pull-left">Słabo</span>
+                        <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
+                        <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label" style="margin-top: 15px;">
+                            Przejrzystość
+                        </label>
+                    </div>
+                    <div class="col-md-9">
+                        <div range-slider
+                             min="0"
+                             pin-handle="min"
+                             max="120"
+                             step="20"
+                             disabled="true"
+                             model-min="instanceSingleTaskVM.tesMin"
+                             model-max="instanceSingleTaskVM.tesMax">
+                        </div>
+                        <span style="margin-top: -25px;" class="pull-left">Słabo</span>
+                        <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
+                        <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="control-label">Komentarz</label>
+                        <textarea class="form-control" style="max-width: 100%; min-height: 100px;" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
             </div>
         </div>
     </div>
