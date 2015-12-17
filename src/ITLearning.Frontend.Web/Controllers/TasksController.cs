@@ -89,7 +89,30 @@ namespace ITLearning.Frontend.Web.Controllers
                         Finished = false,
                         CreateDate = "2015-11-23",
                         CodeReviewExist = false,
-                        RepositoryLink = "http:/itlearning.com/repozad1.git"
+                        RepositoryLink = "http:/itlearning.com/repozad1.git",
+                        CodeReview = new CodeReviewData
+                        {
+                            NumberOfActivityDays = 5,
+                            ArchitectureRate = 100,
+                            CleanCodeRate = 50,
+                            OptymizationRate = 0,
+                            Comment = "Oby tak dalej!",
+                            Branches = new List<BranchShortData>
+                            {
+                                new BranchShortData()
+                                {
+                                    Name = "master",
+                                    Description = "Główny branch. Pobierz kod, od którego możesz zacząć!",
+                                    Visible = true
+                                },
+                                new BranchShortData()
+                                {
+                                    Name = "Podp.1",
+                                    Description = "Pierwsza podpowiedź",
+                                    Visible = false
+                                }
+                            }
+                        }
                     },
                     new TaskInstanceData()
                     {
@@ -102,7 +125,30 @@ namespace ITLearning.Frontend.Web.Controllers
                         CreateDate = "2015-11-24",
                         FinishDate = "2015-11-29",
                         CodeReviewExist = false,
-                        RepositoryLink = "http:/itlearning.com/repozad2.git"
+                        RepositoryLink = "http:/itlearning.com/repozad2.git",
+                        CodeReview = new CodeReviewData
+                        {
+                            NumberOfActivityDays = 5,
+                            //ArchitectureRate = 100,
+                            //CleanCodeRate = 50,
+                            //OptymizationRate = 0,
+                            //Comment = "Oby tak dalej!",
+                            Branches = new List<BranchShortData>
+                            {
+                                new BranchShortData()
+                                {
+                                    Name = "master",
+                                    Description = "Główny branch. Pobierz kod, od którego możesz zacząć!",
+                                    Visible = true
+                                },
+                                new BranchShortData()
+                                {
+                                    Name = "Podp.1",
+                                    Description = "Pierwsza podpowiedź",
+                                    Visible = false
+                                }
+                            }
+                        }
                     },
                     new TaskInstanceData()
                     {
@@ -115,7 +161,30 @@ namespace ITLearning.Frontend.Web.Controllers
                         CreateDate = "2015-11-21",
                         FinishDate = "2015-11-26",
                         CodeReviewExist = true,
-                        RepositoryLink = "http:/itlearning.com/repozad3.git"
+                        RepositoryLink = "http:/itlearning.com/repozad3.git",
+                        CodeReview = new CodeReviewData
+                        {
+                            NumberOfActivityDays = 5,
+                            ArchitectureRate = 100,
+                            CleanCodeRate = 50,
+                            OptymizationRate = 0,
+                            Comment = "Oby tak dalej!",
+                            Branches = new List<BranchShortData>
+                            {
+                                new BranchShortData()
+                                {
+                                    Name = "master",
+                                    Description = "Główny branch. Pobierz kod, od którego możesz zacząć!",
+                                    Visible = true
+                                },
+                                new BranchShortData()
+                                {
+                                    Name = "Podp.1",
+                                    Description = "Pierwsza podpowiedź",
+                                    Visible = false
+                                }
+                            }
+                        }
                     }
                 }
             };
