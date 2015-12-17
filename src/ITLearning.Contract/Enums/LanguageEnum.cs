@@ -5,5 +5,6 @@
         Other = 1,
         CSharp = 2,
         JavaScript = 3,
+        Java = 4
     }
 }

@@ -1,7 +1,9 @@
-﻿@model SingleGroupViewModel
+﻿@using Newtonsoft.Json
+@model SingleGroupViewModel
 
 @{
     ViewBag.PageTitle = Model.BasicDataViewModel.Name;
+    var taskListResult = JsonConvert.SerializeObject(Model.GroupTasks);
 }
 
 @Html.Partial("Partials/Groups/GroupHeader", Model.BasicDataViewModel)
@@ -23,7 +25,9 @@
                 </itl-group-users>
             </div>
             <div class="col-md-9">
-
+                <itl-group-task-list ng-init="taskListVm.activate(@taskListResult)">
+                    <itl-loading-indicator parent-vm="taskListVm" dot-background="#333" dot-size="10px"></itl-loading-indicator>
+                </itl-group-task-list>
             </div>
         </div>
     </div>
