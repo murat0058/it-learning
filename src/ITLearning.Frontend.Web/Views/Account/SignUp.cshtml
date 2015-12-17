@@ -1,6 +1,8 @@
 ﻿@model SignUpViewModel
 
-<div class="form-wrapper">
+<div class="login-signup-background"></div>
+
+<div class="lowered-form-wrapper form-wrapper">
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -13,19 +15,19 @@
                             @Html.ValidationSummary(excludePropertyErrors: true)
                             <div class="form-group">
                                 <label asp-for="Login" class="control-label">Login</label>
-                                <input asp-for="Login" class="form-control" value="@Model.Login"/>
+                                <input asp-for="Login" class="form-control" value="@Model.Login" />
                                 <span asp-validation-for="Login" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Email" class="control-label">E-mail</label>
-                                <input asp-for="Email" class="form-control" value="@Model.Email"/>
+                                <input asp-for="Email" class="form-control" value="@Model.Email" />
                                 <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                             <div class="row form-controls-row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="Password" class="control-label">Hasło</label>
-                                        <input asp-for="Password" class="form-control"/>
+                                        <input asp-for="Password" class="form-control" />
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
                                 </div>
