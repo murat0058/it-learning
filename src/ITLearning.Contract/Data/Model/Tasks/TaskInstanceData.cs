@@ -15,5 +15,7 @@ namespace ITLearning.Contract.Data.Model.Tasks
         public string FinishDate { get; set; }
 
         public string RepositoryLink { get; set; }
+
+        public CodeReviewData CodeReview { get; set; }
     }
 }

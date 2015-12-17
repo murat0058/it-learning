@@ -4,146 +4,341 @@
 
 @{
     var language = Model.SelectedLanguage.ToString();
+    var taskInstances = Json.Serialize(Model.TaskInstances).ToString();
 }
 
-<div class="task-header" ng-style="ownerSingleTaskVM.BackgroundImage" ng-controller="OwnerSingleTaskViewController as ownerSingleTaskVM"
-     ng-init="ownerSingleTaskVM.init('@language')">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <div ng-style="ownerSingleTaskVM.BackgroundColor" class="task-language-label">
-                    <p>
-                        <i class="fa fa-file"></i> {{ownerSingleTaskVM.Language}}
-                    </p>
+<div ng-controller="OwnerSingleTaskViewController as ownerSingleTaskVM"
+     ng-init="ownerSingleTaskVM.init('@language', @taskInstances)">
+    <div class="task-header" ng-style="ownerSingleTaskVM.BackgroundImage">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div ng-style="ownerSingleTaskVM.BackgroundColor" class="task-language-label">
+                        <p>
+                            <i class="fa fa-file"></i> {{ownerSingleTaskVM.Language}}
+                        </p>
+                    </div>
+                    <h4 class="description">@Model.Title</h4>
                 </div>
-                <h4 class="description">@Model.Title</h4>
-            </div>
-            <div class="col-md-4 task-group-header-info">
-                <p>Grupa</p>
-                @if (Model.UserGroup != null)
-                {
-                    <div><a href="/Groups/@Model.UserGroup.Id"><i class="fa fa-users"></i> @Model.UserGroup.Name</a></div>
-                }
-                else
-                {
-                    <div>Brak przydzielonej grupy</div>
-                }
+                <div class="col-md-4 task-group-header-info">
+                    <p>Grupa</p>
+                    @if (Model.UserGroup != null)
+                    {
+                        <div><a href="/Groups/@Model.UserGroup.Id"><i class="fa fa-users"></i> @Model.UserGroup.Name</a></div>
+                    }
+                    else
+                    {
+                        <div>Brak przydzielonej grupy</div>
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="content-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <div id="task-description" ng-show="ownerSingleTaskVM.IsDescriptionVisible">
-                    @Html.Raw(Model.Description)
-                </div>
-                <div class="btn btn-dark" ng-click="ownerSingleTaskVM.IsDescriptionVisible = !ownerSingleTaskVM.IsDescriptionVisible" style="margin-left: 0px;">
-                    <i ng-class="ownerSingleTaskVM.IsDescriptionVisible ? 'fa fa-arrow-circle-up' : 'fa fa-arrow-circle-down'"></i>
-                    {{ ownerSingleTaskVM.IsDescriptionVisible ? "Ukryj" : "Pokaż" }} Opis
-                </div>
-                <div>
-                    <label class="control-label" style="margin-top: 42px;">Instancje zadania:</label>
-                    <div class="table-responsive">
-                        <table class="table table-responsive">
-                            <thead>
-                                <tr>
-                                    <th style="min-width: 110px;">Użytkownik</th>
-                                    <th>Rozpoczęto</th>
-                                    <th>Zakończono</th>
-                                    <th>Code Review</th>
-                                    <th>Repozytorium</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.TaskInstances)
-                                {
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div id="task-description" ng-show="ownerSingleTaskVM.IsDescriptionVisible">
+                        @Html.Raw(Model.Description)
+                    </div>
+                    <div class="btn btn-dark" ng-click="ownerSingleTaskVM.IsDescriptionVisible = !ownerSingleTaskVM.IsDescriptionVisible" style="margin-left: 0px;">
+                        <i ng-class="ownerSingleTaskVM.IsDescriptionVisible ? 'fa fa-arrow-circle-up' : 'fa fa-arrow-circle-down'"></i>
+                        {{ ownerSingleTaskVM.IsDescriptionVisible ? "Ukryj" : "Pokaż" }} Opis
+                    </div>
+                    <div>
+                        <label class="control-label" style="margin-top: 42px;">Instancje zadania:</label>
+                        <div class="table-responsive">
+                            <table class="table table-responsive">
+                                <thead>
                                     <tr>
-                                        <td style="min-width: 110px;">@item.User.UserName</td>
-                                        <td>@item.CreateDate</td>
-                                        @if (@item.Finished)
-                                        {
-                                            <td>@item.FinishDate</td>
-                                        }
-                                        else
-                                        {
-                                            <td>-</td>
-                                        }
+                                        <th style="min-width: 110px;">Użytkownik</th>
+                                        <th>Rozpoczęto</th>
+                                        <th>Zakończono</th>
+                                        <th>Code Review</th>
+                                        <th>Repozytorium</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in ownerSingleTaskVM.taskInstances">
+                                        <td style="min-width: 110px;">{{item.User.UserName}}</td>
+                                        <td>{{item.CreateDate}}</td>
+                                        <td>{{item.Finished ? item.FinishDate : "-" }}</td>
                                         <td>
-                                            @if (item.CodeReviewExist)
-                                            {
-                                                <a style="cursor: pointer;" data-toggle="modal" data-target="#ownerViewCodeReviewModal"><i class="fa fa-check"></i> Wyświetl</a>
-                                            }
-                                            else if (item.Finished)
-                                            {
-                                                <a style="cursor: pointer;" data-toggle="modal" data-target="#createCodeReviewModal"><i class="fa fa-plus"></i> Dodaj</a>
-                                            }
-                                            else
-                                            {
-                                                <span>-</span>
-                                            }
+                                            <a ng-if="item.CodeReviewExist && item.Finished" style="cursor: pointer;" data-toggle="modal" data-target="#ownerViewCodeReviewModal" ng-click="ownerSingleTaskVM.setCodeReviewModel(item.User.UserName)" ng-model="ownerSingleTaskVM"><i class="fa fa-check"></i> Wyświetl</a>
+                                            <a ng-if="!item.CodeReviewExist && item.Finished" style="cursor: pointer;" id="code-review-item.User.UserName" data-toggle="modal" data-target="#createCodeReviewModal" ng-click="ownerSingleTaskVM.setCodeReviewModel(item.User.UserName)"><i class="fa fa-plus"></i> Dodaj</a>
+                                            <span ng-if="!item.CodeReviewExist && !item.Finished">-</span>
                                         </td>
                                         <td>
-                                            <button style="padding: 0px; background-color: transparent;" class="btn btn-default" onclick="copyToClipboard('@item.User.UserName', '@item.RepositoryLink')"><i class="fa fa-git"></i> <i class="fa fa-mail-forward"></i></button>
+                                            <button style="padding: 0px; background-color: transparent;" class="btn btn-default" onclick="copyToClipboard(item.User.UserName, item.RepositoryLink)"><i class="fa fa-git"></i> <i class="fa fa-mail-forward"></i></button>
                                         </td>
                                         <td>
-                                            @if (item.CodeReviewExist)
-                                            {
-                                                <span class="task-status-label task-status-label-finished">
-                                                    Zakończone
-                                                </span>
-                                            }
-                                            else if (item.Finished)
-                                            {
-                                                <span class="task-status-label task-status-label-reviewed">
-                                                    Oczekujące na ocenę
-                                                </span>
-                                            }
-                                            else
-                                            {
-                                                <span class="task-status-label task-status-label-inprogress">
-                                                    W trakcie
-                                                </span>
-                                            }
+                                            <span ng-if="item.CodeReviewExist && item.Finished" class="task-status-label task-status-label-finished">
+                                                Zakończone
+                                            </span>
+                                            <span ng-if="!item.CodeReviewExist && item.Finished" class="task-status-label task-status-label-reviewed">
+                                                Oczekujące na ocenę
+                                            </span>
+                                            <span ng-if="!item.CodeReviewExist && !item.Finished" class="task-status-label task-status-label-inprogress">
+                                                W trakcie
+                                            </span>
                                         </td>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Link do repozytorium GIT</label>
+                        <input class="form-control" value="@Model.RepositoryLink" readonly />
+                    </div>
+                    <div>
+                        <label class="control-label">Dostępne branch'e:</label>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="min-width: 110px;">Nazwa</th>
+                                <th>Opis</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Branches)
+                            {
+                                <tr>
+                                    <td style="min-width: 110px;">@item.Name</td>
+                                    <td style="word-break: break-word">@item.Description</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div style="margin-left: -10px; margin-top: 50px; margin-bottom: 50px;">
+                        <a href="/Tasks/Edit/@Model.Id"><div class="btn btn-dark"><i class="fa fa-pencil"></i> Edytuj</div></a>
+                        <a href="/Tasks/Delete/@Model.Id"><div class="btn btn-dark"><i class="fa fa-trash"></i> Usuń</div></a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label class="control-label">Link do repozytorium GIT</label>
-                    <input class="form-control" value="@Model.RepositoryLink" readonly />
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="createCodeReviewModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Code Review - {{ownerSingleTaskVM.codeReview.UserName}}</h4>
                 </div>
-                <div>
-                    <label class="control-label">Dostępne branch'e:</label>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="control-label">
+                                Czas trwania
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            {{ownerSingleTaskVM.codeReview.NumberOfActivityDays}} dni.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3" style="margin-top: 8px;">
+                            <div>
+                                <label class="control-label">Branch'e:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="min-width: 110px;">Nazwa</th>
+                                        <th>Opis</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in ownerSingleTaskVM.codeReview.Branches">
+                                        <td style="min-width: 110px;">{{item.Name}}</td>
+                                        <td style="word-break: break-word">{{item.Description}}</td>
+                                        <td>{{item.Visible ? "Wykorzystano" : "Nie wykorzystano" }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="control-label" style="margin-top: 15px;">
+                                Architektura
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <div range-slider
+                                 min="0"
+                                 pin-handle="min"
+                                 max="120"
+                                 step="20"
+                                 model-max="ownerSingleTaskVM.codeReview.ArchitectureRate">
+                            </div>
+                            <span style="margin-top: -25px;" class="pull-left">Słabo</span>
+                            <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
+                            <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label" style="margin-top: 15px;">
+                                Optymalizacja
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <div range-slider
+                                 min="0"
+                                 pin-handle="min"
+                                 max="120"
+                                 step="20"
+                                 model-max="ownerSingleTaskVM.codeReview.OptymizationRate">
+                            </div>
+                            <span style="margin-top: -25px;" class="pull-left">Słabo</span>
+                            <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
+                            <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label" style="margin-top: 15px;">
+                                Przejrzystość
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <div range-slider
+                                 min="0"
+                                 pin-handle="min"
+                                 max="120"
+                                 step="20"
+                                 model-max="ownerSingleTaskVM.codeReview.CleanCodeRate">
+                            </div>
+                            <span style="margin-top: -25px;" class="pull-left">Słabo</span>
+                            <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
+                            <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label">Komentarz</label>
+                            <textarea class="form-control" style="max-width: 100%; min-height: 100px;" ng-model="ownerSingleTaskVM.codeReview.Comment"></textarea>
+                        </div>
+                    </div>
                 </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th style="min-width: 110px;">Nazwa</th>
-                            <th>Opis</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Branches)
-                        {
-                            <tr>
-                                <td style="min-width: 110px;">@item.Name</td>
-                                <td style="word-break: break-word">@item.Description</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                <div style="margin-left: -10px; margin-top: 50px; margin-bottom: 50px;">
-                    <a href="/Tasks/Edit/@Model.Id"><div class="btn btn-dark"><i class="fa fa-pencil"></i> Edytuj</div></a>
-                    <a href="/Tasks/Delete/@Model.Id"><div class="btn btn-dark"><i class="fa fa-trash"></i> Usuń</div></a>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="ownerSingleTaskVM.saveCodeReview()">Zapisz</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="ownerViewCodeReviewModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Code Review - {{ownerSingleTaskVM.codeReview.UserName}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="control-label">
+                                Czas trwania
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            {{ownerSingleTaskVM.codeReview.NumberOfActivityDays}} dni.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3" style="margin-top: 8px;">
+                            <div>
+                                <label class="control-label">Branch'e:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="min-width: 110px;">Nazwa</th>
+                                        <th>Opis</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in ownerSingleTaskVM.codeReview.Branches">
+                                        <td style="min-width: 110px;">{{item.Name}}</td>
+                                        <td style="word-break: break-word">{{item.Description}}</td>
+                                        <td>{{item.Visible ? "Wykorzystano" : "Nie wykorzystano" }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="control-label" style="margin-top: 15px;">
+                                Architektura
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <div range-slider
+                                 min="0"
+                                 pin-handle="min"
+                                 max="120"
+                                 step="20"
+                                 disabled="true"
+                                 model-max="ownerSingleTaskVM.codeReview.ArchitectureRate">
+                            </div>
+                            <span style="margin-top: -25px;" class="pull-left">Słabo</span>
+                            <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
+                            <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label" style="margin-top: 15px;">
+                                Optymalizacja
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <div range-slider
+                                 min="0"
+                                 pin-handle="min"
+                                 max="120"
+                                 step="20"
+                                 disabled="true"
+                                 model-max="ownerSingleTaskVM.codeReview.OptymizationRate">
+                            </div>
+                            <span style="margin-top: -25px;" class="pull-left">Słabo</span>
+                            <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
+                            <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label" style="margin-top: 15px;">
+                                Przejrzystość
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <div range-slider
+                                 min="0"
+                                 pin-handle="min"
+                                 max="120"
+                                 step="20"
+                                 disabled="true"
+                                 model-max="ownerSingleTaskVM.codeReview.CleanCodeRate">
+                            </div>
+                            <span style="margin-top: -25px;" class="pull-left">Słabo</span>
+                            <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
+                            <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label">Komentarz</label>
+                            <textarea class="form-control" style="max-width: 100%; min-height: 100px;" readonly ng-model="ownerSingleTaskVM.codeReview.Comment"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
                 </div>
             </div>
         </div>
@@ -158,235 +353,3 @@
         }
     </script>
 }
-
-<div class="modal fade" tabindex="-1" role="dialog" id="createCodeReviewModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Code Review - Ziutek</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <label class="control-label">
-                            Czas trwania
-                        </label>
-                    </div>
-                    <div class="col-md-9">
-                        13 dni
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3" style="margin-top: 8px;">
-                        <div>
-                            <label class="control-label">Branch'e:</label>
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th style="min-width: 110px;">Nazwa</th>
-                                    <th>Opis</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.Branches)
-                                {
-                                <tr>
-                                    <td style="min-width: 110px;">@item.Name</td>
-                                    <td style="word-break: break-word">@item.Description</td>
-                                    <td>Wykorzystano</td>
-                                </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label class="control-label" style="margin-top: 15px;">
-                            Architektura
-                        </label>
-                    </div>
-                    <div class="col-md-9">
-                        <div range-slider
-                             min="0"
-                             pin-handle="min"
-                             max="120"
-                             step="20"
-                             model-min="instanceSingleTaskVM.archMin"
-                             model-max="instanceSingleTaskVM.archMax">
-                        </div>
-                        <span style="margin-top: -25px;" class="pull-left">Słabo</span>
-                        <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
-                        <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="control-label" style="margin-top: 15px;">
-                            Optymalizacja
-                        </label>
-                    </div>
-                    <div class="col-md-9">
-                        <div range-slider
-                             min="0"
-                             pin-handle="min"
-                             max="120"
-                             step="20"
-                             model-min="instanceSingleTaskVM.optMin"
-                             model-max="instanceSingleTaskVM.optMax">
-                        </div>
-                        <span style="margin-top: -25px;" class="pull-left">Słabo</span>
-                        <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
-                        <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="control-label" style="margin-top: 15px;">
-                            Przejrzystość
-                        </label>
-                    </div>
-                    <div class="col-md-9">
-                        <div range-slider
-                             min="0"
-                             pin-handle="min"
-                             max="120"
-                             step="20"
-                             model-min="instanceSingleTaskVM.tesMin"
-                             model-max="instanceSingleTaskVM.tesMax">
-                        </div>
-                        <span style="margin-top: -25px;" class="pull-left">Słabo</span>
-                        <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
-                        <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
-                    </div>
-                    <div class="col-md-12">
-                        <label class="control-label">Komentarz</label>
-                        <textarea class="form-control" style="max-width: 100%; min-height: 100px;"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
-                <button type="button" class="btn btn-primary">Zapisz</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" tabindex="-1" role="dialog" id="ownerViewCodeReviewModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Code Review - Ziutek</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <label class="control-label">
-                            Czas trwania
-                        </label>
-                    </div>
-                    <div class="col-md-9">
-                        13 dni
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3" style="margin-top: 8px;">
-                        <div>
-                            <label class="control-label">Branch'e:</label>
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th style="min-width: 110px;">Nazwa</th>
-                                    <th>Opis</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.Branches)
-                                {
-                                    <tr>
-                                        <td style="min-width: 110px;">@item.Name</td>
-                                        <td style="word-break: break-word">@item.Description</td>
-                                        <td>Wykorzystano</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label class="control-label" style="margin-top: 15px;">
-                            Architektura
-                        </label>
-                    </div>
-                    <div class="col-md-9">
-                        <div range-slider
-                             min="0"
-                             pin-handle="min"
-                             max="120"
-                             step="20"
-                             disabled="true"
-                             model-min="instanceSingleTaskVM.archMin"
-                             model-max="instanceSingleTaskVM.archMax">
-                        </div>
-                        <span style="margin-top: -25px;" class="pull-left">Słabo</span>
-                        <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
-                        <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="control-label" style="margin-top: 15px;">
-                            Optymalizacja
-                        </label>
-                    </div>
-                    <div class="col-md-9">
-                        <div range-slider
-                             min="0"
-                             pin-handle="min"
-                             max="120"
-                             step="20"
-                             disabled="true"
-                             model-min="instanceSingleTaskVM.optMin"
-                             model-max="instanceSingleTaskVM.optMax">
-                        </div>
-                        <span style="margin-top: -25px;" class="pull-left">Słabo</span>
-                        <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
-                        <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="control-label" style="margin-top: 15px;">
-                            Przejrzystość
-                        </label>
-                    </div>
-                    <div class="col-md-9">
-                        <div range-slider
-                             min="0"
-                             pin-handle="min"
-                             max="120"
-                             step="20"
-                             disabled="true"
-                             model-min="instanceSingleTaskVM.tesMin"
-                             model-max="instanceSingleTaskVM.tesMax">
-                        </div>
-                        <span style="margin-top: -25px;" class="pull-left">Słabo</span>
-                        <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
-                        <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
-                    </div>
-                    <div class="col-md-12">
-                        <label class="control-label">Komentarz</label>
-                        <textarea class="form-control" style="max-width: 100%; min-height: 100px;" readonly></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
-            </div>
-        </div>
-    </div>
-</div>
