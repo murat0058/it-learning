@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ITLearning.Frontend.Web.Core.Identity.Providers
 {
-    public interface IPermissionsProvider
+    public interface IStartupPermissionsProvider
     {
         IEnumerable<Claim> GetStartupClaims();
         IEnumerable<string> GetStartupRoles();

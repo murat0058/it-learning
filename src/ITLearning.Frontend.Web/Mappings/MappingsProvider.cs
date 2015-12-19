@@ -17,6 +17,8 @@ using ITLearning.Contract.Data.Requests.News;
 using ITLearning.Contract.Data.Results.Groups;
 using ITLearning.Contract.Data.Results;
 using ITLearning.Contract.Data.Model.Tasks;
+using ITLearning.Frontend.Web.ViewModels.Administration;
+using ITLearning.Contract.Data.Model.Administration;
 
 namespace ITLearning.Shared.Mappings
 {
@@ -26,12 +28,11 @@ namespace ITLearning.Shared.Mappings
         {
             Mapper.CreateMap<SignUpViewModel, SignUpModel>();
             Mapper.CreateMap<LoginViewModel, LoginModel>();
+
             Mapper.CreateMap<NewsData, NewsThumbnailViewModel>();
             Mapper.CreateMap<NewsData, SingleNewsViewModel>();
-
             Mapper.CreateMap<NewsData, CreateUpdateNewsViewModel>()
                 .ForMember(dest => dest.TagsString, opt => opt.ResolveUsing(src => src.Tags.Aggregate((prev, next) => $"{prev} {next}")));
-
             Mapper.CreateMap<NewsListRequest, NewsListViewModel>();
             Mapper.CreateMap<CreateUpdateNewsViewModel, CreateNewsRequest>();
             Mapper.CreateMap<CreateUpdateNewsViewModel, EditNewsRequest>();
@@ -41,7 +42,6 @@ namespace ITLearning.Shared.Mappings
             Mapper.CreateMap<UserProfileData, User>();
             Mapper.CreateMap<UserProfileData, UserProfileViewModel>();
             Mapper.CreateMap<UpdateUserProfileRequest, UserProfileData>();
-
             Mapper.CreateMap<UserProfileData, UserData>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => GetUserName(src)))
                 .ForMember(dest => dest.ProfileImagePath, opt => opt.MapFrom(src => src.ProfileImagePath ?? "default.jpg"));
@@ -49,7 +49,6 @@ namespace ITLearning.Shared.Mappings
             Mapper.CreateMap<CreateGroupViewModel, CreateGroupRequest>();
             Mapper.CreateMap<UpdateGroupViewModel, UpdateGroupRequest>();
             Mapper.CreateMap<GetGroupsListViewModel, GetGroupListRequest>();
-
             Mapper.CreateMap<GroupData, GroupBasicData>();
             Mapper.CreateMap<GroupData, GroupWithUsersData>();
             Mapper.CreateMap<GroupData, GroupBasicDataViewModel>();
@@ -65,6 +64,9 @@ namespace ITLearning.Shared.Mappings
 
             Mapper.CreateMap<CommonResult<GetTasksForGroupResult>, GroupTasksViewModel>()
                 .ForMember(dest => dest.Item, opt => opt.MapFrom(src => src.Item.Tasks));
+
+            Mapper.CreateMap<ClaimsViewModel, ClaimsData>();
+            Mapper.CreateMap<ClaimsData, ClaimsViewModel>();
         }
 
         private static string GetUserName(UserProfileData src)

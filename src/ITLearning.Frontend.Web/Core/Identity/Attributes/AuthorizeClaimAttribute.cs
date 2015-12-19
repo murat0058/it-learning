@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
-using ITLearning.Frontend.Web.Core.Identity.Enums;
 using ITLearning.Frontend.Web.Core.Identity.Common;
 using Microsoft.AspNet.Mvc.Filters;
+using ITLearning.Contract.Enums;
 
 namespace ITLearning.Frontend.Web.Core.Identity.Attributes
 {
     public class AuthorizeClaimAttribute : AuthorizationFilterAttribute
     {
         public ClaimTypeEnum Type { get; set; }
+
         public ClaimValueEnum Value { get; set; }
 
         public override Task OnAuthorizationAsync(Microsoft.AspNet.Mvc.Filters.AuthorizationContext context)

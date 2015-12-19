@@ -7,13 +7,13 @@ using ITLearning.Contract.Data.Requests.News;
 using ITLearning.Contract.Providers;
 using ITLearning.Contract.Services;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
-using ITLearning.Frontend.Web.Core.Identity.Enums;
 using ITLearning.Frontend.Web.ViewModels.News;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using ITLearning.Contract.Data.Results;
+using ITLearning.Contract.Enums;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -132,12 +132,14 @@ namespace ITLearning.Frontend.Web.Controllers
         }
 
         [HttpGet("Create")]
+        [AuthorizeClaim(Type = ClaimTypeEnum.News, Value = ClaimValueEnum.News_Create)]
         public IActionResult Create()
         {
             return View("Create", new CreateUpdateNewsViewModel());
         }
 
         [HttpPost("CreateNews")]
+        [AuthorizeClaim(Type = ClaimTypeEnum.News, Value = ClaimValueEnum.News_Create)]
         public async Task<IActionResult> CreateNews(CreateUpdateNewsViewModel model)
         {
             var request = Mapper.Map<CreateNewsRequest>(model);

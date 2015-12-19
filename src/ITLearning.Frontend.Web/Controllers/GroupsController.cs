@@ -1,18 +1,10 @@
 ﻿using AutoMapper;
 using ITLearning.Contract.Data.Requests.Groups;
-using ITLearning.Contract.Data.Results;
-using ITLearning.Contract.Data.Results.Groups;
 using ITLearning.Contract.Services;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
-using ITLearning.Frontend.Web.Core.Identity.Enums;
 using ITLearning.Frontend.Web.ViewModels.Group;
 using Microsoft.AspNet.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ITLearning.Contract.Enums;
-using ITLearning.Contract.Data.Model.Tasks;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -81,12 +73,14 @@ namespace ITLearning.Frontend.Web.Controllers
         }
 
         [HttpGet("Create")]
+        [AuthorizeClaim(Type = ClaimTypeEnum.Group, Value = ClaimValueEnum.Group_Create)]
         public IActionResult Create()
         {
             return View(new CreateGroupViewModel());
         }
 
         [HttpPost("CreateGroup")]
+        [AuthorizeClaim(Type = ClaimTypeEnum.Group, Value = ClaimValueEnum.Group_Create)]
         public IActionResult CreateGroup(CreateGroupViewModel viewModel)
         {
             var request = Mapper.Map<CreateGroupRequest>(viewModel);

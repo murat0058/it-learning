@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Http;
 using ITLearning.Contract.Data.Results.News;
 
-namespace ITLearning.Contract.Providers
+namespace ITLearning.Contract.DataAccess.Repositories
 {
-    public interface INewsProvider
+    public interface INewsRepository
     {
         NewsData GetById(string id, bool contentAsHtml = true);
         IEnumerable<NewsData> GetAll();

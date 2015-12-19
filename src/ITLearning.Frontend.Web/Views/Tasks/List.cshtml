@@ -2,10 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3 side-section">
-                <h4>Zadania</h4>
-                <a asp-action="Create" asp-controller="Tasks" class="btn btn-block btn-success">
-                    <i class="fa fa-plus"></i> Utwórz zadanie
-                </a>
+                @Html.PartialWithClaim("Partials/CreateTaskButton", User, ClaimTypeEnum.Task, ClaimValueEnum.Task_Create)
             </div>
             <div class="col-md-9">
                 <div class="groups-list">

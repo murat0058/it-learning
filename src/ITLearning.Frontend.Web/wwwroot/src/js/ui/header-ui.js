@@ -2,6 +2,7 @@
 
     var $toggleBtn = $('.menu-title-toggle'),
         $menu = $('nav.menu'),
+        $icon = $('.menu-icon'),
         $overlay = $('.overlay'),
         animation = 'ease-in',
         animationStates = {
@@ -13,7 +14,7 @@
                 position: -250,
                 overlayVisible: false
             }
-        }
+        },
         currentState = 0;
 
     var toggleMenuVisibility = function () {
@@ -38,6 +39,7 @@
 
         currentState++;
     };
-    
+
     $toggleBtn.click(toggleMenuVisibility);
+
 });

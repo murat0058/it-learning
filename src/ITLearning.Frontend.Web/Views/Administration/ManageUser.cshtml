@@ -1,0 +1,129 @@
+﻿@model UserClaimsViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <a asp-controller="Administration" asp-action="Users" class="btn btn-dark" style="margin-left: 0; margin-top: 20px;">
+                <i class="fa fa-angle-double-left"></i> Powrót
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h3 class="administration-title">Edycja użytkownika</h3>
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Login</th>
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.Id</td>
+                        <td>@Model.UserName</td>
+                        <td>@Model.FirstName</td>
+                        <td>@Model.LastName</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row update-claims-form-wrapper">
+        <div class="col-md-8 col-md-offset-2">
+            <h3 class="administration-title">Uprawnienia</h3>
+            <form asp-controller="Administration" asp-action="UpdateClaims" class="form" id="updateClaimsForm">
+
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="UserName" />
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="administration-group-title">Kontrolery</p>
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label asp-for="Claims.ControllerAdministrationController">
+                                    <input asp-for="Claims.ControllerAdministrationController" /> Administracja
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label asp-for="Claims.ControllerHomeController">
+                                    <input asp-for="Claims.ControllerHomeController" /> Strona główna
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label asp-for="Claims.ControllerTasksController">
+                                    <input asp-for="Claims.ControllerTasksController" /> Zadania
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label asp-for="Claims.ControllerGroupsController">
+                                    <input asp-for="Claims.ControllerGroupsController" /> Grupy
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label asp-for="Claims.ControllerNewsController">
+                                    <input asp-for="Claims.ControllerNewsController" /> Newsy
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="administration-group-title">Funkcjonalności</p>
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label asp-for="Claims.TaskCreate">
+                                    <input asp-for="Claims.TaskCreate" /> Tworzenie zadań
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label asp-for="Claims.GroupCreate">
+                                    <input asp-for="Claims.GroupCreate" /> Tworzenie grup
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label asp-for="Claims.NewsCreate">
+                                    <input asp-for="Claims.NewsCreate" /> Tworzenie newsów
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="submit" value="Zapisz" class="btn btn-success btn-block" style="margin-left: 0;" />
+            </form>
+
+            <div class="update-claims-overlay">
+                <p>Aktualizuję uprawnienia...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script src="~/src/js/ui/manage-claims-ui.js"></script>
+
+}

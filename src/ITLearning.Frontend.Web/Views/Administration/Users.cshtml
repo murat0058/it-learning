@@ -1,0 +1,36 @@
+﻿@model UsersListViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h3 class="administration-title">Użytkownicy</h3>
+            <table class="table table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Login</th>
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr>
+                            <td>@user.Id</td>
+                            <td>@user.UserName</td>
+                            <td>@user.FirstName</td>
+                            <td>@user.LastName</td>
+                            <td>
+                                <a asp-controller="Administration" asp-action="ManageUser" asp-route-id="@user.Id" class="btn btn-block btn-primary">
+                                    <i class="fa fa-cog"></i> Zarządzaj
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

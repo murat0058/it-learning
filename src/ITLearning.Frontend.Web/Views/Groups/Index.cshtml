@@ -2,10 +2,7 @@
     <div class="container">
         <div class="row" ng-controller="GroupsListController as groupsListVm">
             <div class="col-md-3 side-section">
-                <h4>Grupy</h4>
-                <a asp-action="Create" asp-controller="Groups" class="btn btn-block btn-success">
-                    <i class="fa fa-plus"></i> Utwórz grupę
-                </a>
+                @Html.PartialWithClaim("Partials/CreateGroupButton", User, ClaimTypeEnum.Group, ClaimValueEnum.Group_Create)
                 <h4>Filtruj</h4>
                 <p class="group-title-small">Założyciel grupy</p>
                 <form name="myForm" role="form" class="itl-form">

@@ -1,5 +1,4 @@
-﻿using ITLearning.Backend.Business.Providers;
-using ITLearning.Backend.Business.Services;
+﻿using ITLearning.Backend.Business.Services;
 using ITLearning.Backend.DataAccess.Repositories;
 using ITLearning.Backend.Database.Entities;
 using ITLearning.Contract.DataAccess.Repositories;
@@ -22,19 +21,21 @@ namespace ITLearning.Frontend.Web.Core.IoC
         {
             #region Services
             services.AddTransient<IIdentityService, IdentityService>();
-            services.AddTransient<IPermissionsProvider, PermissionsProvider>();
+            services.AddTransient<IStartupPermissionsProvider, StartupPermissionsProvider>();
+
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<IGroupsService, GroupsService>();
             services.AddTransient<ITasksService, TasksService>();
-
-            services.AddTransient<INewsProvider, StaticFilesNewsProvider>();
+            services.AddTransient<IPermissionsService, PermissionsService>();
+            services.AddTransient<INewsRepository, StaticFilesNewsRepository>();
             #endregion
 
             #region Repositories
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ITasksRepository, TasksRepository>();
             services.AddTransient<IGroupsRepository, GroupsRepository>();
+            services.AddTransient<IPermissionsRepository, PermissionsRepository>();
             #endregion
 
             #region Utils

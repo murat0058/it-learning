@@ -1043,3 +1043,60 @@ footer {
 .task-status-label-inprogress {
     background-color: $color-primary;
 }
+
+.administration-title {
+    font-family: $custom-font;
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 1px solid #efefef;
+}
+
+.administration-group-title {
+    font-family: $custom-font;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 1px solid #efefef;
+}
+
+.update-claims-form-wrapper {
+    position: relative;
+
+    form {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-family: $custom-font;
+
+        .state-changed {
+            color: $color-warning;
+        }
+    }
+
+    .update-claims-overlay {
+        display: none;
+        position: absolute;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+        text-align: center;
+
+        p {
+            font-family: $custom-font;
+            font-weight: 600;
+            font-size: 18px;
+            color: $color-dark;
+            position: relative;
+            top: 20px;
+        }
+    }
+}
+
+.wide-screen-text{
+    @media screen and (max-width: 992px){
+        display: none;
+    }
+}
