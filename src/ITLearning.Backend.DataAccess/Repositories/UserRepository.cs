@@ -8,6 +8,8 @@ using ITLearning.Contract.Data.Results;
 using ITLearning.Contract.Data.Model.User;
 using ITLearning.Backend.Database;
 using ITLearning.Contract.Providers;
+using System;
+using System.Collections.Generic;
 
 namespace ITLearning.Backend.DataAccess.Repositories
 {
@@ -20,6 +22,19 @@ namespace ITLearning.Backend.DataAccess.Repositories
         {
             _dbConfiguration = dbConfiguration;
             _configurationProvider = configurationProvider;
+        }
+
+        public CommonResult<UserProfileData> GetUserById(int id)
+        {
+            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            {
+                var user = context.Users.First(x => x.Id == id);
+
+                var mapped = Mapper.Map<UserProfileData>(user);
+                mapped.ProfileImagePath = GenerateImagePath(user.ImageName);
+
+                return CommonResult<UserProfileData>.Success(mapped);
+            }
         }
 
         public CommonResult<UserProfileData> GetUserProfile(string userName)
@@ -83,6 +98,26 @@ namespace ITLearning.Backend.DataAccess.Repositories
             else
             {
                 return _configurationProvider.GetProfileDefaultImagePath();
+            }
+        }
+
+        public CommonResult<IEnumerable<UserProfileData>> GetAllUsersProfileData()
+        {
+            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            {
+                var users = context.Users;
+
+                var usersProfileData = new List<UserProfileData>();
+
+                foreach(var user in users)
+                {
+                    var userProfileData = Mapper.Map<UserProfileData>(user);
+                    userProfileData.ProfileImagePath = GenerateImagePath(user.ImageName);
+
+                    usersProfileData.Add(userProfileData);
+                }
+
+                return CommonResult<IEnumerable<UserProfileData>>.Success(usersProfileData);
             }
         }
     }

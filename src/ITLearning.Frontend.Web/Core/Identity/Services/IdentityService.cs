@@ -13,9 +13,9 @@ namespace ITLearning.Frontend.Web.Core.Identity.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly IPermissionsProvider _permissionsProvider;
+        private readonly IStartupPermissionsProvider _permissionsProvider;
 
-        public IdentityService(UserManager<User> userManager, SignInManager<User> signInManager, IPermissionsProvider permissionsProvider)
+        public IdentityService(UserManager<User> userManager, SignInManager<User> signInManager, IStartupPermissionsProvider permissionsProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;

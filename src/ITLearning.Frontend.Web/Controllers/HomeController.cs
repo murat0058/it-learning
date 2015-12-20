@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNet.Mvc;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
-using ITLearning.Frontend.Web.Core.Identity.Enums;
 using System.Linq;
 using ITLearning.Frontend.Web.ViewModels.Home;
 using ITLearning.Frontend.Web.ViewModels.News;
@@ -8,6 +7,7 @@ using ITLearning.Frontend.Web.ViewModels.User;
 using AutoMapper;
 using Microsoft.Net.Http.Headers;
 using ITLearning.Contract.Services;
+using ITLearning.Contract.Enums;
 
 namespace ITLearning.Frontend.Web.Controllers
 {

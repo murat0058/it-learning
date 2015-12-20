@@ -29,9 +29,26 @@ body > .main-content > .content {
     padding-bottom: $footer-height;
 }
 
+.login-signup-background {
+    width: 100%;
+    height: 300px;
+    position: absolute;
+    top: 20px;
+    background-image: url('../../common/images/signup/signup-background.jpg');
+    background-position: center center;
+    background-size: cover;
+}
+
+.lowered-form-wrapper {
+    @media screen and (min-width: 992px){
+        top: 75px !important;
+    }
+}
+
 .form-wrapper {
     position: relative;
     top: 20px;
+    margin-bottom: 50px;
 }
 
 .content-wrapper {
@@ -63,8 +80,9 @@ body > .main-content > .content {
 }
 
 .user-profile-container {
-    position: relative;
-    top: 0;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-bottom: 15px;
 
     &:hover {
         .profile-link {
@@ -76,8 +94,9 @@ body > .main-content > .content {
         width: 75%;
         margin: 0 auto;
         display: block;
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        border: 1px solid #CECECE;
     }
 
     .user-data-container {
@@ -134,6 +153,7 @@ body > .main-content > .content {
                         display: block;
                         color: white;
                         padding: 5px 8px;
+                        text-decoration: none;
                     }
 
                     i {
@@ -146,15 +166,17 @@ body > .main-content > .content {
                     }
 
                     &:hover {
-                        padding-bottom: (8px + $on-hover-movement);
-                        cursor: pointer;
+                        @media screen and (min-width: 992px) {
+                            padding-bottom: (8px + $on-hover-movement);
+                            cursor: pointer;
 
-                        i {
-                            top: (0px + $on-hover-movement);
-                        }
+                            i {
+                                top: (0px + $on-hover-movement);
+                            }
 
-                        a {
-                            text-decoration: none;
+                            a {
+                                text-decoration: none;
+                            }
                         }
                     }
                 }
@@ -209,6 +231,13 @@ body > .main-content > .content {
 }
 
 .news-container {
+
+    .main-news-mock {
+        width: 100%;
+        height: 256px;
+        background-image: url('../../common/images/news/news-mock.jpg');
+        background-position: center center;
+    }
 
     .news-row {
         margin-bottom: 20px;
@@ -1016,4 +1045,61 @@ footer {
 
 .task-status-label-inprogress {
     background-color: $color-primary;
+}
+
+.administration-title {
+    font-family: $custom-font;
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 1px solid #efefef;
+}
+
+.administration-group-title {
+    font-family: $custom-font;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 1px solid #efefef;
+}
+
+.update-claims-form-wrapper {
+    position: relative;
+
+    form {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-family: $custom-font;
+
+        .state-changed {
+            color: $color-warning;
+        }
+    }
+
+    .update-claims-overlay {
+        display: none;
+        position: absolute;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+        text-align: center;
+
+        p {
+            font-family: $custom-font;
+            font-weight: 600;
+            font-size: 18px;
+            color: $color-dark;
+            position: relative;
+            top: 20px;
+        }
+    }
+}
+
+.wide-screen-text{
+    @media screen and (max-width: 992px){
+        display: none;
+    }
 }

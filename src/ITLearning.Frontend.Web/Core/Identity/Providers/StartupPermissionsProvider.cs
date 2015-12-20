@@ -1,22 +1,19 @@
-﻿using ITLearning.Frontend.Web.Core.Identity.Enums;
+﻿using ITLearning.Contract.Enums;
 using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace ITLearning.Frontend.Web.Core.Identity.Providers
 {
-    public class PermissionsProvider : IPermissionsProvider
+    public class StartupPermissionsProvider : IStartupPermissionsProvider
     {
         public IEnumerable<Claim> GetStartupClaims()
         {
             return new List<Claim>
             {
                 CreateClaimByClaimEnums(ClaimTypeEnum.Controller, ClaimValueEnum.Controller_HomeController),
+                CreateClaimByClaimEnums(ClaimTypeEnum.Controller, ClaimValueEnum.Controller_TasksController),
                 CreateClaimByClaimEnums(ClaimTypeEnum.Controller, ClaimValueEnum.Controller_NewsController),
-                CreateClaimByClaimEnums(ClaimTypeEnum.Controller, ClaimValueEnum.Controller_GroupsController),
-
-                //TODO To be removed
-                CreateClaimByClaimEnums(ClaimTypeEnum.UserWidgetTab, ClaimValueEnum.UserWidgetTab_ProfileEditing),
-                CreateClaimByClaimEnums(ClaimTypeEnum.UserWidgetTab, ClaimValueEnum.UserWidgetTab_HomeSettings),
+                CreateClaimByClaimEnums(ClaimTypeEnum.Controller, ClaimValueEnum.Controller_GroupsController)
             };
         }
 
@@ -24,7 +21,7 @@ namespace ITLearning.Frontend.Web.Core.Identity.Providers
         {
             return new List<string>
             {
-                "StandardUser"
+                UserRoleEnum.StandardUser.ToString()
             };
         }
 

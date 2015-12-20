@@ -13,6 +13,7 @@
     "skel": "3.0.0",
     "bootstrap-markdown": "~2.9.0",
     "markdown-js": "~0.6.2",
-    "angular-rangeslider": "~0.0.14"
+    "angular-rangeslider": "~0.0.14",
+    "angular-bootstrap": "0.14.3"
   }
 }

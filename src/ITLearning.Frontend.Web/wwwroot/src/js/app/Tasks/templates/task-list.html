@@ -8,7 +8,9 @@
         <div class="task-group-info">
             <a ng-href="/Groups/{{task.GroupId}}" ng-bind="task.GroupName"></a>
         </div>
-        <div class="task-status" ng-class="task.IsCompleted ? 'task-completed' : 'task-notcompleted'">
+        <div class="task-status" ng-class="task.IsCompleted ? 'task-completed' : 'task-notcompleted'" 
+             uib-tooltip="{{task.IsCompleted ? 'Ukończone' : 'Nieukończone'}}" 
+             tooltip-placement="left">
             <i class="fa fa-check"></i>
         </div>
     </div>

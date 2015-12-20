@@ -16,7 +16,7 @@ namespace ITLearning.Frontend.Web.Core.Identity.Extensions
         public static void EnsureRolesCreated(this IApplicationBuilder app)
         {
             var context = app.ApplicationServices.GetService<AppDbContext>();
-            var permissionsProvider = app.ApplicationServices.GetService<IPermissionsProvider>();
+            var permissionsProvider = app.ApplicationServices.GetService<IStartupPermissionsProvider>();
 
             var roleManager = app.ApplicationServices.GetService<RoleManager<IdentityRole<int>>>();
             foreach (var role in permissionsProvider.GetStartupRoles())

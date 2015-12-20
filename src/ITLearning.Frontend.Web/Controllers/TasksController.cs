@@ -8,6 +8,7 @@ using ITLearning.Contract.Data.Requests.Tasks;
 using ITLearning.Contract.Data.Results;
 using ITLearning.Contract.Enums;
 using ITLearning.Contract.Services;
+using ITLearning.Frontend.Web.Core.Identity.Attributes;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json;
@@ -17,6 +18,7 @@ using System.Collections.Generic;
 namespace ITLearning.Frontend.Web.Controllers
 {
     [Route("Tasks")]
+    [AuthorizeClaim(Type = ClaimTypeEnum.Controller, Value = ClaimValueEnum.Controller_TasksController)]
     public class TasksController : BaseController
     {
         private readonly ITasksService _tasksService;
@@ -32,7 +34,6 @@ namespace ITLearning.Frontend.Web.Controllers
         [HttpGet("{id:int}")]
         public IActionResult Single(int id)
         {
-            //todo get taskVieType by id && user
             var taskViewType = TaskViewTypeEnum.OwnerView;
 
             if (taskViewType == TaskViewTypeEnum.OwnerView)
@@ -304,6 +305,7 @@ namespace ITLearning.Frontend.Web.Controllers
         }
 
         [HttpGet("Create")]
+        [AuthorizeClaim(Type = ClaimTypeEnum.Task, Value = ClaimValueEnum.Task_Create)]
         public IActionResult Create()
         {
             var viewModel = new CreateTaskRequestData()
@@ -335,6 +337,7 @@ namespace ITLearning.Frontend.Web.Controllers
         }
 
         [HttpPost("Create")]
+        [AuthorizeClaim(Type = ClaimTypeEnum.Task, Value = ClaimValueEnum.Task_Create)]
         public IActionResult Create(CreateTaskRequestData requestData)
         {
             //_tasksService.Create(requestData);

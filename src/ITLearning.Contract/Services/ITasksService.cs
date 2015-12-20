@@ -1,6 +1,7 @@
 ﻿using ITLearning.Contract.Data.Model.Tasks;
 using ITLearning.Contract.Data.Requests.Tasks;
 using ITLearning.Contract.Data.Results;
+using ITLearning.Contract.Data.Results.Tasks;
 using System.Collections.Generic;
 
 namespace ITLearning.Contract.Services
@@ -9,5 +10,6 @@ namespace ITLearning.Contract.Services
     {
         void Create(CreateTaskRequestData requestData);
         CommonResult<List<TaskListItemData>> GetLatest(int count);
+        CommonResult<IEnumerable<TaskInstancesForUserResult>> GetCompletedTaskInstancesForUser(string userName);
     }
 }

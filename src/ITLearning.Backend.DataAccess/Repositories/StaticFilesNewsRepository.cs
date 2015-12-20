@@ -13,13 +13,13 @@ using System;
 using System.Threading.Tasks;
 using ITLearning.Contract.Data.Requests.News;
 using ITLearning.Contract.Data.Results;
-using ITLearning.Shared.Extensions;
 using ITLearning.Contract.Data.Results.News;
 using Microsoft.AspNet.Http;
+using ITLearning.Contract.DataAccess.Repositories;
 
-namespace ITLearning.Backend.Business.Providers
+namespace ITLearning.Backend.DataAccess.Repositories
 {
-    public class StaticFilesNewsProvider : INewsProvider
+    public class StaticFilesNewsRepository : INewsRepository
     {
         private IHostingEnvironment _hostingEnvironment;
         private IOptions<PathsConfiguration> _pathsConfiguration;
@@ -27,7 +27,7 @@ namespace ITLearning.Backend.Business.Providers
         private string _newsPath;
         private string _newsImagesPath;
 
-        public StaticFilesNewsProvider(IHostingEnvironment hostingEnvironment, IOptions<PathsConfiguration> pathsConfiguration)
+        public StaticFilesNewsRepository(IHostingEnvironment hostingEnvironment, IOptions<PathsConfiguration> pathsConfiguration)
         {
             _hostingEnvironment = hostingEnvironment;
             _pathsConfiguration = pathsConfiguration;

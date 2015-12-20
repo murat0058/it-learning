@@ -26,10 +26,7 @@
                 </section>
             </div>
             <div class="col-md-9">
-                @if (mainNews != null)
-                {
-                    <h4 class="section-header section-header-success">IT Newsy</h4>
-                }
+                <h4 class="section-header section-header-success">IT Newsy</h4>
                 <section class="section-container news-container">
                     @if (mainNews != null)
                     {
@@ -58,6 +55,10 @@
                                 </article>
                             </div>
                         </div>
+                    }
+                    else
+                    {
+                        <div class="main-news-mock"></div>
                     }
                     @if (smallNewsList != null && smallNewsList.Any())
                     {

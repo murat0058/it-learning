@@ -1,20 +1,9 @@
 ﻿<section class="user-shortcuts-widget">
     <ul class="user-shortcuts-tabs">
-        <li class="tab tab-dark" data-toggle="tooltip" data-placement="bottom" title="Utwórz newsa">
-            <a asp-controller="News" asp-action="Create">
-                <i class="fa fa-plus"></i>  <i class="fa fa-pencil"></i>
-            </a>
-        </li>
-        <li class="tab tab-success" data-toggle="tooltip" data-placement="bottom" title="Utwórz grupę">
-            <a asp-controller="Groups" asp-action="Create">
-                <i class="fa fa-plus"></i>  <i class="fa fa-users"></i>
-            </a>
-        </li>
-        <li class="tab tab-primary" data-toggle="tooltip" data-placement="bottom" title="Utwórz zadanie">
-            <a asp-controller="Tasks" asp-action="Create">
-                <i class="fa fa-plus"></i>  <i class="fa fa-file"></i>
-            </a>
-        </li>
+        @Html.PartialWithClaim("Partials/CreateNewsButton", User, ClaimTypeEnum.News, ClaimValueEnum.News_Create)
+        @Html.PartialWithClaim("Partials/CreateGroupButton", User, ClaimTypeEnum.Group, ClaimValueEnum.Group_Create)
+        @Html.PartialWithClaim("Partials/CreateTaskButton", User, ClaimTypeEnum.Task, ClaimValueEnum.Task_Create)
+        @Html.PartialWithClaim("Partials/AdministrationButton", User, ClaimTypeEnum.Controller, ClaimValueEnum.Controller_AdministrationController)
     </ul>
 </section>
 

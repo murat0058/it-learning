@@ -1,6 +1,6 @@
 ﻿$(function () {
 
-    var $toggleBtn = $('.menu-title'),
+    var $toggleBtn = $('.menu-title-toggle'),
         $menu = $('nav.menu'),
         $icon = $('.menu-icon'),
         $overlay = $('.overlay'),
@@ -8,12 +8,10 @@
         animationStates = {
             0: {
                 position: 0,
-                cssClass: 'fa fa-angle-double-right',
                 overlayVisible: true
             },
             1: {
                 position: -250,
-                cssClass: 'fa fa-angle-double-left',
                 overlayVisible: false
             }
         },
@@ -23,10 +21,7 @@
 
         var newState = animationStates[currentState % 2],
             newPosition = newState.position,
-            newClass = newState.cssClass,
             isOverlayVisible = newState.overlayVisible;
-
-        $icon.removeClass().addClass(animationStates[currentState % 2].cssClass);
 
         var overlayAnimationSpeed = 150,
             requiredOpacity = 0.8;

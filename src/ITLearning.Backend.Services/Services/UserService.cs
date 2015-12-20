@@ -12,6 +12,7 @@ using ITLearning.Contract.Providers;
 using ITLearning.Contract.Data.Requests;
 using ITLearning.Contract.Data.Results.FileUpload;
 using Microsoft.AspNet.Hosting;
+using System.Collections.Generic;
 
 namespace ITLearning.Backend.Business.Services
 {
@@ -29,6 +30,11 @@ namespace ITLearning.Backend.Business.Services
         public CommonResult<UserProfileData> GetUserProfile()
         {
             return _userRepository.GetUserProfile(StaticManager.UserName);
+        }
+
+        public CommonResult<UserProfileData> GetUserById(int id)
+        {
+            return _userRepository.GetUserById(id);
         }
 
         public CommonResult<UserProfileData> UpdateUserProfile(UpdateUserProfileRequest requestData)
@@ -124,6 +130,11 @@ namespace ITLearning.Backend.Business.Services
         private CommonResult<UserProfileData> UpdateUserProfileImage(string userName, string fileName)
         {
             return _userRepository.UpdateUserProfileImage(userName, fileName);
+        }
+
+        public CommonResult<IEnumerable<UserProfileData>> GetAllUsersProfileData()
+        {
+            return _userRepository.GetAllUsersProfileData();
         }
     }
 }
