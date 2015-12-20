@@ -3710,3 +3710,9 @@ body.is-mobile.landing .wrapper.style4 {
 body.is-mobile.landing #footer {
     background-color: #1d242a;
 }
+
+.wide-screen-text {
+    @media screen and (max-width: 992px) {
+        display: none;
+    }
+}
