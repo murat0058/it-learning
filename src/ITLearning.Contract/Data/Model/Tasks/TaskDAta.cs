@@ -2,7 +2,6 @@
 using ITLearning.Contract.Data.Model.Groups;
 using ITLearning.Contract.Data.Model.User;
 using ITLearning.Contract.Enums;
-using System;
 using System.Collections.Generic;
 
 namespace ITLearning.Contract.Data.Model.Tasks

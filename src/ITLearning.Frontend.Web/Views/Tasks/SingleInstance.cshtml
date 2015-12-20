@@ -5,9 +5,10 @@
 @{
     var language = Model.SelectedLanguage.ToString();
     var branches = Json.Serialize(Model.Branches).ToString();
+    var taskInstanceData = Json.Serialize(Model.TaskInstances.First()).ToString();
 }
 
-<div ng-controller="InstanceSingleTaskViewController as instanceSingleTaskVM" ng-init="instanceSingleTaskVM.init('@language', @branches);">
+<div ng-controller="InstanceSingleTaskViewController as instanceSingleTaskVM" ng-init="instanceSingleTaskVM.init('@language', @branches, @taskInstanceData);">
     <div class="task-header" ng-style="instanceSingleTaskVM.BackgroundImage">
         <div class="container">
             <div class="row">
@@ -72,7 +73,7 @@
                                         </div>
                                     </div>
                                     <div ng-show="{{branch.Visible == false}}">
-                                        <div ng-click="instanceSingleTaskVM.showBranch(branch.id)" class="btn btn-dark">
+                                        <div ng-click="instanceSingleTaskVM.showBranch(branch.Name)" class="btn btn-dark">
                                             <i class="fa fa-eye"></i>
                                         </div>
                                     </div>
@@ -133,83 +134,79 @@
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="showCodeReviewModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Code Review</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <label class="control-label" style="margin-top: 15px;">
-                            Architektura
-                        </label>
-                    </div>
-                    <div class="col-md-9">
-                        <div range-slider
-                             min="0"
-                             pin-handle="min"
-                             max="100"
-                             step="20"
-                             model-min="instanceSingleTaskVM.min"
-                             model-max="instanceSingleTaskVM.max"
-                             disabled="true">
+    <div class="modal fade" tabindex="-1" role="dialog" id="showCodeReviewModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Code Review</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="control-label" style="margin-top: 15px;">
+                                Architektura
+                            </label>
                         </div>
-                        <span style="margin-top: -25px;" class="pull-left">Słabo</span>
-                        <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
-                        <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="control-label" style="margin-top: 15px;">
-                            Optymalizacja
-                        </label>
-                    </div>
-                    <div class="col-md-9">
-                        <div range-slider
-                             min="0"
-                             pin-handle="min"
-                             max="100"
-                             step="20"
-                             model-min="instanceSingleTaskVM.min"
-                             model-max="instanceSingleTaskVM.max"
-                             disabled="true">
+                        <div class="col-md-9">
+                            <div range-slider
+                                 min="0"
+                                 pin-handle="min"
+                                 max="120"
+                                 step="20"
+                                 model-max="instanceSingleTaskVM.ArchitectureRate"
+                                 disabled="true">
+                            </div>
+                            <span style="margin-top: -25px;" class="pull-left">Słabo</span>
+                            <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
+                            <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
                         </div>
-                        <span style="margin-top: -25px;" class="pull-left">Słabo</span>
-                        <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
-                        <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="control-label" style="margin-top: 15px;">
-                            Przejrzystość
-                        </label>
-                    </div>
-                    <div class="col-md-9">
-                        <div range-slider
-                             min="0"
-                             pin-handle="min"
-                             max="100"
-                             step="20"
-                             model-min="instanceSingleTaskVM.min"
-                             model-max="instanceSingleTaskVM.max"
-                             disabled="true">
+                        <div class="col-md-3">
+                            <label class="control-label" style="margin-top: 15px;">
+                                Optymalizacja
+                            </label>
                         </div>
-                        <span style="margin-top: -25px;" class="pull-left">Słabo</span>
-                        <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
-                        <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
-                    </div>
-                    <div class="col-md-12">
-                        <label class="control-label">Komentarz</label>
-                        <textarea class="form-control" style="max-width: 100%; min-height: 100px;" readonly></textarea>
+                        <div class="col-md-9">
+                            <div range-slider
+                                 min="0"
+                                 pin-handle="min"
+                                 max="120"
+                                 step="20"
+                                 model-max="instanceSingleTaskVM.OptymizationRate"
+                                 disabled="true">
+                            </div>
+                            <span style="margin-top: -25px;" class="pull-left">Słabo</span>
+                            <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
+                            <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label" style="margin-top: 15px;">
+                                Przejrzystość
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <div range-slider
+                                 min="0"
+                                 pin-handle="min"
+                                 max="120"
+                                 step="20"
+                                 model-max="instanceSingleTaskVM.CleanCodeRate"
+                                 disabled="true">
+                            </div>
+                            <span style="margin-top: -25px;" class="pull-left">Słabo</span>
+                            <span style="margin-top: -25px; text-align: center;" class="center-block">Dobrze</span>
+                            <span style="margin-top: -25px;" class="pull-right">Świetnie</span>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label">Komentarz</label>
+                            <textarea class="form-control" style="max-width: 100%; min-height: 100px;" ng-bind="instanceSingleTaskVM.Comment" readonly></textarea>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
-                @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                </div>
             </div>
         </div>
     </div>

@@ -70,13 +70,5 @@
 
             //TODO
         };
-
-        ownerSingleTaskVM.getTaskCodeReviewStatus = function (userName) {
-            var selected = ownerSingleTaskVM.taskInstances.filter(function (item) {
-                return item.User.UserName === userName;
-            })[0];
-
-            return 
-        };
     }
 })();

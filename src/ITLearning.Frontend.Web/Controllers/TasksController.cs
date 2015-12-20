@@ -94,7 +94,7 @@ namespace ITLearning.Frontend.Web.Controllers
                         {
                             NumberOfActivityDays = 5,
                             ArchitectureRate = 100,
-                            CleanCodeRate = 50,
+                            CleanCodeRate = 60,
                             OptymizationRate = 0,
                             Comment = "Oby tak dalej!",
                             Branches = new List<BranchShortData>
@@ -166,7 +166,7 @@ namespace ITLearning.Frontend.Web.Controllers
                         {
                             NumberOfActivityDays = 5,
                             ArchitectureRate = 100,
-                            CleanCodeRate = 50,
+                            CleanCodeRate = 60,
                             OptymizationRate = 0,
                             Comment = "Oby tak dalej!",
                             Branches = new List<BranchShortData>
@@ -231,7 +231,29 @@ namespace ITLearning.Frontend.Web.Controllers
                 CreationDate = DateTime.Now.ToShortDateString(),
                 FinishDate = DateTime.Now.ToShortDateString(),
                 Finished = true,
-                CodeReviewExist = true
+                CodeReviewExist = true,
+                TaskInstances = new List<TaskInstanceData>
+                {
+                    new TaskInstanceData()
+                    {
+                        User = new UserShortData
+                        {
+                            Id = 1,
+                            UserName = "Ziutek"
+                        },
+                        Finished = false,
+                        CreateDate = "2015-11-23",
+                        CodeReviewExist = false,
+                        RepositoryLink = "http:/itlearning.com/repozad1.git",
+                        CodeReview = new CodeReviewData
+                        {
+                            ArchitectureRate = 100,
+                            CleanCodeRate = 60,
+                            OptymizationRate = 0,
+                            Comment = "Oby tak dalej!",
+                        }
+                    }
+                }
             };
 
             return View("SingleInstance", task);
@@ -415,6 +437,13 @@ namespace ITLearning.Frontend.Web.Controllers
             var result = CommonResult<List<TaskListItemData>>.Success(tasks);
 
             return new JsonResult(result);
+        }
+
+        [HttpPost("ShowBranch/{taskInstanceId:int}/{branchName}")]
+        public IActionResult ShowBranch(int taskInstanceId, string branchName)
+        {
+
+            return RedirectToAction("ActionName");
         }
     }
 }
