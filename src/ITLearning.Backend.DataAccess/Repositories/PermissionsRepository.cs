@@ -7,22 +7,26 @@ using ITLearning.Shared.Configs;
 using Microsoft.Extensions.OptionsModel;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using ITLearning.Contract.Data.Model.Administration;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Http;
+using System.Threading;
 
 namespace ITLearning.Backend.DataAccess.Repositories
 {
     public class PermissionsRepository : IPermissionsRepository
     {
         private readonly IOptions<DatabaseConfiguration> _dbConfiguration;
+        private UserManager<User> _userManager;
 
-        public PermissionsRepository(IOptions<DatabaseConfiguration> dbConfiguration)
+        public PermissionsRepository(IOptions<DatabaseConfiguration> dbConfiguration, UserManager<User> userManager)
         {
             _dbConfiguration = dbConfiguration;
+            _userManager = userManager;
         }
 
         public CommonResult<ClaimsData> GetClaimsForUser(string userName)
@@ -31,7 +35,7 @@ namespace ITLearning.Backend.DataAccess.Repositories
             {
                 var user = context.Users.FirstOrDefault(x => x.UserName == userName);
 
-                if(user == null)
+                if (user == null)
                 {
                     return CommonResult<ClaimsData>.Failure("Użytkownik nie istnieje.");
                 }
@@ -59,13 +63,16 @@ namespace ITLearning.Backend.DataAccess.Repositories
         {
             using (var context = ContextFactory.GetDbContext(_dbConfiguration))
             {
-                var user = context.Users.FirstOrDefault(x => x.UserName == userName);
+                var user = context.Users
+                        .Include(x => x.Claims)
+                        .FirstOrDefault(x => x.UserName == userName);
 
-                var claim = context.UserClaims.FirstOrDefault(x => x.ClaimType == type.ToString() && x.ClaimValue == value.ToString());
+
+                var claim = user.Claims.FirstOrDefault(x => x.ClaimType == type.ToString() && x.ClaimValue == value.ToString());
 
                 if (claim == null)
                 {
-                    context.UserClaims.Add(new IdentityUserClaim<int>
+                    user.Claims.Add(new IdentityUserClaim<int>
                     {
                         UserId = user.Id,
                         ClaimType = type.ToString(),
@@ -83,13 +90,15 @@ namespace ITLearning.Backend.DataAccess.Repositories
         {
             using (var context = ContextFactory.GetDbContext(_dbConfiguration))
             {
-                var user = context.Users.FirstOrDefault(x => x.UserName == userName);
+                var user = context.Users
+                    .Include(x => x.Claims)
+                    .FirstOrDefault(x => x.UserName == userName);
 
-                var claim = context.UserClaims.FirstOrDefault(x => x.ClaimType == type.ToString() && x.ClaimValue == value.ToString());
+                var claim = user.Claims.FirstOrDefault(x => x.ClaimType == type.ToString() && x.ClaimValue == value.ToString());
 
                 if (claim != null)
                 {
-                    context.Remove(claim);
+                    user.Claims.Remove(claim);
                 }
 
                 context.SaveChanges();

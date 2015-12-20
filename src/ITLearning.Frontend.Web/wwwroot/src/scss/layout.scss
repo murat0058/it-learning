@@ -40,7 +40,7 @@ body > .main-content > .content {
 }
 
 .lowered-form-wrapper {
-    @media screen and (min-width: 992px){
+    @media screen and (min-width: 992px) {
         top: 75px !important;
     }
 }
@@ -1098,8 +1098,8 @@ footer {
     }
 }
 
-.wide-screen-text{
-    @media screen and (max-width: 992px){
+.wide-screen-text {
+    @media screen and (max-width: 992px) {
         display: none;
     }
 }

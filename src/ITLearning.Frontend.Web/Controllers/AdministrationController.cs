@@ -4,7 +4,9 @@ using ITLearning.Contract.Enums;
 using ITLearning.Contract.Services;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
 using ITLearning.Frontend.Web.ViewModels.Administration;
+using ITLearning.Shared;
 using Microsoft.AspNet.Mvc;
+using System.Linq;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -31,6 +33,8 @@ namespace ITLearning.Frontend.Web.Controllers
         public IActionResult Users()
         {
             var users = _userService.GetAllUsersProfileData().Item;
+
+            users = users.Where(x => x.UserName != StaticManager.UserName);
 
             var viewModel = new UsersListViewModel
             {
