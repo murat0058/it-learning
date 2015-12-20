@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
 using ITLearning.Contract.Data.Model.Administration;
+using ITLearning.Contract.Enums;
 using ITLearning.Contract.Services;
+using ITLearning.Frontend.Web.Core.Identity.Attributes;
 using ITLearning.Frontend.Web.ViewModels.Administration;
 using Microsoft.AspNet.Mvc;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
-    //[AuthorizeClaim(Type = ClaimTypeEnum.Controller, Value = ClaimValueEnum.Controller_AdministrationController)]
-
     [Route("Administration")]
+    [AuthorizeClaim(Type = ClaimTypeEnum.Controller, Value = ClaimValueEnum.Controller_AdministrationController)]
     public class AdministrationController : BaseController
     {
         private IPermissionsService _permissionsService;

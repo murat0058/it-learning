@@ -40,12 +40,15 @@ body > .main-content > .content {
 }
 
 .lowered-form-wrapper {
-    top: 75px !important;
+    @media screen and (min-width: 992px){
+        top: 75px !important;
+    }
 }
 
 .form-wrapper {
     position: relative;
     top: 20px;
+    margin-bottom: 50px;
 }
 
 .content-wrapper {
