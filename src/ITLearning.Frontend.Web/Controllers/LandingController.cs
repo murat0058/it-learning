@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Authorization;
+﻿using ITLearning.Frontend.Web.Controllers.Base;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 
 namespace ITLearning.Frontend.Web.Controllers

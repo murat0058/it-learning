@@ -24,15 +24,15 @@
                 </div>
             </div>
             <div class="col-md-9">
-                <h5 class="learning-hub-title">ZADANIA STWORZONE PRZEZ UŻYTKOWNIKA</h5>
-                <itl-task-list>
-                    <itl-loading-indicator parent-vm="taskListVm" dot-background="#333" dot-size="5px"></itl-loading-indicator>
-                </itl-task-list>
-
                 <h5 class="learning-hub-title">GRUPY UŻYTKOWNIKA</h5>
-                <itl-groups-basic-list no-of-groups="3">
+                <itl-groups-basic-list no-of-groups="3" user-name="@Model.UserName">
                     <itl-loading-indicator parent-vm-scoped="groupListVm" dot-background="#333" dot-size="5px"></itl-loading-indicator>
                 </itl-groups-basic-list>
+
+                <h5 class="learning-hub-title">ZADANIA STWORZONE PRZEZ UŻYTKOWNIKA</h5>
+                <itl-task-list user-name="@Model.UserName">
+                    <itl-loading-indicator parent-vm-scoped="taskListVm" dot-background="#333" dot-size="5px"></itl-loading-indicator>
+                </itl-task-list>
             </div>
         </div>
     </div>

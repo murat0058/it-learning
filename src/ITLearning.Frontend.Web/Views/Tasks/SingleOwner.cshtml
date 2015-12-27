@@ -18,7 +18,7 @@
                             <i class="fa fa-file"></i> {{ownerSingleTaskVM.Language}}
                         </p>
                     </div>
-                    <h4 class="description">@Model.Title</h4>
+                    <h4 class="description">@Model.Name</h4>
                 </div>
                 <div class="col-md-4 task-group-header-info">
                     <p>Grupa</p>
@@ -40,7 +40,9 @@
             <div class="row">
                 <div class="col-md-8">
                     <div id="task-description" ng-show="ownerSingleTaskVM.IsDescriptionVisible">
-                        @Html.Raw(Model.Description)
+                        <div style="word-break: break-word;">
+                            @Html.Raw(Model.Description)
+                        </div>
                     </div>
                     <div class="btn btn-dark" ng-click="ownerSingleTaskVM.IsDescriptionVisible = !ownerSingleTaskVM.IsDescriptionVisible" style="margin-left: 0px;">
                         <i ng-class="ownerSingleTaskVM.IsDescriptionVisible ? 'fa fa-arrow-circle-up' : 'fa fa-arrow-circle-down'"></i>
@@ -62,25 +64,25 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="item in ownerSingleTaskVM.taskInstances">
-                                        <td style="min-width: 110px;">{{item.User.UserName}}</td>
-                                        <td>{{item.CreateDate}}</td>
-                                        <td>{{item.Finished ? item.FinishDate : "-" }}</td>
+                                        <td style="min-width: 110px;"><a href="/User/PublicProfile/{{item.User.UserName}}">{{item.User.UserName}}</a></td>
+                                        <td>{{item.StartDate}}</td>
+                                        <td>{{item.IsFinished ? item.FinishDate : "-" }}</td>
                                         <td>
-                                            <a ng-if="item.CodeReviewExist && item.Finished" style="cursor: pointer;" data-toggle="modal" data-target="#ownerViewCodeReviewModal" ng-click="ownerSingleTaskVM.setCodeReviewModel(item.User.UserName)" ng-model="ownerSingleTaskVM"><i class="fa fa-check"></i> Wyświetl</a>
-                                            <a ng-if="!item.CodeReviewExist && item.Finished" style="cursor: pointer;" id="code-review-item.User.UserName" data-toggle="modal" data-target="#createCodeReviewModal" ng-click="ownerSingleTaskVM.setCodeReviewModel(item.User.UserName)"><i class="fa fa-plus"></i> Dodaj</a>
-                                            <span ng-if="!item.CodeReviewExist && !item.Finished">-</span>
+                                            <a ng-if="item.CodeReviewExist && item.IsFinished" style="cursor: pointer;" data-toggle="modal" data-target="#ownerViewCodeReviewModal" ng-click="ownerSingleTaskVM.setCodeReviewModel(item.User.UserName)" ng-model="ownerSingleTaskVM"><i class="fa fa-check"></i> Wyświetl</a>
+                                            <a ng-if="!item.CodeReviewExist && item.IsFinished" style="cursor: pointer;" id="code-review-item.User.UserName" data-toggle="modal" data-target="#createCodeReviewModal" ng-click="ownerSingleTaskVM.setCodeReviewModel(item.User.UserName)"><i class="fa fa-plus"></i> Dodaj</a>
+                                            <span ng-if="!item.CodeReviewExist && !item.IsFinished">-</span>
                                         </td>
                                         <td>
-                                            <button style="padding: 0px; background-color: transparent;" class="btn btn-default" onclick="copyToClipboard(item.User.UserName, item.RepositoryLink)"><i class="fa fa-git"></i> <i class="fa fa-mail-forward"></i></button>
+                                            <button style="padding: 0px; background-color: transparent;" class="btn btn-default" ng-click="ownerSingleTaskVM.showRepositoryLink(item.User.UserName, item.RepositoryLink)"><i class="fa fa-git"></i> <i class="fa fa-mail-forward"></i></button>
                                         </td>
                                         <td>
-                                            <span ng-if="item.CodeReviewExist && item.Finished" class="task-status-label task-status-label-finished">
+                                            <span ng-if="item.CodeReviewExist && item.IsFinished" class="task-status-label task-status-label-finished">
                                                 Zakończone
                                             </span>
-                                            <span ng-if="!item.CodeReviewExist && item.Finished" class="task-status-label task-status-label-reviewed">
+                                            <span ng-if="!item.CodeReviewExist && item.IsFinished" class="task-status-label task-status-label-reviewed">
                                                 Oczekujące na ocenę
                                             </span>
-                                            <span ng-if="!item.CodeReviewExist && !item.Finished" class="task-status-label task-status-label-inprogress">
+                                            <span ng-if="!item.CodeReviewExist && !item.IsFinished" class="task-status-label task-status-label-inprogress">
                                                 W trakcie
                                             </span>
                                         </td>
@@ -344,12 +346,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        function copyToClipboard(user, text) {
-            var message = "Link do repozytorium użytkownika " + user + ". Ctrl+C, Enter";
-            window.prompt(message, text);
-        }
-    </script>
-}

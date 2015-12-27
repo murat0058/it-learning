@@ -14,6 +14,8 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using ITLearning.Contract.Data.Results;
 using ITLearning.Contract.Enums;
+using ITLearning.Frontend.Web.Controllers.Base;
+using ITLearning.Shared;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -144,7 +146,7 @@ namespace ITLearning.Frontend.Web.Controllers
         {
             var request = Mapper.Map<CreateNewsRequest>(model);
 
-            var userData = _userService.GetUserProfile();
+            var userData = _userService.GetUserProfile(StaticManager.UserName);
             request.Author = GetUserFormattedName(userData.Item);
             request.AuthorUserName = userData.Item.UserName;
 

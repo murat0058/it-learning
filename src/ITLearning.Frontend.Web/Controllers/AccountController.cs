@@ -7,6 +7,7 @@ using ITLearning.Frontend.Web.Core.Identity.Validators;
 using ITLearning.Frontend.Web.Common.Extensions;
 using AutoMapper;
 using Microsoft.AspNet.Authorization;
+using ITLearning.Frontend.Web.Controllers.Base;
 
 namespace ITLearning.Frontend.Web.Controllers
 {

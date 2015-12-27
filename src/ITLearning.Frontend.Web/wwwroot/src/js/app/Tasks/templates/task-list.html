@@ -1,12 +1,14 @@
 ﻿<div class="task-list">
     <ng-transclude></ng-transclude>
+    <div></div>
     <div class="task" ng-repeat="task in taskListVm.tasks">
         <div class="task-title">
             <span class="label" ng-style="task.style" ng-bind="task.Language"></span>
             <a ng-href="/Tasks/{{task.Id}}" ng-bind="task.Name"></a>
         </div>
         <div class="task-group-info">
-            <a ng-href="/Groups/{{task.GroupId}}" ng-bind="task.GroupName"></a>
+            <a ng-show="task.GroupName != null" ng-href="/Groups/{{task.GroupId}}" ng-bind="task.GroupName"></a>
+            <div ng-show="task.GroupName == null" style="height: 20px;"></div>
         </div>
         <div class="task-status" ng-class="task.IsCompleted ? 'task-completed' : 'task-notcompleted'" 
              uib-tooltip="{{task.IsCompleted ? 'Ukończone' : 'Nieukończone'}}" 

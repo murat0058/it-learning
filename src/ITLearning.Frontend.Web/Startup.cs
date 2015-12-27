@@ -78,7 +78,7 @@ namespace ITLearning
                 {
                     using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
                     {
-                        //TODO - better production release scenario
+                        //TODO better production release scenario
                         serviceScope.ServiceProvider.GetService<AppDbContext>().Database.Migrate();
                     }
                 }

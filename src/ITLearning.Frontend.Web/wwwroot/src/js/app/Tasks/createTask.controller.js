@@ -13,6 +13,11 @@
         createTaskVm.selectedLanguage;
         createTaskVm.userGroups;
         createTaskVm.selectedUserGroup;
+        createTaskVm.repositoryLink;
+        createTaskVm.CreatedTaskId;
+        createTaskVm.shouldActivateTask;
+
+        createTaskVm.IsFirstStepFinished = false;
 
         createTaskVm.isTaskActive = true;
         createTaskVm.isAddBranchPanelVisible = false;
@@ -28,6 +33,8 @@
         createTaskVm.init = function (model) {
             createTaskVm.userGroups = model.UserGroups;
             createTaskVm.selectedUserGroup = createTaskVm.userGroups[0];
+
+            createTaskVm.repositoryLink = model.RepositoryLink;
 
             model.AvailableLanguages.forEach(function (item) {
                 item.Name = uiFeaturesService.languageEnumDisplayName[item.Name];
@@ -50,6 +57,8 @@
                     description: createTaskVm.branchDescription
                 });
 
+                tasksService.addBranch(createTaskVm.CreatedTaskId, createTaskVm.branchName);
+
                 createTaskVm.branchName = '';
                 createTaskVm.branchDescription = '';
             }
@@ -62,6 +71,8 @@
                     break;
                 }
             }
+
+            tasksService.deleteBranch(createTaskVm.CreatedTaskId, createTaskVm.branchName);
         };
 
         createTaskVm.addTask = function (form) {
@@ -72,15 +83,22 @@
 
         function createTask() {
             var request = {
-                title: createTaskVm.taskName,
+                name: createTaskVm.taskName,
                 description: createTaskVm.taskDescription,
                 isActive: createTaskVm.isTaskActive,
                 selectedLanguage: createTaskVm.selectedLanguage.Id,
-                selectedGroupId: createTaskVm.selectedUserGroup.Id,
-                branches: createTaskVm.branches
+                selectedGroupId: createTaskVm.selectedUserGroup ? createTaskVm.selectedUserGroup.Id : -1,
             };
 
-            return tasksService.createTask(request);
+            return tasksService.createTask(request, taskCreated);
+        }
+
+        function taskCreated(data) {
+            createTaskVm.CreatedTaskId = data.Item.Id;
+            createTaskVm.repositoryLink = data.Item.RepositoryLink;
+            createTaskVm.shouldActivateTask = data.Item.ShouldActivateTask;
+
+            createTaskVm.IsFirstStepFinished = true;
         }
     }
 })();

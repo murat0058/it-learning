@@ -10,7 +10,7 @@ namespace ITLearning.Backend.Database
         {
             var optionsBuilder = new DbContextOptionsBuilder();
             optionsBuilder.UseSqlServer(dbConfiguration.Value.ConnectionString);
-
+            
             return new AppDbContext(optionsBuilder.Options);
         }
     }

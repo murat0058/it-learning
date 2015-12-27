@@ -8,6 +8,8 @@ using AutoMapper;
 using Microsoft.Net.Http.Headers;
 using ITLearning.Contract.Services;
 using ITLearning.Contract.Enums;
+using ITLearning.Frontend.Web.Controllers.Base;
+using ITLearning.Shared;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -54,7 +56,7 @@ namespace ITLearning.Frontend.Web.Controllers
 
         private void FillModelWithBasicUserData(HomeViewModel model)
         {
-            model.UserData = Mapper.Map<UserProfileViewModel>(_userService.GetUserProfile().Item);
+            model.UserData = Mapper.Map<UserProfileViewModel>(_userService.GetUserProfile(StaticManager.UserName).Item);
         }
 
         private void FillModelWithNews(HomeViewModel model)

@@ -11,7 +11,7 @@ namespace ITLearning.Contract.Services
     public interface IUserService
     {
         CommonResult<IEnumerable<UserProfileData>> GetAllUsersProfileData();
-        CommonResult<UserProfileData> GetUserProfile();
+        CommonResult<UserProfileData> GetUserProfile(string userName);
         CommonResult<UserProfileData> GetUserById(int id);
         CommonResult<UserProfileData> UpdateUserProfile(UpdateUserProfileRequest requestData);
         Task<CommonResult<UploadImageResult>> SaveProfileImage(IFormFile file);

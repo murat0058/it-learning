@@ -25,11 +25,11 @@
             instanceSingleTaskVM.branches = branches;
             instanceSingleTaskVM.taskInstance = taskInstanceData;
 
-            instanceSingleTaskVM.ArchitectureRate = instanceSingleTaskVM.taskInstance.CodeReview.ArchitectureRate;
-            instanceSingleTaskVM.OptymizationRate = instanceSingleTaskVM.taskInstance.CodeReview.OptymizationRate;
-            instanceSingleTaskVM.CleanCodeRate = instanceSingleTaskVM.taskInstance.CodeReview.CleanCodeRate;
-            instanceSingleTaskVM.Comment = instanceSingleTaskVM.taskInstance.CodeReview.Comment;
-            
+            instanceSingleTaskVM.ArchitectureRate = instanceSingleTaskVM.taskInstance.CodeReview ? instanceSingleTaskVM.taskInstance.CodeReview.ArchitectureRate : 0;
+            instanceSingleTaskVM.OptymizationRate = instanceSingleTaskVM.taskInstance.CodeReview ? instanceSingleTaskVM.taskInstance.CodeReview.OptymizationRate : 0;
+            instanceSingleTaskVM.CleanCodeRate = instanceSingleTaskVM.taskInstance.CodeReview ? instanceSingleTaskVM.taskInstance.CodeReview.CleanCodeRate : 0;
+            instanceSingleTaskVM.Comment = instanceSingleTaskVM.taskInstance.CodeReview ? instanceSingleTaskVM.taskInstance.CodeReview.Comment : "";
+
             for (var i = 0; i < instanceSingleTaskVM.branches.length; i++) {
                 instanceSingleTaskVM.branches[i].id = i + 1;
             }

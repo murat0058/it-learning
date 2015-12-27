@@ -3,8 +3,12 @@
     public class TaskInstanceReview
     {
         public int Id { get; set; }
-        public string Description { get; set; }
-        public TaskInstance TaskInstance { get; set; }
-        public User User { get; set; }
+
+        public int ArchitectureRate { get; set; }
+        public int OptymizationRate { get; set; }
+        public int CleanCodeRate { get; set; }
+        public string Comment { get; set; }
+
+        public virtual TaskInstance TaskInstance { get; set; }
     }
 }

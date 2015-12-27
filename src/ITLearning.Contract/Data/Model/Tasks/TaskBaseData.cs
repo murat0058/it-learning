@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ITLearning.Contract.Data.Model.Tasks
 {
-    public class TaskData
+    public class TaskBaseData
     {
         public int Id { get; set; }
 
@@ -18,14 +18,12 @@ namespace ITLearning.Contract.Data.Model.Tasks
 
         public bool IsActive { get; set; }
 
-        public LanguageEnum SelectedLanguage { get; set; }
-
-        public UserGroupData UserGroup { get; set; }
-
-        public IEnumerable<BranchShortData> Branches { get; set; }
-
         public UserShortData Author { get; set; }
 
-        public IEnumerable<TaskInstanceData> TaskInstances { get; set; }
+        public LanguageEnum Language { get; set; }
+
+        public UserGroupData Group { get; set; }
+
+        public IEnumerable<BranchShortData> Branches { get; set; }
     }
 }

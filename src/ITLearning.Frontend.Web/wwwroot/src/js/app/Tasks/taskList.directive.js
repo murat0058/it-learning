@@ -14,6 +14,9 @@
             templateUrl: '/src/js/app/Tasks/templates/task-list.html',
             restrict: 'E',
             transclude: true,
+            scope: {
+                userName: '@'
+            },
             controller: TasksController,
             controllerAs: 'taskListVm',
             bindToController: true
@@ -25,23 +28,44 @@
     TasksController.$inject = ['tasksService', 'uiFeaturesService', 'loadingIndicatorService'];
 
     function TasksController(tasksService, uiFeaturesService, loadingIndicatorService) {
-
         var taskListVm = this,
-            loadingMessage = "Ładuję twoje zadania...";
+            loadingMessage;
 
         taskListVm.tasks = [];
-        taskListVm.loadingIndicator = loadingIndicatorService.getIndicator(loadingMessage);
+        taskListVm.loadingIndicator;
 
         activate();
 
         ////////////////////////////
 
         function activate() {
-            getTasks();
+            loadingMessage = taskListVm.userName ? "Ładuję zadania..." : "Ładuję twoje zadania...";
+            taskListVm.loadingIndicator = loadingIndicatorService.getIndicator(loadingMessage);
+
+            getTasks(taskListVm.userName);  
         };
 
-        function getTasks() {
+        function getTasks(userName) {
             taskListVm.loadingIndicator.SetLoading(loadingMessage);
+
+            if (userName && userName !== "") {
+                return tasksService
+                    .getTasksForUser(userName)
+                    .then(function (data) {
+                        if (data.IsSuccess) {
+                            data.Item.forEach(function (item) {
+                                item.Language = uiFeaturesService.languageEnumDisplayName[item.Language];
+                                item.style = {
+                                    'background-color': uiFeaturesService.languageToColorMappings[item.Language]
+                                };
+                            });
+                            taskListVm.tasks = data.Item;
+                            taskListVm.loadingIndicator.Hide();
+                        } else {
+                            taskListVm.loadingIndicator.SetLoaded(data.ErrorMessage);
+                        }
+                    });
+            }
 
             return tasksService
                 .getLatestTasks()

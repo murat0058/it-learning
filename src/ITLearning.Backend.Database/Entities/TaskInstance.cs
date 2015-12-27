@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
 namespace ITLearning.Backend.Database.Entities
 {
@@ -6,17 +6,14 @@ namespace ITLearning.Backend.Database.Entities
     {
         public int Id { get; set; }
 
-        public bool IsPrivate { get; set; }
-        public bool IsDeleted { get; set; }
-        public bool IsCompleted { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime FinishDate { get; set; }
+        public bool CodeReviewExist { get; set; }
+        public bool IsFinished { get; set; }
 
-        public Task Task { get; set; }
-        public GitRepository GitRepository { get; set; }
-        public User User { get; set; }
-
-        //TODO AB change relation to one-to-one
-        public ICollection<TaskInstanceReview> TaskInstanceReviews { get; set; }
-
-        //TODO AB add property for creation date
+        public virtual Task Task { get; set; }
+        public virtual GitRepository GitRepository { get; set; }
+        public virtual User User { get; set; }
+        public virtual TaskInstanceReview TaskInstanceReview { get; set; }
     }
 }

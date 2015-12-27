@@ -57,8 +57,7 @@ namespace ITLearning.Backend.Database.Migrations
 
                     b.Property<string>("LastSHA");
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
                     b.Property<int?>("RepositoryId");
 
@@ -67,16 +66,22 @@ namespace ITLearning.Backend.Database.Migrations
 
             modelBuilder.Entity("ITLearning.Backend.Database.Entities.GitRepository", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("IsAnonymousPushAllowed");
 
                     b.Property<bool>("IsBare");
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("Name");
 
                     b.Property<int?>("SourceGitRepositoryId");
+
+                    b.Property<int?>("TaskId");
+
+                    b.Property<int?>("TaskInstanceId");
 
                     b.HasKey("Id");
                 });
@@ -116,13 +121,15 @@ namespace ITLearning.Backend.Database.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("DateOfCreation");
+
                     b.Property<string>("Description");
 
                     b.Property<int?>("GroupId");
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<bool>("IsVisibleOnlyInGroup");
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<int>("Language");
 
@@ -138,11 +145,13 @@ namespace ITLearning.Backend.Database.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("IsCompleted");
+                    b.Property<bool>("CodeReviewExist");
 
-                    b.Property<bool>("IsDeleted");
+                    b.Property<DateTime>("FinishDate");
 
-                    b.Property<bool>("IsPrivate");
+                    b.Property<bool>("IsFinished");
+
+                    b.Property<DateTime>("StartDate");
 
                     b.Property<int?>("TaskId");
 
@@ -153,14 +162,15 @@ namespace ITLearning.Backend.Database.Migrations
 
             modelBuilder.Entity("ITLearning.Backend.Database.Entities.TaskInstanceReview", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id");
 
-                    b.Property<string>("Description");
+                    b.Property<int>("ArchitectureRate");
 
-                    b.Property<int?>("TaskInstanceId");
+                    b.Property<int>("CleanCodeRate");
 
-                    b.Property<int?>("UserId");
+                    b.Property<string>("Comment");
+
+                    b.Property<int>("OptymizationRate");
 
                     b.HasKey("Id");
                 });
@@ -309,13 +319,17 @@ namespace ITLearning.Backend.Database.Migrations
 
             modelBuilder.Entity("ITLearning.Backend.Database.Entities.GitRepository", b =>
                 {
-                    b.HasOne("ITLearning.Backend.Database.Entities.TaskInstance")
-                        .WithOne()
-                        .HasForeignKey("ITLearning.Backend.Database.Entities.GitRepository", "Id");
-
                     b.HasOne("ITLearning.Backend.Database.Entities.GitRepository")
                         .WithMany()
                         .HasForeignKey("SourceGitRepositoryId");
+
+                    b.HasOne("ITLearning.Backend.Database.Entities.Task")
+                        .WithOne()
+                        .HasForeignKey("ITLearning.Backend.Database.Entities.GitRepository", "TaskId");
+
+                    b.HasOne("ITLearning.Backend.Database.Entities.TaskInstance")
+                        .WithOne()
+                        .HasForeignKey("ITLearning.Backend.Database.Entities.GitRepository", "TaskInstanceId");
                 });
 
             modelBuilder.Entity("ITLearning.Backend.Database.Entities.Group", b =>
@@ -361,12 +375,8 @@ namespace ITLearning.Backend.Database.Migrations
             modelBuilder.Entity("ITLearning.Backend.Database.Entities.TaskInstanceReview", b =>
                 {
                     b.HasOne("ITLearning.Backend.Database.Entities.TaskInstance")
-                        .WithMany()
-                        .HasForeignKey("TaskInstanceId");
-
-                    b.HasOne("ITLearning.Backend.Database.Entities.User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithOne()
+                        .HasForeignKey("ITLearning.Backend.Database.Entities.TaskInstanceReview", "Id");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRoleClaim<int>", b =>

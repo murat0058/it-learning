@@ -2,7 +2,7 @@
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Filters;
 
-namespace ITLearning.Frontend.Web.Controllers
+namespace ITLearning.Frontend.Web.Controllers.Base
 {
     [Route("Base")]
     public abstract class BaseController : Controller

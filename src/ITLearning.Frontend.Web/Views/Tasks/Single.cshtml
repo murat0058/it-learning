@@ -14,7 +14,7 @@
                         <i class="fa fa-file"></i> {{publicSingleTaskVM.Language}}
                     </p>
                 </div>
-                <h4 class="description">@Model.Title</h4>
+                <h4 class="description">@Model.Name</h4>
             </div>
             <div class="col-md-4 task-group-header-info">
                 <p>Grupa</p>
@@ -35,7 +35,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                @Html.Raw(Model.Description)
+                <div style="word-break: break-word;">
+                    @Html.Raw(Model.Description)
+                </div>
                 <div style="margin-top: 25px;">
                     Autor:
                     <a href="/User/PublicProfile/@Model.Author.UserName">@Model.Author.UserName</a>

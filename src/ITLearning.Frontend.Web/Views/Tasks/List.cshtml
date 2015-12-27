@@ -1,15 +1,116 @@
 ﻿<div class="content-wrapper">
     <div class="container">
-        <div class="row">
+        <div class="row" ng-controller="TasksListController as tasksListVm">
             <div class="col-md-3 side-section">
                 @Html.PartialWithClaim("Partials/CreateTaskButton", User, ClaimTypeEnum.Task, ClaimValueEnum.Task_Create)
+                <h4>Filtruj</h4>
+                <p class="group-title-small">Twórca zadania</p>
+                <form name="myForm" role="form" class="itl-form">
+                    <div class="radio">
+                        <label for="ownerTypeAll" class="radio-label">
+                            <input type="radio" id="ownerTypeAll" name="ownerTypeAll"
+                                   ng-model="tasksListVm.filters.ownerType"
+                                   ng-value="tasksListVm.taskOwnerEnum.all">
+                            <span>Wszyscy</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="ownerTypeMineOnly" class="radio-label">
+                            <input type="radio" id="ownerTypeMineOnly" name="ownerTypeMineOnly"
+                                   ng-model="tasksListVm.filters.ownerType"
+                                   ng-value="tasksListVm.taskOwnerEnum.onlyMine">
+                            <span>Tylko moje</span>
+                        </label>
+                    </div>
+                </form>
+                <p class="group-title-small">Język</p>
+                <form name="myForm" role="form" class="itl-form">
+                    <div class="radio">
+                        <label for="allLanguages" class="radio-label">
+                            <input type="radio" id="allLanguages" name="allLanguages"
+                                   ng-model="tasksListVm.filters.language"
+                                   ng-value="tasksListVm.languageEnum.all">
+                            <span>Wszystkie</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="csharpLanguageOnly" class="radio-label">
+                            <input type="radio" id="csharpLanguageOnly" name="csharpLanguageOnly"
+                                   ng-model="tasksListVm.filters.language"
+                                   ng-value="tasksListVm.languageEnum.csharp">
+                            <span>C#</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="javaScriptLanguageOnly" class="radio-label">
+                            <input type="radio" id="javaScriptLanguageOnly" name="javaScriptLanguageOnly"
+                                   ng-model="tasksListVm.filters.language"
+                                   ng-value="tasksListVm.languageEnum.javaScript">
+                            <span>JavaScript</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="javaLanguageOnly" class="radio-label">
+                            <input type="radio" id="javaLanguageOnly" name="javaLanguageOnly"
+                                   ng-model="tasksListVm.filters.language"
+                                   ng-value="tasksListVm.languageEnum.java">
+                            <span>Java</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="otherLanguageOnly" class="radio-label">
+                            <input type="radio" id="otherLanguageOnly" name="otherLanguageOnly"
+                                   ng-model="tasksListVm.filters.language"
+                                   ng-value="tasksListVm.languageEnum.other">
+                            <span>Inne</span>
+                        </label>
+                    </div>
+                </form>
+                <p class="group-title-small">Status</p>
+                <form name="myForm" role="form" class="itl-form">
+                    <div class="radio">
+                        <label for="ActivityTypeActive" class="radio-label">
+                            <input type="radio" id="ActivityTypeActive" name="ActivityTypeActive"
+                                   ng-model="tasksListVm.filters.activityStatus"
+                                   ng-value="tasksListVm.activityStatusEnum.active">
+                            <span>Aktywne</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="ActivityTypeNotActive" class="radio-label">
+                            <input type="radio" id="ActivityTypeNotActive" name="ActivityTypeNotActive"
+                                   ng-model="tasksListVm.filters.activityStatus"
+                                   ng-value="tasksListVm.activityStatusEnum.notActive">
+                            <span>Nieaktywne</span>
+                        </label>
+                    </div>
+                </form>
             </div>
             <div class="col-md-9">
                 <div class="groups-list">
-                    <input type="text" placeholder="Wyszukaj zadanie" class="form-control search-control" />
-                    <itl-task-list>
-                        <itl-loading-indicator parent-vm="taskListVm" dot-background="#333" dot-size="5px"></itl-loading-indicator>
-                    </itl-task-list>
+                    <input type="text" placeholder="Wyszukaj zadanie" class="form-control search-control"
+                           ng-model="tasksListVm.filters.query"
+                           ng-model-options="{ debounce: 1000 }" />
+
+                    <itl-loading-indicator parent-vm="tasksListVm" dot-background="#333" dot-size="10px"></itl-loading-indicator>
+
+                    <div class="task-list">
+                        <div class="task" ng-repeat="task in tasksListVm.tasks">
+                            <div class="task-title">
+                                <span class="label" ng-style="task.style" ng-bind="task.Language"></span>
+                                <a ng-href="/Tasks/{{task.Id}}" ng-bind="task.Name"></a>
+                            </div>
+                            <div class="task-group-info">
+                                <a ng-show="task.GroupName != null" ng-href="/Groups/{{task.GroupId}}" ng-bind="task.GroupName"></a>
+                                <div ng-show="task.GroupName == null" style="height: 20px;"></div>
+                            </div>
+                            <div class="task-status" ng-class="task.IsCompleted ? 'task-completed' : 'task-notcompleted'"
+                                 uib-tooltip="{{task.IsCompleted ? 'Ukończone' : 'Nieukończone'}}"
+                                 tooltip-placement="left">
+                                <i class="fa fa-check"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -8,7 +8,7 @@ namespace ITLearning.Backend.Database
 {
     public class AppDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
-        public DbSet<Task> Task { get; set; }
+        public DbSet<Task> Tasks { get; set; }
         public DbSet<TaskInstance> TaskInstances { get; set; }
         public DbSet<TaskInstanceReview> TaskInstanceReviews { get; set; }
         public DbSet<GitRepository> GitRepositories { get; set; }
@@ -25,58 +25,32 @@ namespace ITLearning.Backend.Database
         {
             base.OnModelCreating(builder);
 
-            #region Task
             builder.Entity<Task>()
                 .HasKey(p => p.Id);
-            #endregion
 
-            #region TaskInstance
             builder.Entity<TaskInstance>()
                 .HasKey(p => p.Id);
-            #endregion
 
-            #region TaskInstanceReview
             builder.Entity<TaskInstanceReview>()
                 .HasKey(p => p.Id);
-            #endregion
 
-            #region GitRepositoryEntity
             builder.Entity<GitRepository>()
                 .HasKey(p => p.Id);
 
-            builder.Entity<GitRepository>()
-                .Property(p => p.Name)
-                .IsRequired();
-            #endregion
-
-            #region GitBranchEntity
             builder.Entity<GitBranch>()
                 .HasKey(p => p.Id);
 
-            builder.Entity<GitBranch>()
-                .Property(p => p.Name)
-                .IsRequired();
-            #endregion
-
-            #region Group
             builder.Entity<Group>()
                 .HasKey(p => p.Id);
-            #endregion
 
-            #region UserGroup
             builder.Entity<UserGroup>()
                 .HasKey(p => p.Id);
-            #endregion
 
-            #region Event
             builder.Entity<Event>()
                 .HasKey(p => p.Id);
-            #endregion
 
-            #region ErrorLog
             builder.Entity<ErrorLog>()
                 .HasKey(p => p.Id);
-            #endregion
         }
     }
 }

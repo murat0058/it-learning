@@ -5,7 +5,7 @@ using Microsoft.Data.Entity.Metadata;
 
 namespace ITLearning.Backend.Database.Migrations
 {
-    public partial class InitMigrations : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -214,10 +214,11 @@ namespace ITLearning.Backend.Database.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DateOfCreation = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     GroupId = table.Column<int>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
-                    IsVisibleOnlyInGroup = table.Column<bool>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
                     Language = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     UserId = table.Column<int>(nullable: true)
@@ -244,9 +245,10 @@ namespace ITLearning.Backend.Database.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IsCompleted = table.Column<bool>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    IsPrivate = table.Column<bool>(nullable: false),
+                    CodeReviewExist = table.Column<bool>(nullable: false),
+                    FinishDate = table.Column<DateTime>(nullable: false),
+                    IsFinished = table.Column<bool>(nullable: false),
+                    StartDate = table.Column<DateTime>(nullable: false),
                     TaskId = table.Column<int>(nullable: true),
                     UserId = table.Column<int>(nullable: true)
                 },
@@ -270,25 +272,35 @@ namespace ITLearning.Backend.Database.Migrations
                 name: "GitRepository",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     IsAnonymousPushAllowed = table.Column<bool>(nullable: false),
                     IsBare = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
-                    SourceGitRepositoryId = table.Column<int>(nullable: true)
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    SourceGitRepositoryId = table.Column<int>(nullable: true),
+                    TaskId = table.Column<int>(nullable: true),
+                    TaskInstanceId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_GitRepository", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GitRepository_TaskInstance_Id",
-                        column: x => x.Id,
-                        principalTable: "TaskInstance",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_GitRepository_GitRepository_SourceGitRepositoryId",
                         column: x => x.SourceGitRepositoryId,
                         principalTable: "GitRepository",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_GitRepository_Task_TaskId",
+                        column: x => x.TaskId,
+                        principalTable: "Task",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_GitRepository_TaskInstance_TaskInstanceId",
+                        column: x => x.TaskInstanceId,
+                        principalTable: "TaskInstance",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -296,27 +308,21 @@ namespace ITLearning.Backend.Database.Migrations
                 name: "TaskInstanceReview",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Description = table.Column<string>(nullable: true),
-                    TaskInstanceId = table.Column<int>(nullable: true),
-                    UserId = table.Column<int>(nullable: true)
+                    Id = table.Column<int>(nullable: false),
+                    ArchitectureRate = table.Column<int>(nullable: false),
+                    CleanCodeRate = table.Column<int>(nullable: false),
+                    Comment = table.Column<string>(nullable: true),
+                    OptymizationRate = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TaskInstanceReview", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TaskInstanceReview_TaskInstance_TaskInstanceId",
-                        column: x => x.TaskInstanceId,
+                        name: "FK_TaskInstanceReview_TaskInstance_Id",
+                        column: x => x.Id,
                         principalTable: "TaskInstance",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_TaskInstanceReview_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
             migrationBuilder.CreateTable(
                 name: "GitBranch",
@@ -328,7 +334,7 @@ namespace ITLearning.Backend.Database.Migrations
                     DisplayName = table.Column<string>(nullable: true),
                     IsVisible = table.Column<bool>(nullable: false),
                     LastSHA = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     RepositoryId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

@@ -4,9 +4,9 @@
         .module('app.tasks')
         .controller('OwnerSingleTaskViewController', OwnerSingleTaskViewController);
 
-    OwnerSingleTaskViewController.$inject = ['uiFeaturesService'];
+    OwnerSingleTaskViewController.$inject = ['tasksService', 'uiFeaturesService'];
 
-    function OwnerSingleTaskViewController(uiFeaturesService) {
+    function OwnerSingleTaskViewController(tasksService, uiFeaturesService) {
         var ownerSingleTaskVM = this;
 
         ownerSingleTaskVM.Language;
@@ -36,11 +36,16 @@
         };
 
         ownerSingleTaskVM.edit = function (language) {
-            
+
         };
 
         ownerSingleTaskVM.delete = function (language) {
-        
+
+        };
+
+        ownerSingleTaskVM.showRepositoryLink = function (user, text) {
+            var message = "Link do repozytorium użytkownika " + user + ". Ctrl+C, Enter";
+            window.prompt(message, text);
         };
 
         ownerSingleTaskVM.setCodeReviewModel = function (userName) {
@@ -48,8 +53,13 @@
                 return item.User.UserName === userName;
             })[0];
 
+            var startDate = new Date(selected.StartDate);
+            var finishDate = new Date(selected.FinishDate);
+            var interval = (finishDate - startDate) / (1000 * 60 * 60 * 24);
+            interval = interval == 0 ? 1 : interval;
+
             ownerSingleTaskVM.codeReview.UserName = selected.User.UserName;
-            ownerSingleTaskVM.codeReview.NumberOfActivityDays = selected.CodeReview.NumberOfActivityDays;
+            ownerSingleTaskVM.codeReview.NumberOfActivityDays = interval ;
             ownerSingleTaskVM.codeReview.Branches = selected.CodeReview.Branches;
             ownerSingleTaskVM.codeReview.ArchitectureRate = parseInt(selected.CodeReview.ArchitectureRate);
             ownerSingleTaskVM.codeReview.OptymizationRate = parseInt(selected.CodeReview.OptymizationRate);
@@ -63,12 +73,21 @@
             })[0];
 
             selected.CodeReviewExist = true;
+            selected.CodeReview = {};
             selected.CodeReview.ArchitectureRate = ownerSingleTaskVM.codeReview.ArchitectureRate;
             selected.CodeReview.OptymizationRate = ownerSingleTaskVM.codeReview.OptymizationRate;
             selected.CodeReview.CleanCodeRate = ownerSingleTaskVM.codeReview.CleanCodeRate;
             selected.CodeReview.Comment = ownerSingleTaskVM.codeReview.Comment;
 
-            //TODO
+            var requestData = {
+                TaskInstanceId: selected.Id,
+                ArchitectureRate: ownerSingleTaskVM.codeReview.ArchitectureRate,
+                OptymizationRate: ownerSingleTaskVM.codeReview.OptymizationRate,
+                CleanCodeRate: ownerSingleTaskVM.codeReview.CleanCodeRate,
+                Comment: ownerSingleTaskVM.codeReview.Comment,
+            };
+
+            tasksService.createCodeReview(requestData);
         };
     }
 })();

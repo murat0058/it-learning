@@ -18,7 +18,7 @@
                             <i class="fa fa-file"></i> {{instanceSingleTaskVM.Language}}
                         </p>
                     </div>
-                    <h4 class="description">@Model.Title</h4>
+                    <h4 class="description">@Model.Name</h4>
                 </div>
                 <div class="col-md-4 task-group-header-info">
                     <p>Grupa</p>
@@ -39,10 +39,12 @@
             <div class="row">
                 <div class="col-md-8">
                     <div id="task-description" @*ng-show="instanceSingleTaskVM.IsDescriptionVisible" *@>
-                        @Html.Raw(Model.Description)
+                        <div style="word-break: break-word;">
+                            @Html.Raw(Model.Description)
+                        </div>
                         <div style="margin-top: 25px; margin-bottom: 15px;">
                             Autor:
-                            <a href="#">@Model.Author.UserName</a>
+                            <a href="/User/PublicProfile/@Model.Author.UserName">@Model.Author.UserName</a>
                         </div>
                     </div>
                 </div>
@@ -85,21 +87,21 @@
                     <hr style="margin-top: 0px;" />
                     <div style="height: 40px;">
                         <div class="col-md-6" style="padding: 0px">
-                            <span>Rozpoczęto @Model.CreationDate</span>
+                            <span>Rozpoczęto @Model.TaskInstances.ElementAt(0).StartDate</span>
                         </div>
                         <div class="col-md-6" style="padding: 0px">
-                            <span>Zakończono @Model.FinishDate</span>
+                            <span>Zakończono @Model.TaskInstances.ElementAt(0).FinishDate</span>
                         </div>
                     </div>
                     <div style="margin-bottom: 20px;">
                         Status
-                        @if (Model.CodeReviewExist)
+                        @if (Model.TaskInstances.ElementAt(0).CodeReviewExist)
                         {
                             <span class="task-status-label task-status-label-finished">
                                 Zakończone
                             </span>
                         }
-                        else if (Model.Finished)
+                        else if (Model.TaskInstances.ElementAt(0).IsFinished)
                         {
                             <span class="task-status-label task-status-label-reviewed">
                                 Oczekujące na ocenę
@@ -113,15 +115,15 @@
                         }
                     </div>
                     <div style="margin-left: -10px; margin-bottom: 15px;">
-                        @if (!Model.Finished)
+                        @if (!Model.TaskInstances.ElementAt(0).IsFinished)
                         {
-                            <a href="/Tasks/Edit/@Model.Id">
-                                <div class="btn btn-success" ng-click="instanceSingleTaskVM.closeTask()">
+                            <a href="/Tasks/FinishTask/@Model.Id">
+                                <div class="btn btn-success">
                                     <i class="fa fa-check"></i> Zakończ
                                 </div>
                             </a>
                         }
-                        @if (Model.CodeReviewExist)
+                        @if (Model.TaskInstances.ElementAt(0).CodeReviewExist)
                         {
                             <a data-toggle="modal" data-target="#showCodeReviewModal">
                                 <div class="btn btn-success">

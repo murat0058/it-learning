@@ -1,4 +1,5 @@
 ﻿using ITLearning.Contract.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace ITLearning.Backend.Database.Entities
@@ -11,10 +12,13 @@ namespace ITLearning.Backend.Database.Entities
         public string Description { get; set; }
         public bool IsActive { get; set; }
         public LanguageEnum Language { get; set; }
-        public bool IsVisibleOnlyInGroup { get; set; }
-        public Group Group { get; set; }
-        public User User { get; set; }
+        public DateTime DateOfCreation { get; set; }
+        public bool IsDeleted { get; set; }
 
-        public ICollection<TaskInstance> TaskInstances { get; set; }
+        public virtual Group Group { get; set; }
+        public virtual User User { get; set; }
+        public virtual GitRepository GitRepository { get; set; }
+
+        public virtual ICollection<TaskInstance> TaskInstances { get; set; }
     }
 }

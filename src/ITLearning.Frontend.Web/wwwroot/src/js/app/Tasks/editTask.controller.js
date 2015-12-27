@@ -33,7 +33,8 @@
             }
 
             editTaskVm.taskDescription = model.Description;
-            editTaskVm.taskName = model.Title;
+            editTaskVm.taskName = model.Name;
+            editTaskVm.taskId = model.Id;
 
             editTaskVm.isTaskActive = model.IsActive;
 
@@ -117,7 +118,8 @@
 
         function editTask() {
             var request = {
-                title: editTaskVm.taskName,
+                id: editTaskVm.taskId,
+                name: editTaskVm.taskName,
                 description: editTaskVm.taskDescription,
                 isActive: editTaskVm.isTaskActive,
                 editedLanguage: editTaskVm.selectedLanguage.Id,

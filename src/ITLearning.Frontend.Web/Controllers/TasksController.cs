@@ -1,19 +1,12 @@
-﻿using CommonMark;
-using ITLearning.Contract.Data.Model;
-using ITLearning.Contract.Data.Model.Branches;
-using ITLearning.Contract.Data.Model.Groups;
-using ITLearning.Contract.Data.Model.Tasks;
-using ITLearning.Contract.Data.Model.User;
+﻿using ITLearning.Contract.Data.Model.CodeReview;
 using ITLearning.Contract.Data.Requests.Tasks;
-using ITLearning.Contract.Data.Results;
 using ITLearning.Contract.Enums;
 using ITLearning.Contract.Services;
+using ITLearning.Frontend.Web.Controllers.Base;
 using ITLearning.Frontend.Web.Core.Identity.Attributes;
 using Microsoft.AspNet.Mvc;
-using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -22,19 +15,18 @@ namespace ITLearning.Frontend.Web.Controllers
     public class TasksController : BaseController
     {
         private readonly ITasksService _tasksService;
-        private readonly IApplicationEnvironment _hostingEnvironment;
+        private readonly IGroupsService _groupsService;
 
-        public TasksController(ITasksService tasksService, IApplicationEnvironment hostingEnvironment)
+        public TasksController(ITasksService tasksService, IGroupsService groupsService)
         {
             _tasksService = tasksService;
-            _hostingEnvironment = hostingEnvironment;
-
+            _groupsService = groupsService;
         }
 
         [HttpGet("{id:int}")]
         public IActionResult Single(int id)
         {
-            var taskViewType = TaskViewTypeEnum.OwnerView;
+            var taskViewType = _tasksService.GetViewType(id);
 
             if (taskViewType == TaskViewTypeEnum.OwnerView)
             {
@@ -52,401 +44,166 @@ namespace ITLearning.Frontend.Web.Controllers
         [HttpGet("OwnerSingleView/{id:int}")]
         public IActionResult OwnerSingleView(int id)
         {
-            var task = new TaskData()
-            {
-                Id = 1,
-                Title = "Nowe zadanie #1",
-                Description = CommonMarkConverter.Convert("Zaczynamy! **Przykładowy opis 1,2,3...**"),
-                IsActive = true,
-                SelectedLanguage = LanguageEnum.CSharp,
-                UserGroup = new UserGroupData()
-                {
-                    Id = 32,
-                    Name = "Ludzie i c#"
-                },
-                Branches = new List<BranchShortData>
-                {
-                    new BranchShortData()
-                    {
-                        Name = "master",
-                        Description = "Główny branch. Pobierz kod, od którego możesz zacząć!",
-                    },
-                    new BranchShortData()
-                    {
-                        Name = "Podpowiedź 1",
-                        Description = "Pierwsza podpowiedź",
-                    }
-                },
-                RepositoryLink = "https:/azure.git/asdsadsadds/",
-                TaskInstances = new List<TaskInstanceData>
-                {
-                    new TaskInstanceData()
-                    {
-                        User = new UserShortData
-                        {
-                            Id = 1,
-                            UserName = "Ziutek"
-                        },
-                        Finished = false,
-                        CreateDate = "2015-11-23",
-                        CodeReviewExist = false,
-                        RepositoryLink = "http:/itlearning.com/repozad1.git",
-                        CodeReview = new CodeReviewData
-                        {
-                            NumberOfActivityDays = 5,
-                            ArchitectureRate = 100,
-                            CleanCodeRate = 60,
-                            OptymizationRate = 0,
-                            Comment = "Oby tak dalej!",
-                            Branches = new List<BranchShortData>
-                            {
-                                new BranchShortData()
-                                {
-                                    Name = "master",
-                                    Description = "Główny branch. Pobierz kod, od którego możesz zacząć!",
-                                    Visible = true
-                                },
-                                new BranchShortData()
-                                {
-                                    Name = "Podp.1",
-                                    Description = "Pierwsza podpowiedź",
-                                    Visible = false
-                                }
-                            }
-                        }
-                    },
-                    new TaskInstanceData()
-                    {
-                        User = new UserShortData
-                        {
-                            Id = 1,
-                            UserName = "Zdzisek"
-                        },
-                        Finished = true,
-                        CreateDate = "2015-11-24",
-                        FinishDate = "2015-11-29",
-                        CodeReviewExist = false,
-                        RepositoryLink = "http:/itlearning.com/repozad2.git",
-                        CodeReview = new CodeReviewData
-                        {
-                            NumberOfActivityDays = 5,
-                            //ArchitectureRate = 100,
-                            //CleanCodeRate = 50,
-                            //OptymizationRate = 0,
-                            //Comment = "Oby tak dalej!",
-                            Branches = new List<BranchShortData>
-                            {
-                                new BranchShortData()
-                                {
-                                    Name = "master",
-                                    Description = "Główny branch. Pobierz kod, od którego możesz zacząć!",
-                                    Visible = true
-                                },
-                                new BranchShortData()
-                                {
-                                    Name = "Podp.1",
-                                    Description = "Pierwsza podpowiedź",
-                                    Visible = false
-                                }
-                            }
-                        }
-                    },
-                    new TaskInstanceData()
-                    {
-                        User = new UserShortData
-                        {
-                            Id = 1,
-                            UserName = "Zbigniew"
-                        },
-                        Finished = true,
-                        CreateDate = "2015-11-21",
-                        FinishDate = "2015-11-26",
-                        CodeReviewExist = true,
-                        RepositoryLink = "http:/itlearning.com/repozad3.git",
-                        CodeReview = new CodeReviewData
-                        {
-                            NumberOfActivityDays = 5,
-                            ArchitectureRate = 100,
-                            CleanCodeRate = 60,
-                            OptymizationRate = 0,
-                            Comment = "Oby tak dalej!",
-                            Branches = new List<BranchShortData>
-                            {
-                                new BranchShortData()
-                                {
-                                    Name = "master",
-                                    Description = "Główny branch. Pobierz kod, od którego możesz zacząć!",
-                                    Visible = true
-                                },
-                                new BranchShortData()
-                                {
-                                    Name = "Podp.1",
-                                    Description = "Pierwsza podpowiedź",
-                                    Visible = false
-                                }
-                            }
-                        }
-                    }
-                }
-            };
+            var data = _tasksService.GetOwnerTaskData(id);
 
-            return View("SingleOwner", task);
+            return View("SingleOwner", data);
         }
 
         [HttpGet("InstanceSingleView/{id:int}")]
         public IActionResult InstanceSingleView(int id)
         {
-            var task = new TaskData()
-            {
-                Id = 1,
-                Title = "Nowe zadanie #1",
-                Description = CommonMarkConverter.Convert("Zaczynamy! **Przykładowy opis 1,2,3...**"),
-                IsActive = true,
-                SelectedLanguage = LanguageEnum.CSharp,
-                UserGroup = new UserGroupData()
-                {
-                    Id = 32,
-                    Name = "Ludzie i c#"
-                },
-                Branches = new List<BranchShortData>
-                {
-                    new BranchShortData()
-                    {
-                        Name = "master",
-                        Description = "Główny branch. Pobierz kod, od którego możesz zacząć!",
-                        Visible = true
-                    },
-                    new BranchShortData()
-                    {
-                        Name = "Podpowiedź 1",
-                        Description = "Pierwsza podpowiedź",
-                        Visible = false
-                    }
-                },
-                Author = new UserShortData()
-                {
-                    Id = 5,
-                    UserName = "Adrianno"
-                },
-                RepositoryLink = "https:/azure.git/asdsadsadds/",
-                CreationDate = DateTime.Now.ToShortDateString(),
-                FinishDate = DateTime.Now.ToShortDateString(),
-                Finished = true,
-                CodeReviewExist = true,
-                TaskInstances = new List<TaskInstanceData>
-                {
-                    new TaskInstanceData()
-                    {
-                        User = new UserShortData
-                        {
-                            Id = 1,
-                            UserName = "Ziutek"
-                        },
-                        Finished = false,
-                        CreateDate = "2015-11-23",
-                        CodeReviewExist = false,
-                        RepositoryLink = "http:/itlearning.com/repozad1.git",
-                        CodeReview = new CodeReviewData
-                        {
-                            ArchitectureRate = 100,
-                            CleanCodeRate = 60,
-                            OptymizationRate = 0,
-                            Comment = "Oby tak dalej!",
-                        }
-                    }
-                }
-            };
+            var data = _tasksService.GetInstanceTaskData(id);
 
-            return View("SingleInstance", task);
+            return View("SingleInstance", data);
         }
 
         [HttpGet("PublicSingleView/{id:int}")]
         public IActionResult PublicSingleView(int id)
         {
-            var task = new TaskData()
-            {
-                Id = 1,
-                Title = "Nowe zadanie #1",
-                Description = CommonMarkConverter.Convert("Zaczynamy! **Przykładowy opis 1,2,3...**"),
-                IsActive = true,
-                SelectedLanguage = LanguageEnum.CSharp,
-                UserGroup = new UserGroupData()
-                {
-                    Id = 32,
-                    Name = "Ludzie i c#"
-                },
-                Branches = new List<BranchShortData>
-                {
-                    new BranchShortData()
-                    {
-                        Name = "master",
-                        Description = "Główny branch. Pobierz kod, od którego możesz zacząć!"
-                    },
-                    new BranchShortData()
-                    {
-                        Name = "Podpowiedź 1",
-                        Description = "Pierwsza podpowiedź"
-                    }
-                },
-                Author = new UserShortData()
-                {
-                    Id = 5,
-                    UserName = "Adrianno"
-                }
-            };
+            var data = _tasksService.GetTaskData(id);
 
-            return View("Single", task);
-        }
-
-        [HttpGet("TasksList")]
-        public IActionResult List()
-        {
-            return View();
+            return View("Single", data);
         }
 
         [HttpGet("Create")]
         [AuthorizeClaim(Type = ClaimTypeEnum.Task, Value = ClaimValueEnum.Task_Create)]
         public IActionResult Create()
         {
-            var viewModel = new CreateTaskRequestData()
-            {
-                UserGroups = new List<UserGroupData>()
-                {
-                    new UserGroupData() { Name = "Brak", Id = -1 },
-                    new UserGroupData() { Name = "GrupaMojaJeden", Id = 1 }
-                },
-                AvailableLanguages = new List<EnumDisplayData>()
-                {
-                    new EnumDisplayData()
-                    {
-                        Id = (int)LanguageEnum.Other,
-                        Name = LanguageEnum.Other.ToString()
-                    },
-                    new EnumDisplayData() {
-                        Id = (int)LanguageEnum.CSharp,
-                        Name = LanguageEnum.CSharp.ToString()
-                    },
-                    new EnumDisplayData() {
-                        Id = (int)LanguageEnum.JavaScript,
-                        Name = LanguageEnum.JavaScript.ToString()
-                    }
-                }
-            };
+            var data = _tasksService.GetDataForCreate();
 
-            return View("Create", JsonConvert.SerializeObject(viewModel));
+            return View("Create", JsonConvert.SerializeObject(data));
+        }
+
+        [HttpGet("Edit/{id:int}")]
+        public IActionResult Edit(int id)
+        {
+            var data = _tasksService.GetDataForEdit(id);
+
+            return View("Edit", JsonConvert.SerializeObject(data));
+        }
+
+        [HttpGet("Delete/{id:int}")]
+        public IActionResult Delete(int id)
+        {
+            var data = _tasksService.GetDataForDelete(id);
+
+            return View(data);
+        }
+
+        [HttpPost("GetLatest")]
+        public IActionResult GetLatest()
+        {
+            var result = _tasksService.GetList(3, true);
+
+            return new JsonResult(result);
+        }
+
+        [HttpGet("TasksList")]
+        public IActionResult TasksList()
+        {
+            return View("List");
+        }
+
+        [HttpPost("GetList")]
+        public IActionResult GetList(GetTasksListRequestData requestData)
+        {
+            var result = _tasksService.GetList(requestData);
+
+            return new JsonResult(result);
+        }
+
+        [HttpPost("GetTasksForUser/{userName}")]
+        public IActionResult GetTasksForUser(string userName)
+        {
+            var result = _tasksService.GetList(null, true, userName);
+            result.ErrorMessage = "Brak zadań.";
+
+            return new JsonResult(result);
         }
 
         [HttpPost("Create")]
         [AuthorizeClaim(Type = ClaimTypeEnum.Task, Value = ClaimValueEnum.Task_Create)]
         public IActionResult Create(CreateTaskRequestData requestData)
         {
-            //_tasksService.Create(requestData);
+            var result = _tasksService.Create(requestData);
 
-            return RedirectToAction("ActionName");
+            return Json(result);
         }
 
-        [HttpGet("Edit/{id:int}")]
-        public IActionResult Edit(int id)
+        [HttpGet("Save/{id}/{activate}")]
+        [AuthorizeClaim(Type = ClaimTypeEnum.Task, Value = ClaimValueEnum.Task_Create)]
+        public IActionResult Save(string id, string activate)
         {
-            var viewModel = new EditTaskRequestData()
+            if (Convert.ToBoolean(activate))
             {
-                Title = "Nowe zadanie 1",
-                Description = "Zaczynamy! **Przykładowy opis 1,2,3...**",
-                IsActive = false,
-                RepositoryLink = "http:/itlearning.com/repozad3.git",
-                SelectedLanguage = new EnumDisplayData()
-                {
-                    Id = 2,
-                    Name = LanguageEnum.CSharp.ToString()
-                },
-                Branches= new List<BranchShortData>
-                {
-                    new BranchShortData()
-                    {
-                        Name = "master",
-                        Description = "Główny branch. Nie można go usunąć."
-                    },
-                    new BranchShortData()
-                    {
-                        Name = "podp1",
-                        Description = "Podpowiedź 1."
-                    }
-                },
-                SelectedGroup = new UserGroupData() { Name = "Brak", Id = -1 },
-                AvailableLanguages = new List<EnumDisplayData>()
-                {
-                    new EnumDisplayData()
-                    {
-                        Id = (int)LanguageEnum.Other,
-                        Name = LanguageEnum.Other.ToString()
-                    },
-                    new EnumDisplayData() {
-                        Id = (int)LanguageEnum.CSharp,
-                        Name = LanguageEnum.CSharp.ToString()
-                    },
-                    new EnumDisplayData() {
-                        Id = (int)LanguageEnum.JavaScript,
-                        Name = LanguageEnum.JavaScript.ToString()
-                    }
-                }
-            };
+                var result = _tasksService.Activate(Convert.ToInt32(id));
+            }
 
-            return View("Edit", JsonConvert.SerializeObject(viewModel));
+            return RedirectToAction("Single", new { id = id });
         }
 
         [HttpPost("Edit")]
         public IActionResult Edit(EditTaskRequestData requestData)
         {
-            return RedirectToAction("ActionName");
-        }
+            var result = _tasksService.Update(requestData);
 
-        [HttpGet("Delete/{id:int}")]
-        public IActionResult Delete(int id)
-        {
-            var deleteTaskData = new DeleteTaskRequestData()
-            {
-                Id = id
-            };
-
-            return View(deleteTaskData);
+            return RedirectToAction("Single", new { id = requestData.Id });
         }
 
         [HttpPost("Delete/{id:int}")]
         public IActionResult DeletePost(int id)
         {
-            return RedirectToAction("Action");
+            var result = _tasksService.Delete(id);
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost("BeginTask/{id:int}")]
         public IActionResult BeginTask(int id)
         {
-            //_tasksService.Create(requestData);
+            var result = _tasksService.BeginTask(id);
 
-            return RedirectToAction("ActionName");
+            return RedirectToAction("Single", new { id = id });
         }
 
-        [HttpPost("GetLatest")]
-        public IActionResult GetLatest()
+        [HttpGet("FinishTask/{id:int}")]
+        public IActionResult FinishTask(int id)
         {
-            //var tasks _tasksService.GetLatest(3);
+            var result = _tasksService.FinishTask(id);
 
-            var tasks = new List<TaskListItemData>
-            {
-                new TaskListItemData() { Id = 0, Name = "Wprowadzenie do C#", GroupName = "Ludzie i c#", IsCompleted = false, Language = LanguageEnum.CSharp.ToString(), GroupId = 1 },
-                new TaskListItemData() { Id = 1, Name = "Wprowadzenie do JS", GroupName = "Ludzie i js", IsCompleted = false, Language = LanguageEnum.JavaScript.ToString(), GroupId = 1 },
-                new TaskListItemData() { Id = 2, Name = "Wprowadzenie do JAVA", GroupName = "Ludzie i java", IsCompleted = true, Language = LanguageEnum.Other.ToString(), GroupId = 1 }
-            };
-
-            var result = CommonResult<List<TaskListItemData>>.Success(tasks);
-
-            return new JsonResult(result);
+            return RedirectToAction("Single", new { id = id });
         }
 
         [HttpPost("ShowBranch/{taskInstanceId:int}/{branchName}")]
         public IActionResult ShowBranch(int taskInstanceId, string branchName)
         {
+            var result = _tasksService.ShowBranch(taskInstanceId, branchName);
 
-            return RedirectToAction("ActionName");
+            return Json(result);
+        }
+
+        [HttpPost("CreateBranch/{taskId:int}/{branchName}")]
+        public IActionResult CreateBranch(int taskId, string branchName)
+        {
+            var result = _tasksService.CreateBranch(taskId, branchName);
+
+            return Json(result);
+        }
+
+        [HttpPost("DeleteBranch/{taskId:int}/{branchName}")]
+        public IActionResult DeleteBranch(int taskId, string branchName)
+        {
+            var result = _tasksService.DeleteBranch(taskId, branchName);
+
+            return Json(result);
+        }
+
+        [HttpPost("CreateCodeReview")]
+        public IActionResult CreateCodeReview(CodeReviewData requestData)
+        {
+            var result = _tasksService.CreateCodeReview(requestData);
+
+            return Json(result);
         }
     }
 }

@@ -8,6 +8,8 @@ using ITLearning.Contract.Services;
 using ITLearning.Contract.Data.Requests;
 using ITLearning.Contract.Data.Model.User;
 using ITLearning.Contract.Providers;
+using ITLearning.Frontend.Web.Controllers.Base;
+using ITLearning.Shared;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -26,20 +28,15 @@ namespace ITLearning.Frontend.Web.Controllers
         [HttpGet("PublicProfile/{userName}")]
         public IActionResult PublicProfile(string userName)
         {
-            var result = new UserProfileData()
-            {
-                Email = "adrian.bystrek@gmail.com",
-                UserName = "Lazys",
-                ProfileImagePath = _configurationProvider.GetProfileDefaultImagePath()
-            };
+            var result = _userService.GetUserProfile(userName);
 
-            return View(result);
+            return View(result.Item);
         }
 
         [HttpGet("Profile")]
         public IActionResult Profile()
         {
-            var result = _userService.GetUserProfile();
+            var result = _userService.GetUserProfile(StaticManager.UserName);
 
             return View(Mapper.Map<UserProfileViewModel>(result.Item));
         }

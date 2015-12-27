@@ -5,6 +5,7 @@ using ITLearning.Frontend.Web.Core.Identity.Attributes;
 using ITLearning.Frontend.Web.ViewModels.Group;
 using Microsoft.AspNet.Mvc;
 using ITLearning.Contract.Enums;
+using ITLearning.Frontend.Web.Controllers.Base;
 
 namespace ITLearning.Frontend.Web.Controllers
 {
@@ -218,17 +219,23 @@ namespace ITLearning.Frontend.Web.Controllers
         }
 
         [HttpPost("UserGroupsBasicData")]
-        public IActionResult GetUserGroupsBasicData(int noOfGroups)
+        public IActionResult GetUserGroupsBasicData(int noOfGroups, string userName = "")
         {
+            if (userName != string.Empty)
+            {
+                var result = _groupsService.GetList(new GetGroupListRequest() { UserName = userName, AllForUser = true });
+                result.ErrorMessage = "Brak grup.";
+
+                return new JsonResult(result);
+            }
+
             var request = new GetLatestGroupsBasicDataRequest
             {
                 UserName = User.Identity.Name,
                 NoOfGroups = noOfGroups
             };
 
-            var result = _groupsService.GetLatestGroupsData(request);
-
-            return new JsonResult(result);
+            return new JsonResult(_groupsService.GetLatestGroupsData(request));
         }
 
         [HttpPost("GetGroupsList")]

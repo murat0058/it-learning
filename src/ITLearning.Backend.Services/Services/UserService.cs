@@ -27,9 +27,9 @@ namespace ITLearning.Backend.Business.Services
             _configurationProvider = configurationProvider;
         }
 
-        public CommonResult<UserProfileData> GetUserProfile()
+        public CommonResult<UserProfileData> GetUserProfile(string userName)
         {
-            return _userRepository.GetUserProfile(StaticManager.UserName);
+            return _userRepository.GetUserProfile(userName);
         }
 
         public CommonResult<UserProfileData> GetUserById(int id)

@@ -155,6 +155,7 @@ namespace ITLearning.Backend.DataAccess.Repositories
             }
         }
 
+
         public CommonResult<IEnumerable<GroupData>> GetAllForUser(string userName, bool withOwner = false, bool withUsers = false, bool withTasks = false)
         {
             var getAllResult = GetAll(true, true, true);

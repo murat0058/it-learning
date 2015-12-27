@@ -15,7 +15,8 @@
             restrict: 'E',
             transclude: true,
             scope: {
-                noOfGroups: '@'
+                noOfGroups: '@',
+                userName: '@'
             },
             controller: GroupsBasicListController,
             controllerAs: 'groupListVm',
@@ -28,18 +29,20 @@
     GroupsBasicListController.$inject = ['groupsService', 'loadingIndicatorService'];
 
     function GroupsBasicListController(groupsService, loadingIndicatorService) {
-
         var groupListVm = this,
-            loadingMessage = "Ładuję twoje grupy...";
+            loadingMessage;
 
         groupListVm.groups = [];
-        groupListVm.loadingIndicator = loadingIndicatorService.getIndicator(loadingMessage);
+        groupListVm.loadingIndicator;
 
         activate();
 
         //////////////////
 
         function activate() {
+            loadingMessage = groupListVm.userName ? "Ładuję grupy..." : "Ładuję twoje grupy...";
+            groupListVm.loadingIndicator = loadingIndicatorService.getIndicator(loadingMessage);
+
             getGroups();
         };
 
@@ -47,7 +50,8 @@
             groupListVm.loadingIndicator.SetLoading(loadingMessage);
 
             var request = {
-                noOfGroups: groupListVm.noOfGroups
+                noOfGroups: groupListVm.noOfGroups,
+                userName: groupListVm.userName
             };
 
             return groupsService
