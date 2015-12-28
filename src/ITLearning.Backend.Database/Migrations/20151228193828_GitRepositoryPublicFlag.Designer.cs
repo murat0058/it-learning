@@ -8,8 +8,8 @@ using ITLearning.Backend.Database;
 namespace ITLearning.Backend.Database.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20151225132756_Init")]
-    partial class Init
+    [Migration("20151228193828_GitRepositoryPublicFlag")]
+    partial class GitRepositoryPublicFlag
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,6 +75,8 @@ namespace ITLearning.Backend.Database.Migrations
                     b.Property<bool>("IsBare");
 
                     b.Property<bool>("IsDeleted");
+
+                    b.Property<bool>("IsPublic");
 
                     b.Property<string>("Name");
 
@@ -192,6 +194,8 @@ namespace ITLearning.Backend.Database.Migrations
                     b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName");
+
+                    b.Property<int?>("GitRepositoryId");
 
                     b.Property<string>("ImageName");
 
@@ -378,6 +382,13 @@ namespace ITLearning.Backend.Database.Migrations
                     b.HasOne("ITLearning.Backend.Database.Entities.TaskInstance")
                         .WithOne()
                         .HasForeignKey("ITLearning.Backend.Database.Entities.TaskInstanceReview", "Id");
+                });
+
+            modelBuilder.Entity("ITLearning.Backend.Database.Entities.User", b =>
+                {
+                    b.HasOne("ITLearning.Backend.Database.Entities.GitRepository")
+                        .WithMany()
+                        .HasForeignKey("GitRepositoryId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRoleClaim<int>", b =>

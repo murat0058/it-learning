@@ -8,9 +8,10 @@ using ITLearning.Backend.Database;
 namespace ITLearning.Backend.Database.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20151228192621_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
@@ -74,8 +75,6 @@ namespace ITLearning.Backend.Database.Migrations
                     b.Property<bool>("IsBare");
 
                     b.Property<bool>("IsDeleted");
-
-                    b.Property<bool>("IsPublic");
 
                     b.Property<string>("Name");
 

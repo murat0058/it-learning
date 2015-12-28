@@ -10,7 +10,9 @@ namespace ITLearning.Backend.Database.Entities
         public bool IsBare { get; set; }
         public bool IsAnonymousPushAllowed { get; set; }
         public bool IsDeleted { get; set; }
+        public bool IsPublic { get; set; }
 
+        public int? SourceGitRepositoryId { get; set; }
         public virtual GitRepository SourceGitRepository { get; set; }
         public int? TaskInstanceId { get; set; }
         public virtual TaskInstance TaskInstance { get; set; }
@@ -18,5 +20,6 @@ namespace ITLearning.Backend.Database.Entities
         public virtual Task Task { get; set; }
 
         public virtual ICollection<GitBranch> Branches { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

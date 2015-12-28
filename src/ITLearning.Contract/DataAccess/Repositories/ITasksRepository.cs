@@ -6,6 +6,7 @@ using ITLearning.Contract.Enums;
 using ITLearning.Contract.Data.Requests.Tasks;
 using ITLearning.Contract.Data.Model.Branches;
 using ITLearning.Contract.Data.Model.CodeReview;
+using ITLearning.Contract.Data.Results.Branches;
 
 namespace ITLearning.Contract.DataAccess.Repositories
 {
@@ -21,7 +22,7 @@ namespace ITLearning.Contract.DataAccess.Repositories
 
         CommonResult<int> Create(CreateTaskRequestData requestData, string userName);
         CommonResult Update(EditTaskRequestData requestData);
-        CommonResult<IEnumerable<string>> UpdateBranches(int taskId, IEnumerable<BranchShortData> branches);
+        CommonResult<EditBranchesResultData> UpdateBranches(int taskId, IEnumerable<BranchShortData> branches);
         CommonResult<int> Delete(int id);
 
         CommonResult MarkTaskInstanceAsFinished(int parentTaskId);

@@ -37,7 +37,7 @@ namespace ITLearning.Contract.Services
 
         CommonResult CreateCodeReview(CodeReviewData requestData);
 
+        CommonResult CreateBranch(int taskId, string branchName, string branchDescription);
         CommonResult DeleteBranch(int taskId, string branchName);
-        CommonResult CreateBranch(int taskId, string branchName);
     }
 }

@@ -120,7 +120,6 @@ namespace ITLearning.Backend.Business.Services
             {
                 var repositoryName = GenerateRepositoryName(StaticManager.UserName);
                 //TODO AB Create repository
-                //TODO AB Create master branch
 
                 var data = new CreatedTaskResultData();
                 data.Id = result.Item;
@@ -142,12 +141,18 @@ namespace ITLearning.Backend.Business.Services
         {
             var result = _tasksRepository.Update(requestData);
 
-            var branchesToDelete = _tasksRepository.UpdateBranches(requestData.Id, requestData.Branches);
+            var updatedBranchesResult = _tasksRepository.UpdateBranches(requestData.Id, requestData.Branches);
 
-            foreach (var branch in branchesToDelete.Item)
+            foreach (var branch in updatedBranchesResult.Item.BranchesToAdd)
             {
-                //TODO AB
-                //Delete Branches from source control
+                var branchEditData = requestData.Branches.First(x => x.Name == branch);
+                CreateBranch(requestData.Id, branchEditData.Name, branchEditData.Description);
+            }
+
+            foreach (var branch in updatedBranchesResult.Item.BranchesToDelete)
+            {
+                var branchEditData = requestData.Branches.First(x => x.Name == branch);
+                DeleteBranch(requestData.Id, branchEditData.Name);
             }
 
             return result;
@@ -168,18 +173,23 @@ namespace ITLearning.Backend.Business.Services
             return CommonResult.Success();
         }
 
+        public CommonResult FinishTask(int id)
+        {
+            var result = _tasksRepository.MarkTaskInstanceAsFinished(id);
+
+            return result;
+        }
+
+        public CommonResult CreateCodeReview(CodeReviewData requestData)
+        {
+            return _tasksRepository.CreateCodeReview(requestData);
+        }
+
         public CommonResult<int> BeginTask(int id)
         {
             var result = _tasksRepository.CreateTaskInstance(id, StaticManager.UserName);
 
             //TODO AB Create Task Instance Repository from source control
-
-            return result;
-        }
-
-        public CommonResult FinishTask(int id)
-        {
-            var result = _tasksRepository.MarkTaskInstanceAsFinished(id);
 
             return result;
         }
@@ -191,12 +201,7 @@ namespace ITLearning.Backend.Business.Services
             return CommonResult.Success();
         }
 
-        public CommonResult CreateCodeReview(CodeReviewData requestData)
-        {
-            return _tasksRepository.CreateCodeReview(requestData);
-        }
-
-        public CommonResult CreateBranch(int taskId, string branchName)
+        public CommonResult CreateBranch(int taskId, string branchName, string branchDescription)
         {
             //TODO AB CreateBranch
 

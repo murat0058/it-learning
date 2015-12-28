@@ -10,6 +10,8 @@ namespace ITLearning.Frontend.Web.Mappings
         {
             Mapper.CreateMap<GitBranch, BranchShortData>()
                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.DisplayName));
+
+            Mapper.CreateMap<BranchShortData, BranchShortEditData>();
         }
     }
 }

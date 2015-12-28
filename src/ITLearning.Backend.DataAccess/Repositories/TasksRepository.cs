@@ -17,6 +17,7 @@ using ITLearning.Contract.Data.Model.Branches;
 using ITLearning.Contract.Data.Model.CodeReview;
 using ITLearning.Shared;
 using ITLearning.Shared.Extensions;
+using ITLearning.Contract.Data.Results.Branches;
 
 namespace ITLearning.Backend.DataAccess.Repositories
 {
@@ -252,9 +253,10 @@ namespace ITLearning.Backend.DataAccess.Repositories
             return CommonResult.Success();
         }
 
-        public CommonResult<IEnumerable<string>> UpdateBranches(int taskId, IEnumerable<BranchShortData> branches)
+        public CommonResult<EditBranchesResultData> UpdateBranches(int taskId, IEnumerable<BranchShortData> branches)
         {
-            var branchesToDelete = new List<string>();
+            var branchesToEdit = Mapper.Map<IEnumerable<BranchShortEditData>>(branches);
+            var result = new EditBranchesResultData();
 
             using (var context = ContextFactory.GetDbContext(_dbConfiguration))
             {
@@ -262,20 +264,23 @@ namespace ITLearning.Backend.DataAccess.Repositories
 
                 foreach (var branch in data.GitRepository.Branches)
                 {
-                    var editedBranch = branches.FirstOrDefault(x => x.Name == branch.DisplayName);
+                    var editedBranch = branchesToEdit.FirstOrDefault(x => x.Name == branch.DisplayName);
 
                     if (editedBranch == null)
                     {
-                        branchesToDelete.Add(branch.Name);
+                        result.BranchesToDelete.Add(branch.Name);
                     }
 
                     branch.DisplayName = editedBranch.Name;
                     branch.Description = editedBranch.Description;
+                    editedBranch.EditAction = EditActionEnum.Update;
                 }
 
                 context.SaveChanges();
 
-                return CommonResult<IEnumerable<string>>.Success(branchesToDelete);
+                result.BranchesToAdd.AddRange(branchesToEdit.Where(x => x.EditAction != EditActionEnum.Update).Select(x => x.Name));
+
+                return CommonResult<EditBranchesResultData>.Success(result);
             }
         }
 
