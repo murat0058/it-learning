@@ -171,6 +171,7 @@
                                             <span ng-show="addBranchForm.branchName.$error.required" class="text-danger">Nazwa jest wymagana.</span>
                                             <span ng-show="addBranchForm.branchName.$error.minlength" class="text-danger">Nazwa jest zbyt krótka.</span>
                                             <span ng-show="addBranchForm.branchName.$error.maxlength" class="text-danger">Nazwa jest zbyt długa.</span>
+                                            <span ng-show="createTaskVm.branchNameMustBeUnique" class="text-danger">Nazwa musi być unikalna.</span>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Opis</label>

@@ -16,6 +16,7 @@
         createTaskVm.repositoryLink;
         createTaskVm.CreatedTaskId;
         createTaskVm.shouldActivateTask;
+        createTaskVm.branchNameMustBeUnique = false;
 
         createTaskVm.IsFirstStepFinished = false;
 
@@ -45,6 +46,17 @@
 
         createTaskVm.addBranch = function (form) {
             if (form.$valid) {
+                createTaskVm.branchNameMustBeUnique = false;
+
+                var branchExist = createTaskVm.branches.filter(function (item) {
+                    return item.name == createTaskVm.branchName;
+                });
+
+                if (branchExist.length > 0) {
+                    createTaskVm.branchNameMustBeUnique = true;
+                    return;
+                }
+
                 createTaskVm.branches.sort(function (a, b) {
                     return a.id > b.id;
                 });
@@ -57,7 +69,7 @@
                     description: createTaskVm.branchDescription
                 });
 
-                tasksService.addBranch(createTaskVm.CreatedTaskId, createTaskVm.branchName);
+                tasksService.addBranch(createTaskVm.CreatedTaskId, createTaskVm.branchName, createTaskVm.branchDescription);
 
                 createTaskVm.branchName = '';
                 createTaskVm.branchDescription = '';

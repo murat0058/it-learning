@@ -30,5 +30,7 @@ namespace ITLearning.Contract.DataAccess.Repositories
 
         CommonResult CreateCodeReview(CodeReviewData requestData);
         CommonResult Activate(int id);
+
+        CommonResult AddGitRepositoryToTask(int id, string repositoryName);
     }
 }

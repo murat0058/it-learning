@@ -11,5 +11,6 @@ namespace ITLearning.Contract.DataAccess.Repositories
         CommonResult<UserProfileData> UpdateUserProfile(string userName, UserProfileData requestData);
         CommonResult<UserProfileData> UpdateUserProfileImage(string userName, string fileName);
         CommonResult<IEnumerable<UserProfileData>> GetAllUsersProfileData();
+        CommonResult<string> GetUserPassword(string userName);
     }
 }

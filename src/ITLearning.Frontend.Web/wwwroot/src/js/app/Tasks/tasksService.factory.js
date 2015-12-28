@@ -33,8 +33,14 @@
             return $http.post('/Tasks/Edit', requestData);
         }
 
-        function addBranch(taskId, branchName) {
-            return $http.post('/Tasks/CreateBranch/' + taskId + '/' + branchName);
+        function addBranch(taskId, branchName, branchDescription) {
+            var requestData = {
+                Id: taskId,
+                Name: branchName,
+                Description: branchDescription
+            };
+
+            return $http.post('/Tasks/CreateBranch/', requestData);
         }
 
         function deleteBranch(taskId, branchName) {

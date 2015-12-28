@@ -136,5 +136,10 @@ namespace ITLearning.Backend.Business.Services
         {
             return _userRepository.GetAllUsersProfileData();
         }
+
+        public CommonResult<string> GetUserPassword(string userName)
+        {
+            return _userRepository.GetUserPassword(userName);
+        }
     }
 }

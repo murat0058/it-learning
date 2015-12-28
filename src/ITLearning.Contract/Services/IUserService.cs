@@ -17,5 +17,6 @@ namespace ITLearning.Contract.Services
         Task<CommonResult<UploadImageResult>> SaveProfileImage(IFormFile file);
         CommonResult<CropImageResult> CropProfileImage(CropImageData cropImageData);
         CommonResult<UserProfileData> DeleteUserProfileImage();
+        CommonResult<string> GetUserPassword(string userName);
     }
 }

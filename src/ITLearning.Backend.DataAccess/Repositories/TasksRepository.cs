@@ -38,6 +38,7 @@ namespace ITLearning.Backend.DataAccess.Repositories
                                         .Include(x => x.TaskInstances)
                                         .Include(x => x.User)
                                         .Include(x => x.GitRepository)
+                                        .Include(x => x.GitRepository.Branches)
                                         .First(x => x.Id == id);
 
                 return Mapper.Map<TaskBaseData>(data);
@@ -246,6 +247,19 @@ namespace ITLearning.Backend.DataAccess.Repositories
                 {
                     data.Group = context.Groups.First(x => x.Id == requestData.SelectedGroup.Id);
                 }
+
+                context.SaveChanges();
+            }
+
+            return CommonResult.Success();
+        }
+
+        public CommonResult AddGitRepositoryToTask(int id, string repositoryName)
+        {
+            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            {
+                var data = context.Tasks.First(x => x.Id == id);
+                data.GitRepository = context.GitRepositories.First(x => x.Name == repositoryName);
 
                 context.SaveChanges();
             }

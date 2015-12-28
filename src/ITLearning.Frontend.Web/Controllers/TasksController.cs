@@ -182,11 +182,10 @@ namespace ITLearning.Frontend.Web.Controllers
             return Json(result);
         }
 
-        //TODO Change url params to request data
-        [HttpPost("CreateBranch/{taskId:int}/{branchName}")]
-        public IActionResult CreateBranch(int taskId, string branchName, string branchDescription)
+        [HttpPost("CreateBranch")]
+        public IActionResult CreateBranch(EditTaskRequestData requestData)
         {
-            var result = _tasksService.CreateBranch(taskId, branchName, branchDescription);
+            var result = _tasksService.CreateBranch(requestData.Id, requestData.Name, requestData.Description);
 
             return Json(result);
         }

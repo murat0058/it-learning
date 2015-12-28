@@ -14,6 +14,11 @@ using ITLearning.Shared;
 using ITLearning.Shared.Extensions;
 using ITLearning.Contract.Data.Model.CodeReview;
 using System;
+using ITLearning.Contract.Data.Requests.Repositories;
+using System.Net;
+using Newtonsoft.Json;
+using System.Text;
+using ITLearning.Shared.Formatters;
 
 namespace ITLearning.Backend.Business.Services
 {
@@ -21,11 +26,19 @@ namespace ITLearning.Backend.Business.Services
     {
         private readonly ITasksRepository _tasksRepository;
         private readonly IGroupsRepository _groupsRepository;
+        private readonly IUserService _userService;
 
-        public TasksService(ITasksRepository tasksRepository, IGroupsRepository groupsRepository)
+        private readonly string _sourceControlUrl;
+        private readonly string _authKey;
+
+        public TasksService(ITasksRepository tasksRepository, IGroupsRepository groupsRepository, IUserService userService)
         {
             _tasksRepository = tasksRepository;
             _groupsRepository = groupsRepository;
+            _userService = userService;
+
+            _sourceControlUrl = "http://localhost:2214/";
+            _authKey = "D756F8A9-06E4-43A6-A19E-CFAA0E69ABDB";
         }
 
         public CreateTaskRequestData GetDataForCreate()
@@ -119,11 +132,31 @@ namespace ITLearning.Backend.Business.Services
             if (result.IsSuccess)
             {
                 var repositoryName = GenerateRepositoryName(StaticManager.UserName);
-                //TODO AB Create repository
+                var createRepositoryRequestData = new CreateRepositoryRequestData()
+                {
+                    OwnerName = StaticManager.UserName,
+                    RepositoryName = repositoryName,
+                    IsPublic = false,
+                    IsAnonymousPushAllowed = false
+                };
+
+                var userPasswordHash = _userService.GetUserPassword(StaticManager.UserName).Item;
+                var encodedDataAsBytes = Convert.FromBase64String(userPasswordHash);
+                var userPassword = Encoding.ASCII.GetString(encodedDataAsBytes);
+                var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(StaticManager.UserName + ":" + userPassword));
+                var credentialsHeader = string.Format("Basic {0}", credentials);
+
+                WebClient webClient = new WebClient();
+                webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+                webClient.Headers[HttpRequestHeader.Authorization] = credentialsHeader;
+                webClient.Headers["AuthKey"] = _authKey;
+                webClient.UploadString(_sourceControlUrl + "Repository/Create", JsonConvert.SerializeObject(createRepositoryRequestData));
+
+                _tasksRepository.AddGitRepositoryToTask(result.Item, repositoryName);
 
                 var data = new CreatedTaskResultData();
                 data.Id = result.Item;
-                data.RepositoryLink = FormatRepositoryLink(repositoryName);
+                data.RepositoryLink = UrlFormatter.FormatSourceControlUrl(repositoryName);
                 data.ShouldActivateTask = requestData.IsActive;
 
                 return CommonResult<CreatedTaskResultData>.Success(data);
@@ -252,12 +285,6 @@ namespace ITLearning.Backend.Business.Services
             {
                 return CommonResult<IEnumerable<TaskInstancesForUserResult>>.Failure(getTaskInstancesResult.ErrorMessage);
             }
-        }
-
-        private string FormatRepositoryLink(string repositoryName)
-        {
-            //TODO AB
-            return "http://url/" + repositoryName;
         }
 
         private string GenerateRepositoryName(string userName)

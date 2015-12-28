@@ -109,7 +109,7 @@ namespace ITLearning.Backend.DataAccess.Repositories
 
                 var usersProfileData = new List<UserProfileData>();
 
-                foreach(var user in users)
+                foreach (var user in users)
                 {
                     var userProfileData = Mapper.Map<UserProfileData>(user);
                     userProfileData.ProfileImagePath = GenerateImagePath(user.ImageName);
@@ -118,6 +118,16 @@ namespace ITLearning.Backend.DataAccess.Repositories
                 }
 
                 return CommonResult<IEnumerable<UserProfileData>>.Success(usersProfileData);
+            }
+        }
+
+        public CommonResult<string> GetUserPassword(string userName)
+        {
+            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            {
+                var user = context.Users.First(x => x.UserName == userName);
+
+                return CommonResult<string>.Success(user.PasswordHash);
             }
         }
     }

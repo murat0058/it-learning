@@ -6,6 +6,7 @@ using ITLearning.Contract.Data.Model.Tasks;
 using ITLearning.Contract.Data.Requests.Tasks;
 using ITLearning.Contract.Enums;
 using ITLearning.Shared.Extensions;
+using ITLearning.Shared.Formatters;
 using System;
 
 namespace ITLearning.Frontend.Web.Mappings
@@ -19,17 +20,16 @@ namespace ITLearning.Frontend.Web.Mappings
                .ForMember(dest => dest.GroupId, opt => opt.MapFrom(src => src.Group.Id))
                .ForMember(dest => dest.GroupName, opt => opt.MapFrom(src => src.Group.Name));
 
-            //TODO AB Format link
             Mapper.CreateMap<TaskInstance, TaskInstanceData>()
-                .ForMember(dest => dest.RepositoryLink, opt => opt.MapFrom(src => src.GitRepository.Name))
+                .ForMember(dest => dest.RepositoryLink, opt => opt.MapFrom(src => UrlFormatter.FormatSourceControlUrl(src.GitRepository.Name)))
                 .ForMember(dest => dest.CodeReview, opt => opt.MapFrom(src => src.TaskInstanceReview))
                 .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate != default(DateTime) ? src.StartDate.ToShortDateString() : ""))
                 .ForMember(dest => dest.FinishDate, opt => opt.MapFrom(src => src.FinishDate != default(DateTime) ? src.FinishDate.ToShortDateString() : ""));
 
-            //TODO AB Format link
             Mapper.CreateMap<Task, TaskBaseData>()
-                .ForMember(dest => dest.RepositoryLink, opt => opt.MapFrom(src => src.GitRepository.Name))
-                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.User));
+                .ForMember(dest => dest.RepositoryLink, opt => opt.MapFrom(src => UrlFormatter.FormatSourceControlUrl(src.GitRepository.Name)))
+                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.User))
+                .ForMember(dest => dest.Branches, opt => opt.MapFrom(src => src.GitRepository.Branches));
 
             Mapper.CreateMap<TaskInstanceReview, CodeReviewData>()
                 .ForMember(dest => dest.Branches, opt => opt.MapFrom(src => src.TaskInstance.GitRepository.Branches));
