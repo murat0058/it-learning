@@ -21,6 +21,7 @@
         createTaskVm.IsPostInProgress = false;
 
         createTaskVm.IsFirstStepFinished = false;
+        createTaskVm.IsSecondStepFinished = false;
 
         createTaskVm.isTaskActive = true;
         createTaskVm.isAddBranchPanelVisible = false;
