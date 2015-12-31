@@ -61,6 +61,7 @@
                             return {
                                 id: user.Id,
                                 name: user.Name,
+                                userName: user.UserName,
                                 imagePath: user.ProfileImagePath
                             }
                         });
