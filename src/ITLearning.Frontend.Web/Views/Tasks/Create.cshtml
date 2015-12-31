@@ -59,7 +59,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Opis</label>
-                            <textarea ng-model="createTaskVm.taskDescription" name="taskDescription" id="description-text-area" class="form-control" required ng-minlength="300" ng-maxlength="2000"></textarea>
+                            <textarea ng-model="createTaskVm.taskDescription" name="taskDescription" id="description-text-area" class="form-control" required ng-minlength="50" ng-maxlength="2000"></textarea>
                             <span ng-show="addTaskForm.taskDescription.$error.required" class="text-danger">Opis jest wymagany.</span>
                             <span ng-show="addTaskForm.taskDescription.$error.minlength" class="text-danger">Opis jest zbyt krótki.</span>
                             <span ng-show="addTaskForm.taskDescription.$error.maxlength" class="text-danger">Opis jest zbyt długi.</span>
@@ -117,7 +117,7 @@
                 <span><i class="fa fa-file"></i> | Utwórz nowe zadanie - Krok 2.</span>
             </div>
             <div class="panel-body">
-                <div ng-show="createTaskVm.IsFirstStepFinished">
+                <div ng-show="createTaskVm.IsFirstStepFinished && !createTaskVm.IsSecondStepFinished">
                     <label class="control-label"><i class="fa fa-info-circle" style="margin-right: 5px;"></i> Repozytorium kodu</label>
                     <hr style="margin-top: 0px;" />
                     <div class="row">
@@ -226,7 +226,7 @@
                             </div>
                         </div>
                     </div>
-                <div ng-show="!createTaskVm.IsFirstStepFinished && !createTaskVm.IsSecondStepFinished" style="text-align: center;">
+                <div ng-show="!createTaskVm.IsFirstStepFinished || !createTaskVm.IsSecondStepFinished" style="text-align: center;">
                     <i class="fa fa-ellipsis-h fa-5x"></i>
                 </div>
             </div>
