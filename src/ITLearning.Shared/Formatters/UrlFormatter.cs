@@ -17,7 +17,7 @@ namespace ITLearning.Shared.Formatters
         {
             if (sourceControlRestApiUrl == string.Empty)
             {
-                sourceControlRestApiUrl = sourceControlRestApiUrlParam;
+                sourceControlRestApiUrl = "http://it-learning-source-control.azurewebsites.net/";// sourceControlRestApiUrlParam;
             }
             else
             {

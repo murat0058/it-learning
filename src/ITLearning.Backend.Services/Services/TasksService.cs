@@ -46,7 +46,7 @@ namespace ITLearning.Backend.Business.Services
             _userService = userService;
             _webClientFactory = webClientFactory;
 
-            _sourceControlUrl = _sourceControlRestApiConfiguration.Value.Url;
+            _sourceControlUrl = "http://it-learning-source-control.azurewebsites.net/";// _sourceControlRestApiConfiguration.Value.Url;
         }
 
         public CreateTaskRequestData GetDataForCreate()

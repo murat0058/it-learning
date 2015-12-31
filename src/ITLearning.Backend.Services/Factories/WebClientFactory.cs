@@ -23,7 +23,7 @@ namespace ITLearning.Backend.Business.Factories
 
             _userService = userService;
 
-            _authKey = _sourceControlRestApiConfiguration.Value.AuthKey;
+            _authKey = "D756F8A9-06E4-43A6-A19E-CFAA0E69ABDB"; //_sourceControlRestApiConfiguration.Value.AuthKey;
         }
 
         public WebClient CreateWebClient()
