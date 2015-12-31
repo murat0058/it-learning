@@ -59,12 +59,12 @@
             interval = interval == 0 ? 1 : interval;
 
             ownerSingleTaskVM.codeReview.UserName = selected.User.UserName;
-            ownerSingleTaskVM.codeReview.NumberOfActivityDays = interval ;
-            ownerSingleTaskVM.codeReview.Branches = selected.CodeReview.Branches;
-            ownerSingleTaskVM.codeReview.ArchitectureRate = parseInt(selected.CodeReview.ArchitectureRate);
-            ownerSingleTaskVM.codeReview.OptymizationRate = parseInt(selected.CodeReview.OptymizationRate);
-            ownerSingleTaskVM.codeReview.CleanCodeRate = parseInt(selected.CodeReview.CleanCodeRate);
-            ownerSingleTaskVM.codeReview.Comment = selected.CodeReview.Comment;
+            ownerSingleTaskVM.codeReview.NumberOfActivityDays = interval;
+            ownerSingleTaskVM.codeReview.Branches = selected.Branches != null ? selected.Branches : [];
+            ownerSingleTaskVM.codeReview.ArchitectureRate = selected.CodeReview != null ? parseInt(selected.CodeReview.ArchitectureRate) : 0;
+            ownerSingleTaskVM.codeReview.OptymizationRate = selected.CodeReview != null ? parseInt(selected.CodeReview.OptymizationRate) : 0;
+            ownerSingleTaskVM.codeReview.CleanCodeRate = selected.CodeReview != null ? parseInt(selected.CodeReview.CleanCodeRate) : 0;
+            ownerSingleTaskVM.codeReview.Comment = selected.CodeReview != null ? selected.CodeReview.Comment : "";
         };
 
         ownerSingleTaskVM.saveCodeReview = function () {
