@@ -1103,3 +1103,10 @@ footer {
         display: none;
     }
 }
+
+.user-profile-section-title{
+    font-weight: 600;
+    color: $color-dark;
+    border-bottom: 1px solid $color-dark;
+    padding-bottom: 5px;
+}

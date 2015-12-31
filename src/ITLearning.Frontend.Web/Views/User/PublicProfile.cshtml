@@ -15,24 +15,25 @@
                 <div style="margin-top: 15px;">
                     <label class="control-label"><i class="fa fa-info-circle" style="margin-right: 5px;"></i> Informacje</label>
                     <hr style="margin-top: 0px;" />
-                    <div class="col-md-3" style="padding-left: 0px;">
-                        <label class="control-label">Email</label>
+                    <div class="col-sm-4" style="padding-left: 0px;">
+                        <label class="control-label"><i class="fa fa-envelope"></i> Email</label>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-sm-8">
                         @Model.Email
                     </div>
                 </div>
             </div>
-            <div class="col-md-9">
-                <h5 class="learning-hub-title">GRUPY UŻYTKOWNIKA</h5>
-                <itl-groups-basic-list no-of-groups="3" user-name="@Model.UserName">
-                    <itl-loading-indicator parent-vm-scoped="groupListVm" dot-background="#333" dot-size="5px"></itl-loading-indicator>
-                </itl-groups-basic-list>
-
-                <h5 class="learning-hub-title">ZADANIA STWORZONE PRZEZ UŻYTKOWNIKA</h5>
+            <div class="col-md-6">
+                <h5 class="user-profile-section-title"><i class="fa fa-code"></i> Utworzone zadania</h5>
                 <itl-task-list user-name="@Model.UserName">
                     <itl-loading-indicator parent-vm-scoped="taskListVm" dot-background="#333" dot-size="5px"></itl-loading-indicator>
                 </itl-task-list>
+            </div>
+            <div class="col-md-3">
+                <h5 class="user-profile-section-title"><i class="fa fa-users"></i> Grupy użytkownika</h5>
+                <itl-groups-basic-list no-of-groups="3" user-name="@Model.UserName">
+                    <itl-loading-indicator parent-vm-scoped="groupListVm" dot-background="#333" dot-size="5px"></itl-loading-indicator>
+                </itl-groups-basic-list>
             </div>
         </div>
     </div>

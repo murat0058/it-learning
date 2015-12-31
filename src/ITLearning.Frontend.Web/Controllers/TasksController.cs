@@ -93,7 +93,9 @@ namespace ITLearning.Frontend.Web.Controllers
         [HttpPost("GetLatest")]
         public IActionResult GetLatest()
         {
-            var result = _tasksService.GetList(3, true);
+            var noOfTasks = 5;
+
+            var result = _tasksService.GetList(noOfTasks, true);
 
             return new JsonResult(result);
         }
