@@ -23,7 +23,7 @@ namespace ITLearning.Frontend.Web.Controllers
             _groupsService = groupsService;
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id}")]
         public IActionResult Single(int id)
         {
             var taskViewType = _tasksService.GetViewType(id);
@@ -174,7 +174,7 @@ namespace ITLearning.Frontend.Web.Controllers
             return RedirectToAction("Single", new { id = id });
         }
 
-        [HttpPost("ShowBranch/{taskInstanceId:int}/{branchName}")]
+        [HttpPost("ShowBranch/{taskInstanceId}/{branchName}")]
         public IActionResult ShowBranch(int taskInstanceId, string branchName)
         {
             var result = _tasksService.ShowBranch(taskInstanceId, branchName);
@@ -190,7 +190,7 @@ namespace ITLearning.Frontend.Web.Controllers
             return Json(result);
         }
 
-        [HttpPost("DeleteBranch/{taskId:int}/{branchName}")]
+        [HttpPost("DeleteBranch/{taskId}/{branchName}")]
         public IActionResult DeleteBranch(int taskId, string branchName)
         {
             var result = _tasksService.DeleteBranch(taskId, branchName);

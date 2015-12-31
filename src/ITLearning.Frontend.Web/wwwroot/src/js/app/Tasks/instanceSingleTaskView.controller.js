@@ -4,9 +4,9 @@
         .module('app.tasks')
         .controller('InstanceSingleTaskViewController', InstanceSingleTaskViewController);
 
-    InstanceSingleTaskViewController.$inject = ['tasksService', 'uiFeaturesService'];
+    InstanceSingleTaskViewController.$inject = ['$scope', 'tasksService', 'uiFeaturesService'];
 
-    function InstanceSingleTaskViewController(tasksService, uiFeaturesService) {
+    function InstanceSingleTaskViewController($scope, tasksService, uiFeaturesService) {
         var instanceSingleTaskVM = this;
 
         instanceSingleTaskVM.Language;
@@ -22,7 +22,7 @@
 
         instanceSingleTaskVM.init = function (language, branches, taskInstanceData) {
             instanceSingleTaskVM.Language = uiFeaturesService.languageEnumDisplayName[language];
-            instanceSingleTaskVM.branches = branches;
+            instanceSingleTaskVM.branches = taskInstanceData.Branches;
             instanceSingleTaskVM.taskInstance = taskInstanceData;
 
             instanceSingleTaskVM.ArchitectureRate = instanceSingleTaskVM.taskInstance.CodeReview ? instanceSingleTaskVM.taskInstance.CodeReview.ArchitectureRate : 0;
@@ -44,11 +44,10 @@
                 };
         };
 
-        instanceSingleTaskVM.showBranch = function (branchName) {
-            //TODO refresh
-            //instanceSingleTaskVM.branches
-            //TODO pass task instance id
-            return tasksService.showBranch(branchName);
+        instanceSingleTaskVM.showBranch = function (branch) {
+            branch.IsVisible = true;
+
+            return tasksService.showBranch(instanceSingleTaskVM.taskInstance.Id, branch.Name);
         };
     }
 })();

@@ -16,7 +16,8 @@
             deleteBranch: deleteBranch,
             createCodeReview: createCodeReview,
             getTasksList: getTasksList,
-            getTasksForUser: getTasksForUser
+            getTasksForUser: getTasksForUser,
+            showBranch: showBranch
         };
 
         return service;
@@ -45,6 +46,10 @@
 
         function deleteBranch(taskId, branchName) {
             return $http.post('/Tasks/DeleteBranch/' + taskId + '/' + branchName);
+        }
+
+        function showBranch(taskInstanceId, branchName) {
+            return $http.post('/Tasks/ShowBranch/' + taskInstanceId + '/' + branchName);
         }
 
         function createCodeReview(requestData) {

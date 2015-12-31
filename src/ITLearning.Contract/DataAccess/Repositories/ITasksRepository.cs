@@ -32,5 +32,9 @@ namespace ITLearning.Contract.DataAccess.Repositories
         CommonResult Activate(int id);
 
         CommonResult AddGitRepositoryToTask(int id, string repositoryName);
+
+        CommonResult<string> GetRepositoryName(int? taskId = null, int? taskInstanceId = null);
+        CommonResult<string> GetTaskOwnerUserName(int id);
+        CommonResult AddGitRepositoryToTaskInstance(int id, string repositoryName);
     }
 }

@@ -18,6 +18,8 @@
         createTaskVm.shouldActivateTask;
         createTaskVm.branchNameMustBeUnique = false;
 
+        createTaskVm.IsPostInProgress = false;
+
         createTaskVm.IsFirstStepFinished = false;
 
         createTaskVm.isTaskActive = true;
@@ -77,14 +79,17 @@
         };
 
         createTaskVm.deleteBranch = function (branchId) {
+            var branchName;
+
             for (var i = 0; i < createTaskVm.branches.length; i++) {
                 if (createTaskVm.branches[i].id === branchId) {
+                    branchName = createTaskVm.branches[i].name;
                     createTaskVm.branches.splice(i, 1);
                     break;
                 }
             }
 
-            tasksService.deleteBranch(createTaskVm.CreatedTaskId, createTaskVm.branchName);
+            tasksService.deleteBranch(createTaskVm.CreatedTaskId, branchName);
         };
 
         createTaskVm.addTask = function (form) {
@@ -101,6 +106,8 @@
                 selectedLanguage: createTaskVm.selectedLanguage.Id,
                 selectedGroupId: createTaskVm.selectedUserGroup ? createTaskVm.selectedUserGroup.Id : -1,
             };
+
+            createTaskVm.IsPostInProgress = true;
 
             return tasksService.createTask(request, taskCreated);
         }

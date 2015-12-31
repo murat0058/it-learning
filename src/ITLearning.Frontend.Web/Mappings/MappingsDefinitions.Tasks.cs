@@ -23,6 +23,7 @@ namespace ITLearning.Frontend.Web.Mappings
             Mapper.CreateMap<TaskInstance, TaskInstanceData>()
                 .ForMember(dest => dest.RepositoryLink, opt => opt.MapFrom(src => UrlFormatter.FormatSourceControlUrl(src.GitRepository.Name)))
                 .ForMember(dest => dest.CodeReview, opt => opt.MapFrom(src => src.TaskInstanceReview))
+                .ForMember(dest => dest.Branches, opt => opt.MapFrom(src => src.GitRepository.Branches))
                 .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate != default(DateTime) ? src.StartDate.ToShortDateString() : ""))
                 .ForMember(dest => dest.FinishDate, opt => opt.MapFrom(src => src.FinishDate != default(DateTime) ? src.FinishDate.ToShortDateString() : ""));
 

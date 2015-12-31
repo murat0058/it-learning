@@ -150,6 +150,7 @@ namespace ITLearning.Backend.DataAccess.Repositories
                 //TODO delete .ToList() when after EF RC2 release
                 var data = context.TaskInstances
                                   .Include(x => x.GitRepository)
+                                  .Include(x => x.GitRepository.Branches)
                                   .Include(x => x.Task)
                                   .Include(x => x.TaskInstanceReview)
                                   .Include(x => x.User)
@@ -267,6 +268,19 @@ namespace ITLearning.Backend.DataAccess.Repositories
             return CommonResult.Success();
         }
 
+        public CommonResult AddGitRepositoryToTaskInstance(int id, string repositoryName)
+        {
+            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            {
+                var data = context.TaskInstances.First(x => x.Id == id);
+                data.GitRepository = context.GitRepositories.First(x => x.Name == repositoryName);
+
+                context.SaveChanges();
+            }
+
+            return CommonResult.Success();
+        }
+
         public CommonResult<EditBranchesResultData> UpdateBranches(int taskId, IEnumerable<BranchShortData> branches)
         {
             var branchesToEdit = Mapper.Map<IEnumerable<BranchShortEditData>>(branches);
@@ -274,7 +288,9 @@ namespace ITLearning.Backend.DataAccess.Repositories
 
             using (var context = ContextFactory.GetDbContext(_dbConfiguration))
             {
-                var data = context.Tasks.First(x => x.Id == taskId);
+                var data = context.Tasks.Include(x => x.GitRepository)
+                    .Include(x => x.GitRepository.Branches)
+                    .First(x => x.Id == taskId);
 
                 foreach (var branch in data.GitRepository.Branches)
                 {
@@ -283,6 +299,8 @@ namespace ITLearning.Backend.DataAccess.Repositories
                     if (editedBranch == null)
                     {
                         result.BranchesToDelete.Add(branch.Name);
+
+                        continue;
                     }
 
                     branch.DisplayName = editedBranch.Name;
@@ -302,12 +320,50 @@ namespace ITLearning.Backend.DataAccess.Repositories
         {
             using (var context = ContextFactory.GetDbContext(_dbConfiguration))
             {
-                var data = context.Tasks.First(x => x.Id == id);
+                var data = context.Tasks
+                                  .Include(x => x.GitRepository)
+                                  .First(x => x.Id == id);
+
                 data.IsDeleted = true;
+                data.GitRepository.IsDeleted = true;
 
                 context.SaveChanges();
 
                 return CommonResult<int>.Success(data.GitRepository.Id);
+            }
+        }
+
+        public CommonResult<string> GetTaskOwnerUserName(int id)
+        {
+            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            {
+                var data = context.Tasks
+                                  .Include(x => x.User)
+                                  .First(x => x.Id == id);
+
+                return CommonResult<string>.Success(data.User.UserName);
+            }
+        }
+
+        public CommonResult<string> GetRepositoryName(int? taskId = null, int? taskInstanceId = null)
+        {
+            using (var context = ContextFactory.GetDbContext(_dbConfiguration))
+            {
+                if (taskId != null)
+                {
+                    var task = context.Tasks.Include(x => x.GitRepository).First(x => x.Id == taskId);
+
+                    return CommonResult<string>.Success(task.GitRepository.Name);
+                }
+
+                if (taskInstanceId != null)
+                {
+                    var task = context.TaskInstances.Include(x => x.GitRepository).First(x => x.Id == taskInstanceId);
+
+                    return CommonResult<string>.Success(task.GitRepository.Name);
+                }
+
+                return CommonResult<string>.Success("");
             }
         }
 

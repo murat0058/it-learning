@@ -19,26 +19,34 @@ using System.Net;
 using Newtonsoft.Json;
 using System.Text;
 using ITLearning.Shared.Formatters;
+using ITLearning.Contract.Data.Requests.Branches;
+using ITLearning.Contract.Factories;
+using Microsoft.Extensions.OptionsModel;
+using ITLearning.Shared.Configs;
 
 namespace ITLearning.Backend.Business.Services
 {
     public class TasksService : ITasksService
     {
+        private readonly IOptions<SourceControlRestApiConfiguration> _sourceControlRestApiConfiguration;
+
         private readonly ITasksRepository _tasksRepository;
         private readonly IGroupsRepository _groupsRepository;
         private readonly IUserService _userService;
+        private readonly IWebClientFactory _webClientFactory;
 
         private readonly string _sourceControlUrl;
-        private readonly string _authKey;
 
-        public TasksService(ITasksRepository tasksRepository, IGroupsRepository groupsRepository, IUserService userService)
+        public TasksService(IOptions<SourceControlRestApiConfiguration> sourceControlRestApiConfiguration, ITasksRepository tasksRepository, IGroupsRepository groupsRepository, IUserService userService, IWebClientFactory webClientFactory)
         {
+            _sourceControlRestApiConfiguration = sourceControlRestApiConfiguration;
+
             _tasksRepository = tasksRepository;
             _groupsRepository = groupsRepository;
             _userService = userService;
+            _webClientFactory = webClientFactory;
 
-            _sourceControlUrl = "http://localhost:2214/";
-            _authKey = "D756F8A9-06E4-43A6-A19E-CFAA0E69ABDB";
+            _sourceControlUrl = _sourceControlRestApiConfiguration.Value.Url;
         }
 
         public CreateTaskRequestData GetDataForCreate()
@@ -57,6 +65,11 @@ namespace ITLearning.Backend.Business.Services
         public EditTaskRequestData GetDataForEdit(int id)
         {
             var taskBaseData = _tasksRepository.GetBaseData(id);
+
+            if (taskBaseData.Group == null)
+            {
+                taskBaseData.Group = new UserGroupData() { Id = -1, Name = "Brak" };
+            }
 
             return Mapper.Map<EditTaskRequestData>(taskBaseData);
         }
@@ -140,16 +153,7 @@ namespace ITLearning.Backend.Business.Services
                     IsAnonymousPushAllowed = false
                 };
 
-                var userPasswordHash = _userService.GetUserPassword(StaticManager.UserName).Item;
-                var encodedDataAsBytes = Convert.FromBase64String(userPasswordHash);
-                var userPassword = Encoding.ASCII.GetString(encodedDataAsBytes);
-                var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(StaticManager.UserName + ":" + userPassword));
-                var credentialsHeader = string.Format("Basic {0}", credentials);
-
-                WebClient webClient = new WebClient();
-                webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-                webClient.Headers[HttpRequestHeader.Authorization] = credentialsHeader;
-                webClient.Headers["AuthKey"] = _authKey;
+                var webClient = _webClientFactory.CreateWebClient();
                 webClient.UploadString(_sourceControlUrl + "Repository/Create", JsonConvert.SerializeObject(createRepositoryRequestData));
 
                 _tasksRepository.AddGitRepositoryToTask(result.Item, repositoryName);
@@ -184,8 +188,7 @@ namespace ITLearning.Backend.Business.Services
 
             foreach (var branch in updatedBranchesResult.Item.BranchesToDelete)
             {
-                var branchEditData = requestData.Branches.First(x => x.Name == branch);
-                DeleteBranch(requestData.Id, branchEditData.Name);
+                DeleteBranch(requestData.Id, branch);
             }
 
             return result;
@@ -199,9 +202,6 @@ namespace ITLearning.Backend.Business.Services
             {
                 return CommonResult.Failure(result.ErrorMessage);
             }
-
-            //todo AB delete repo from source control
-            //result.Item -> IdRepository to Delete
 
             return CommonResult.Success();
         }
@@ -222,28 +222,67 @@ namespace ITLearning.Backend.Business.Services
         {
             var result = _tasksRepository.CreateTaskInstance(id, StaticManager.UserName);
 
-            //TODO AB Create Task Instance Repository from source control
+            var taskOwnerName = _tasksRepository.GetTaskOwnerUserName(id).Item;
+            var taskOwnerRepositoryName = _tasksRepository.GetRepositoryName(taskId: id).Item;
+            var repositoryName = GenerateRepositoryName(StaticManager.UserName);
+
+            var requestData = new CloneRepositoryRequestData()
+            {
+                NewUserName = StaticManager.UserName,
+                OwnerName = taskOwnerName,
+                NewRepositoryName = repositoryName,
+                SourceRepositoryName = taskOwnerRepositoryName
+            };
+
+            var webClient = _webClientFactory.CreateWebClient();
+            webClient.UploadString(_sourceControlUrl + "Repository/Clone/LocalBare", JsonConvert.SerializeObject(requestData));
+
+            _tasksRepository.AddGitRepositoryToTaskInstance(result.Item, repositoryName);
 
             return result;
         }
 
         public CommonResult ShowBranch(int taskInstanceId, string branchName)
         {
-            //TODO AB Show Branch from source control
+            var requestData = new ShowBranchRequestData()
+            {
+                BranchName = branchName,
+                RepositoryName = _tasksRepository.GetRepositoryName(taskInstanceId: taskInstanceId).Item
+            };
+
+            var webClient = _webClientFactory.CreateWebClient();
+            webClient.UploadString(_sourceControlUrl + "Branch/Show", JsonConvert.SerializeObject(requestData));
 
             return CommonResult.Success();
         }
 
         public CommonResult CreateBranch(int taskId, string branchName, string branchDescription)
         {
-            //TODO AB CreateBranch
+            var requestData = new CreateBranchRequestData()
+            {
+                IsVisible = false,
+                DisplayName = branchName,
+                BranchName = branchName,
+                Description = branchDescription,
+                RepositoryName = _tasksRepository.GetRepositoryName(taskId: taskId).Item
+            };
+
+            var webClient = _webClientFactory.CreateWebClient();
+            webClient.UploadString(_sourceControlUrl + "Branch/Create", JsonConvert.SerializeObject(requestData));
 
             return CommonResult.Success();
         }
 
         public CommonResult DeleteBranch(int taskId, string branchName)
         {
-            //TODO AB DeleteBranch
+            var requestData = new DeleteBranchRequestData()
+            {
+                BranchName = branchName,
+                RepositoryName = _tasksRepository.GetRepositoryName(taskId: taskId).Item
+            };
+
+            var webClient = _webClientFactory.CreateWebClient();
+            webClient.UploadString(_sourceControlUrl + "Branch/Delete", JsonConvert.SerializeObject(requestData));
 
             return CommonResult.Success();
         }

@@ -1,5 +1,7 @@
-﻿using ITLearning.Contract.Data.Model.CodeReview;
+﻿using ITLearning.Contract.Data.Model.Branches;
+using ITLearning.Contract.Data.Model.CodeReview;
 using ITLearning.Contract.Data.Model.User;
+using System.Collections.Generic;
 
 namespace ITLearning.Contract.Data.Model.Tasks
 {
@@ -20,5 +22,7 @@ namespace ITLearning.Contract.Data.Model.Tasks
         public string RepositoryLink { get; set; }
 
         public CodeReviewData CodeReview { get; set; }
+
+        public IEnumerable<BranchShortData> Branches { get; set; }
     }
 }

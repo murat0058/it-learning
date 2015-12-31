@@ -51,7 +51,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label">Link do repozytorium GIT</label>
-                        <input class="form-control" value="@Model.RepositoryLink" readonly />
+                        <input class="form-control" value="@Model.TaskInstances.First().RepositoryLink" readonly />
                     </div>
                     <div>
                         <label class="control-label">Dostępne branch'e:</label>
@@ -69,13 +69,13 @@
                                 <td style="min-width: 110px;">{{branch.Name}}</td>
                                 <td style="word-break: break-word">{{branch.Description}}</td>
                                 <td>
-                                    <div ng-show="{{branch.Visible == true}}">
+                                    <div ng-show="branch.IsVisible == true">
                                         <div style="text-align: center;">
                                             <i class="fa fa-check"></i>
                                         </div>
                                     </div>
-                                    <div ng-show="{{branch.Visible == false}}">
-                                        <div ng-click="instanceSingleTaskVM.showBranch(branch.Name)" class="btn btn-dark">
+                                    <div ng-show="branch.IsVisible == false">
+                                        <div ng-click="instanceSingleTaskVM.showBranch(branch)" class="btn btn-dark">
                                             <i class="fa fa-eye"></i>
                                         </div>
                                     </div>
@@ -87,10 +87,26 @@
                     <hr style="margin-top: 0px;" />
                     <div style="height: 40px;">
                         <div class="col-md-6" style="padding: 0px">
-                            <span>Rozpoczęto @Model.TaskInstances.ElementAt(0).StartDate</span>
+                            <span>Rozpoczęto</span>
+                            @if (Model.TaskInstances.ElementAt(0).StartDate == "")
+                            {
+                                <span> -</span>
+                            }
+                            else
+                            {
+                                @Model.TaskInstances.ElementAt(0).StartDate
+                            }
                         </div>
                         <div class="col-md-6" style="padding: 0px">
-                            <span>Zakończono @Model.TaskInstances.ElementAt(0).FinishDate</span>
+                            <span>Zakończono</span>
+                            @if (Model.TaskInstances.ElementAt(0).FinishDate == "")
+                            {
+                                <span> -</span>
+                            }
+                            else
+                            {
+                                @Model.TaskInstances.ElementAt(0).FinishDate
+                            }
                         </div>
                     </div>
                     <div style="margin-bottom: 20px;">

@@ -18,8 +18,10 @@
 
         editTaskVm.isBranchEditModeEnabled = false;
         editTaskVm.editedBranchId;
-        editTaskVm.isTaskActive =  true;
+        editTaskVm.isTaskActive = true;
         editTaskVm.isAddBranchPanelVisible = false;
+
+        editTaskVm.branchNameMustBeUnique = false;
 
         editTaskVm.branches = [];
 
@@ -47,14 +49,23 @@
 
         editTaskVm.addBranch = function (form) {
             if (form.$valid) {
+                editTaskVm.branchNameMustBeUnique = false;
+                var branchExist = editTaskVm.branches.filter(function (item) {
+                    return item.Name == editTaskVm.branchName;
+                });
+
+                if (branchExist.length > 0) {
+                    editTaskVm.branchNameMustBeUnique = true;
+                    return;
+                }
 
                 if (editTaskVm.isBranchEditModeEnabled) {
                     var branchToEdit = editTaskVm.branches.filter(function (item, index) {
                         return item.id === editTaskVm.editedBranchId;
                     })[0];
 
-                    branchToEdit.name = editTaskVm.branchName;
-                    branchToEdit.description = editTaskVm.branchDescription;
+                    branchToEdit.Name = editTaskVm.branchName;
+                    branchToEdit.Description = editTaskVm.branchDescription;
 
                     editTaskVm.isBranchEditModeEnabled = false;
                     editTaskVm.isAddBranchPanelVisible = false;
@@ -73,8 +84,8 @@
 
                 editTaskVm.branches.push({
                     id: newId,
-                    name: editTaskVm.branchName,
-                    description: editTaskVm.branchDescription
+                    Name: editTaskVm.branchName,
+                    Description: editTaskVm.branchDescription
                 });
 
                 editTaskVm.branchName = '';
@@ -96,8 +107,8 @@
                 return item.id === branchId;
             })[0];
 
-            editTaskVm.branchName = branchToEdit.name;
-            editTaskVm.branchDescription = branchToEdit.description;
+            editTaskVm.branchName = branchToEdit.Name;
+            editTaskVm.branchDescription = branchToEdit.Description;
 
             editTaskVm.editedBranchId = branchToEdit.id;
             editTaskVm.isBranchEditModeEnabled = true;
@@ -126,7 +137,9 @@
                 branches: editTaskVm.branches
             };
 
-            return tasksService.editTask(request);
+            tasksService.editTask(request).success(function () {
+                window.location = '/Tasks/' + editTaskVm.taskId;
+            });
         }
     }
 })();

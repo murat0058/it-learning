@@ -100,7 +100,8 @@
                     <!-- Create Button -->
                     <div class="col-md-12">
                         <div style="text-align: center; margin-top: 30px;">
-                            <button class="btn btn-success" id="add-task-button" type="submit"><i class="fa fa-check"></i> Przejdz dalej</button>
+                            <i class="fa fa-spinner fa-pulse" ng-show="createTaskVm.IsPostInProgress"> </i> 
+                            <button ng-disabled="createTaskVm.IsPostInProgress" class="btn btn-success" id="add-task-button" type="submit"><i class="fa fa-check"></i> Przejdz dalej</button>
                         </div>
                     </div>
                 </form>

@@ -1,13 +1,16 @@
-﻿using ITLearning.Backend.Business.Services;
+﻿using ITLearning.Backend.Business.Factories;
+using ITLearning.Backend.Business.Services;
 using ITLearning.Backend.DataAccess.Repositories;
 using ITLearning.Backend.Database.Entities;
 using ITLearning.Contract.DataAccess.Repositories;
+using ITLearning.Contract.Factories;
 using ITLearning.Contract.Providers;
 using ITLearning.Contract.Services;
 using ITLearning.Frontend.Web.Core.Identity.Common;
 using ITLearning.Frontend.Web.Core.Identity.Providers;
 using ITLearning.Frontend.Web.Core.Identity.Services;
 using ITLearning.Shared.Configs;
+using ITLearning.Shared.Formatters;
 using ITLearning.Shared.Providers;
 using Microsoft.AspNet.Identity;
 using Microsoft.Extensions.Configuration;
@@ -47,10 +50,14 @@ namespace ITLearning.Frontend.Web.Core.IoC
             #endregion
 
             #region Configs
+            services.Configure<SourceControlRestApiConfiguration>(configuration.GetSection("SourceControlRestApiConfiguration"));
             services.Configure<PathsConfiguration>(configuration.GetSection("Paths"));
             services.Configure<DisqusConfiguration>(configuration.GetSection("Disqus"));
             services.Configure<DatabaseConfiguration>(x => x.ConnectionString = configuration["Data:DefaultConnection:ConnectionString"]);
             #endregion
+
+            services.AddTransient<IWebClientFactory, WebClientFactory>();
+            services.AddTransient<IStaticProvidersConfigurator, StaticProvidersConfigurator>();
         }
     }
 }

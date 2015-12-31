@@ -12,6 +12,7 @@ using ITLearning.Frontend.Web.Core.Identity.Attributes;
 using ITLearning.Frontend.Web.Core.Identity.Extensions;
 using Microsoft.AspNet.Authentication.Cookies;
 using ITLearning.Shared.Mappings;
+using ITLearning.Shared.Formatters;
 
 namespace ITLearning
 {
@@ -93,6 +94,9 @@ namespace ITLearning
             app.UseIdentity();
             app.UseSession();
             app.EnsureRolesCreated();
+
+            var staticProvidersConfigurator = app.ApplicationServices.GetService<IStaticProvidersConfigurator>();
+            staticProvidersConfigurator.Init();
 
             app.UseCookieAuthentication((p) => new CookieAuthenticationOptions
             {
