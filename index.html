@@ -1,0 +1,157 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <title>ITLearning (beta)</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+    <link href="./srcLanding/css/landing.css" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="./favicon.ico" />
+</head>
+<body class="landing">
+
+    <header class="sliding-header">
+        <div class="overlay"></div>
+        <div class="header-wrapper">
+            <h2 class="header-brand">
+                <a asp-action="Index" asp-controller="Landing">IT Learning <span class="beta-sign">(beta)</span></a>
+            </h2>
+        </div>
+    </header>
+
+    <div id="page-wrapper">
+
+        <section id="banner">
+            <div class="inner">
+                <h2>IT LEARNING <span class="beta-sign"> (beta)</span></h2>
+                <p>Poznaj_programowanie</p>
+                <ul class="actions">
+                    <li><a asp-action="Login" asp-controller="Account" class="button">Zaloguj się</a></li>
+                    <li><a asp-action="SignUp" asp-controller="Account" class="button special">Załóż konto</a></li>
+                </ul>
+            </div>
+            <a href="#one" class="more scrolly">IT LEARNING w akcji</a>
+        </section>
+
+        <section id="one" class="wrapper style1 special">
+            <div class="inner">
+                <header class="major">
+                    <h2>Skuteczna platforma edukacyjna<br /> dla branży IT</h2>
+                    <p>
+                        Nauka programowania to dla ciebie czarna magia? <br>A może chcesz podnieść swoje
+                        kwalifikacje?<br> Pomożemy Ci zrealizować swój cel!
+                    </p>
+                </header>
+                <ul class="icons major">
+                    <li><span class="icon fa fa-code major style3"><span class="label">Dolor</span></span></li>
+                    <li><span class="icon fa fa-comments-o major style1"><span class="label">Lorem</span></span></li>
+                    <li><span class="icon fa fa-heart-o major style2"><span class="label">Ipsum</span></span></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="two" class="wrapper alt style2">
+            <section class="spotlight">
+                <div class="image"><img src="./common/images/landing/pic02.jpg" alt="" /></div><div class="content">
+                    <h2>
+                        Bądź gotowy na wyzwania rynku<br />
+                        przygotujemy cię do pracy.
+                    </h2>
+                    <p>
+                        ITLearning to baza zadań które w doskonały sposób oddają realia współczesnego rynku pracy.
+                    </p>
+                </div>
+            </section>
+            <section class="spotlight">
+                <div class="image"><img src="./common/images/landing/pic01.jpg" alt="" /></div><div class="content">
+                    <h2>
+                        W nauce pomogą ci ludzie<br />
+                        a nie roboty i algorytmy.
+                    </h2>
+                    <p>
+                        Twórcy zadań mogą komentować otrzymywane rozwiązania jak podczas prawidziwego code review.
+                    </p>
+                </div>
+            </section>
+            <section class="spotlight">
+                <div class="image"><img src="./common/images/landing/pic03.jpg" alt="" /></div><div class="content">
+                    <h2>
+                        Szukasz materiałów do nauki?<br />
+                        Wskażemy ci te najlepsze.
+                    </h2>
+                    <p>
+                        Do każdego zadania mogą być dołączone materiały, które dotyczą poruszanego problemu i technologii.
+                    </p>
+                </div>
+            </section>
+        </section>
+
+        <section id="three" class="wrapper style3 special">
+            <div class="inner">
+                <header class="major">
+                    <h2>A co więcej...</h2>
+                    <p>
+                        ITLearning to także nowoczesny portal społecznościowy, oraz sposób na organizację pracy.
+                    </p>
+                </header>
+                <ul class="features">
+                    <li class="icon fa-paper-plane-o">
+                        <h3>Najnowsze technologie</h3>
+                        <p>ITLearning to baza zadań dotykających najnowszych technologii na rynku - ASP.NET 5, AngularJS 2 czy Java 8.</p>
+                    </li>
+                    <li class="icon fa-laptop">
+                        <h3>Rzeczywiste wyzwania</h3>
+                        <p>Tworzone zadania są konsultowane z przedstawicielami najlepszych firm rekrutujących specjalistów z branży IT.</p>
+                    </li>
+                    <li class="icon fa-check-square-o">
+                        <h3>Najlepsi eksperci</h3>
+                        <p>Do współpracy przy ITLearning zaprosiliśmy ekspertów z wieloletnim doświadczeniem w programowaniu i nie tylko.</p>
+                    </li>
+                    <li class="icon fa-comment-o">
+                        <h3>Feedback</h3>
+                        <p>Do każdego rozwiązania może zostać wystawiony komentarz który pomoże ci rozwinąć swoje umiejętności.</p>
+                    </li>
+                    <li class="icon fa-heart-o">
+                        <h3>Społeczność</h3>
+                        <p>Użytkownicy mogą współpracować w grupach, aby jeszcze lepiej przygotować się do pracy w zawodzie programisty.</p>
+                    </li>
+                    <li class="icon fa-star-o">
+                        <h3>Rozwój</h3>
+                        <p>Budując renomę na naszym portalu pomagasz sobie nie tylko w nauce, ale również w karierze zawodowej.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="cta" class="wrapper style4">
+            <div class="inner">
+                <header>
+                    <h2>60 sekund</h2>
+                    <p>
+                        Tylko tyle trwa założenie nowego konta. <br>
+                        No dalej, liczymy na Ciebie!
+                    </p>
+                </header>
+                <ul class="actions vertical">
+                    <li><a asp-action="SignUp" asp-controller="Account" class="button fit special">Załóż konto</a></li>
+                    <li><a asp-action="Login" asp-controller="Account" class="button fit">Zaloguj się</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <footer id="footer">
+            <ul class="copyright">
+                <li>IT Learning</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+            <ul class="copyright">
+                <li>(c) 2015</li>
+            </ul>
+        </footer>
+    </div>
+</body>
+</html>
